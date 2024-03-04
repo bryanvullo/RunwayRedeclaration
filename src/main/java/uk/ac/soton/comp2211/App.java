@@ -14,7 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        var fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/TopDownView.fxml"));
+        var fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SideView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 640, 480);
         stage.setTitle("Runway Re-declaration Tool");
         stage.setScene(scene);
