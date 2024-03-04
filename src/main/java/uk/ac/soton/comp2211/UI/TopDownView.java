@@ -11,8 +11,8 @@ public class TopDownView extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("mainPage.fxml"));
-            primaryStage.setTitle("Main");
+            Parent root = FXMLLoader.load(getClass().getResource("UI/TopDownView.fxml"));
+            primaryStage.setTitle("TopDownView");
             primaryStage.setScene(new Scene(root, 600, 400));
             primaryStage.show();
         } catch (Exception e) {
