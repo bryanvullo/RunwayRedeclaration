@@ -41,35 +41,6 @@ public class AdvancedObstacle extends Obstacle{
         this.obstacleProperties = obstacleProperties;
     }
 
-    public Map<String, Double> calculateRunwayImpact() {
-        // Implementation must be provided based on specific project logic and requirements
-        Map<String, Double> impact = new HashMap<>();
-        // Example: Populate the map with calculated impacts
-        return impact;
-    }
-    public Map<String, Object> generateVisualizationData() {
-        Map<String, Object> visualizationData = new HashMap<>();
-        visualizationData.put("name", getObstacleName());
-        visualizationData.put("position", Map.of("rightThreshold", getDistanceRightThreshold(),
-                "leftThreshold", getDistanceLeftThreshold(),
-                "fromCentre", getDistanceFromCentre()));
-        // Additional data relevant for visualization
-        return visualizationData;
-    }
-    public Properties exportData() {
-        Properties data = new Properties();
-        data.setProperty("name", getObstacleName());
-        data.setProperty("height", String.valueOf(getHeight()));
-        data.setProperty("width", String.valueOf(getWidth()));
-        data.setProperty("length", String.valueOf(getLength()));
-        // Additional exportable properties
-        return data;
-    }
-    public String getDescriptionForAccessibility() {
-        return String.format("Obstacle named %s: height %d meters, width %d meters, length %d meters, near thresholds and centre line.",
-                getObstacleName(), getHeight(), getWidth(), getLength());
-    }
-
     // This is a utility method for validating that a value is positive - for physical dimensions, i.e. Height, Length, and Width
     private static int validatePositive(int value, String fieldName) {
         if (value < 0) {
