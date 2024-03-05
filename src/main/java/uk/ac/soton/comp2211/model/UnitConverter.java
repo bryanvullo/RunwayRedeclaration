@@ -1,4 +1,4 @@
-package uk.ac.soton.comp2211;
+package uk.ac.soton.comp2211.model;
 
 public class UnitConverter {
     public static double metersToFeet(double meters) {

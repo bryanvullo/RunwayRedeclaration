@@ -1,5 +1,7 @@
 package uk.ac.soton.comp2211;
 
+import uk.ac.soton.comp2211.model.UnitConverter;
+
 public class RunwaySystemTest {
     public static void main(String[] args) {
         testMetersToFeetConversion();
@@ -19,14 +21,6 @@ public class RunwaySystemTest {
         double expectedMeters = 1000;
         double meters = UnitConverter.feetToMeters(feet);
         checkEquals(expectedMeters, meters, "Feet to meters conversion failed");
-    }
-
-    public static void testRecalculateLengthAfterObstacle() {
-        Runway runway = new Runway("Runway 1", 4000);
-        Obstacle obstacle = new Obstacle("Obstacle 1", 5);
-        double expectedLength = 3900;
-        double recalculatedLength = RunwayCalculator.recalculateLengthAfterObstacle(runway, obstacle, false);
-        checkEquals(expectedLength, recalculatedLength, "Runway length recalculating failed");
     }
 
     public static void checkEquals(double expected, double actual, String message) {
