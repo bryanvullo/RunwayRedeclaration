@@ -35,7 +35,6 @@ public class TestCalculation {
         calculation.calcLandingOver();
         
         assertEquals(2985, calculation.getLda());
-        assertTrue(calculation.getLda() == 2985);
     }
     @Test
     void testCalcTOAway1() {
