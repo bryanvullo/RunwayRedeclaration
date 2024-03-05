@@ -1,10 +1,10 @@
 uk\ac\soton\comp2211\model\Calculation.class
-uk\ac\soton\comp2211\dataStructure\Pair.class
 uk\ac\soton\comp2211\UI\SideView.class
-module-info.class
 uk\ac\soton\comp2211\App.class
 uk\ac\soton\comp2211\UI\TopDownView.class
 uk\ac\soton\comp2211\model\Obstacle.class
-uk\ac\soton\comp2211\model\Runway.class
 uk\ac\soton\comp2211\SystemInfo.class
 uk\ac\soton\comp2211\Launcher.class
+uk\ac\soton\comp2211\dataStructure\Pair.class
+module-info.class
+uk\ac\soton\comp2211\model\Runway.class
