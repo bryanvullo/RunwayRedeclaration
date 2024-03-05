@@ -23,6 +23,7 @@
    <children>
       <Pane layoutX="12.0" layoutY="56.0" prefHeight="112.0" prefWidth="1088.0" style="-fx-background-color: #b3d9ff; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 0.5;">
          <children>
+            <Pane layoutX="627.0" layoutY="15.0" prefHeight="85.0" prefWidth="354.0" style="-fx-background-radius: 20; -fx-background-color: #4da3ff; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 0.5;" />
             <GridPane layoutX="634.0" layoutY="13.0" prefHeight="85.0" prefWidth="311.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.3333740234375" minWidth="10.0" prefWidth="162.3333740234375" />
@@ -38,21 +39,24 @@
                   <Label prefHeight="25.0" prefWidth="151.0" text="Currently Selected Airport: " />
                   <Label prefHeight="25.0" prefWidth="148.0" text="Currently Selected Runway:" GridPane.rowIndex="1" />
                   <Label prefHeight="25.0" prefWidth="159.0" text="Currently Selected Obstacle:" GridPane.rowIndex="2" />
-                  <Label prefHeight="25.0" prefWidth="159.0" text="Units of measurement:" GridPane.rowIndex="3" />
+                  <Label prefHeight="22.0" prefWidth="159.0" text="Units of measurement:" GridPane.rowIndex="3" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="(BHX) Birmingham Airport" wrappingWidth="160.720703125" GridPane.columnIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="09L/27R" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Boeing 747" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox prefHeight="25.0" prefWidth="81.0" promptText="Meters" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox prefHeight="20.0" prefWidth="81.0" promptText="Meters" scaleX="0.8" scaleY="0.8" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></ComboBox>
                </children>
             </GridPane>
          </children></Pane>
       <GridPane layoutX="37.0" layoutY="61.0" prefHeight="101.0" prefWidth="599.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="69.33332316080728" minHeight="10.0" prefHeight="28.66666666666667" vgrow="SOMETIMES" />
@@ -67,8 +71,14 @@
             </Lighting>
          </effect>
          <children>
-            <Label prefHeight="25.0" prefWidth="89.0" text="Original Values:" GridPane.rowIndex="1" />
-            <Label prefHeight="25.0" prefWidth="89.0" text="Revised Values:" GridPane.rowIndex="2" />
+            <Label prefHeight="25.0" prefWidth="89.0" text="Original Values:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin></Label>
+            <Label prefHeight="25.0" prefWidth="89.0" text="Revised Values:" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin></Label>
             <Label alignment="CENTER" prefHeight="25.0" prefWidth="50.0" style="-fx-background-color: #cce5ff; -fx-font-weight: bold;" text="TORA" textAlignment="CENTER" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="33.0" />
@@ -109,22 +119,22 @@
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="100m" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="200m" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="60.0" style="-fx-font-size: 12;" text="100m" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="60.0" style="-fx-font-size: 12;" text="150m" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="100m" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="120" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="100m" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="90m" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
@@ -190,16 +200,16 @@
       </ToolBar>
       <Pane layoutX="24.0" layoutY="189.0" prefHeight="359.0" prefWidth="599.0" style="-fx-background-color: #E0E0E0; -fx-border-color: black; -fx-border-width: 0.5;" AnchorPane.rightAnchor="504.0">
          <children>
-            <Button layoutX="90.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-background-color: #b3d9ff; -fx-font-weight: 500;" text="Top-Down View" />
-            <Button layoutX="237.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="116.0" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-background-color: #b3d9ff; -fx-font-weight: 500;" text="Side View" />
-            <Button layoutX="384.0" layoutY="14.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-background-color: #b3d9ff; -fx-font-weight: 500;" text="Simultaneous View" />
+            <Button layoutX="90.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-font-weight: 500;" text="Top-Down View" />
+            <Button layoutX="237.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="116.0" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-font-weight: 500;" text="Side View" />
+            <Button layoutX="384.0" layoutY="14.0" mnemonicParsing="false" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-font-weight: 500;" text="Simultaneous View" />
             <Text layoutX="185.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="No runway data currently selected to view. Please select an &quot;Airport&quot;, &quot;Runway&quot; and then select an obstacle to view the &quot;Revised Values&quot; in the &quot;Calculations Tab&quot;" textAlignment="CENTER" wrappingWidth="220.8033905029297" />
          </children>
       </Pane>
       <Label layoutX="24.0" layoutY="549.0" prefHeight="25.0" prefWidth="106.0" style="-fx-font-weight: bold;" text="System Messages:" />
-      <ScrollPane layoutX="10.0" layoutY="570.0" prefHeight="91.0" prefWidth="599.0">
+      <ScrollPane layoutX="10.0" layoutY="570.0" prefHeight="91.0" prefWidth="534.0">
          <content>
-            <VBox prefHeight="139.0" prefWidth="567.0" style="-fx-background-radius: 20;">
+            <VBox prefHeight="139.0" prefWidth="518.0" style="-fx-background-color: #b3d9ff;">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="571.0" style="-fx-background-radius: 20;">
                      <children>
@@ -215,7 +225,7 @@
                         <Label prefHeight="35.0" prefWidth="433.0" style="-fx-font-size: 10;" text="Calculator 1 added airport: &quot;Heathrow&quot;" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="588.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="577.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 10;" text="01-03-2024" wrappingWidth="59.596435546875" />
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="55.0" style="-fx-font-size: 10;" text="22:35" />
@@ -261,7 +271,7 @@
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin></Label>
-                  <ComboBox prefHeight="25.0" prefWidth="193.0" promptText="(BHX) Birmingham Airport" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);">
+                  <ComboBox prefHeight="20.0" prefWidth="193.0" promptText="(BHX) Birmingham Airport" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></ComboBox>
