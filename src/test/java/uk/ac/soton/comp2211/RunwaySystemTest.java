@@ -3,11 +3,6 @@ package uk.ac.soton.comp2211;
 import uk.ac.soton.comp2211.model.UnitConverter;
 
 public class RunwaySystemTest {
-    public static void main(String[] args) {
-        testMetersToFeetConversion();
-        testFeetToMetersConversion();
-        testRecalculateLengthAfterObstacle();
-    }
 
     public static void testMetersToFeetConversion() {
         double meters = 1000;
