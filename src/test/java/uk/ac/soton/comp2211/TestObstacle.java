@@ -34,14 +34,6 @@ public class TestObstacle {
         }, "Obstacle dimensions should be within realistic limits.");
     }
 
-    // Test to ensure that attempting to create an unknown type of obstacle via factory method is handled properly
-    @Test
-    void testUnknownObstacleType() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            AdvancedObstacle.createObstacle("Unknown Obstacle Type", 0, 0, 0, 0, 0, 0, Optional.empty());
-        }, "The system doesn't accept unknown obstacles.");
-    }
-
     // This tests for proper functioning of specialised methods like estimateClearanceTime for Plane
     @Test
     void testEstimateClearanceTimeAccuracy() {

@@ -202,16 +202,4 @@ public class AdvancedObstacle extends Obstacle{
     public void setObstacleProperties(Optional<Properties> obstacleProperties) {
         this.obstacleProperties = obstacleProperties;
     }
-    public static AdvancedObstacle createObstacle(String type, int height, int width, int length, int distanceRightThreshold, int distanceLeftThreshold, int distanceFromCentre, Optional<Properties> obstacleProperties) {
-        switch (type) {
-            case "Plane":
-                return Plane.createPlane("Model Name");
-            case "ShuttleBus":
-                return new ShuttleBus("Shuttle Bus", height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre, obstacleProperties);
-            case "Container":
-                return new Container("Container", height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre, obstacleProperties);
-            default:
-                throw new IllegalArgumentException("Unknown obstacle type: " + type);
-        }
-    }
 }
