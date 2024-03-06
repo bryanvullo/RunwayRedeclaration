@@ -30,7 +30,7 @@ public class MainController implements Initializable {
     }
     
     public void recalculate(ActionEvent e) {
-        System.out.println("Recalculating");
+        System.out.println("Recalculating...");
     }
     
     public void save(ActionEvent e) {
