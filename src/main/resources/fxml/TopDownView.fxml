@@ -44,7 +44,7 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="(BHX) Birmingham Airport" wrappingWidth="160.720703125" GridPane.columnIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="09L/27R" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Boeing 747" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox prefHeight="20.0" prefWidth="81.0" promptText="Meters" scaleX="0.8" scaleY="0.8" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <ComboBox prefHeight="20.0" prefWidth="81.0" promptText="Meters" scaleX="0.8" scaleY="0.8" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
