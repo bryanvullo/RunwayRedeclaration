@@ -1,4 +1,4 @@
-package uk.ac.soton.comp2211;
+package uk.ac.soton.comp2211.control;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

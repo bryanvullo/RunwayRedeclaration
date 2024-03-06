@@ -8,4 +8,5 @@ module uk.ac.soton.comp2211 {
   opens uk.ac.soton.comp2211.control to javafx.fxml;
   exports uk.ac.soton.comp2211;
   exports uk.ac.soton.comp2211.model;
+  exports uk.ac.soton.comp2211.control;
 }
