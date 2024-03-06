@@ -29,15 +29,20 @@ public class App extends Application {
     
     private static final Logger logger = LogManager.getLogger(App.class);
     private Stage stage;
-
-//    @Override
-//    public void start(Stage stage) throws IOException {
-//        var fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/TopDownView.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 1110, 720);
-//        stage.setTitle("Runway Re-declaration Tool");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
+    
+    /**
+     * Start the application
+     * @param stage the stage
+     * @throws IOException if the fxml file is not found
+     */
+    @Override
+    public void start(Stage stage) throws IOException {
+        var fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainPage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        stage.setTitle("Runway Re-declaration Tool");
+        stage.setScene(scene);
+        stage.show();
+    }
     
     /**
      * Shutdown the tool
@@ -55,18 +60,18 @@ public class App extends Application {
         return instance;
     }
     
-    /**
-     * Called by JavaFX with the primary stage as a parameter. Begins the game by opening the App Window
-     * @param stage the default stage, main window
-     */
-    @Override
-    public void start(Stage stage) {
-        instance = this;
-        this.stage = stage;
-
-        //Open app window
-        openApp();
-    }
+//    /**
+//     * Called by JavaFX with the primary stage as a parameter. Begins the game by opening the App Window
+//     * @param stage the default stage, main window
+//     */
+//    @Override
+//    public void start(Stage stage) {
+//        instance = this;
+//        this.stage = stage;
+//
+//        //Open app window
+//        openApp();
+//    }
     
     /**
      * Create the AppWindow with the specified width and height
