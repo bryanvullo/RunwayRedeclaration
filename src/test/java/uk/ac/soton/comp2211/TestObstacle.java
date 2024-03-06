@@ -37,7 +37,6 @@ public class TestObstacle {
     // Test to ensure that attempting to create an unknown type of obstacle via factory method is handled properly
     @Test
     void testUnknownObstacleType() {
-        // Assuming you have a method in AdvancedObstacle or a specific factory class for creating obstacles
         assertThrows(IllegalArgumentException.class, () -> {
             AdvancedObstacle.createObstacle("Unknown Obstacle Type", 0, 0, 0, 0, 0, 0, Optional.empty());
         }, "The system doesn't accept unknown obstacles.");
@@ -47,7 +46,6 @@ public class TestObstacle {
     @Test
     void testEstimateClearanceTimeAccuracy() {
         Plane plane = Plane.createPlane("Boeing 747");
-        // Assuming an average taxi speed, verify the estimated clearance time matches expected value
         assertTrue(plane.estimateClearanceTime() > 0, "The clearance time should be a positive value.");
     }
 }
