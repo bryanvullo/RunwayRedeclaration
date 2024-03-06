@@ -11,6 +11,8 @@ import uk.ac.soton.comp2211.model.ShuttleBus;
 
 import java.util.Optional;
 public class TestObstacle {
+
+    // Test to ensure that negative dimensions are rejected
     @Test
     void testNegativeDimensionsRejected() {
         assertThrows(IllegalArgumentException.class, () -> {
