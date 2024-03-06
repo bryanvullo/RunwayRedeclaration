@@ -28,7 +28,10 @@ public class TestObstacle {
         }, "Length cannot be a negative value.");
     }
 
-    // Test to verify that creating an obstacle with unrealistic large values throws an exception
+    /**
+     * Test to verify that creating an obstacle with unrealistic large values throws an exception
+     * Testing for height, length, width, and then all 3 together
+     */
     @Test
     void testUnrealisticDimensionsRejected() {
         assertThrows(IllegalArgumentException.class, () -> {
