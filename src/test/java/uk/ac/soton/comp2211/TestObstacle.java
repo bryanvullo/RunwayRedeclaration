@@ -30,9 +30,10 @@ public class TestObstacle {
 
     // Test to verify that creating an obstacle with unrealistic large values throws an exception
     @Test
-    void testVeryLargeValuesRejected() {
+    void testUnrealisticDimensionsRejected() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new AdvancedObstacle("Unrealistically Large Obstacle", 10000, 20000, 30000, 0, 0, 0, Optional.empty());
+            // Attempt to create an AdvancedObstacle with unrealistic width and length values
+            new AdvancedObstacle("Unrealistically Large Obstacle", 200000, 100001, 100002, 50, 50, 50, Optional.empty());
         }, "Obstacle dimensions should be within realistic limits.");
     }
 

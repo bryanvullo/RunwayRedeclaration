@@ -31,10 +31,10 @@ public class AdvancedObstacle extends Obstacle{
      * @param obstacleProperties the additional properties of the obstacle that may provide additional information
      */
     public AdvancedObstacle(String obstacleName, int height, int width, int length, int distanceRightThreshold, int distanceLeftThreshold, int distanceFromCentre, Optional<Properties> obstacleProperties) {
-        super(validatePositive(height, "Height"), Math.min(distanceRightThreshold, distanceLeftThreshold)); //This is assuming the correct calculations for distance and correct values for obstacles are already correct and calculated correctly
+        super(validatePositive(validateNotUnrealistic(height, "Height"), "Height"), Math.min(distanceRightThreshold, distanceLeftThreshold)); //This is assuming the correct calculations for distance and correct values for obstacles are already correct and calculated correctly
         this.obstacleName = obstacleName;
-        this.width = validatePositive(width, "Width");
-        this.length = validatePositive(length, "Length");
+        this.width = validatePositive(validateNotUnrealistic(width, "Width"), "Width");
+        this.length = validatePositive(validateNotUnrealistic(length, "Length"), "Length");
         this.distanceRightThreshold = distanceRightThreshold;
         this.distanceLeftThreshold = distanceLeftThreshold;
         this.distanceFromCentre = distanceFromCentre;
@@ -83,14 +83,6 @@ public class AdvancedObstacle extends Obstacle{
     public String getDescriptionForAccessibility() {
         return String.format("Obstacle named %s: height %d meters, width %d meters, length %d meters, near thresholds and centre line.",
                 getObstacleName(), getHeight(), getWidth(), getLength());
-    }
-
-    // This is a utility method for validating that a value is positive - for physical dimensions, i.e. Height, Length, and Width
-    private static int validatePositive(int value, String fieldName) {
-        if (value < 0) {
-            throw new IllegalArgumentException(fieldName + " cannot be a negative value.");
-        }
-        return value; //Return the value if it passes the check
     }
 
     /**
@@ -201,5 +193,20 @@ public class AdvancedObstacle extends Obstacle{
      */
     public void setObstacleProperties(Optional<Properties> obstacleProperties) {
         this.obstacleProperties = obstacleProperties;
+    }
+
+    // This is a utility method for validating that a value is positive - for physical dimensions, i.e. Height, Length, and Width
+    private static int validatePositive(int value, String fieldName) {
+        if (value < 0) {
+            throw new IllegalArgumentException(fieldName + " cannot be a negative value.");
+        }
+        return value; //Return the value if it passes the check
+    }
+    // This utility method validates that a dimension value is not unrealistically large
+    private static int validateNotUnrealistic(int value, String fieldName) {
+        if (value > 100000) {
+            throw new IllegalArgumentException(fieldName + " is unrealistically large and cannot be accepted.");
+        }
+        return value;
     }
 }
