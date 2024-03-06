@@ -41,6 +41,50 @@ public class AdvancedObstacle extends Obstacle{
         this.obstacleProperties = obstacleProperties;
     }
 
+    /* This method calculates the impact of an obstacle on runway parameters (TORA, TODA, ASDA, LDA) based on its position and dimensions.
+       This is particularly useful for flight planning and safety assessments.*/
+    public Map<String, Double> calculateRunwayImpact(Runway runway) {
+        Calculation calculation = new Calculation(runway, this);
+        calculation.calculateTakeOffAwayLandingOver();
+        calculation.calculateTakeOffTowardsLandingTowards();
+
+        Map<String, Double> impact = new HashMap<>();
+        impact.put("Adjusted TORA", (double) calculation.getTora());
+        impact.put("Adjusted TODA", (double) calculation.getToda());
+        impact.put("Adjusted ASDA", (double) calculation.getAsda());
+        impact.put("Adjusted LDA", (double) calculation.getLda());
+
+        return impact;
+    }
+
+    // This method generates a map containing the obstacle's name and its position relative to runway thresholds for visualisation purposes. This supports GUI representations of the obstacle on a runway.
+    public Map<String, Object> generateVisualisationData() {
+        Map<String, Object> visualisationData = new HashMap<>();
+        visualisationData.put("Obstacle Name", getObstacleName());
+        visualisationData.put("Position", Map.of("Right Threshold", getDistanceRightThreshold(),
+                "Left Threshold", getDistanceLeftThreshold(),
+                "Distance From Centre", getDistanceFromCentre()));
+        return visualisationData;
+    }
+
+    /* This method exports the obstacle's key properties (name, height, width, length) as a Properties object.
+       This Useful for data sharing, reporting, or external analysis; which are key requirements for the system.*/
+    public Properties exportData() {
+        Properties data = new Properties();
+        data.setProperty("Name", getObstacleName());
+        data.setProperty("Height", String.valueOf(getHeight()));
+        data.setProperty("Width", String.valueOf(getWidth()));
+        data.setProperty("Length", String.valueOf(getLength()));
+        return data;
+    }
+
+    /* This method provides a textual description of the obstacle suitable for accessibility purposes, which enhances the system's usability with assistive technologies.
+       Again, this is one of the key requirements*/
+    public String getDescriptionForAccessibility() {
+        return String.format("Obstacle named %s: height %d meters, width %d meters, length %d meters, near thresholds and centre line.",
+                getObstacleName(), getHeight(), getWidth(), getLength());
+    }
+
     // This is a utility method for validating that a value is positive - for physical dimensions, i.e. Height, Length, and Width
     private static int validatePositive(int value, String fieldName) {
         if (value < 0) {
