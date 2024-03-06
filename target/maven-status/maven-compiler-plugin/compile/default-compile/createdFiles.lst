@@ -8,3 +8,4 @@ uk\ac\soton\comp2211\Launcher.class
 uk\ac\soton\comp2211\dataStructure\Pair.class
 module-info.class
 uk\ac\soton\comp2211\model\Runway.class
+uk\ac\soton\comp2211\model\UnitConverter.class
