@@ -445,7 +445,7 @@
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="rThresholdField" prefHeight="10.0" prefWidth="160.0">
+                  <TextField fx:id="rThresholdField" prefHeight="10.0" prefWidth="160.0" scaleX="0.8" scaleY="0.8">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="5.0" />
                      </HBox.margin>
@@ -459,7 +459,7 @@
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="centerlineField">
+                  <TextField fx:id="centerlineField" scaleX="0.8" scaleY="0.8">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="5.0" />
                      </HBox.margin>

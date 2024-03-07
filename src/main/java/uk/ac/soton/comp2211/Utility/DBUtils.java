@@ -38,7 +38,16 @@ public class DBUtils {
 
     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     stage.setTitle(title);
-    var dashboardScene = new Scene(root, 1113, 720);
+    var dashboardScene = new Scene(root, 1125, 720);
+
+//    // Calculate the center position of the screen
+//    Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+//    double centerX = (screenBounds.getWidth() - dashboardScene.getWidth()) / 2;
+//    double centerY = (screenBounds.getHeight() - dashboardScene.getHeight()) / 2;
+//    // Set the stage position to be centered
+//    stage.setX(centerX);
+//    stage.setY(centerY);
+
     stage.setScene(dashboardScene);
     stage.setResizable(false);
     stage.show();
