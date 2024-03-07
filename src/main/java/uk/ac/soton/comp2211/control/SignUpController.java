@@ -24,9 +24,9 @@ public class SignUpController implements Initializable {
   @FXML
   TextField textFieldUserName;
   @FXML
-  TextField textFieldPassword;
+  PasswordField textFieldPassword;
 
-  private Logger logger = Logger.getLogger(LoginController.class.getName());
+  private final Logger logger = Logger.getLogger(LoginController.class.getName());
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
