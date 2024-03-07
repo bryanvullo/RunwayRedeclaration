@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1113.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.MainController">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.MainController">
    <children>
       <Pane layoutX="12.0" layoutY="56.0" prefHeight="112.0" prefWidth="1088.0" style="-fx-background-color: #b3d9ff; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 0.5;">
          <children>
@@ -179,9 +179,14 @@
                   <MenuItem mnemonicParsing="false" text="Terms of Service" />
                </items>
             </MenuButton>
+            <Button fx:id="buttonLogOut" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-font-weight: 500; -fx-background-color: #b3d9ff;" text="Log out">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </items>
       </ToolBar>
-      <Pane layoutX="24.0" layoutY="189.0" prefHeight="359.0" prefWidth="599.0" style="-fx-background-color: #E0E0E0; -fx-border-color: black; -fx-border-width: 0.5;" AnchorPane.rightAnchor="504.0">
+      <Pane layoutX="24.0" layoutY="189.0" prefHeight="359.0" prefWidth="599.0" style="-fx-background-color: #E0E0E0; -fx-border-color: black; -fx-border-width: 0.5;" AnchorPane.leftAnchor="15.0">
          <children>
             <Button layoutX="126.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-font-weight: 500;" text="Top-Down View" />
             <Button layoutX="267.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="116.0" scaleX="0.9" scaleY="0.9" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-font-weight: 500;" text="Side View" />

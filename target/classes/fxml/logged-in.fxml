@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--Colour codes:
+    #263237 Dark-Grey
+    #a09e9e Grey
+    #e5ff54 Yellow
+-->
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.TestController">
+   <children>
+      <Label fx:id="sampleLabel" layoutX="119.0" layoutY="182.0" style="-fx-background-color: #e5ff54;" text="This Software is work in progress">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="welcomeLabel" layoutX="211.0" layoutY="47.0" text="Welcome!" textAlignment="CENTER">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Button fx:id="logoutButton" layoutX="237.0" layoutY="235.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="125.0" style="-fx-background-color: #263237;" text="Logout" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Label fx:id="acessLevelLabel" layoutX="100.0" layoutY="123.0" text="Your Access level is &quot;Independent Calculator&quot;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

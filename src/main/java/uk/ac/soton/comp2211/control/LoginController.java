@@ -1,37 +1,47 @@
 package uk.ac.soton.comp2211.control;
 
+import com.mongodb.client.MongoClient;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import uk.ac.soton.comp2211.Utility.DBUtils;
+import uk.ac.soton.comp2211.model.Database;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class LoginController implements Initializable {
 
   @FXML
-  Button logoutButton;
+  private Button buttonLogin;
   @FXML
-  Label welcomeLabel;
+  private Button buttonSignUp;
   @FXML
-  Label acessLevelLabel;
+  private TextField textField_UserName;
+  @FXML
+  private TextField textField_Password;
+
+  private Logger logger = Logger.getLogger(LoginController.class.getName());
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    logoutButton.setOnAction(new EventHandler<ActionEvent>() {
+    buttonLogin.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        DBUtils.changeScene(actionEvent, "/fxml/mainPage.fxml", "Login", null, null);
+        DBUtils.logInUser(actionEvent, textField_UserName.getText(), textField_Password.getText());
       }
     });
-  }
 
-  public void setUserInformation(String username, String acess_Level) {
-    welcomeLabel.setText("Welcome " + username);
-    acessLevelLabel.setText("Your Access Level is: " + acess_Level);
+    buttonSignUp.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        logger.info("Loaded signUp.fxml file");
+        DBUtils.changeScene(actionEvent, "/fxml/signUp.fxml", "Sign Up", null, null);
+      }
+    });
   }
 }

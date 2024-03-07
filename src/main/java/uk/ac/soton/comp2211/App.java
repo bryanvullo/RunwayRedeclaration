@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uk.ac.soton.comp2211.UI.AppWindow;
-
 
 /**
  * JavaFX App
@@ -16,17 +14,6 @@ import uk.ac.soton.comp2211.UI.AppWindow;
 public class App extends Application {
     
     private static App instance;
-    
-    /**
-     * Base resolution width
-     */
-    private final int width = 800;
-    
-    /**
-     * Base resolution height
-     */
-    private final int height = 600;
-    
     private static final Logger logger = LogManager.getLogger(App.class);
     private Stage stage;
     
@@ -38,7 +25,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         var fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainPage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Runway Re-declaration Tool");
         stage.setScene(scene);
         stage.show();
@@ -72,19 +59,6 @@ public class App extends Application {
 //        //Open app window
 //        openApp();
 //    }
-    
-    /**
-     * Create the AppWindow with the specified width and height
-     */
-    public void openApp() {
-        logger.info("Opening app window");
-        
-        //Change the width and height in this class to change the base rendering resolution
-        var appWindow = new AppWindow(stage,width,height);
-        
-        //Display the AppWindow
-        stage.show();
-    }
 
     public static void main(String[] args) {
         launch();
