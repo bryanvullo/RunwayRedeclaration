@@ -1,7 +1,9 @@
-package java.uk.ac.soton.comp2211;
+package uk.ac.soton.comp2211;
+
 import uk.ac.soton.comp2211.model.UnitConverter;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 
 public class TestUnitConverter {
 
