@@ -34,7 +34,8 @@ public class LoginController implements Initializable {
     buttonLogin.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        DBUtils.logInUser(actionEvent, textField_UserName.getText().trim(), textField_Password.getText().trim());
+        //DBUtils.logInUser(actionEvent, textField_UserName.getText().trim(), textField_Password.getText().trim());
+        DBUtils.changeScene(actionEvent, "/fxml/TopDownView.fxml", "Sign Up", "admin", "admins");
       }
     });
 
