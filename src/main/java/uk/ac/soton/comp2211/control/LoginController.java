@@ -34,14 +34,14 @@ public class LoginController implements Initializable {
     buttonLogin.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        DBUtils.logInUser(actionEvent, textField_UserName.getText(), textField_Password.getText());
+        DBUtils.logInUser(actionEvent, textField_UserName.getText().trim(), textField_Password.getText().trim());
       }
     });
 
     if (DBUtils.isDbConnected()) {
-      testConnection.setText("Connected");
+      testConnection.setText("Database Status: Connected");
     } else {
-      testConnection.setText("DisConnected");
+      testConnection.setText("Database Status: DisConnected");
     }
 
     buttonSignUp.setOnAction(new EventHandler<ActionEvent>() {
