@@ -6,8 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import uk.ac.soton.comp2211.model.Obstacle;
+import uk.ac.soton.comp2211.model.Tool;
 
 public class MainController implements Initializable {
+    
+    private Tool tool;
     
     @FXML
     private Button recalculateButton;
@@ -20,8 +27,25 @@ public class MainController implements Initializable {
     @FXML
     private Button addButton;
     
+    @FXML
+    private Text revisedToraText, revisedTodaText, revisedAsdaText, revisedLdaText;
+    
+    @FXML
+    private TextField rThresholdField;
+    @FXML
+    private TextField lThresholdField, heightField;
+    @FXML
+    private TextField centerlineField;
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tool = new Tool();
+        
+        revisedToraText.textProperty().bind(tool.tora.asString());
+        revisedTodaText.textProperty().bind(tool.toda.asString());
+        revisedAsdaText.textProperty().bind(tool.asda.asString());
+        revisedLdaText.textProperty().bind(tool.lda.asString());
+        
         recalculateButton.setOnAction(this::recalculate);
         saveButton.setOnAction(this::save);
         editButton.setOnAction(this::editObstacle);
@@ -30,7 +54,13 @@ public class MainController implements Initializable {
     }
     
     public void recalculate(ActionEvent e) {
-        System.out.println("Recalculating");
+        var lthreshold = Integer.parseInt(lThresholdField.getText());
+        
+        var height = Integer.parseInt(heightField.getText());
+        
+        var obstacle = new Obstacle(height, lthreshold);
+        
+        tool.recalculate(obstacle);
     }
     
     public void save(ActionEvent e) {
