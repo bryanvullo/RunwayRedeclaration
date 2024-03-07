@@ -2,10 +2,12 @@ package uk.ac.soton.comp2211.Utility;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import uk.ac.soton.comp2211.control.LoginController;
 
@@ -36,7 +38,9 @@ public class DBUtils {
 
     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     stage.setTitle(title);
-    stage.setScene(new Scene(root, 600, 400));
+    var dashboardScene = new Scene(root, 1113, 720);
+    stage.setScene(dashboardScene);
+    stage.setResizable(false);
     stage.show();
   }
 
