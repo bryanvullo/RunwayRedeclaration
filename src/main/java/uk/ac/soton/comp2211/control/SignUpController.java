@@ -26,6 +26,12 @@ public class SignUpController implements Initializable {
   @FXML
   PasswordField textFieldPassword;
 
+  @FXML
+    private Label testConnection2;
+
+  @FXML
+  private RadioButton rBox_RTech;
+
   private final Logger logger = Logger.getLogger(LoginController.class.getName());
 
   @Override
@@ -34,6 +40,7 @@ public class SignUpController implements Initializable {
     ToggleGroup toggleGroup = new ToggleGroup();
     rBox_ICalc.setToggleGroup(toggleGroup);
     rBox_ATC.setToggleGroup(toggleGroup);
+    rBox_RTech.setToggleGroup(toggleGroup);
 
     rBox_ICalc.setSelected(true);
 
@@ -43,7 +50,7 @@ public class SignUpController implements Initializable {
         String access_level = ((RadioButton) toggleGroup.getSelectedToggle()).getText();
 
         if (!textFieldUserName.getText().trim().isEmpty() && !textFieldPassword.getText().trim().isEmpty()) {
-          DBUtils.signUpUser(actionEvent, textFieldUserName.getText(), textFieldPassword.getText(), access_level);
+          DBUtils.signUpUser(actionEvent, textFieldUserName.getText().trim(), textFieldPassword.getText().trim(), access_level);
         } else {
           System.out.println("Please fill in all the fields");
           Alert alert = new Alert(Alert.AlertType.ERROR);
