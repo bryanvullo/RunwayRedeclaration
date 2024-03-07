@@ -41,7 +41,7 @@
             </GridPane>
             <Button fx:id="recalculateButton" layoutX="1004.0" layoutY="50.0" mnemonicParsing="false" text="Recalculate" />
          </children></Pane>
-      <GridPane layoutX="37.0" layoutY="61.0" prefHeight="101.0" prefWidth="599.0">
+      <GridPane alignment="CENTER" layoutX="37.0" layoutY="61.0" prefHeight="101.0" prefWidth="599.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
@@ -90,47 +90,39 @@
                   <Insets left="33.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="100m" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="3902m" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="100m" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="3902m" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="100m" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="3902m" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="100m" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="3595m" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="200m" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="revisedToraBox" alignment="CENTER" contentDisplay="CENTER" prefHeight="7.0" prefWidth="5.0" style="-fx-font-size: 12;" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="60.0" style="-fx-font-size: 12;" text="150m" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="25.0" />
-               </GridPane.margin>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="120" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="25.0" />
-               </GridPane.margin>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-font-size: 12;" text="90m" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="25.0" />
-               </GridPane.margin>
-            </Label>
+            <Text fx:id="revisedToraText" strokeType="OUTSIDE" strokeWidth="0.0" text="- m" textAlignment="CENTER" wrappingWidth="121.01513671875" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Text fx:id="revisedTodaText" strokeType="OUTSIDE" strokeWidth="0.0" text="- m" textAlignment="CENTER" wrappingWidth="119.21630859375" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Text fx:id="revisedAsdaText" strokeType="OUTSIDE" strokeWidth="0.0" text="- m" textAlignment="CENTER" wrappingWidth="119.21630859375" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Text fx:id="revisedLdaText" strokeType="OUTSIDE" strokeWidth="0.0" text="- m" textAlignment="CENTER" wrappingWidth="117.21630859375" GridPane.columnIndex="4" GridPane.rowIndex="2" />
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </GridPane>
       <ToolBar maxHeight="36.0" prefHeight="36.0" prefWidth="1113.0" style="-fx-background-color: grey;">
          <items>
@@ -401,11 +393,7 @@
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label contentDisplay="TOP" prefHeight="17.0" prefWidth="85.0" style="-fx-font-size: 12;" text="65m">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
+                  <TextField fx:id="heightField" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="31.0" prefWidth="183.0">
@@ -430,12 +418,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="113.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="179.0" style="-fx-font-size: 12;" text="Distance (R. Threshold):">
+                  <Label prefHeight="17.0" prefWidth="183.0" style="-fx-font-size: 12;" text="Distance (R. Threshold):">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="rThresholdField">
+                  <TextField fx:id="rThresholdField" prefHeight="10.0" prefWidth="160.0">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="5.0" />
                      </HBox.margin>
@@ -449,7 +437,7 @@
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="centrelineField">
+                  <TextField fx:id="centerlineField">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="5.0" />
                      </HBox.margin>
