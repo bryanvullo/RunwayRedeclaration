@@ -54,6 +54,8 @@ public class DBUtils {
     } catch (Exception e) {
       logger.warning("Failed to connect to the database");
     }
+
+
     if (!username.isEmpty() && !password.isEmpty()) {
       database.insertUser(username, password, acess_level);
       logger.info("User registered successfully");
@@ -91,6 +93,18 @@ public class DBUtils {
       }
     } else {
       logger.warning("Text fields are not initialized");
+    }
+  }
+
+  public static boolean isDbConnected() {
+    try {
+      mongoClient = MongoClients.create(Database.getConnectionString());
+      database = new Database(mongoClient);
+      logger.info("Connected to the database");
+      return true;
+    } catch (Exception e) {
+      logger.warning("Failed to connect to the database");
+      return false;
     }
   }
 }
