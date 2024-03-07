@@ -16,61 +16,64 @@
     #e5ff54 Yellow
 -->
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.LoginController">
-   <children>
-      <AnchorPane prefHeight="400.0" prefWidth="363.0" style="-fx-background-color: #263237;">
-         <children>
-            <Label layoutX="89.0" layoutY="211.0" text="Runway" textFill="WHITE">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <Label layoutX="57.0" layoutY="24.0" text="Welcome" textFill="WHITE">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="43.0" layoutY="257.0" text="Re-Declaration" textFill="WHITE">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="72.0" fitWidth="104.0" layoutX="111.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/plane-solid.png" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
-      <AnchorPane prefHeight="400.0" prefWidth="400.0">
-         <children>
-            <Label layoutX="20.0" layoutY="140.0" text="Username">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="20.0" layoutY="185.0" text="Password">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textField_UserName" layoutX="125.0" layoutY="143.0" promptText="Enter your Username" />
-            <Button fx:id="buttonLogin" layoutX="140.0" layoutY="227.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #263237; -fx-cursor: hand;" text="Login" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Button>
-            <Label layoutX="18.0" layoutY="297.0" prefHeight="16.0" prefWidth="282.0" style="-fx-background-color: #e5ff54;" text="If you forgot username or password make a new one here">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Label>
-            <Button fx:id="buttonSignUp" layoutX="101.0" layoutY="305.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Make new account" textFill="#2104ff" underline="true" />
-            <ImageView fitHeight="58.0" fitWidth="53.0" layoutX="159.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/lock-solid.png" />
-               </image></ImageView>
-            <Label fx:id="testConnection" layoutX="236.0" layoutY="5.0" prefHeight="18.0" prefWidth="76.0" text="Status:" />
-            <PasswordField fx:id="textField_Password" layoutX="126.0" layoutY="188.0" promptText="Enter your password" />
-         </children></AnchorPane>
-   </children>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="uk.ac.soton.comp2211.control.LoginController">
+    <AnchorPane prefHeight="400.0" prefWidth="363.0" style="-fx-background-color: #263237;">
+        <Label layoutX="89.0" layoutY="211.0" text="Runway" textFill="WHITE">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label layoutX="57.0" layoutY="24.0" text="Welcome" textFill="WHITE">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Label>
+        <Label layoutX="43.0" layoutY="257.0" text="Re-Declaration" textFill="WHITE">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <ImageView fitHeight="72.0" fitWidth="104.0" layoutX="111.0" layoutY="112.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../img/plane-solid.png"/>
+        </ImageView>
+    </AnchorPane>
+    <AnchorPane prefHeight="400.0" prefWidth="400.0">
+        <Label layoutX="20.0" layoutY="140.0" text="Username">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Label layoutX="20.0" layoutY="185.0" text="Password">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="textField_UserName" layoutX="125.0" layoutY="143.0" promptText="Enter your Username"/>
+        <Button fx:id="buttonLogin" layoutX="140.0" layoutY="227.0" mnemonicParsing="false" prefHeight="31.0"
+                prefWidth="120.0" style="-fx-background-color: #263237; -fx-cursor: hand;" text="Login"
+                textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Button>
+        <Label layoutX="18.0" layoutY="297.0" prefHeight="16.0" prefWidth="282.0"
+               style="-fx-background-color: #e5ff54;" text="If you forgot username or password make a new one here">
+            <font>
+                <Font size="11.0"/>
+            </font>
+        </Label>
+        <Button fx:id="buttonSignUp" layoutX="101.0" layoutY="305.0" mnemonicParsing="false"
+                style="-fx-background-color: transparent; -fx-cursor: hand;" text="Make new account"
+                textFill="#2104ff" underline="true"/>
+        <ImageView fitHeight="58.0" fitWidth="53.0" layoutX="159.0" layoutY="57.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../img/lock-solid.png"/>
+        </ImageView>
+        <Label fx:id="testConnection" layoutX="236.0" layoutY="5.0" prefHeight="18.0" prefWidth="76.0"
+               text="Status:"/>
+        <PasswordField fx:id="textField_Password" layoutX="126.0" layoutY="188.0" promptText="Enter your password"/>
+    </AnchorPane>
 </HBox>
