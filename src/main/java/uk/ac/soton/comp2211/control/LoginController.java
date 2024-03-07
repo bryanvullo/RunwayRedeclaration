@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import uk.ac.soton.comp2211.Utility.DBUtils;
 
@@ -22,7 +23,7 @@ public class LoginController implements Initializable {
   @FXML
   private TextField textField_UserName;
   @FXML
-  private TextField textField_Password;
+  private PasswordField textField_Password;
   @FXML
   private Label testConnection;
 
