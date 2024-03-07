@@ -1,7 +1,6 @@
 package uk.ac.soton.comp2211;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,6 @@ public class TestCalculation {
         calculation.calcLandingOver();
         
         assertEquals(2985, calculation.getLda());
-        assertTrue(calculation.getLda() == 2985);
     }
     @Test
     void testCalcTOAway1() {
