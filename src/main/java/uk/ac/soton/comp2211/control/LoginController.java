@@ -1,14 +1,13 @@
 package uk.ac.soton.comp2211.control;
 
-import com.mongodb.client.MongoClient;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import uk.ac.soton.comp2211.Utility.DBUtils;
-import uk.ac.soton.comp2211.model.Database;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,8 +23,10 @@ public class LoginController implements Initializable {
   private TextField textField_UserName;
   @FXML
   private TextField textField_Password;
+  @FXML
+  private Label testConnection;
 
-  private Logger logger = Logger.getLogger(LoginController.class.getName());
+  private final Logger logger = Logger.getLogger(LoginController.class.getName());
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,6 +36,12 @@ public class LoginController implements Initializable {
         DBUtils.logInUser(actionEvent, textField_UserName.getText(), textField_Password.getText());
       }
     });
+
+    if (DBUtils.isDbConnected()) {
+      testConnection.setText("Connected");
+    } else {
+      testConnection.setText("DisConnected");
+    }
 
     buttonSignUp.setOnAction(new EventHandler<ActionEvent>() {
       @Override
