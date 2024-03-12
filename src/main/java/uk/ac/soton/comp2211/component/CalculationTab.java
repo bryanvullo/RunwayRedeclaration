@@ -1,6 +1,7 @@
 package uk.ac.soton.comp2211.component;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -25,6 +26,15 @@ public class CalculationTab extends VBox {
     
     public CalculationTab() {
         logger.info("Creating Calculation Tab");
+        
+        orignalTora = new SimpleDoubleProperty();
+        originalToda = new SimpleDoubleProperty();
+        originalAsda = new SimpleDoubleProperty();
+        originalLda = new SimpleDoubleProperty();
+        recalculatedTora = new SimpleDoubleProperty();
+        recalculatedToda = new SimpleDoubleProperty();
+        recalculatedAsda = new SimpleDoubleProperty();
+        recalculatedLda = new SimpleDoubleProperty();
         
         orignalTora.setValue(0.0);
         originalToda.setValue(0.0);

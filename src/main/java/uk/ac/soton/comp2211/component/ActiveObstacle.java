@@ -1,6 +1,8 @@
 package uk.ac.soton.comp2211.component;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,6 +25,14 @@ public class ActiveObstacle extends VBox {
     
     public ActiveObstacle() {
         logger.info("Creating ActiveObstacle");
+        
+        name = new SimpleStringProperty();
+        height = new SimpleDoubleProperty();
+        width = new SimpleDoubleProperty();
+        length = new SimpleDoubleProperty();
+        distanceFromLeftThreshold = new SimpleDoubleProperty();
+        distanceFromRightThreshold = new SimpleDoubleProperty();
+        distanceFromCenter = new SimpleDoubleProperty();
         
         name.setValue("No obstacle Selected: ");
         height.setValue(0.0);

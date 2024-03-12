@@ -1,6 +1,7 @@
 package uk.ac.soton.comp2211.component;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -22,6 +23,10 @@ public class RunwayBox extends VBox {
     
     public RunwayBox() {
         logger.info("Creating Runway Box");
+        
+        clearway = new SimpleDoubleProperty();
+        stopway = new SimpleDoubleProperty();
+        displacedThreshold = new SimpleDoubleProperty();
         
         clearway.setValue(0.0);
         stopway.setValue(0.0);

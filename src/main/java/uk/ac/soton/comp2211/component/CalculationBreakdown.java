@@ -1,5 +1,6 @@
 package uk.ac.soton.comp2211.component;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -18,6 +19,11 @@ public class CalculationBreakdown extends VBox {
     
     public CalculationBreakdown() {
         logger.info("Creating Calculation Breakdown");
+        
+        toraBreakdown = new SimpleStringProperty();
+        todaBreakdown = new SimpleStringProperty();
+        asdaBreakdown = new SimpleStringProperty();
+        ldaBreakdown = new SimpleStringProperty();
         
         toraBreakdown.setValue("Not calculated");
         todaBreakdown.setValue("Not calculated");
