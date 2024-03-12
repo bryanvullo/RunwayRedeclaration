@@ -2,6 +2,7 @@ package uk.ac.soton.comp2211.model;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import uk.ac.soton.comp2211.model.obstacles.Obstacle;
 
 public class Tool {
     private Calculation revisedCalculation;
