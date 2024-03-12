@@ -1,4 +1,4 @@
-package uk.ac.soton.comp2211.model;
+package uk.ac.soton.comp2211.model.obstacles;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,12 +7,14 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.Map;
 import java.util.HashMap;
+import uk.ac.soton.comp2211.model.Calculation;
+import uk.ac.soton.comp2211.model.Runway;
 
 /**
  * This class represents and models obstacles in a more advanced manner, providing their properties and additional information.
  * Assume all values are in meters. This is the default unit for the system, however the units can be changed as per the UnitConverter class.
  */
-public class AdvancedObstacle extends Obstacle{
+public class AdvancedObstacle extends Obstacle {
     private String obstacleName;
     private int width, length; //height and width of obstacle. Note: height is inherited from Obstacle
     private int distanceRightThreshold, distanceLeftThreshold, distanceFromCentre; //distance from the threshold

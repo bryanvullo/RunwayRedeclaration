@@ -1,4 +1,4 @@
-package uk.ac.soton.comp2211.model;
+package uk.ac.soton.comp2211.model.obstacles;
 
 import java.util.Optional;
 import java.util.Properties;
