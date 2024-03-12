@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.ac.soton.comp2211.model.Calculation;
-import uk.ac.soton.comp2211.model.Obstacle;
+import uk.ac.soton.comp2211.model.obstacles.Obstacle;
 import uk.ac.soton.comp2211.model.Runway;
 
 /**

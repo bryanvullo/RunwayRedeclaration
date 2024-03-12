@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import uk.ac.soton.comp2211.model.AdvancedObstacle;
-import uk.ac.soton.comp2211.model.Container;
-import uk.ac.soton.comp2211.model.Plane;
-import uk.ac.soton.comp2211.model.ShuttleBus;
+import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
+import uk.ac.soton.comp2211.model.obstacles.Plane;
 
 import java.util.Optional;
 public class TestObstacle {
