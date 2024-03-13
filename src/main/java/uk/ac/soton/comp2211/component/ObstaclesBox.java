@@ -26,6 +26,7 @@ public class ObstaclesBox extends VBox {
         setPadding(new Insets(20));
         
         var title = new Text("Obstacles");
+        title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
         var obstacleBox = new ScrollPane();
