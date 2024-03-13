@@ -1,5 +1,9 @@
 package uk.ac.soton.comp2211.component;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
@@ -17,12 +21,16 @@ public class SystemMessageBox extends VBox {
     
     private void build() {
         logger.info("Building System Message Box");
+        setAlignment(Pos.TOP_CENTER);
+        setSpacing(10);
+        setPadding(new Insets(20));
         
         var title = new Text("System Messages");
         getChildren().add(title);
         
-        var messageBox = new VBox();
+        var messageBox = new ScrollPane();
         getChildren().add(messageBox);
+        VBox.setVgrow(messageBox, Priority.ALWAYS);
     }
     
 }
