@@ -40,7 +40,7 @@ public class ObstaclesBox extends VBox {
         var shuttleBusButton = new Button("Shuttle Bus");
         var customButton = new Button("Custom");
         
-        buttonBox.getChildren().addAll(planeButton, containerButton, shuttleBusButton);
+        buttonBox.getChildren().addAll(planeButton, containerButton, shuttleBusButton, customButton);
     }
     
 }
