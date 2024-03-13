@@ -19,14 +19,10 @@ public class Tool {
     public IntegerProperty lda;
     
     public Tool() {
-        //TODO implement function to be able to change the runway
-        runway = new Runway("Heathrow 09L", 3902, 3902, 3902, 3595);
-        runway.setDisplacedThreshold(306);
-        
-        tora = new SimpleIntegerProperty(runway.getTora());
-        toda = new SimpleIntegerProperty(runway.getToda());
-        asda = new SimpleIntegerProperty(runway.getAsda());
-        lda = new SimpleIntegerProperty(runway.getLda());
+        tora = new SimpleIntegerProperty(0);
+        toda = new SimpleIntegerProperty(0);
+        asda = new SimpleIntegerProperty(0);
+        lda = new SimpleIntegerProperty(0);
     }
     
     public void recalculate(Obstacle obstacle) {
@@ -39,5 +35,14 @@ public class Tool {
         toda.set(revisedCalculation.getToda());
         asda.set(revisedCalculation.getAsda());
         lda.set(revisedCalculation.getLda());
+    }
+    
+    public void setRunway(Runway runway) {
+        this.runway = runway;
+        
+        tora.set(runway.getTora());
+        toda.set(runway.getToda());
+        asda.set(runway.getAsda());
+        lda.set(runway.getLda());
     }
 }
