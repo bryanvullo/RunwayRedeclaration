@@ -25,15 +25,20 @@ public class CalculationTab extends VBox {
     
     private static final Logger logger = LogManager.getLogger(CalculationTab.class);
     
-    private DoubleProperty orignalTora;
-    private DoubleProperty originalToda;
-    private DoubleProperty originalAsda;
-    private DoubleProperty originalLda;
+    public DoubleProperty orignalTora;
+    public DoubleProperty originalToda;
+    public DoubleProperty originalAsda;
+    public DoubleProperty originalLda;
     
-    private DoubleProperty recalculatedTora;
-    private DoubleProperty recalculatedToda;
-    private DoubleProperty recalculatedAsda;
-    private DoubleProperty recalculatedLda;
+    public DoubleProperty recalculatedTora;
+    public DoubleProperty recalculatedToda;
+    public DoubleProperty recalculatedAsda;
+    public DoubleProperty recalculatedLda;
+    
+    public DoubleProperty previousTora;
+    public DoubleProperty previousToda;
+    public DoubleProperty previousAsda;
+    public DoubleProperty previousLda;
     
     private Button recalculateButton;
     
@@ -44,10 +49,16 @@ public class CalculationTab extends VBox {
         originalToda = new SimpleDoubleProperty(0.0);
         originalAsda = new SimpleDoubleProperty(0.0);
         originalLda = new SimpleDoubleProperty(0.0);
+        
         recalculatedTora = new SimpleDoubleProperty(0.0);
         recalculatedToda = new SimpleDoubleProperty(0.0);
         recalculatedAsda = new SimpleDoubleProperty(0.0);
         recalculatedLda = new SimpleDoubleProperty(0.0);
+        
+        previousTora = new SimpleDoubleProperty(0.0);
+        previousToda = new SimpleDoubleProperty(0.0);
+        previousAsda = new SimpleDoubleProperty(0.0);
+        previousLda = new SimpleDoubleProperty(0.0);
         
         build();
     }
@@ -88,6 +99,8 @@ public class CalculationTab extends VBox {
         GridPane.setConstraints(originalLabel, 0, 1);
         var recalculatedLabel = new Text("Recalculated");
         GridPane.setConstraints(recalculatedLabel, 0, 2);
+        var previousLabel = new Text("Previous");
+        GridPane.setConstraints(previousLabel, 0, 3);
         
         var originalToraText = new Text();
         originalToraText.textProperty().bind(orignalTora.asString());
@@ -121,9 +134,27 @@ public class CalculationTab extends VBox {
         recalculatedLdaText.textProperty().bind(recalculatedLda.asString());
         GridPane.setConstraints(recalculatedLdaText, 4, 2);
         
-        grid.getChildren().addAll(toraLabel, todaLabel, asdaLabel, ldaLabel, originalLabel, recalculatedLabel,
-            originalToraText, originalTodaText, originalAsdaText, originalLdaText, recalculatedToraText, recalculatedTodaText,
-            recalculatedAsdaText, recalculatedLdaText);
+        var previousToraText = new Text();
+        previousToraText.textProperty().bind(previousTora.asString());
+        GridPane.setConstraints(previousToraText, 1, 3);
+        
+        var previousTodaText = new Text();
+        previousTodaText.textProperty().bind(previousToda.asString());
+        GridPane.setConstraints(previousTodaText, 2, 3);
+        
+        var previousAsdaText = new Text();
+        previousAsdaText.textProperty().bind(previousAsda.asString());
+        GridPane.setConstraints(previousAsdaText, 3, 3);
+        
+        var previousLdaText = new Text();
+        previousLdaText.textProperty().bind(previousLda.asString());
+        GridPane.setConstraints(previousLdaText, 4, 3);
+        
+        grid.getChildren().addAll(toraLabel, todaLabel, asdaLabel, ldaLabel,
+            originalLabel, recalculatedLabel, previousLabel,
+            originalToraText, originalTodaText, originalAsdaText, originalLdaText,
+            recalculatedToraText, recalculatedTodaText, recalculatedAsdaText, recalculatedLdaText,
+            previousToraText, previousTodaText, previousAsdaText, previousLdaText);
         
         recalculateButton = new Button("Recalculate");
         box.getChildren().add(recalculateButton);
