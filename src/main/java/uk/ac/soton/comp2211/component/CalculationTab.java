@@ -29,6 +29,8 @@ public class CalculationTab extends VBox {
     private DoubleProperty recalculatedAsda;
     private DoubleProperty recalculatedLda;
     
+    private Button recalculateButton;
+    
     public CalculationTab() {
         logger.info("Creating Calculation Tab");
         
@@ -51,18 +53,20 @@ public class CalculationTab extends VBox {
         setPadding(new Insets(20));
         
         var title = new Text("Calculation Tab");
+        title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
         var box = new HBox();
         box.setAlignment(Pos.CENTER);
         getChildren().add(box);
+        box.setSpacing(50);
         
         var grid = new GridPane();
         grid.setHgap(20);
         grid.setVgap(20);
         grid.setPadding(new Insets(10,10,10,10));
         box.getChildren().add(grid);
-        HBox.setHgrow(grid, Priority.ALWAYS);
+//        HBox.setHgrow(grid, Priority.ALWAYS);
         
         var toraLabel = new Text("TORA");
         GridPane.setConstraints(toraLabel, 1, 0);
@@ -114,9 +118,8 @@ public class CalculationTab extends VBox {
             originalToraText, originalTodaText, originalAsdaText, originalLdaText, recalculatedToraText, recalculatedTodaText,
             recalculatedAsdaText, recalculatedLdaText);
         
-        var recalculateButton = new Button("Recalculate");
+        recalculateButton = new Button("Recalculate");
         box.getChildren().add(recalculateButton);
-        HBox.setHgrow(recalculateButton, Priority.SOMETIMES);
     }
     
     public void updateRunway(Runway runway) {
@@ -135,6 +138,10 @@ public class CalculationTab extends VBox {
         recalculatedToda.setValue(calculation.getToda());
         recalculatedAsda.setValue(calculation.getAsda());
         recalculatedLda.setValue(calculation.getLda());
+    }
+    
+    public Button recalculateButton() {
+        return recalculateButton;
     }
     
 }
