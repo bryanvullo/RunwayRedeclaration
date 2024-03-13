@@ -41,6 +41,7 @@ public class RunwayBox extends VBox {
         
         
         var title = new Text("Runway Selection");
+        title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
         var airports = new MenuButton("Airports");
@@ -94,5 +95,5 @@ public class RunwayBox extends VBox {
         stopway.setValue(runway.getStopway());
         displacedThreshold.setValue(runway.getDisplacedThreshold());
     }
-    
 }
+   
