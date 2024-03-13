@@ -2,6 +2,9 @@ package uk.ac.soton.comp2211.component;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
@@ -20,44 +23,45 @@ public class CalculationBreakdown extends VBox {
     public CalculationBreakdown() {
         logger.info("Creating Calculation Breakdown");
         
-        toraBreakdown = new SimpleStringProperty();
-        todaBreakdown = new SimpleStringProperty();
-        asdaBreakdown = new SimpleStringProperty();
-        ldaBreakdown = new SimpleStringProperty();
-        
-        toraBreakdown.setValue("Not calculated");
-        todaBreakdown.setValue("Not calculated");
-        asdaBreakdown.setValue("Not calculated");
-        ldaBreakdown.setValue("Not calculated");
+        toraBreakdown = new SimpleStringProperty("Not calculated");
+        todaBreakdown = new SimpleStringProperty("Not calculated");
+        asdaBreakdown = new SimpleStringProperty("Not calculated");
+        ldaBreakdown = new SimpleStringProperty("Not calculated");
         
         build();
     }
     
     private void build() {
         logger.info("Building Calculation Breakdown");
+        setAlignment(Pos.TOP_CENTER);
+        setSpacing(10);
+        setPadding(new Insets(20));
         
         var title = new Text("Calculation Breakdown");
         getChildren().add(title);
         
-        var toraBox = new VBox();
+        var toraBox = new HBox();
         var toraLabel = new Text("TORA: ");
         var toraText = new Text();
         toraText.textProperty().bind(toraBreakdown);
         toraBox.getChildren().addAll(toraLabel, toraText);
         
-        var todaBox = new VBox();
+        var todaBox = new HBox();
         var todaLabel = new Text("TODA: ");
         var todaText = new Text();
+        todaText.textProperty().bind(todaBreakdown);
         todaBox.getChildren().addAll(todaLabel, todaText);
         
-        var asdaBox = new VBox();
+        var asdaBox = new HBox();
         var asdaLabel = new Text("ASDA: ");
         var asdaText = new Text();
+        asdaText.textProperty().bind(asdaBreakdown);
         asdaBox.getChildren().addAll(asdaLabel, asdaText);
         
-        var ldaBox = new VBox();
+        var ldaBox = new HBox();
         var ldaLabel = new Text("LDA: ");
         var ldaText = new Text();
+        ldaText.textProperty().bind(ldaBreakdown);
         ldaBox.getChildren().addAll(ldaLabel, ldaText);
         
         getChildren().addAll(toraBox, todaBox, asdaBox, ldaBox);
