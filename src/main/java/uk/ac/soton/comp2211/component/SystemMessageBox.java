@@ -3,8 +3,14 @@ package uk.ac.soton.comp2211.component;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.apache.logging.log4j.LogManager;
@@ -27,6 +33,7 @@ public class SystemMessageBox extends VBox {
         setAlignment(Pos.TOP_CENTER);
         setSpacing(10);
         setPadding(new Insets(20));
+        setBorder(new Border((new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT))));
         
         var title = new Text("System Messages");
         title.getStyleClass().add("componentTitle");
