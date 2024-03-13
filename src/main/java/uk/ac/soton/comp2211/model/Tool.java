@@ -1,6 +1,8 @@
 package uk.ac.soton.comp2211.model;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import uk.ac.soton.comp2211.model.obstacles.Obstacle;
 
@@ -14,38 +16,38 @@ public class Tool {
     private Runway secondarRunway;
     
     //original values
-    public IntegerProperty tora;
-    public IntegerProperty toda;
-    public IntegerProperty asda;
-    public IntegerProperty lda;
+    public DoubleProperty tora;
+    public DoubleProperty toda;
+    public DoubleProperty asda;
+    public DoubleProperty lda;
     
     //revised values
-    public IntegerProperty revisedTora;
-    public IntegerProperty revisedToda;
-    public IntegerProperty revisedAsda;
-    public IntegerProperty revisedlLda;
+    public DoubleProperty revisedTora;
+    public DoubleProperty revisedToda;
+    public DoubleProperty revisedAsda;
+    public DoubleProperty revisedlLda;
     
     //previous values
-    public IntegerProperty previousTora;
-    public IntegerProperty previousToda;
-    public IntegerProperty previousAsda;
-    public IntegerProperty previousLda;
+    public DoubleProperty previousTora;
+    public DoubleProperty previousToda;
+    public DoubleProperty previousAsda;
+    public DoubleProperty previousLda;
     
     public Tool() {
-        tora = new SimpleIntegerProperty(0);
-        toda = new SimpleIntegerProperty(0);
-        asda = new SimpleIntegerProperty(0);
-        lda = new SimpleIntegerProperty(0);
+        tora = new SimpleDoubleProperty(0.0);
+        toda = new SimpleDoubleProperty(0.0);
+        asda = new SimpleDoubleProperty(0.0);
+        lda = new SimpleDoubleProperty(0.0);
         
-        revisedTora = new SimpleIntegerProperty(0);
-        revisedToda = new SimpleIntegerProperty(0);
-        revisedAsda = new SimpleIntegerProperty(0);
-        revisedlLda = new SimpleIntegerProperty(0);
+        revisedTora = new SimpleDoubleProperty(0.0);
+        revisedToda = new SimpleDoubleProperty(0.0);
+        revisedAsda = new SimpleDoubleProperty(0.0);
+        revisedlLda = new SimpleDoubleProperty(0.0);
         
-        previousTora = new SimpleIntegerProperty(0);
-        previousToda = new SimpleIntegerProperty(0);
-        previousAsda = new SimpleIntegerProperty(0);
-        previousLda = new SimpleIntegerProperty(0);
+        previousTora = new SimpleDoubleProperty(0.0);
+        previousToda = new SimpleDoubleProperty(0.0);
+        previousAsda = new SimpleDoubleProperty(0.0);
+        previousLda = new SimpleDoubleProperty(0.0);
     }
     
     public void recalculate(Obstacle obstacle) {
@@ -72,15 +74,15 @@ public class Tool {
         asda.set(runway.getAsda());
         lda.set(runway.getLda());
         
-        revisedTora.set(0);
-        revisedToda.set(0);
-        revisedAsda.set(0);
-        revisedlLda.set(0);
+        revisedTora.set(0.0);
+        revisedToda.set(0.0);
+        revisedAsda.set(0.0);
+        revisedlLda.set(0.0);
         
-        previousTora.set(0);
-        previousToda.set(0);
-        previousAsda.set(0);
-        previousLda.set(0);
+        previousTora.set(0.0);
+        previousToda.set(0.0);
+        previousAsda.set(0.0);
+        previousLda.set(0.0);
     }
     
     public Runway getRunway() {
