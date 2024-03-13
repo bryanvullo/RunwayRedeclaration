@@ -2,7 +2,12 @@ package uk.ac.soton.comp2211.component;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
@@ -27,34 +32,37 @@ public class CalculationTab extends VBox {
     public CalculationTab() {
         logger.info("Creating Calculation Tab");
         
-        orignalTora = new SimpleDoubleProperty();
-        originalToda = new SimpleDoubleProperty();
-        originalAsda = new SimpleDoubleProperty();
-        originalLda = new SimpleDoubleProperty();
-        recalculatedTora = new SimpleDoubleProperty();
-        recalculatedToda = new SimpleDoubleProperty();
-        recalculatedAsda = new SimpleDoubleProperty();
-        recalculatedLda = new SimpleDoubleProperty();
-        
-        orignalTora.setValue(0.0);
-        originalToda.setValue(0.0);
-        originalAsda.setValue(0.0);
-        originalLda.setValue(0.0);
-        recalculatedTora.setValue(0.0);
-        recalculatedToda.setValue(0.0);
-        recalculatedAsda.setValue(0.0);
-        recalculatedLda.setValue(0.0);
+        orignalTora = new SimpleDoubleProperty(0.0);
+        originalToda = new SimpleDoubleProperty(0.0);
+        originalAsda = new SimpleDoubleProperty(0.0);
+        originalLda = new SimpleDoubleProperty(0.0);
+        recalculatedTora = new SimpleDoubleProperty(0.0);
+        recalculatedToda = new SimpleDoubleProperty(0.0);
+        recalculatedAsda = new SimpleDoubleProperty(0.0);
+        recalculatedLda = new SimpleDoubleProperty(0.0);
         
         build();
     }
     
     private void build() {
         logger.info("Building Calculation Tab");
+        setSpacing(10);
+        setAlignment(Pos.CENTER);
+        setPadding(new Insets(20));
         
         var title = new Text("Calculation Tab");
         getChildren().add(title);
         
+        var box = new HBox();
+        box.setAlignment(Pos.CENTER);
+        getChildren().add(box);
+        
         var grid = new GridPane();
+        grid.setHgap(20);
+        grid.setVgap(20);
+        grid.setPadding(new Insets(10,10,10,10));
+        box.getChildren().add(grid);
+        HBox.setHgrow(grid, Priority.ALWAYS);
         
         var toraLabel = new Text("TORA");
         GridPane.setConstraints(toraLabel, 1, 0);
@@ -101,6 +109,14 @@ public class CalculationTab extends VBox {
         var recalculatedLdaText = new Text();
         recalculatedLdaText.textProperty().bind(recalculatedLda.asString());
         GridPane.setConstraints(recalculatedLdaText, 4, 2);
+        
+        grid.getChildren().addAll(toraLabel, todaLabel, asdaLabel, ldaLabel, originalLabel, recalculatedLabel,
+            originalToraText, originalTodaText, originalAsdaText, originalLdaText, recalculatedToraText, recalculatedTodaText,
+            recalculatedAsdaText, recalculatedLdaText);
+        
+        var recalculateButton = new Button("Recalculate");
+        box.getChildren().add(recalculateButton);
+        HBox.setHgrow(recalculateButton, Priority.SOMETIMES);
     }
     
     public void updateRunway(Runway runway) {
