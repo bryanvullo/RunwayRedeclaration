@@ -26,6 +26,7 @@ public class SystemMessageBox extends VBox {
         setPadding(new Insets(20));
         
         var title = new Text("System Messages");
+        title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
         var messageBox = new ScrollPane();
