@@ -4,6 +4,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -26,27 +28,22 @@ public class ActiveObstacle extends VBox {
     public ActiveObstacle() {
         logger.info("Creating ActiveObstacle");
         
-        name = new SimpleStringProperty();
-        height = new SimpleDoubleProperty();
-        width = new SimpleDoubleProperty();
-        length = new SimpleDoubleProperty();
-        distanceFromLeftThreshold = new SimpleDoubleProperty();
-        distanceFromRightThreshold = new SimpleDoubleProperty();
-        distanceFromCenter = new SimpleDoubleProperty();
-        
-        name.setValue("No obstacle Selected: ");
-        height.setValue(0.0);
-        width.setValue(0.0);
-        length.setValue(0.0);
-        distanceFromLeftThreshold.setValue(0.0);
-        distanceFromRightThreshold.setValue(0.0);
-        distanceFromCenter.setValue(0.0);
+        name = new SimpleStringProperty("No obstacle Selected: ");
+        height = new SimpleDoubleProperty(0.0);
+        width = new SimpleDoubleProperty(0.0);
+        length = new SimpleDoubleProperty(0.0);
+        distanceFromLeftThreshold = new SimpleDoubleProperty(0.0);
+        distanceFromRightThreshold = new SimpleDoubleProperty(0.0);
+        distanceFromCenter = new SimpleDoubleProperty(0.0);
         
         build();
     }
     
     private void build() {
         logger.info("Building Active Obstacle Box");
+        setAlignment(Pos.TOP_CENTER);
+        setSpacing(10);
+        setPadding(new Insets(20));
         
         var title = new Text("Active Obstacle");
         getChildren().add(title);
@@ -55,40 +52,40 @@ public class ActiveObstacle extends VBox {
         nameText.textProperty().bind(name);
         
         var heightBox = new HBox();
-        var heightText = new Text("Height: ");
-        var height = new Text();
-        height.textProperty().bind(height.textProperty());
-        heightBox.getChildren().addAll(heightText, height);
+        var heightLabel = new Text("Height: ");
+        var heightText = new Text();
+        heightText.textProperty().bind(height.asString());
+        heightBox.getChildren().addAll(heightLabel, heightText);
         
         var widthBox = new HBox();
-        var widthText = new Text("Width: ");
-        var width = new Text();
-        width.textProperty().bind(width.textProperty());
-        widthBox.getChildren().addAll(widthText, width);
+        var widthLabel = new Text("Width: ");
+        var widthText = new Text();
+        widthText.textProperty().bind(width.asString());
+        widthBox.getChildren().addAll(widthLabel, widthText);
         
         var lengthBox = new HBox();
-        var lengthText = new Text("Length: ");
-        var length = new Text();
-        length.textProperty().bind(length.textProperty());
-        lengthBox.getChildren().addAll(lengthText, length);
+        var lengthLabel = new Text("Length: ");
+        var lengthText = new Text();
+        lengthText.textProperty().bind(length.asString());
+        lengthBox.getChildren().addAll(lengthLabel, lengthText);
         
         var distanceFromLeftThresholdBox = new HBox();
-        var distanceFromLeftThresholdText = new Text("Distance from Left Threshold: ");
-        var distanceFromLeftThreshold = new Text();
-        distanceFromLeftThreshold.textProperty().bind(distanceFromLeftThreshold.textProperty());
-        distanceFromLeftThresholdBox.getChildren().addAll(distanceFromLeftThresholdText, distanceFromLeftThreshold);
+        var distanceFromLeftThresholdLabel = new Text("Distance from Left Threshold: ");
+        var distanceFromLeftThresholdText = new Text();
+        distanceFromLeftThresholdText.textProperty().bind(distanceFromLeftThreshold.asString());
+        distanceFromLeftThresholdBox.getChildren().addAll(distanceFromLeftThresholdLabel, distanceFromLeftThresholdText);
         
         var distanceFromRightThresholdBox = new HBox();
-        var distanceFromRightThresholdText = new Text("Distance from Right Threshold: ");
-        var distanceFromRightThreshold = new Text();
-        distanceFromRightThreshold.textProperty().bind(distanceFromRightThreshold.textProperty());
-        distanceFromRightThresholdBox.getChildren().addAll(distanceFromRightThresholdText, distanceFromRightThreshold);
+        var distanceFromRightThresholdLabel = new Text("Distance from Right Threshold: ");
+        var distanceFromRightThresholdText = new Text();
+        distanceFromRightThresholdText.textProperty().bind(distanceFromRightThreshold.asString());
+        distanceFromRightThresholdBox.getChildren().addAll(distanceFromRightThresholdLabel, distanceFromRightThresholdText);
         
         var distanceFromCenterBox = new HBox();
-        var distanceFromCenterText = new Text("Distance from Center: ");
-        var distanceFromCenter = new Text();
-        distanceFromCenter.textProperty().bind(distanceFromCenter.textProperty());
-        distanceFromCenterBox.getChildren().addAll(distanceFromCenterText, distanceFromCenter);
+        var distanceFromCenterLabel = new Text("Distance from Center: ");
+        var distanceFromCenterText = new Text();
+        distanceFromCenterText.textProperty().bind(distanceFromCenter.asString());
+        distanceFromCenterBox.getChildren().addAll(distanceFromCenterLabel, distanceFromCenterText);
         
         getChildren().addAll(nameText, heightBox, widthBox, lengthBox,
             distanceFromLeftThresholdBox, distanceFromRightThresholdBox, distanceFromCenterBox);
