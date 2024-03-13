@@ -22,6 +22,7 @@ public class MenuBar extends HBox {
     private MenuButton settingsButton;
     private MenuButton helpButton;
     private MenuButton userButton;
+    private MenuButton unitButton;
     
     public MenuBar() {
         logger.info("Creating the MenuBar");
@@ -39,12 +40,13 @@ public class MenuBar extends HBox {
         fileButton = new MenuButton("File");
         editButton = new MenuButton("Edit");
         viewButton = new MenuButton("View");
+        unitButton = new MenuButton("Units");
         settingsButton = new MenuButton("Settings");
         helpButton = new MenuButton("Help");
         
 //        toolbar.getItems().addAll(fileButton, editButton, viewButton, settingsButton, helpButton);
 //        getChildren().add(toolbar);
-        getChildren().addAll(fileButton, editButton, viewButton, settingsButton, helpButton);
+        getChildren().addAll(fileButton, editButton, viewButton, unitButton, settingsButton, helpButton);
         
         var filler = new HBox();
         getChildren().add(filler);
