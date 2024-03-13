@@ -1,5 +1,5 @@
 .componentTitle {
-    font-size: 20px;
-    font-weight: bold;
-    color: black;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-fill: black;
 }
