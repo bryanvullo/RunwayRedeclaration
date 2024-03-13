@@ -6,12 +6,15 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class SystemMessageBox extends VBox {
     
     private static final Logger logger = LogManager.getLogger(SystemMessageBox.class);
+    
+    private TextFlow messageBox;
     
     public SystemMessageBox() {
         logger.info("Creating System Message Box");
@@ -29,9 +32,18 @@ public class SystemMessageBox extends VBox {
         title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
-        var messageBox = new ScrollPane();
-        getChildren().add(messageBox);
-        VBox.setVgrow(messageBox, Priority.ALWAYS);
+        var scrollBox = new ScrollPane();
+        setVgrow(scrollBox, Priority.ALWAYS);
+        getChildren().add(scrollBox);
+        VBox.setVgrow(scrollBox, Priority.ALWAYS);
+        
+        messageBox = new TextFlow();
+        scrollBox.setContent(messageBox);
     }
     
+    public void addMessage(String message) {
+        logger.info("Adding message to System Message Box");
+        var text = new Text(message + "\n");
+        messageBox.getChildren().add(text);
+    }
 }
