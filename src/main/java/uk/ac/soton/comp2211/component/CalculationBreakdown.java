@@ -38,6 +38,7 @@ public class CalculationBreakdown extends VBox {
         setPadding(new Insets(20));
         
         var title = new Text("Calculation Breakdown");
+        title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
         var toraBox = new HBox();
