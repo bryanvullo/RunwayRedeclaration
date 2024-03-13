@@ -1,5 +1,7 @@
 package uk.ac.soton.comp2211.component;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
@@ -19,6 +21,9 @@ public class ObstaclesBox extends VBox {
     
     private void build() {
         logger.info("Building Obstacles Box");
+        setAlignment(Pos.TOP_CENTER);
+        setSpacing(10);
+        setPadding(new Insets(20));
         
         var title = new Text("Obstacles");
         getChildren().add(title);
