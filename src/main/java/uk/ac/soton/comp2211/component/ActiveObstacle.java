@@ -46,6 +46,7 @@ public class ActiveObstacle extends VBox {
         setPadding(new Insets(20));
         
         var title = new Text("Active Obstacle");
+        title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
         var nameText = new Text();
