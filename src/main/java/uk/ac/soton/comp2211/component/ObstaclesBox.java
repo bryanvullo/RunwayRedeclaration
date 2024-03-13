@@ -35,12 +35,13 @@ public class ObstaclesBox extends VBox {
         var buttonBox = new VBox();
         obstacleBox.setContent(buttonBox);
         
-        var planeButton = new Button("Plane");
+        var boeingButton = new Button("Boeing 747");
+        var airbusButton = new Button("Airbus A380");
         var containerButton = new Button("Container");
         var shuttleBusButton = new Button("Shuttle Bus");
         var customButton = new Button("Custom");
         
-        buttonBox.getChildren().addAll(planeButton, containerButton, shuttleBusButton, customButton);
+        buttonBox.getChildren().addAll(boeingButton, airbusButton, containerButton, shuttleBusButton, customButton);
     }
     
 }
