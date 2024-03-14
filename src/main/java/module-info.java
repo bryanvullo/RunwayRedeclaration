@@ -12,4 +12,5 @@ module uk.ac.soton.comp2211 {
   exports uk.ac.soton.comp2211;
   exports uk.ac.soton.comp2211.model;
   exports uk.ac.soton.comp2211.control;
+  exports uk.ac.soton.comp2211.model.Obstacles;
 }

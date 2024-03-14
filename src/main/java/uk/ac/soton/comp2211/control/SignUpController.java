@@ -27,7 +27,7 @@ public class SignUpController implements Initializable {
   PasswordField textFieldPassword;
 
   @FXML
-    private Label testConnection2;
+  private Label testConnection1;
 
   @FXML
   private RadioButton rBox_RTech;
@@ -59,6 +59,12 @@ public class SignUpController implements Initializable {
         }
       }
     });
+
+    if (DBUtils.isDbConnected()) {
+      testConnection1.setText("Database Status: Connected");
+    } else {
+      testConnection1.setText("Database Status: DisConnected");
+    }
 
     button_Loggin.setOnAction(new EventHandler<ActionEvent>() {
       @Override

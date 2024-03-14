@@ -37,37 +37,6 @@ public class Database {
     this.mongoClient = mongoClient;
   }
 
-  public void connect() {
-    try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-      this.mongoClient = mongoClient;
-      logger.log(Level.INFO, "Connected to the database");
-
-    } catch (Exception e) {
-      logger.log(Level.SEVERE, "Failed to connect to the database");
-    }
-  }
-
-  public void insertUser(User user) {
-    MongoDatabase database = mongoClient.getDatabase("UserDatabase");
-    MongoCollection<Document> users = database.getCollection("users");
-    Document userDocument = new Document("username", user.getUsername())
-        .append("password", user.getPassword())
-        .append("role", user.getAccess_level());
-
-    if (userExists(user.getUsername())) {
-      logger.log(Level.WARNING, "User already exists");
-      return;
-    }
-
-    InsertOneResult result = users.insertOne(userDocument);
-
-    if (result.wasAcknowledged()) {
-      logger.log(Level.INFO, "User inserted successfully");
-    } else {
-      logger.log(Level.WARNING, "User insertion failed");
-    }
-  }
-
   public void insertUser(String username, String password, String accessLevel) {
     MongoDatabase database = mongoClient.getDatabase("UserDatabase");
     MongoCollection<Document> users = database.getCollection("users");
@@ -92,21 +61,7 @@ public class Database {
     }
   }
 
-
-
   public boolean userExists(String username) {
-    try {
-      MongoDatabase database = mongoClient.getDatabase("UserDatabase");
-      MongoCollection<Document> users = database.getCollection("users");
-      return users.find(eq("username", username)).first() != null;
-    } catch (Exception e) {
-      System.err.println("Error checking user existence: " + e.getMessage());
-      e.printStackTrace();
-      return false;
-    }
-  }
-
-  public boolean userExists(MongoClient mongoClient, String username) {
     try {
       MongoDatabase database = mongoClient.getDatabase("UserDatabase");
       MongoCollection<Document> users = database.getCollection("users");
@@ -124,12 +79,6 @@ public class Database {
     Document query = new Document("username", username);
     Document user = users.find(query).first();
     return user != null && user.getString("password").equals(password);
-  }
-
-  public static void main(String[] args) {
-
-    Database db = new Database();
-    db.connect();
   }
 
   public Object getAccessLevel (String username) {

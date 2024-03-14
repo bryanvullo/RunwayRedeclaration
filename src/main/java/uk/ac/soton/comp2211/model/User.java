@@ -5,10 +5,10 @@ public class User {
     private String password;
     private String access_level;
 
-    public User(String username, String password, String role) {
+    public User(String username, String password, String access_level) {
         this.username = username;
         this.password = password;
-        this.access_level = role;
+        this.access_level = access_level;
     }
 
     public String getUsername() {

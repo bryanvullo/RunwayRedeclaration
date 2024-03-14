@@ -5,7 +5,6 @@ package uk.ac.soton.comp2211;
  * Launcher is used when running as a shaded jar file.
  */
 public class Launcher {
-    
     /**
      * Launch the JavaFX Application, passing through the commandline arguments
      * @param args commandline arguments
@@ -13,5 +12,4 @@ public class Launcher {
     public static void main(String[] args) {
         App.main(args);
     }
-    
 }
