@@ -11,11 +11,11 @@ import java.util.Properties;
 
 public class ShuttleBus extends AdvancedObstacle {
 
-    private ShuttleBus(String obstacleName, int height, int width, int length, int distanceRightThreshold, int distanceLeftThreshold, int distanceFromCentre, Optional<Properties> obstacleProperties) {
+    private ShuttleBus(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold, Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
         super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre, obstacleProperties);
     }
 
     public static ShuttleBus createShuttleBus() {
-        return new ShuttleBus("Passenger Shuttle Bus", 3, 3, 14, 0, 0, 0, Optional.empty());
+        return new ShuttleBus("Passenger Shuttle Bus", 3.0, 3.0, 14.0, 0.0, 0.0, 0.0, Optional.empty());
     }
 }

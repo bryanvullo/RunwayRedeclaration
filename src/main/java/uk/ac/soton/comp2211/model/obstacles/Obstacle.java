@@ -13,7 +13,7 @@ public class Obstacle {
     /**
      * The height of the obstacle
      */
-    private final int height;
+    private final Double height;
     
     /**
      * The distance from the threshold
@@ -26,7 +26,7 @@ public class Obstacle {
      * @param height the height of the obstacle
      * @param distanceFromThreshold the distance from the threshold
      */
-    public Obstacle(int height, int distanceFromThreshold) {
+    public Obstacle(Double height, int distanceFromThreshold) {
         this.height = height;
         this.distanceFromThreshold = distanceFromThreshold;
     }
@@ -35,7 +35,7 @@ public class Obstacle {
      * Returns the height of the obstacle
      * @return the height of the obstacle
      */
-    public int getHeight() {
+    public Double getHeight() {
         return height;
     }
     

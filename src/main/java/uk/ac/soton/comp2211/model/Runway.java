@@ -22,7 +22,7 @@ public class Runway {
      * An area beyond the end of the TORA, which may be used during an aircraft’s initial
      * climb to a specified height.
      */
-    private Integer clearway;
+    private Double clearway;
     
     
     /**
@@ -30,12 +30,12 @@ public class Runway {
      * An area beyond the end of the TORA, which may be used in the case of an abandoned
      * take-off so that an aircraft can be safely brought to a stop.
      */
-    private Integer stopway;
+    private Double stopway;
     
     /**
      * The displaced threshold of the runway
      */
-    private Integer displacedThreshold;
+    private Double displacedThreshold;
     
     /**
      * The obstacles on the runway
@@ -45,28 +45,28 @@ public class Runway {
     /**
      * The Take-Off Run Available (TORA) for this Runway
      */
-    private int tora;
+    private Double tora;
     
     /**
      * The Take-Off Distance Available (TODA) for this Runway
      */
-    private int toda;
+    private Double toda;
     
     /**
      * The Accelerate-Stop Distance Available (ASDA) for this Runway
      */
-    private int asda;
+    private Double asda;
     
     /**
      * The Landing Distance Available (LDA) for this Runway
      */
-    private int lda;
+    private Double lda;
     
     /**
      * Constructor for the Runway class
      * @param name the name of the runway
      */
-    public Runway(String name, int tora, int toda, int asda, int lda) {
+    public Runway(String name, Double tora, Double toda, Double asda, Double lda) {
         this.name = name;
         this.tora = tora;
         this.toda = toda;
@@ -91,7 +91,7 @@ public class Runway {
      * Returns the clearway of the runway
      * @return the clearway of the runway
      */
-    public Integer getClearway() {
+    public Double getClearway() {
         return clearway;
     }
     
@@ -99,7 +99,7 @@ public class Runway {
      * Sets the clearway of the runway
      * @param clearway the clearway of the runway
      */
-    public void setClearway(Integer clearway) {
+    public void setClearway(Double clearway) {
         this.clearway = clearway;
     }
     
@@ -107,7 +107,7 @@ public class Runway {
      * Returns the stopway of the runway
      * @return the stopway of the runway
      */
-    public Integer getStopway() {
+    public Double getStopway() {
         return stopway;
     }
     
@@ -115,7 +115,7 @@ public class Runway {
      * Sets the stopway of the runway
      * @param stopway the stopway of the runway
      */
-    public void setStopway(Integer stopway) {
+    public void setStopway(Double stopway) {
         this.stopway = stopway;
     }
     
@@ -123,7 +123,7 @@ public class Runway {
      * Returns the displaced threshold of the runway
      * @return the displaced threshold of the runway
      */
-    public Integer getDisplacedThreshold() {
+    public Double getDisplacedThreshold() {
         return displacedThreshold;
     }
     
@@ -131,7 +131,7 @@ public class Runway {
      * Sets the displaced threshold of the runway
      * @param displacedThreshold the displaced threshold of the runway
      */
-    public void setDisplacedThreshold(Integer displacedThreshold) {
+    public void setDisplacedThreshold(Double displacedThreshold) {
         this.displacedThreshold = displacedThreshold;
     }
     
@@ -155,7 +155,7 @@ public class Runway {
      * Returns the Take-Off Run Available (TORA) for this Runway
      * @return the Take-Off Run Available (TORA) for this Runway
      */
-    public int getTora() {
+    public Double getTora() {
         return tora;
     }
     
@@ -163,7 +163,7 @@ public class Runway {
      * Sets the Take-Off Run Available (TORA) for this Runway
      * @param tora the Take-Off Run Available (TORA) for this Runway
      */
-    public void setTora(int tora) {
+    public void setTora(Double tora) {
         this.tora = tora;
     }
     
@@ -171,7 +171,7 @@ public class Runway {
      * Returns the Take-Off Distance Available (TODA) for this Runway
      * @return the Take-Off Distance Available (TODA) for this Runway
      */
-    public int getToda() {
+    public Double getToda() {
         return toda;
     }
     
@@ -179,7 +179,7 @@ public class Runway {
      * Sets the Take-Off Distance Available (TODA) for this Runway
      * @param toda the Take-Off Distance Available (TODA) for this Runway
      */
-    public void setToda(int toda) {
+    public void setToda(Double toda) {
         this.toda = toda;
     }
     
@@ -187,7 +187,7 @@ public class Runway {
      * Returns the Accelerate-Stop Distance Available (ASDA) for this Runway
      * @return the Accelerate-Stop Distance Available (ASDA) for this Runway
      */
-    public int getAsda() {
+    public Double getAsda() {
         return asda;
     }
     
@@ -195,7 +195,7 @@ public class Runway {
      * Sets the Accelerate-Stop Distance Available (ASDA) for this Runway
      * @param asda the Accelerate-Stop Distance Available (ASDA) for this Runway
      */
-    public void setAsda(int asda) {
+    public void setAsda(Double asda) {
         this.asda = asda;
     }
     
@@ -203,7 +203,7 @@ public class Runway {
      * Returns the Landing Distance Available (LDA) for this Runway
      * @return the Landing Distance Available (LDA) for this Runway
      */
-    public int getLda() {
+    public Double getLda() {
         return lda;
     }
     
@@ -211,7 +211,7 @@ public class Runway {
      * Sets the Landing Distance Available (LDA) for this Runway
      * @param lda the Landing Distance Available (LDA) for this Runway
      */
-    public void setLda(int lda) {
+    public void setLda(Double lda) {
         this.lda = lda;
     }
 }

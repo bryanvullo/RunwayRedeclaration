@@ -26,9 +26,9 @@ public class TestCalculation {
     // ######################## Test for Scenario 1 ########################
     @Test
     void testCalcLandingOver1() {
-        runway = new Runway("Test-09L", 3902, 3902, 3902, 3595);
-        runway.setDisplacedThreshold(306);
-        obstacle = new Obstacle(12, -50);
+        runway = new Runway("Test-09L", 3902.0, 3902.0, 3902.0, 3595.0);
+        runway.setDisplacedThreshold(306.0);
+        obstacle = new Obstacle(12.0, -50);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcLandingOver();
@@ -38,9 +38,9 @@ public class TestCalculation {
     
     @Test
     void testCalcTOAway1() {
-        runway = new Runway("Test-09L", 3902, 3902, 3902, 3595);
-        runway.setDisplacedThreshold(306);
-        obstacle = new Obstacle(12, -50);
+        runway = new Runway("Test-09L", 3902.0, 3902.0, 3902.0, 3595.0);
+        runway.setDisplacedThreshold(306.0);
+        obstacle = new Obstacle(12.0, -50);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcTOAway();
@@ -52,9 +52,9 @@ public class TestCalculation {
     
     @Test
     void testCalculateTakeOffAwayLandingOver1() {
-        runway = new Runway("Test-09L", 3902, 3902, 3902, 3595);
-        runway.setDisplacedThreshold(306);
-        obstacle = new Obstacle(12, -50);
+        runway = new Runway("Test-09L", 3902.0, 3902.0, 3902.0, 3595.0);
+        runway.setDisplacedThreshold(306.0);
+        obstacle = new Obstacle(12.0, -50);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calculateTakeOffAwayLandingOver();
@@ -68,8 +68,8 @@ public class TestCalculation {
     
     @Test
     void testCalcLandingTowards1() {
-        runway = new Runway("Test-27R", 3884, 3962, 3884, 3884);
-        obstacle = new Obstacle(12, 3646);
+        runway = new Runway("Test-27R", 3884.0, 3962.0, 3884.0, 3884.0);
+        obstacle = new Obstacle(12.0, 3646);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcLandingTowards();
@@ -79,8 +79,8 @@ public class TestCalculation {
     
     @Test
     void testCalcTOTowards1() {
-        runway = new Runway("Test-27R", 3884, 3962, 3884, 3884);
-        obstacle = new Obstacle(12, 3646);
+        runway = new Runway("Test-27R", 3884.0, 3962.0, 3884.0, 3884.0);
+        obstacle = new Obstacle(12.0, 3646);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcTOTowards();
@@ -92,8 +92,8 @@ public class TestCalculation {
     
     @Test
     void testCalculateTakeOffTowardsLandingTowards1() {
-        runway = new Runway("Test-27R", 3884, 3962, 3884, 3884);
-        obstacle = new Obstacle(12, 3646);
+        runway = new Runway("Test-27R", 3884.0, 3962.0, 3884.0, 3884.0);
+        obstacle = new Obstacle(12.0, 3646);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calculateTakeOffTowardsLandingTowards();
@@ -108,9 +108,9 @@ public class TestCalculation {
     // ######################## Test for Scenario 2 ########################
     @Test
     void testCalcLandingTowards2() {
-        runway = new Runway("Test-09R", 3660, 3660, 3660, 3353);
-        runway.setDisplacedThreshold(307);
-        obstacle = new Obstacle(25, 2853);
+        runway = new Runway("Test-09R", 3660.0, 3660.0, 3660.0, 3353.0);
+        runway.setDisplacedThreshold(307.0);
+        obstacle = new Obstacle(25.0, 2853);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcLandingTowards();
@@ -120,9 +120,9 @@ public class TestCalculation {
     
     @Test
     void testCalcTOTowards2() {
-        runway = new Runway("Test-09R", 3660, 3660, 3660, 3353);
-        runway.setDisplacedThreshold(307);
-        obstacle = new Obstacle(25, 2853);
+        runway = new Runway("Test-09R", 3660.0, 3660.0, 3660.0 , 3353.0);
+        runway.setDisplacedThreshold(307.0);
+        obstacle = new Obstacle(25.0, 2853);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcTOTowards();
@@ -134,9 +134,9 @@ public class TestCalculation {
     
     @Test
     void testCalculateTakeOffTowardsLandingTowards2() {
-        runway = new Runway("Test-09R", 3660, 3660, 3660, 3353);
-        runway.setDisplacedThreshold(307);
-        obstacle = new Obstacle(25, 2853);
+        runway = new Runway("Test-09R", 3660.0, 3660.0, 3660.0, 3353.0);
+        runway.setDisplacedThreshold(307.0);
+        obstacle = new Obstacle(25.0, 2853);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calculateTakeOffTowardsLandingTowards();
@@ -148,8 +148,8 @@ public class TestCalculation {
     
     @Test
     void testCalcTOAway2() {
-        runway = new Runway("Test-27L", 3660, 3660, 3660, 3660);
-        obstacle = new Obstacle(25, 500);
+        runway = new Runway("Test-27L", 3660.0, 3660.0, 3660.0, 3660.0);
+        obstacle = new Obstacle(25.0, 500);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcTOAway();
@@ -161,8 +161,8 @@ public class TestCalculation {
     
     @Test
     void testCalcLandingOver2() {
-        runway = new Runway("Test-27L", 3660, 3660, 3660, 3660);
-        obstacle = new Obstacle(25, 500);
+        runway = new Runway("Test-27L", 3660.0, 3660.0, 3660.0, 3660.0);
+        obstacle = new Obstacle(25.0, 500);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcLandingOver();
@@ -172,8 +172,8 @@ public class TestCalculation {
     
     @Test
     void testCalculateTakeOffAwayLandingOver2() {
-        runway = new Runway("Test-27L", 3660, 3660, 3660, 3660);
-        obstacle = new Obstacle(25, 500);
+        runway = new Runway("Test-27L", 3660.0, 3660.0, 3660.0, 3660.0);
+        obstacle = new Obstacle(25.0, 500);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calculateTakeOffAwayLandingOver();
@@ -188,8 +188,8 @@ public class TestCalculation {
     // ######################## Test for Scenario 3 ########################
     @Test
     void testCalcLandingTowards3() {
-        runway = new Runway("Test-27L", 3660, 3660, 3660, 3660);
-        obstacle = new Obstacle(15, 3203);
+        runway = new Runway("Test-27L", 3660.0, 3660.0, 3660.0, 3660.0);
+        obstacle = new Obstacle(15.0, 3203);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcLandingTowards();
@@ -199,8 +199,8 @@ public class TestCalculation {
     
     @Test
     void testCalcTOTowards3() {
-        runway = new Runway("Test-27L", 3660, 3660, 3660, 3660);
-        obstacle = new Obstacle(15, 3203);
+        runway = new Runway("Test-27L", 3660.0, 3660.0, 3660.0, 3660.0);
+        obstacle = new Obstacle(15.0, 3203);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcTOTowards();
@@ -212,8 +212,8 @@ public class TestCalculation {
     
     @Test
     void testCalculateTakeOffTowardsLandingTowards3() {
-        runway = new Runway("Test-27L", 3660, 3660, 3660, 3660);
-        obstacle = new Obstacle(15, 3203);
+        runway = new Runway("Test-27L", 3660.0, 3660.0, 3660.0, 3660.0);
+        obstacle = new Obstacle(15.0, 3203);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calculateTakeOffTowardsLandingTowards();
@@ -226,9 +226,9 @@ public class TestCalculation {
     
     @Test
     void testCalcTOAway3() {
-        runway = new Runway("Test-09R", 3660, 3660, 3660, 3353);
-        runway.setDisplacedThreshold(307);
-        obstacle = new Obstacle(15, 150);
+        runway = new Runway("Test-09R", 3660.0, 3660.0, 3660.0, 3353.0);
+        runway.setDisplacedThreshold(307.0);
+        obstacle = new Obstacle(15.0, 150);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcTOAway();
@@ -240,9 +240,9 @@ public class TestCalculation {
     
     @Test
     void testCalcLandingOver3() {
-        runway = new Runway("Test-09R", 3660, 3660, 3660, 3353);
-        runway.setDisplacedThreshold(307);
-        obstacle = new Obstacle(15, 150);
+        runway = new Runway("Test-09R", 3660.0, 3660.0, 3660.0, 3353.0);
+        runway.setDisplacedThreshold(307.0);
+        obstacle = new Obstacle(15.0, 150);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcLandingOver();
@@ -252,9 +252,9 @@ public class TestCalculation {
     
     @Test
     void testCalculateTakeOffAwayLandingOver3() {
-        runway = new Runway("Test-09R", 3660, 3660, 3660, 3353);
-        runway.setDisplacedThreshold(307);
-        obstacle = new Obstacle(15, 150);
+        runway = new Runway("Test-09R", 3660.0, 3660.0, 3660.0, 3353.0);
+        runway.setDisplacedThreshold(307.0);
+        obstacle = new Obstacle(15.0, 150);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calculateTakeOffAwayLandingOver();
@@ -269,9 +269,9 @@ public class TestCalculation {
     // ######################## Test for Scenario 4 ########################
     @Test
     void testCalcLandingTowards4() {
-        runway = new Runway("Test-09L", 3902, 3902, 3902, 3595);
-        runway.setDisplacedThreshold(306);
-        obstacle = new Obstacle(20, 3546);
+        runway = new Runway("Test-09L", 3902.0, 3902.0, 3902.0, 3595.0);
+        runway.setDisplacedThreshold(306.0);
+        obstacle = new Obstacle(20.0, 3546);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcLandingTowards();
@@ -281,9 +281,9 @@ public class TestCalculation {
     
     @Test
     void testCalcTOTowards4() {
-        runway = new Runway("Test-09L", 3902, 3902, 3902, 3595);
-        runway.setDisplacedThreshold(306);
-        obstacle = new Obstacle(20, 3546);
+        runway = new Runway("Test-09L", 3902.0, 3902.0, 3902.0, 3595.0);
+        runway.setDisplacedThreshold(306.0);
+        obstacle = new Obstacle(20.0, 3546);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcTOTowards();
@@ -295,9 +295,9 @@ public class TestCalculation {
     
     @Test
     void testCalculateTakeOffTowardsLandingTowards4() {
-        runway = new Runway("Test-09L", 3902, 3902, 3902, 3595);
-        runway.setDisplacedThreshold(306);
-        obstacle = new Obstacle(20, 3546);
+        runway = new Runway("Test-09L", 3902.0, 3902.0, 3902.0, 3595.0);
+        runway.setDisplacedThreshold(306.0);
+        obstacle = new Obstacle(20.0, 3546);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calculateTakeOffTowardsLandingTowards();
@@ -310,9 +310,9 @@ public class TestCalculation {
     
     @Test
     void testCalcTOAway4() {
-        runway = new Runway("Test-27R", 3884, 3962, 3884, 3884);
-        runway.setClearway(78);
-        obstacle = new Obstacle(20, 50);
+        runway = new Runway("Test-27R", 3884.0, 3962.0, 38840., 3884.0);
+        runway.setClearway(78.0);
+        obstacle = new Obstacle(20.0, 50);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcTOAway();
@@ -324,8 +324,8 @@ public class TestCalculation {
     
     @Test
     void testCalcLandingOver4() {
-        runway = new Runway("Test-27R", 3884, 3962, 3884, 3884);
-        obstacle = new Obstacle(20, 50);
+        runway = new Runway("Test-27R", 3884.0, 3962.0, 3884.0, 3884.0);
+        obstacle = new Obstacle(20.0, 50);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calcLandingOver();
@@ -335,9 +335,9 @@ public class TestCalculation {
     
     @Test
     void testCalculateTakeOffAwayLandingOver4() {
-        runway = new Runway("Test-27R", 3884, 3962, 3884, 3884);
-        runway.setClearway(78);
-        obstacle = new Obstacle(20, 50);
+        runway = new Runway("Test-27R", 3884.0, 3962.0, 3884.0, 3884.0);
+        runway.setClearway(78.0);
+        obstacle = new Obstacle(20.0, 50);
         calculation = new Calculation(runway, obstacle);
         
         calculation.calculateTakeOffAwayLandingOver();

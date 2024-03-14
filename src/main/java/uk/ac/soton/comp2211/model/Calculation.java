@@ -29,7 +29,7 @@ public class Calculation {
      * to the point where the runway can no longer support the weight of the aircraft
      * under normal conditions
      */
-    private int tora;
+    private Double tora;
     
     /**
      * Take-Off Distance Available
@@ -37,7 +37,7 @@ public class Calculation {
      * free from obstructions). This is the total distance an aircraft can safely utilise
      * for its take‐off and initial ascent.
      */
-    private int toda;
+    private Double toda;
     
     /**
      * Accelerate-Stop Distance Available
@@ -45,7 +45,7 @@ public class Calculation {
      * be used to safely stop an aircraft in an emergency).
      * This is the total distance available to the aircraft in case of an aborted take‐off.
      */
-    private int asda;
+    private Double asda;
     
     /**
      * Landing Distance Available
@@ -54,17 +54,17 @@ public class Calculation {
      * A threshold may be displaced for operational reasons or because of a temporary obstacle,
      * in which case LDA and TORA can differ.
      */
-    private int lda;
+    private Double lda;
     
     /**
      * The Take-Off Climb Surface (TOCS)
      */
-    private int tocs;
+    private Double tocs;
     
     /**
      * The Approach Landing Surface (ALS)
      */
-    private int als;
+    private Double als;
     
     /**
      * The Runway End Safety Area (RESA)
@@ -72,12 +72,12 @@ public class Calculation {
      * strip primarily intended to reduce the risk of damage to an aircraft
      * undershooting or overrunning the runway
      */
-    private final int resaMin = 240;
+    private final Double resaMin = 240.0;
     
     /**
      * The strip end
      */
-    private final int stripEnd = 60;
+    private final Double stripEnd = 60.0;
     
     /**
      * Constructor for the Calculation class
@@ -100,7 +100,7 @@ public class Calculation {
      * Method to get the Take-Off Runway Length
      * @return the Take-Off Runway Length
      */
-    public int getTora() {
+    public Double getTora() {
         return tora;
     }
     
@@ -108,7 +108,7 @@ public class Calculation {
      * Method to get the Take-Off Distance Available
      * @return the Take-Off Distance Available
      */
-    public int getToda() {
+    public Double getToda() {
         return toda;
     }
     
@@ -116,7 +116,7 @@ public class Calculation {
      * Method to get the Accelerate-Stop Distance Available
      * @return the Accelerate-Stop Distance Available
      */
-    public int getAsda() {
+    public Double getAsda() {
         return asda;
     }
     
@@ -124,7 +124,7 @@ public class Calculation {
      * Method to get the Landing Distance Available
      * @return the Landing Distance Available
      */
-    public int getLda() {
+    public Double getLda() {
         return lda;
     }
     
@@ -200,7 +200,7 @@ public class Calculation {
     public void calcTOAway() {
         logger.info("Calculating TORA, TODA and ASDA for Take-Off Away");
         
-        int blastProtection = resaMin + stripEnd;
+        Double blastProtection = resaMin + stripEnd;
         
         tora = tora - obstacle.getDistanceFromThreshold() - blastProtection;
         

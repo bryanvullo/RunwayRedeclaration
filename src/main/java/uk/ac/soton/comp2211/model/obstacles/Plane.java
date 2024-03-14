@@ -10,7 +10,7 @@ public class Plane extends AdvancedObstacle {
     /**
      * This private constructor prevents direct instantiation, using a factory method instead.
      */
-    private Plane(String obstacleName, int height, int width, int length, int distanceRightThreshold, int distanceLeftThreshold, int distanceFromCentre, Optional<Properties> obstacleProperties) {
+    private Plane(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold, Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
         super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre, obstacleProperties);
     }
     /**
@@ -21,9 +21,9 @@ public class Plane extends AdvancedObstacle {
     public static Plane createPlane(String model) {
         switch (model) {
             case "Boeing 747":
-                return new Plane("Boeing 747", 19, 64, 71, 0, 0, 0, Optional.empty());
+                return new Plane("Boeing 747", 19.0, 64.0, 71.0, 0.0, 0.0, 0.0, Optional.empty());
             case "Airbus A380":
-                return new Plane("Airbus A380", 24, 80, 73, 0, 0, 0, Optional.empty());
+                return new Plane("Airbus A380", 24.0, 80.0, 73.0, 0.0, 0.0, 0.0, Optional.empty());
             default:
                 throw new IllegalArgumentException("Unknown plane model: " + model);
         }
@@ -36,7 +36,7 @@ public class Plane extends AdvancedObstacle {
      */
     public double estimateClearanceTime() {
         final double taxiSpeedInMetersPerMinute = 100.0;
-        int clearanceDistance = getLength();
+        Double clearanceDistance = getLength();
         return clearanceDistance / taxiSpeedInMetersPerMinute;
     }
 }
