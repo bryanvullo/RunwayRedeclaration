@@ -2,6 +2,7 @@ package uk.ac.soton.comp2211.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import uk.ac.soton.comp2211.model.Obstacles.Obstacle;
 
 /**
  * This is the Calculation Class. Where each calculation, including the figures used are stored.
