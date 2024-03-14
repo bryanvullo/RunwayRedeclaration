@@ -12,6 +12,11 @@ import org.apache.logging.log4j.Logger;
 public class ObstaclesBox extends VBox {
     
     private static final Logger logger = LogManager.getLogger(ObstaclesBox.class);
+    private Button boeingButton;
+    private Button airbusButton;
+    private Button containerButton;
+    private Button shuttleBusButton;
+    private Button customButton;
     
     public ObstaclesBox() {
         logger.info("Creating Obstacles Box");
@@ -35,13 +40,33 @@ public class ObstaclesBox extends VBox {
         var buttonBox = new VBox();
         obstacleBox.setContent(buttonBox);
         
-        var boeingButton = new Button("Boeing 747");
-        var airbusButton = new Button("Airbus A380");
-        var containerButton = new Button("Container");
-        var shuttleBusButton = new Button("Shuttle Bus");
-        var customButton = new Button("Custom");
+        boeingButton = new Button("Boeing 747");
+        airbusButton = new Button("Airbus A380");
+        containerButton = new Button("Container");
+        shuttleBusButton = new Button("Shuttle Bus");
+        customButton = new Button("Custom");
         
         buttonBox.getChildren().addAll(boeingButton, airbusButton, containerButton, shuttleBusButton, customButton);
+    }
+    
+    public Button getBoeingButton() {
+        return boeingButton;
+    }
+    
+    public Button getAirbusButton() {
+        return airbusButton;
+    }
+    
+    public Button getContainerButton() {
+        return containerButton;
+    }
+    
+    public Button getShuttleBusButton() {
+        return shuttleBusButton;
+    }
+    
+    public Button getCustomButton() {
+        return customButton;
     }
     
 }
