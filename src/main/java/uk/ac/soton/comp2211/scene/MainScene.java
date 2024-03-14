@@ -167,19 +167,19 @@ public class MainScene extends BaseScene {
         //Adding back end functionality
         calcTab.recalculateButton().setOnAction((e) -> {
             logger.info("Recalculate button pressed");
-            if (selectedRunway == null) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("No Runway Selected");
-                alert.setContentText("Please select a runway before calculating");
-                alert.showAndWait();
-            } else if (selectedObstacle == null) {
+            if (selectedObstacle == null) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("No Obstacle Selected");
                 alert.setContentText("Please select an obstacle before calculating");
                 alert.showAndWait();
-            } else {
+            } else if (selectedRunway == null) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("No Runway Selected");
+                alert.setContentText("Please select a runway before calculating");
+                alert.showAndWait();
+            } else  {
                 recalculate(selectedRunway, selectedObstacle);
             }
             
