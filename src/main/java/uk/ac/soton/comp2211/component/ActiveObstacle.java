@@ -28,7 +28,7 @@ public class ActiveObstacle extends VBox {
     public ActiveObstacle() {
         logger.info("Creating ActiveObstacle");
         
-        name = new SimpleStringProperty("No obstacle Selected: ");
+        name = new SimpleStringProperty("No obstacle Selected");
         height = new SimpleDoubleProperty(0.0);
         width = new SimpleDoubleProperty(0.0);
         length = new SimpleDoubleProperty(0.0);
@@ -50,6 +50,7 @@ public class ActiveObstacle extends VBox {
         getChildren().add(title);
         
         var nameText = new Text();
+        nameText.getStyleClass().add("title");
         nameText.textProperty().bind(name);
         
         var heightBox = new HBox();
