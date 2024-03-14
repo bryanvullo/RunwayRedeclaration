@@ -15,7 +15,6 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -32,7 +31,11 @@ import uk.ac.soton.comp2211.component.RunwayBox;
 import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
+import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
+import uk.ac.soton.comp2211.model.obstacles.Container;
 import uk.ac.soton.comp2211.model.obstacles.Obstacle;
+import uk.ac.soton.comp2211.model.obstacles.Plane;
+import uk.ac.soton.comp2211.model.obstacles.ShuttleBus;
 
 public class MainScene extends BaseScene {
     
@@ -54,6 +57,7 @@ public class MainScene extends BaseScene {
     private HBox leftPanel;
     private VBox leftBar;
     private VBox activeBar;
+    private ActiveObstacle activeObstacle;
     
     
     public MainScene(AppWindow appWindow) {
@@ -120,7 +124,7 @@ public class MainScene extends BaseScene {
         
         activeBar = new VBox();
         activeBar.setAlignment(Pos.TOP_CENTER);
-        var activeObstacle = new ActiveObstacle();
+        activeObstacle = new ActiveObstacle();
         var calculationBreakdownBox = new CalculationBreakdown();
         activeBar.getChildren().addAll(activeObstacle,calculationBreakdownBox);
         VBox.setVgrow(activeObstacle, Priority.ALWAYS);
@@ -139,7 +143,7 @@ public class MainScene extends BaseScene {
         HBox.setHgrow(calcTab, Priority.ALWAYS);
         mainPane.setBottom(bottomBar);
         
-        //Configure the UI
+        ///////////////////////Configure the UI///////////////////////
         toolbar.userButton().getItems().get(0).setDisable(true);
         toolbar.userButton().getItems().get(1).setDisable(true);
         
@@ -179,6 +183,28 @@ public class MainScene extends BaseScene {
                 recalculate(selectedRunway, selectedObstacle);
             }
             
+        });
+        
+        obstacleBox.getBoeingButton().setOnAction((e) -> {
+            logger.info("Boeing Button Pressed");
+            updateObstacle( Plane.createPlane("Boeing 747") );
+        });
+        obstacleBox.getAirbusButton().setOnAction((e) -> {
+            logger.info("Airbus Button Pressed");
+            updateObstacle( Plane.createPlane("Airbus A380") );
+        });
+        obstacleBox.getContainerButton().setOnAction((e) -> {
+            logger.info("Container Button Pressed");
+            updateObstacle( Container.createContainer() );
+        });
+        obstacleBox.getShuttleBusButton().setOnAction((e) -> {
+            logger.info("Shuttle Bus Button Pressed");
+            updateObstacle( ShuttleBus.createShuttleBus() );
+        });
+        obstacleBox.getCustomButton().setOnAction((e) -> {
+            logger.info("Custom Button Pressed");
+            //TODO implement a popup for custom obstacle
+            //TODO send this new obstacle to updateObstacle
         });
     }
     
@@ -221,8 +247,9 @@ public class MainScene extends BaseScene {
         tool.setRunway(runway);
     }
     
-    private void updateObstacle(Obstacle obstacle) {
+    private void updateObstacle(AdvancedObstacle obstacle) {
         selectedObstacle = obstacle;
+        activeObstacle.update(obstacle);
     }
     
 }
