@@ -54,36 +54,42 @@ public class ActiveObstacle extends VBox {
         
         var heightBox = new HBox();
         var heightLabel = new Text("Height: ");
+        heightLabel.getStyleClass().add("subtitle");
         var heightText = new Text();
         heightText.textProperty().bind(height.asString());
         heightBox.getChildren().addAll(heightLabel, heightText);
         
         var widthBox = new HBox();
         var widthLabel = new Text("Width: ");
+        widthLabel.getStyleClass().add("subtitle");
         var widthText = new Text();
         widthText.textProperty().bind(width.asString());
         widthBox.getChildren().addAll(widthLabel, widthText);
         
         var lengthBox = new HBox();
         var lengthLabel = new Text("Length: ");
+        lengthLabel.getStyleClass().add("subtitle");
         var lengthText = new Text();
         lengthText.textProperty().bind(length.asString());
         lengthBox.getChildren().addAll(lengthLabel, lengthText);
         
         var distanceFromLeftThresholdBox = new HBox();
         var distanceFromLeftThresholdLabel = new Text("Distance from Left Threshold: ");
+        distanceFromLeftThresholdLabel.getStyleClass().add("subtitle");
         var distanceFromLeftThresholdText = new Text();
         distanceFromLeftThresholdText.textProperty().bind(distanceFromLeftThreshold.asString());
         distanceFromLeftThresholdBox.getChildren().addAll(distanceFromLeftThresholdLabel, distanceFromLeftThresholdText);
         
         var distanceFromRightThresholdBox = new HBox();
         var distanceFromRightThresholdLabel = new Text("Distance from Right Threshold: ");
+        distanceFromRightThresholdLabel.getStyleClass().add("subtitle");
         var distanceFromRightThresholdText = new Text();
         distanceFromRightThresholdText.textProperty().bind(distanceFromRightThreshold.asString());
         distanceFromRightThresholdBox.getChildren().addAll(distanceFromRightThresholdLabel, distanceFromRightThresholdText);
         
         var distanceFromCenterBox = new HBox();
         var distanceFromCenterLabel = new Text("Distance from Center: ");
+        distanceFromCenterLabel.getStyleClass().add("subtitle");
         var distanceFromCenterText = new Text();
         distanceFromCenterText.textProperty().bind(distanceFromCenter.asString());
         distanceFromCenterBox.getChildren().addAll(distanceFromCenterLabel, distanceFromCenterText);

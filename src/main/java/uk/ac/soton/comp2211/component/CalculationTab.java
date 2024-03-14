@@ -87,19 +87,26 @@ public class CalculationTab extends VBox {
 //        HBox.setHgrow(grid, Priority.ALWAYS);
         
         var toraLabel = new Text("TORA");
+        toraLabel.getStyleClass().add("subtitle");
         GridPane.setConstraints(toraLabel, 1, 0);
         var todaLabel = new Text("TODA");
+        todaLabel.getStyleClass().add("subtitle");
         GridPane.setConstraints(todaLabel, 2, 0);
         var asdaLabel = new Text("ASDA");
+        asdaLabel.getStyleClass().add("subtitle");
         GridPane.setConstraints(asdaLabel, 3, 0);
         var ldaLabel = new Text("LDA");
+        ldaLabel.getStyleClass().add("subtitle");
         GridPane.setConstraints(ldaLabel, 4, 0);
         
         var originalLabel = new Text("Original");
+        originalLabel.getStyleClass().add("subtitle");
         GridPane.setConstraints(originalLabel, 0, 1);
         var recalculatedLabel = new Text("Recalculated");
+        recalculatedLabel.getStyleClass().add("subtitle");
         GridPane.setConstraints(recalculatedLabel, 0, 2);
         var previousLabel = new Text("Previous");
+        previousLabel.getStyleClass().add("subtitle");
         GridPane.setConstraints(previousLabel, 0, 3);
         
         var originalToraText = new Text();

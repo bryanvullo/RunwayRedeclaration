@@ -43,24 +43,28 @@ public class CalculationBreakdown extends VBox {
         
         var toraBox = new HBox();
         var toraLabel = new Text("TORA: ");
+        toraLabel.getStyleClass().add("subtitle");
         var toraText = new Text();
         toraText.textProperty().bind(toraBreakdown);
         toraBox.getChildren().addAll(toraLabel, toraText);
         
         var todaBox = new HBox();
         var todaLabel = new Text("TODA: ");
+        todaLabel.getStyleClass().add("subtitle");
         var todaText = new Text();
         todaText.textProperty().bind(todaBreakdown);
         todaBox.getChildren().addAll(todaLabel, todaText);
         
         var asdaBox = new HBox();
         var asdaLabel = new Text("ASDA: ");
+        asdaLabel.getStyleClass().add("subtitle");
         var asdaText = new Text();
         asdaText.textProperty().bind(asdaBreakdown);
         asdaBox.getChildren().addAll(asdaLabel, asdaText);
         
         var ldaBox = new HBox();
         var ldaLabel = new Text("LDA: ");
+        ldaLabel.getStyleClass().add("subtitle");
         var ldaText = new Text();
         ldaText.textProperty().bind(ldaBreakdown);
         ldaBox.getChildren().addAll(ldaLabel, ldaText);

@@ -62,18 +62,21 @@ public class RunwayBox extends VBox {
         
         var clearwayBox = new HBox();
         var clearwayLabel = new Text("Clearway: ");
+        clearwayLabel.getStyleClass().add("subtitle");
         var clearwayText = new Text();
         clearwayText.textProperty().bind(clearway.asString());
         clearwayBox.getChildren().addAll(clearwayLabel, clearwayText);
         
         var stopwayBox = new HBox();
         var stopwayLabel = new Text("Stopway: ");
+        stopwayLabel.getStyleClass().add("subtitle");
         var stopwayText = new Text();
         stopwayText.textProperty().bind(stopway.asString());
         stopwayBox.getChildren().addAll(stopwayLabel, stopwayText);
         
         var displacedThresholdBox = new HBox();
         var displacedThresholdLabel = new Text("Displaced Threshold: ");
+        displacedThresholdLabel.getStyleClass().add("subtitle");
         var displacedThresholdText = new Text();
         displacedThresholdText.textProperty().bind(displacedThreshold.asString());
         displacedThresholdBox.getChildren().addAll(displacedThresholdLabel, displacedThresholdText);
