@@ -99,7 +99,7 @@ public class MainScene extends BaseScene {
         //Todo: add runway selection functionality
         //Left Panel
         leftPanel = new HBox();
-        leftPanel.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+        leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("0598ff"), null, null)));
         leftPanel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         leftPanel.setAlignment(Pos.CENTER);
         leftCollapseButton = new Button("<");
@@ -119,7 +119,7 @@ public class MainScene extends BaseScene {
         //Todo set calculation breakdowns
         //Right Panel
         rightPanel = new HBox();
-        rightPanel.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+        rightPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("0598ff"), null, null)));
         rightPanel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         rightPanel.setAlignment(Pos.CENTER);
         rightCollapseButton = new Button(">");
