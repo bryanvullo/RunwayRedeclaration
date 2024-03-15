@@ -26,11 +26,13 @@ import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
 import uk.ac.soton.comp2211.component.CalculationBreakdown;
 import uk.ac.soton.comp2211.component.CalculationTab;
+import uk.ac.soton.comp2211.component.CustomObstacleDialog;
 import uk.ac.soton.comp2211.component.MenuBar;
 import uk.ac.soton.comp2211.component.ObstacleLocationDialog;
 import uk.ac.soton.comp2211.component.ObstaclesBox;
 import uk.ac.soton.comp2211.component.RunwayBox;
 import uk.ac.soton.comp2211.component.SystemMessageBox;
+import uk.ac.soton.comp2211.dataStructure.CustomObstacleLocation;
 import uk.ac.soton.comp2211.dataStructure.ObstacleLocation;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
@@ -226,10 +228,10 @@ public class MainScene extends BaseScene {
         });
         obstacleBox.getCustomButton().setOnAction((e) -> {
             logger.info("Custom Button Pressed");
-            //TODO implement a popup for custom obstacle
-            //TODO send this new obstacle to updateObstacle
             
-            var obstacle = getInputAdvancedObstacle();
+            var obstacle = new AdvancedObstacle();
+            
+            getInputAdvancedObstacle(obstacle);
             
             updateObstacle( obstacle );
         });
@@ -293,9 +295,32 @@ public class MainScene extends BaseScene {
         });
     }
     
-    private AdvancedObstacle getInputAdvancedObstacle() {
-        //TODO implement a popup for custom obstacle
-        return null;
+    private void getInputAdvancedObstacle(AdvancedObstacle customObstacle) {
+        
+        var customObstacleDialog = new CustomObstacleDialog();
+        customObstacleDialog.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                return new CustomObstacleLocation(
+                    customObstacleDialog.getName(),
+                    Double.parseDouble(customObstacleDialog.getHeightValue()),
+                    Double.parseDouble(customObstacleDialog.getWidthValue()),
+                    Double.parseDouble(customObstacleDialog.getLength()),
+                    Double.parseDouble(customObstacleDialog.getDistanceFromLeftThreshold()),
+                    Double.parseDouble(customObstacleDialog.getDistanceFromRightThreshold()),
+                    Double.parseDouble(customObstacleDialog.getDistanceFromCentre()));
+            }
+            return null;
+            });
+        var optionalResult = customObstacleDialog.showAndWait();
+        optionalResult.ifPresent( (CustomObstacleLocation result) -> {
+            customObstacle.setObstacleName(result.getName());
+            customObstacle.setHeight(result.getHeight());
+            customObstacle.setWidth(result.getWidth());
+            customObstacle.setLength(result.getLength());
+            customObstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
+            customObstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
+            customObstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+        });
     }
     
     private void updateObstacle(AdvancedObstacle obstacle) {
