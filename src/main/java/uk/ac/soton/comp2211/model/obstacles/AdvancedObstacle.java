@@ -35,7 +35,7 @@ public class AdvancedObstacle extends Obstacle {
     public AdvancedObstacle(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold,
         Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
         super(validatePositive(validateNotUnrealistic(height, "Height"), "Height"),
-            Math.min(distanceRightThreshold.intValue(), distanceLeftThreshold.intValue())); //This is assuming the correct calculations for distance and correct values for obstacles are already correct and calculated correctly
+            Math.min(distanceRightThreshold, distanceLeftThreshold)); //This is assuming the correct calculations for distance and correct values for obstacles are already correct and calculated correctly
         this.obstacleName = obstacleName;
         this.width = validatePositive(validateNotUnrealistic(width, "Width"), "Width");
         this.length = validatePositive(validateNotUnrealistic(length, "Length"), "Length");
@@ -44,7 +44,10 @@ public class AdvancedObstacle extends Obstacle {
         this.distanceFromCentre = distanceFromCentre;
         this.obstacleProperties = obstacleProperties;
     }
-
+    
+    public AdvancedObstacle() {
+    }
+    
     /* This method calculates the impact of an obstacle on runway parameters (TORA, TODA, ASDA, LDA) based on its position and dimensions.
        This is particularly useful for flight planning and safety assessments.*/
     public Map<String, Double> calculateRunwayImpact(Runway runway) {
