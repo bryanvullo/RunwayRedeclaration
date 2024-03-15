@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -26,9 +27,11 @@ import uk.ac.soton.comp2211.component.ActiveObstacle;
 import uk.ac.soton.comp2211.component.CalculationBreakdown;
 import uk.ac.soton.comp2211.component.CalculationTab;
 import uk.ac.soton.comp2211.component.MenuBar;
+import uk.ac.soton.comp2211.component.ObstacleLocationDialog;
 import uk.ac.soton.comp2211.component.ObstaclesBox;
 import uk.ac.soton.comp2211.component.RunwayBox;
 import uk.ac.soton.comp2211.component.SystemMessageBox;
+import uk.ac.soton.comp2211.dataStructure.ObstacleLocation;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
 import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
@@ -187,24 +190,48 @@ public class MainScene extends BaseScene {
         
         obstacleBox.getBoeingButton().setOnAction((e) -> {
             logger.info("Boeing Button Pressed");
-            updateObstacle( Plane.createPlane("Boeing 747") );
+            
+            var obstacle = Plane.createPlane("Boeing 747");
+            
+            updateObstacleLocation(obstacle);
+            
+            updateObstacle( obstacle );
         });
         obstacleBox.getAirbusButton().setOnAction((e) -> {
             logger.info("Airbus Button Pressed");
-            updateObstacle( Plane.createPlane("Airbus A380") );
+            
+            var obstacle = Plane.createPlane("Airbus A380");
+            
+            updateObstacleLocation(obstacle);
+            
+            updateObstacle( obstacle );
         });
         obstacleBox.getContainerButton().setOnAction((e) -> {
             logger.info("Container Button Pressed");
-            updateObstacle( Container.createContainer() );
+            
+            var obstacle = Container.createContainer();
+            
+            updateObstacleLocation(obstacle);
+            
+            updateObstacle( obstacle );
         });
         obstacleBox.getShuttleBusButton().setOnAction((e) -> {
             logger.info("Shuttle Bus Button Pressed");
-            updateObstacle( ShuttleBus.createShuttleBus() );
+            
+            var obstacle = ShuttleBus.createShuttleBus();
+            
+            updateObstacleLocation(obstacle);
+            
+            updateObstacle( obstacle );
         });
         obstacleBox.getCustomButton().setOnAction((e) -> {
             logger.info("Custom Button Pressed");
             //TODO implement a popup for custom obstacle
             //TODO send this new obstacle to updateObstacle
+            
+            var obstacle = getInputAdvancedObstacle();
+            
+            updateObstacle( obstacle );
         });
     }
     
@@ -245,6 +272,30 @@ public class MainScene extends BaseScene {
     private void updateRunway(Runway runway) {
         selectedRunway = runway;
         tool.setRunway(runway);
+    }
+    
+    private void updateObstacleLocation(AdvancedObstacle obstacle) {
+        var locationDialog = new ObstacleLocationDialog();
+        locationDialog.setResultConverter(button -> {
+            if (button == ButtonType.OK) {
+                return new ObstacleLocation(
+                    Double.parseDouble(locationDialog.getDistanceFromLeftThreshold()),
+                    Double.parseDouble(locationDialog.getDistanceFromRightThreshold()),
+                    Double.parseDouble(locationDialog.getDistanceFromCentre()));
+            }
+            return null;
+            });
+        var optionalResult = locationDialog.showAndWait();
+        optionalResult.ifPresent( (ObstacleLocation result) -> {
+            obstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
+            obstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
+            obstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+        });
+    }
+    
+    private AdvancedObstacle getInputAdvancedObstacle() {
+        //TODO implement a popup for custom obstacle
+        return null;
     }
     
     private void updateObstacle(AdvancedObstacle obstacle) {
