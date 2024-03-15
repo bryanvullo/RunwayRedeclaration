@@ -2,6 +2,7 @@ module uk.ac.soton.comp2211 {
   requires javafx.controls;
   requires javafx.fxml;
   requires org.apache.logging.log4j;
+  requires java.sql;
   requires org.mongodb.driver.sync.client;
   requires org.mongodb.driver.core;
   requires org.mongodb.bson;

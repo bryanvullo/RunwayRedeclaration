@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.Map;
 import java.util.HashMap;
+import uk.ac.soton.comp2211.model.Calculation;
+import uk.ac.soton.comp2211.model.Runway;
 
 /**
  * This class represents and models obstacles in a more advanced manner, providing their properties and additional information.
@@ -16,8 +18,8 @@ import java.util.HashMap;
  */
 public class AdvancedObstacle extends Obstacle {
     private String obstacleName;
-    private int width, length; //height and width of obstacle. Note: height is inherited from Obstacle
-    private int distanceRightThreshold, distanceLeftThreshold, distanceFromCentre; //distance from the threshold
+    private Double width, length; //height and width of obstacle. Note: height is inherited from Obstacle
+    private Double distanceRightThreshold, distanceLeftThreshold, distanceFromCentre; //distance from the threshold
     private Optional <Properties> obstacleProperties; //the properties of an obstacle outside dimensions that may be relevant
     private static final Logger logger = LogManager.getLogger(AdvancedObstacle.class);
 
@@ -32,8 +34,10 @@ public class AdvancedObstacle extends Obstacle {
      * @param distanceFromCentre the distance from the center-line
      * @param obstacleProperties the additional properties of the obstacle that may provide additional information
      */
-    public AdvancedObstacle(String obstacleName, int height, int width, int length, int distanceRightThreshold, int distanceLeftThreshold, int distanceFromCentre, Optional<Properties> obstacleProperties) {
-        super(validatePositive(validateNotUnrealistic(height, "Height"), "Height"), Math.min(distanceRightThreshold, distanceLeftThreshold)); //This is assuming the correct calculations for distance and correct values for obstacles are already correct and calculated correctly
+    public AdvancedObstacle(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold,
+        Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
+        super(validatePositive(validateNotUnrealistic(height, "Height"), "Height"),
+            Math.min(distanceRightThreshold, distanceLeftThreshold)); //This is assuming the correct calculations for distance and correct values for obstacles are already correct and calculated correctly
         this.obstacleName = obstacleName;
         this.width = validatePositive(validateNotUnrealistic(width, "Width"), "Width");
         this.length = validatePositive(validateNotUnrealistic(length, "Length"), "Length");
@@ -42,7 +46,10 @@ public class AdvancedObstacle extends Obstacle {
         this.distanceFromCentre = distanceFromCentre;
         this.obstacleProperties = obstacleProperties;
     }
-
+    
+    public AdvancedObstacle() {
+    }
+    
     /* This method calculates the impact of an obstacle on runway parameters (TORA, TODA, ASDA, LDA) based on its position and dimensions.
        This is particularly useful for flight planning and safety assessments.*/
     public Map<String, Double> calculateRunwayImpact(Runway runway) {
@@ -83,7 +90,7 @@ public class AdvancedObstacle extends Obstacle {
     /* This method provides a textual description of the obstacle suitable for accessibility purposes, which enhances the system's usability with assistive technologies.
        Again, this is one of the key requirements*/
     public String getDescriptionForAccessibility() {
-        return String.format("Obstacle named %s: height %d meters, width %d meters, length %d meters, near thresholds and centre line.",
+        return String.format("Obstacle named %s: height %f meters, width %f meters, length %f meters, near thresholds and centre line.",
                 getObstacleName(), getHeight(), getWidth(), getLength());
     }
 
@@ -112,28 +119,28 @@ public class AdvancedObstacle extends Obstacle {
      * Returns the width of the obstacle.
      * @return the obstacle width.
      */
-    public int getWidth() {
+    public Double getWidth() {
         return width;
     }
     /**
      * Sets the width of the obstacle.
      * @param width the obstacle width.
      */
-    public void setWidth(int width) {
+    public void setWidth(Double width) {
         this.width = width;
     }
     /**
      * Returns the length of the obstacle.
      * @return the length of the obstacle.
      */
-    public int getLength() {
+    public Double getLength() {
         return length;
     }
     /**
      * Sets the length of the obstacle.
      * @param length the obstacle length
      */
-    public void setLength(int length) {
+    public void setLength(Double length) {
         this.length = length;
     }
 
@@ -141,14 +148,14 @@ public class AdvancedObstacle extends Obstacle {
      * Returns the distance from the right threshold.
      * @return the distance from the right threshold.
      */
-    public int getDistanceRightThreshold() {
+    public double getDistanceRightThreshold() {
         return distanceRightThreshold;
     }
     /**
      * Sets the distance from the right threshold.
      * @param distanceRightThreshold the distance from the right threshold.
      */
-    public void setDistanceRightThreshold(int distanceRightThreshold) {
+    public void setDistanceRightThreshold(double distanceRightThreshold) {
         this.distanceRightThreshold = distanceRightThreshold;
     }
 
@@ -156,14 +163,14 @@ public class AdvancedObstacle extends Obstacle {
      * Returns the distance from the left threshold.
      * @return the distance from the left threshold.
      */
-    public int getDistanceLeftThreshold() {
+    public double getDistanceLeftThreshold() {
         return distanceLeftThreshold;
     }
     /**
      * Sets the distance from the left threshold.
      * @param distanceLeftThreshold the distance from the left threshold.
      */
-    public void setDistanceLeftThreshold(int distanceLeftThreshold) {
+    public void setDistanceLeftThreshold(double distanceLeftThreshold) {
         this.distanceLeftThreshold = distanceLeftThreshold;
     }
 
@@ -171,14 +178,14 @@ public class AdvancedObstacle extends Obstacle {
      * Returns the distance from the centre line.
      * @return the distance from the centre line.
      */
-    public int getDistanceFromCentre() {
+    public double getDistanceFromCentre() {
         return distanceFromCentre;
     }
     /**
      * Sets the distance from the centre line.
      * @param distanceFromCentre the distance from the centre line.
      */
-    public void setDistanceFromCentre(int distanceFromCentre) {
+    public void setDistanceFromCentre(double distanceFromCentre) {
         this.distanceFromCentre = distanceFromCentre;
     }
 
@@ -198,14 +205,14 @@ public class AdvancedObstacle extends Obstacle {
     }
 
     // This is a utility method for validating that a value is positive - for physical dimensions, i.e. Height, Length, and Width
-    private static int validatePositive(int value, String fieldName) {
+    private static Double validatePositive(Double value, String fieldName) {
         if (value < 0) {
             throw new IllegalArgumentException(fieldName + " cannot be a negative value.");
         }
         return value; //Return the value if it passes the check
     }
     // This utility method validates that a dimension value is not unrealistically large
-    private static int validateNotUnrealistic(int value, String fieldName) {
+    private static Double validateNotUnrealistic(Double value, String fieldName) {
         if (value > 100000) {
             throw new IllegalArgumentException(fieldName + " is unrealistically large and cannot be accepted.");
         }

@@ -12,11 +12,11 @@ import java.util.Properties;
 
 public class Container extends AdvancedObstacle {
 
-    private Container(String obstacleName, int height, int width, int length, int distanceRightThreshold, int distanceLeftThreshold, int distanceFromCentre, Optional<Properties> obstacleProperties) {
+    private Container(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold, Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
         super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre, obstacleProperties);
     }
 
     public static Container createContainer() {
-        return new Container("Cargo Container", 3, 2, 12, 0, 0, 0, Optional.empty());
+        return new Container("Cargo Container", 3.0, 2.0, 12.0, 0.0, 0.0, 0.0, Optional.empty());
     }
 }

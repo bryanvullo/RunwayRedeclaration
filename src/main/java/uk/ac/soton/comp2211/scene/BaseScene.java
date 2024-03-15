@@ -50,6 +50,7 @@ public abstract class BaseScene {
     public Scene setScene() {
         var previous = appWindow.getScene();
         Scene scene = new Scene(root, previous.getWidth(), previous.getHeight(), Color.BLACK);
+        scene.getStylesheets().add(getClass().getResource("/style/main.css").toExternalForm());
         this.scene = scene;
         return scene;
     }

@@ -14,15 +14,15 @@ public class TestObstacle {
     @Test
     void testNegativeDimensionsRejected() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new AdvancedObstacle("Test Obstacle", -1, 10, 10, 0, 0, 0, Optional.empty());
+            new AdvancedObstacle("Test Obstacle", -1.0, 10.0, 10.0, 0.0, 0.0, 0.0, Optional.empty());
         }, "Height cannot be a negative value.");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            new AdvancedObstacle("Test Obstacle", 10, -1, 10, 0, 0, 0, Optional.empty());
+            new AdvancedObstacle("Test Obstacle", 10.0, -1.0, 10.0, 0.0, 0.0, 0.0, Optional.empty());
         }, "Width cannot be a negative value.");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            new AdvancedObstacle("Test Obstacle", 10, 10, -1, 0, 0, 0, Optional.empty());
+            new AdvancedObstacle("Test Obstacle", 10.0, 10.0, -1.0, 0.0, 0.0, 0.0, Optional.empty());
         }, "Length cannot be a negative value.");
     }
 
@@ -34,22 +34,22 @@ public class TestObstacle {
     void testUnrealisticDimensionsRejected() {
         assertThrows(IllegalArgumentException.class, () -> {
             // Attempt to create an AdvancedObstacle with unrealistic height, width and length values
-            new AdvancedObstacle("Unrealistically Large Obstacle", 200000, 100001, 100002, 50, 50, 50, Optional.empty());
+            new AdvancedObstacle("Unrealistically Large Obstacle", 200000.0, 100001.0, 100002.0, 50.0, 50.0, 50.0, Optional.empty());
             }, "Obstacle dimensions should be within realistic limits.");
 
             // Test for height
             assertThrows(IllegalArgumentException.class, () -> {
-                new AdvancedObstacle("Unrealistically Large Obstacle", 200001, 50, 50, 100, 0, 0, Optional.empty());
+                new AdvancedObstacle("Unrealistically Large Obstacle", 200001.0, 50.0, 50.0, 100.0, 0.0, 0.0, Optional.empty());
             }, "Height is unrealistically large and should not be accepted.");
 
             // Test for width
             assertThrows(IllegalArgumentException.class, () -> {
-                new AdvancedObstacle("Unrealistically Large Obstacle", 20, 100001, 50, 20, 50, 0, Optional.empty());
+                new AdvancedObstacle("Unrealistically Large Obstacle", 20.0, 100001.0, 50.0, 20.0, 50.0, 0.0, Optional.empty());
             }, "Width is unrealistically large and should not be accepted.");
 
             // Test for length
             assertThrows(IllegalArgumentException.class, () -> {
-                new AdvancedObstacle("Unrealistically Large Obstacle", 20, 50, 100002, 500, 0, 110, Optional.empty());
+                new AdvancedObstacle("Unrealistically Large Obstacle", 20.0, 50.0, 100002.0, 500.0, 0.0, 110.0, Optional.empty());
             }, "Length is unrealistically large and should not be accepted.");
     }
 

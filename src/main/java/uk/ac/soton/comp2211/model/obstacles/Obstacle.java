@@ -13,12 +13,12 @@ public class Obstacle {
     /**
      * The height of the obstacle
      */
-    private final int height;
+    private Double height;
     
     /**
      * The distance from the threshold
      */
-    private int distanceFromThreshold;
+    private Double distanceFromThreshold;
     
     
     /**
@@ -26,16 +26,33 @@ public class Obstacle {
      * @param height the height of the obstacle
      * @param distanceFromThreshold the distance from the threshold
      */
-    public Obstacle(int height, int distanceFromThreshold) {
+    public Obstacle(Double height, Double distanceFromThreshold) {
+        logger.info("Creating Obstacle");
         this.height = height;
         this.distanceFromThreshold = distanceFromThreshold;
+    }
+    
+    /**
+     * Constructor for the Obstacle class
+     */
+    public Obstacle() {
+    }
+    
+    /**
+     * Sets the height of the obstacle
+     * @param height the height of the obstacle
+     */
+    public void setHeight(Double height) {
+        logger.info("Setting height of obstacle to " + height);
+        this.height = height;
     }
     
     /**
      * Returns the height of the obstacle
      * @return the height of the obstacle
      */
-    public int getHeight() {
+    public Double getHeight() {
+        logger.info("Getting height of obstacle");
         return height;
     }
     
@@ -43,7 +60,8 @@ public class Obstacle {
      * Returns the distance from the threshold
      * @return the distance from the threshold
      */
-    public int getDistanceFromThreshold() {
+    public Double getDistanceFromThreshold() {
+        logger.info("Getting distance from threshold");
         return distanceFromThreshold;
     }
 }

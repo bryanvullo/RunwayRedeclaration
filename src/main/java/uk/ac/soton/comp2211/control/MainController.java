@@ -58,9 +58,9 @@ public class MainController implements Initializable {
   }
 
   public void recalculate(ActionEvent e) {
-    var lthreshold = Integer.parseInt(lThresholdField.getText());
+    Double lthreshold = Double.parseDouble(lThresholdField.getText());
 
-    var height = Integer.parseInt(heightField.getText());
+    Double height = Double.parseDouble(heightField.getText());
 
     var obstacle = new Obstacle(height, lthreshold);
 
