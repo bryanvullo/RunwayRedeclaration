@@ -39,7 +39,6 @@ public class ObstaclesBox extends VBox {
         
         var obstacleBox = new ScrollPane();
         obstacleBox.setFitToWidth(true);
-//        obstacleBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
         getChildren().add(obstacleBox);
         
         var buttonBox = new VBox();
