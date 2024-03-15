@@ -66,7 +66,7 @@
                   <Image url="@../img/key-solid.png" />
                </image>
             </ImageView>
-            <Hyperlink fx:id="button_Loggin" layoutX="136.0" layoutY="406.0" styleClass="hyperLink" stylesheets="@../stylesheet.css" text="Login here">
+            <Hyperlink fx:id="button_Loggin" layoutX="136.0" layoutY="406.0" styleClass="hyperLink" stylesheets="@../css/stylesheet.css" text="Login here">
                <font>
                   <Font size="15.0" />
                </font></Hyperlink>
@@ -86,7 +86,7 @@
                   <Font name="Ebrima" size="10.0" />
                </font>
             </Label>
-            <JFXButton fx:id="buttonSign_Up" buttonType="RAISED" layoutX="103.0" layoutY="364.0" prefHeight="42.0" prefWidth="145.0" ripplerFill="#0598ff" styleClass="loginButton" stylesheets="@../stylesheet.css" text="SignUp">
+            <JFXButton fx:id="buttonSign_Up" buttonType="RAISED" layoutX="103.0" layoutY="364.0" prefHeight="42.0" prefWidth="145.0" ripplerFill="#0598ff" styleClass="loginButton" stylesheets="@../css/stylesheet.css" text="SignUp">
                <font>
                   <Font name="Ebrima Bold" size="12.0" />
                </font></JFXButton>

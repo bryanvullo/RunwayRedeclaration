@@ -59,7 +59,7 @@ public class DBUtils {
     if (!username.isEmpty() && !password.isEmpty()) {
       database.insertUser(username, password, acess_level);
       logger.info("User registered successfully");
-      changeScene(actionEvent, "/fxml/mainPage.fxml", "Login", null, null);
+      changeScene(actionEvent, "/fxml/login-page.fxml", "Login", null, null);
     } else {
       logger.warning("Username or password is empty");
     }

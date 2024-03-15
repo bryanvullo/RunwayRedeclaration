@@ -1,5 +1,6 @@
 package uk.ac.soton.comp2211.control;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 public class SignUpController implements Initializable {
 
   @FXML
-  Button buttonSign_Up;
+  JFXButton buttonSign_Up;
   @FXML
   Hyperlink button_Loggin;
   @FXML

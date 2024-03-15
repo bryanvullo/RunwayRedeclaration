@@ -6,6 +6,7 @@ module uk.ac.soton.comp2211 {
   requires org.mongodb.driver.core;
   requires org.mongodb.bson;
   requires java.logging;
+  requires com.jfoenix;
 
   opens uk.ac.soton.comp2211 to javafx.fxml;
   opens uk.ac.soton.comp2211.control to javafx.fxml;
