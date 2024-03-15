@@ -3,8 +3,11 @@ package uk.ac.soton.comp2211.component;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,9 +38,14 @@ public class ObstaclesBox extends VBox {
         getChildren().add(title);
         
         var obstacleBox = new ScrollPane();
+        obstacleBox.setFitToWidth(true);
+//        obstacleBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
         getChildren().add(obstacleBox);
         
         var buttonBox = new VBox();
+        buttonBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
+        buttonBox.setPadding(new Insets(3));
+        buttonBox.setSpacing(3);
         obstacleBox.setContent(buttonBox);
         
         boeingButton = new Button("Boeing 747");
