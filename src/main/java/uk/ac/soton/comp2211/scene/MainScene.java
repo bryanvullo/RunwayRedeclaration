@@ -31,6 +31,7 @@ import uk.ac.soton.comp2211.component.MenuBar;
 import uk.ac.soton.comp2211.component.ObstacleLocationDialog;
 import uk.ac.soton.comp2211.component.ObstaclesBox;
 import uk.ac.soton.comp2211.component.RunwayBox;
+import uk.ac.soton.comp2211.component.RunwayViewBox;
 import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.dataStructure.CustomObstacleLocation;
 import uk.ac.soton.comp2211.dataStructure.ObstacleLocation;
@@ -88,9 +89,8 @@ public class MainScene extends BaseScene {
         mainPane.setMaxHeight(appWindow.getHeight());
         root.getChildren().add(mainPane);
         
-        var testText = new Text("This is the main scene");
-        testText.setFill(Color.BLACK);
-        mainPane.setCenter(testText);
+        var runwayViewBox = new RunwayViewBox();
+        mainPane.setCenter(runwayViewBox);
         
         //Todo: tool bar MenuItems and functionality
         //Toolbar at the top
