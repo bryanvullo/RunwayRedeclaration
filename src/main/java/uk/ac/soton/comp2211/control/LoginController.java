@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import uk.ac.soton.comp2211.Utility.DBUtils;
 
 import java.net.URL;
@@ -19,7 +16,7 @@ public class LoginController implements Initializable {
   @FXML
   private Button buttonLogin;
   @FXML
-  private Button buttonSignUp;
+  private Hyperlink buttonSignUp;
   @FXML
   private TextField textField_UserName;
   @FXML
@@ -48,7 +45,7 @@ public class LoginController implements Initializable {
       @Override
       public void handle(ActionEvent actionEvent) {
         logger.info("Loaded signUp.fxml file");
-        DBUtils.changeScene(actionEvent, "/fxml/signUp.fxml", "Sign Up", null, null);
+        DBUtils.changeScene(actionEvent, "/fxml/sign-up.fxml", "Sign Up", null, null);
       }
     });
   }

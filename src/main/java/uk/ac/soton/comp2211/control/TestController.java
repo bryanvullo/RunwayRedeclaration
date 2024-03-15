@@ -25,7 +25,7 @@ public class TestController implements Initializable {
     logoutButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        DBUtils.changeScene(actionEvent, "/fxml/mainPage.fxml", "Login", null, null);
+        DBUtils.changeScene(actionEvent, "/fxml/login-page.fxml", "Login", null, null);
       }
     });
   }

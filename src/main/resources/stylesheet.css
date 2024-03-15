@@ -1,0 +1,19 @@
+.hyperLink:hover {
+    -fx-text-fill: #0598ff;
+}
+
+.loginButton {
+    -fx-background-color: #0598ff;
+    -fx-text-fill: #FFF;
+    -fx-background-radius: 5px;
+}
+
+.loginButton:hover {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #0598ff;
+    -fx-border-color: #0598ff;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}

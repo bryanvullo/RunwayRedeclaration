@@ -73,7 +73,7 @@ public class MainController implements Initializable {
 
     public void logout(ActionEvent e) {
       System.out.println("Logging out");
-      DBUtils.changeScene(e, "/fxml/mainPage.fxml", "Login", null, null);
+      DBUtils.changeScene(e, "/fxml/login-page.fxml", "Login", null, null);
     }
 
   public void editObstacle(ActionEvent e) {
