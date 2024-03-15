@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import uk.ac.soton.comp2211.Utility.DBUtils;
-import uk.ac.soton.comp2211.model.Obstacles.Obstacle;
+import uk.ac.soton.comp2211.model.obstacles.Obstacle;
 import uk.ac.soton.comp2211.model.Tool;
 
 public class MainController implements Initializable {
