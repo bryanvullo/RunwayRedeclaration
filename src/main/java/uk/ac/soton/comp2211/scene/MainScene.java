@@ -97,7 +97,7 @@ public class MainScene extends BaseScene {
         var toolbar = new MenuBar();
         mainPane.setTop(toolbar);
 
-        //Todo: add button functionality
+        //Todo: add runway selection functionality
         //Left Panel
         leftPanel = new HBox();
         leftPanel.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
@@ -117,7 +117,7 @@ public class MainScene extends BaseScene {
         leftPanel.getChildren().addAll(leftBar, leftCollapsibleBar);
         mainPane.setLeft(leftPanel);
 
-        //Todo set active obstacle and calculation breakdowns
+        //Todo set calculation breakdowns
         //Right Panel
         rightPanel = new HBox();
         rightPanel.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
@@ -136,8 +136,8 @@ public class MainScene extends BaseScene {
         VBox.setVgrow(calculationBreakdownBox, Priority.ALWAYS);
         rightPanel.getChildren().addAll(rightCollapsibleBar, activeBar);
         mainPane.setRight(rightPanel);
-
-        //Todo: calculation tab interaction
+        
+        //TODO system messages
         //Bottom bar: System message and calculation tab
         var bottomBar = new HBox();
         var systemMessageBox = new SystemMessageBox();
