@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import uk.ac.soton.comp2211.Utility.DBUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -32,7 +33,11 @@ public class LoginController implements Initializable {
     buttonLogin.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent actionEvent) {
-        DBUtils.logInUser(actionEvent, textField_UserName.getText().trim(), textField_Password.getText().trim());
+        try {
+          DBUtils.logInUser(actionEvent, textField_UserName.getText().trim(), textField_Password.getText().trim());
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
       }
     });
 
