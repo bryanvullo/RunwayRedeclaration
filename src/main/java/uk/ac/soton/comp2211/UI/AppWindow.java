@@ -12,6 +12,8 @@ import uk.ac.soton.comp2211.scene.BaseScene;
 import uk.ac.soton.comp2211.App;
 import uk.ac.soton.comp2211.scene.MainScene;
 
+import java.io.IOException;
+
 /**
  * The AppWindow is the single window for the App where everything takes place. To move between screens in the App,
  * we simply change the scene.
@@ -37,7 +39,7 @@ public class AppWindow {
      * @param width width
      * @param height height
      */
-    public AppWindow(Stage stage, int width, int height) {
+    public AppWindow(Stage stage, int width, int height) throws IOException {
         this.width = width;
         this.height = height;
         
@@ -52,7 +54,7 @@ public class AppWindow {
         startTool();
     }
     
-    public void startTool() {
+    public void startTool() throws IOException {
         logger.info("Starting the tool");
         loadScene(new MainScene(this));
     }
@@ -62,8 +64,8 @@ public class AppWindow {
      */
     public void setupStage() {
         stage.setTitle("Runway Redeclaration Tool");
-        stage.setMinWidth(width);
-        stage.setMinHeight(height);
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         stage.setOnCloseRequest(ev -> App.getInstance().shutdown());
     }
     
@@ -71,7 +73,7 @@ public class AppWindow {
      * Load a given scene which extends BaseScene and switch over.
      * @param newScene new scene to load
      */
-    public void loadScene(BaseScene newScene) {
+    public void loadScene(BaseScene newScene) throws IOException {
         //Cleanup remains of the previous scene
         cleanup();
         
@@ -89,7 +91,7 @@ public class AppWindow {
      * Set up the default scene (an empty black scene) when no scene is loaded
      */
     public void setupDefaultScene() {
-        this.scene = new Scene(new Pane(),width,height, Color.BLACK);
+        this.scene = new Scene(new Pane(),1000,800, Color.BLACK);
         stage.setScene(this.scene);
     }
     

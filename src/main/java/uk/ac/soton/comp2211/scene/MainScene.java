@@ -2,6 +2,7 @@ package uk.ac.soton.comp2211.scene;
 
 import javafx.event.Event;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -326,5 +327,8 @@ public class MainScene extends BaseScene {
         selectedObstacle = obstacle;
         activeObstacle.update(obstacle);
     }
-    
+
+  public Parent getRoot() {
+    return root;
+  }
 }

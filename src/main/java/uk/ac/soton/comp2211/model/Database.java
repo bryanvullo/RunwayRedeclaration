@@ -77,6 +77,7 @@ public class Database {
     MongoDatabase database = mongoClient.getDatabase("UserDatabase");
     MongoCollection<Document> users = database.getCollection("users");
     Document query = new Document("username", username);
+    System.out.println("Query: " + query.toJson());
     Document user = users.find(query).first();
     return user != null && user.getString("password").equals(password);
   }

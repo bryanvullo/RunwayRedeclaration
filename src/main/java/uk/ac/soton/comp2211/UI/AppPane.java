@@ -57,37 +57,37 @@ public class AppPane extends StackPane {
     public void layoutChildren() {
         super.layoutChildren();
         
-        if(!autoScale) {
-            return;
-        }
-        
-        //Work out the scale factor height and width
-        var scaleFactorHeight = getHeight() / height;
-        var scaleFactorWidth = getWidth() / width;
-        
-        //Work out whether to scale by width or height
-        if (scaleFactorHeight > scaleFactorWidth) {
-            setScalar(scaleFactorWidth);
-        } else {
-            setScalar(scaleFactorHeight);
-        }
-        
-        //Set up the scale
-        Scale scale = new Scale(scalar,scalar);
-        
-        //Get the parent width and height
-        var parentWidth = getWidth();
-        var parentHeight = getHeight();
-        
-        //Get the padding needed on the top and left
-        var paddingLeft = (parentWidth - (width * scalar)) / 2.0;
-        var paddingTop = (parentHeight - (height * scalar)) / 2.0;
-        
-        //Perform the transformation
-        Translate translate = new Translate(paddingLeft, paddingTop);
-        scale.setPivotX(0);
-        scale.setPivotY(0);
-        getTransforms().setAll(translate, scale);
+//        if(!autoScale) {
+//            return;
+//        }
+//
+//        //Work out the scale factor height and width
+//        var scaleFactorHeight = getHeight() / height;
+//        var scaleFactorWidth = getWidth() / width;
+//
+//        //Work out whether to scale by width or height
+//        if (scaleFactorHeight > scaleFactorWidth) {
+//            setScalar(scaleFactorWidth);
+//        } else {
+//            setScalar(scaleFactorHeight);
+//        }
+//
+//        //Set up the scale
+//        Scale scale = new Scale(scalar,scalar);
+//
+//        //Get the parent width and height
+//        var parentWidth = getWidth();
+//        var parentHeight = getHeight();
+//
+//        //Get the padding needed on the top and left
+//        var paddingLeft = (parentWidth - (width * scalar)) / 2.0;
+//        var paddingTop = (parentHeight - (height * scalar)) / 2.0;
+//
+//        //Perform the transformation
+//        Translate translate = new Translate(paddingLeft, paddingTop);
+//        scale.setPivotX(0);
+//        scale.setPivotY(0);
+//        getTransforms().setAll(translate, scale);
     }
     
 }

@@ -63,7 +63,7 @@ public class App extends Application {
      * @param stage the default stage, main window
      */
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
         instance = this;
         this.stage = stage;
 
@@ -71,7 +71,7 @@ public class App extends Application {
         openApp();
     }
     
-    public void openApp() {
+    public void openApp() throws IOException {
         logger.info("Opening game window");
         
         //Change the width and height in this class to change the base rendering resolution for all game parts

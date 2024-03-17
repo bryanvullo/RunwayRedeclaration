@@ -9,7 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.model.Database;
+import uk.ac.soton.comp2211.scene.MainScene;
 
 
 import java.io.IOException;
@@ -46,6 +48,23 @@ public class DBUtils {
     stage.show();
   }
 
+  public static <AppWindow> void changeSceneToMainScene(ActionEvent actionEvent, uk.ac.soton.comp2211.UI.AppWindow appWindow) {
+    // Assuming AppWindow is accessible and correctly initialized earlier in your application
+    MainScene mainScene = new MainScene(appWindow);
+    mainScene.initialise(); // If needed to initialise components
+    mainScene.build(); // Builds the UI components
+
+    // Get the current stage from the action event
+    Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
+    // Set the scene to your main scene
+    Scene scene = new Scene(mainScene.getRoot()); // Ensure getRoot() provides access to the root pane of MainScene
+    stage.setScene(scene);
+
+    stage.show();
+  }
+
+
   public static void signUpUser(ActionEvent actionEvent, String username, String password, String acess_level) {
     try {
       mongoClient = MongoClients.create(Database.getConnectionString());
@@ -65,7 +84,7 @@ public class DBUtils {
     }
   }
 
-  public static void logInUser(ActionEvent actionEvent, String username, String password) {
+  public static void logInUser(ActionEvent actionEvent, String username, String password) throws IOException {
     try {
       mongoClient = MongoClients.create(Database.getConnectionString());
       database = new Database(mongoClient);
@@ -77,7 +96,7 @@ public class DBUtils {
       if (database.userExists(username)) {
         logger.info("User exists");
         if (database.checkPassword(username, password)) {
-          DBUtils.changeScene(actionEvent, "/fxml/TopDownView.fxml", "TopDown View", username, database.getAccessLevel(username).toString());
+          changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
           logger.info("Password is correct");
         } else {
           Alert alert = new Alert(Alert.AlertType.ERROR);
