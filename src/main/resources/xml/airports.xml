@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<airports>
+    <airport>
+        <name>Heathrow</name>
+        <runways>
+            <runway>
+                <name></name> <!-- Runway name ie. (09L/27R)-->
+                <logicalRunway>
+                    <name></name> <!-- Logical runway name ie. (09L) -->
+                    <tora></tora>
+                    <toda></toda>
+                    <asda></asda>
+                    <lda></lda>
+                    <clearway></clearway>
+                    <stopway></stopway>
+                    <displacedThreshold></displacedThreshold>
+                </logicalRunway>
+            </runway>
+        </runways>
+    </airport>
+    <airport>
+      <name>Gatwick</name>
+    </airport>
+    <airport>
+        <name>Stansted</name>
+    </airport>
+    <airport>
+        <name>Birmingham</name>
+    </airport>
+    <airport>
+        <name>Luton</name>
+    </airport>
+</airports>
