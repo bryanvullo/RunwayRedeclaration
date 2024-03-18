@@ -210,4 +210,19 @@ public class Calculation {
         asda = runway.getStopway() != null ? tora + runway.getStopway() : tora;
     }
     
+    /**
+     * Method to get the Obstacle for this calculation
+     * @return the obstacle for this calculation
+     */
+    public Obstacle getObstacle() {
+        return obstacle;
+    }
+    
+    /**
+     * Method to get the Runway for this calculation
+     * @return the runway for this calculation
+     */
+    public Runway getRunway() {
+        return runway;
+    }
 }
