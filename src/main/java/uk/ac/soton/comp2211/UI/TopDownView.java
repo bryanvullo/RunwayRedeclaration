@@ -20,6 +20,8 @@ public class TopDownView extends Application {
         }
     }
 
+
+
     public static void main(String[] args) {
         // Launch the JavaFX application
         launch(args);
