@@ -27,10 +27,7 @@ public class SideRunway extends HBox {
         getChildren().add(runwayView);
 
         StackPane SideRunwayPane = new StackPane();
-        // Create a grey line stretching across the runwayView
-        Line runway = new Line(0, runway.getHeight() / 2, runway.getWidth(), runway.getHeight() / 2);
-        runway.setStroke(Color.GRAY);
-        runway.setStrokeWidth(2); // Adjust the width as needed
+        Line runway = new Line(0, 0, runwayView.getWidth(), runwayView.getHeight());
         runway.setFill(Color.GRAY);
         SideRunwayPane.getChildren().addAll(runway);
 
