@@ -3,7 +3,6 @@ package uk.ac.soton.comp2211.component;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,12 +25,11 @@ public class SideRunway extends HBox {
         VBox.setVgrow(runwayView, Priority.ALWAYS);
         getChildren().add(runwayView);
 
-        StackPane SideRunwayPane = new StackPane();
-        Line runway = new Line(0, 0, runwayView.getWidth(), runwayView.getHeight());
+        StackPane topDownRunwayPane = new StackPane();
+        Rectangle runway = new Rectangle(0, 0, 600, 10);
         runway.setFill(Color.GRAY);
-        SideRunwayPane.getChildren().addAll(runway);
-
-        runwayView.getChildren().add(SideRunwayPane);
+        topDownRunwayPane.getChildren().addAll(runway);
+        runwayView.getChildren().add(topDownRunwayPane);
     }
 
 }

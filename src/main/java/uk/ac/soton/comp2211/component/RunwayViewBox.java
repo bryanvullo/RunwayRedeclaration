@@ -44,7 +44,7 @@ public class RunwayViewBox extends VBox {
         VBox.setVgrow(runwayView, Priority.ALWAYS);
         getChildren().add(runwayView);
 
-        var topDownRunwayPane = new SideRunway();
+        var topDownRunwayPane = new TopDownRunway();
         runwayView.getChildren().add(topDownRunwayPane);
 
         //End of TEMP code
