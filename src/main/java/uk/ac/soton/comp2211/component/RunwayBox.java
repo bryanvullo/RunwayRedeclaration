@@ -2,9 +2,12 @@ package uk.ac.soton.comp2211.component;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
@@ -21,6 +24,8 @@ public class RunwayBox extends VBox {
     private DoubleProperty clearway;
     private DoubleProperty stopway;
     private DoubleProperty displacedThreshold;
+    private ComboBox runwaySelection;
+    private ComboBox airportSelection;
     
     
     public RunwayBox() {
@@ -44,21 +49,23 @@ public class RunwayBox extends VBox {
         title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
-        var airports = new MenuButton("Airports");
-        airports.getItems().addAll(
-            new MenuItem("Heathrow"),
-            new MenuItem("Gatwick"),
-            new MenuItem("Manchester"),
-            new MenuItem("Birmingham"),
-            new MenuItem("Stansted"),
-            new MenuItem("Luton") );
-        getChildren().add(airports);
+        var airportOptions = FXCollections.observableArrayList();
+        airportSelection = new ComboBox(airportOptions);
+        airportSelection.setPromptText("Select Airport");
+        airportSelection.getItems().addAll(
+            "Heathrow",
+            "Gatwick",
+            "Manchester",
+            "Birmingham",
+            "Stansted",
+            "Luton" );
+        getChildren().add(airportSelection);
         
-        var runways = new MenuButton("Runways");
-        runways.getItems().addAll(
-            new MenuItem("09L/27R"),
-            new MenuItem("09R/27L") );
-        getChildren().add(runways);
+        var runwayOptions = FXCollections.observableArrayList();
+        runwaySelection = new ComboBox(runwayOptions);
+        runwaySelection.setPromptText("Select Runway");
+        runwaySelection.setDisable(true);
+        getChildren().add(runwaySelection);
         
         var clearwayBox = new HBox();
         var clearwayLabel = new Text("Clearway: ");
@@ -97,6 +104,14 @@ public class RunwayBox extends VBox {
         clearway.setValue(runway.getClearway());
         stopway.setValue(runway.getStopway());
         displacedThreshold.setValue(runway.getDisplacedThreshold());
+    }
+    
+    public ComboBox getRunwaySelection() {
+        return runwaySelection;
+    }
+    
+    public ComboBox getAirportSelection() {
+        return airportSelection;
     }
 }
    
