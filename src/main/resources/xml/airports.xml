@@ -5,16 +5,49 @@
         <name>Heathrow</name>
         <runways>
             <runway>
-                <name></name> <!-- Runway name ie. (09L/27R)-->
+                <name>09L/27R</name> <!-- Runway name ie. (09L/27R)-->
                 <logicalRunway>
-                    <name></name> <!-- Logical runway name ie. (09L) -->
-                    <tora></tora>
-                    <toda></toda>
-                    <asda></asda>
-                    <lda></lda>
-                    <clearway></clearway>
-                    <stopway></stopway>
-                    <displacedThreshold></displacedThreshold>
+                    <name>09L</name> <!-- Logical runway name ie. (09L) -->
+                    <tora>3901</tora>
+                    <toda>3901</toda>
+                    <asda>3901</asda>
+                    <lda>3592</lda>
+                    <clearway>0</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>309</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway>
+                    <name>27R</name>
+                    <tora>3882</tora>
+                    <toda>3960</toda>
+                    <asda>3882</asda>
+                    <lda>3882</lda>
+                    <clearway>78</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>0</displacedThreshold>
+                </logicalRunway>
+            </runway>
+            <runway>
+                <name>09R/27L</name>
+                <logicalRunway>
+                    <name>09R</name>
+                    <tora>3658</tora>
+                    <toda>3658</toda>
+                    <asda>3658</asda>
+                    <lda>3350</lda>
+                    <clearway>0</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>308</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway>
+                    <name>27L</name>
+                    <tora>3658</tora>
+                    <toda>3658</toda>
+                    <asda>3658</asda>
+                    <lda>3658</lda>
+                    <clearway>0</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>0</displacedThreshold>
                 </logicalRunway>
             </runway>
         </runways>
