@@ -19,8 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
@@ -45,7 +44,7 @@ import uk.ac.soton.comp2211.model.obstacles.ShuttleBus;
 
 public class MainScene extends BaseScene {
     
-    private static final Logger logger = LogManager.getLogger(MainScene.class);
+    private static final Logger logger = Logger.getLogger(MainScene.class.getName());
     
     //Backend Fields
     private Tool tool;

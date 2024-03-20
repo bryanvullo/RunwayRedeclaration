@@ -59,7 +59,7 @@
                   <Image url="@../img/key-solid.png" />
                </image>
             </ImageView>
-            <Hyperlink fx:id="button_Loggin" layoutX="136.0" layoutY="406.0" styleClass="hyperLink" stylesheets="@../css/stylesheet.css" text="Login here">
+            <Hyperlink fx:id="button_Loggin" layoutX="45.0" layoutY="424.0" styleClass="hyperLink" stylesheets="@../css/stylesheet.css" text="Already have an Account? Login here!">
                <font>
                   <Font size="15.0" />
                </font></Hyperlink>

@@ -59,6 +59,7 @@ public class DBUtils {
 
     // Set the scene to your main scene
     Scene scene = new Scene(mainScene.getRoot()); // Ensure getRoot() provides access to the root pane of MainScene
+    stage.setTitle("Runway Re-declaration Tool");
     stage.setScene(scene);
 
     stage.show();
@@ -66,17 +67,8 @@ public class DBUtils {
 
 
   public static void signUpUser(ActionEvent actionEvent, String username, String password, String acess_level) {
-    try {
-      mongoClient = MongoClients.create(Database.getConnectionString());
-      database = new Database(mongoClient);
-      logger.info("Connected to the database");
-    } catch (Exception e) {
-      logger.warning("Failed to connect to the database");
-    }
-
-
     if (!username.isEmpty() && !password.isEmpty()) {
-      database.insertUser(username, password, acess_level);
+      Database.insertUser(username, password, acess_level);
       logger.info("User registered successfully");
       changeScene(actionEvent, "/fxml/login-page.fxml", "Login", null, null);
     } else {
@@ -85,17 +77,10 @@ public class DBUtils {
   }
 
   public static void logInUser(ActionEvent actionEvent, String username, String password) throws IOException {
-    try {
-      mongoClient = MongoClients.create(Database.getConnectionString());
-      database = new Database(mongoClient);
-      logger.info("Connected to the database");
-    } catch (Exception e) {
-      logger.warning("Failed to connect to the database");
-    }
     if (username != null && password != null) {
-      if (database.userExists(username)) {
+      if (Database.userExists(username)) {
         logger.info("User exists");
-        if (database.checkPassword(username, password)) {
+        if (Database.checkPassword(username, password)) {
           changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
           logger.info("Password is correct");
         } else {

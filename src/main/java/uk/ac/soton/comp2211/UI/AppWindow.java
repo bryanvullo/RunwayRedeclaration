@@ -4,10 +4,8 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
 import uk.ac.soton.comp2211.scene.BaseScene;
 import uk.ac.soton.comp2211.App;
 import uk.ac.soton.comp2211.scene.MainScene;
@@ -23,7 +21,7 @@ import java.io.IOException;
  */
 public class AppWindow {
     
-    private static final Logger logger = LogManager.getLogger(AppWindow.class);
+    private static final Logger logger = Logger.getLogger(AppWindow.class.getName());
     
     private final int width;
     private final int height;

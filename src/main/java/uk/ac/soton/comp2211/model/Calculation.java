@@ -1,7 +1,7 @@
 package uk.ac.soton.comp2211.model;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import java.util.logging.Logger;
 import uk.ac.soton.comp2211.model.obstacles.Obstacle;
 
 /**
@@ -9,8 +9,8 @@ import uk.ac.soton.comp2211.model.obstacles.Obstacle;
  * Where methods to perform the calculations are defined.
  */
 public class Calculation {
-    
-    private static final Logger logger = LogManager.getLogger(Calculation.class);
+
+  private static final java.util.logging.Logger logger = Logger.getLogger(Calculation.class.getName());
     
     /**
      * The runway for this calculation

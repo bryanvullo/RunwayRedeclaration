@@ -1,10 +1,11 @@
 package uk.ac.soton.comp2211.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp2211.model.obstacles.Obstacle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class to represents and models a Runway.
