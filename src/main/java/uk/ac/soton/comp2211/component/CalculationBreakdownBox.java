@@ -11,16 +11,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp2211.model.Calculation;
 
-public class CalculationBreakdown extends VBox {
+public class CalculationBreakdownBox extends VBox {
     
-    private static final Logger logger = LogManager.getLogger(CalculationBreakdown.class);
+    private static final Logger logger = LogManager.getLogger(CalculationBreakdownBox.class);
     
     private StringProperty toraBreakdown;
     private StringProperty todaBreakdown;
     private StringProperty asdaBreakdown;
     private StringProperty ldaBreakdown;
     
-    public CalculationBreakdown() {
+    public CalculationBreakdownBox() {
         logger.info("Creating Calculation Breakdown");
         
         toraBreakdown = new SimpleStringProperty("Not calculated");
@@ -72,9 +72,44 @@ public class CalculationBreakdown extends VBox {
         getChildren().addAll(toraBox, todaBox, asdaBox, ldaBox);
     }
     
-    public void update(Calculation calculation) {
-        logger.info("Updating Calculation Breakdown Box");
+    public void reset(Calculation calculation) {
+        logger.info("Resetting Calculation Breakdown Box");
         
-        //TODO: update the text properties with the new values
+        toraBreakdown.set("Not calculated");
+        todaBreakdown.set("Not calculated");
+        asdaBreakdown.set("Not calculated");
+        ldaBreakdown.set("Not calculated");
+    }
+    
+    public String getToraBreakdown() {
+        return toraBreakdown.get();
+    }
+    
+    public StringProperty toraBreakdownProperty() {
+        return toraBreakdown;
+    }
+    
+    public String getTodaBreakdown() {
+        return todaBreakdown.get();
+    }
+    
+    public StringProperty todaBreakdownProperty() {
+        return todaBreakdown;
+    }
+    
+    public String getAsdaBreakdown() {
+        return asdaBreakdown.get();
+    }
+    
+    public StringProperty asdaBreakdownProperty() {
+        return asdaBreakdown;
+    }
+    
+    public String getLdaBreakdown() {
+        return ldaBreakdown.get();
+    }
+    
+    public StringProperty ldaBreakdownProperty() {
+        return ldaBreakdown;
     }
 }
