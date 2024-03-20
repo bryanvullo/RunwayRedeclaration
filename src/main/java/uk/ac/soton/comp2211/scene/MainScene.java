@@ -64,6 +64,7 @@ public class MainScene extends BaseScene {
     private VBox leftBar;
     private VBox activeBar;
     private ActiveObstacle activeObstacle;
+    private RunwayViewBox runwayViewBox;
     
     
     public MainScene(AppWindow appWindow) {
@@ -73,7 +74,6 @@ public class MainScene extends BaseScene {
     @Override
     public void initialise() {
         logger.info("initialising the menu scene");
-        //this is for all backend stuff
     }
     
     @Override
@@ -89,7 +89,14 @@ public class MainScene extends BaseScene {
         mainPane.setMaxHeight(appWindow.getHeight());
         root.getChildren().add(mainPane);
         
-        var runwayViewBox = new RunwayViewBox();
+        runwayViewBox = new RunwayViewBox();
+        Button sideButton = runwayViewBox.getSideButton();
+        Button simultaneousButton = runwayViewBox.getSimultaneousButton();
+        Button topDownButton = runwayViewBox.getTopdownButton();
+        sideButton.setOnAction(event -> runwayViewBox.changeViewToSide());
+        topDownButton.setOnAction(event -> runwayViewBox.changeViewToTopdown());
+        simultaneousButton.setOnAction(event -> runwayViewBox.changeViewToSimultaneous());
+        //this is for all backend stuff
         mainPane.setCenter(runwayViewBox);
         
         //Todo: tool bar MenuItems and functionality
@@ -332,3 +339,4 @@ public class MainScene extends BaseScene {
     return root;
   }
 }
+
