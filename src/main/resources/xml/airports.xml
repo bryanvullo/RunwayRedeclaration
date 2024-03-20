@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<airports>
+<airports
+    xmlns="http://www.github.com/bryanvullo/RunwayRedeclaration"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.github.com/bryanvullo/RunwayRedeclaration airportSchema.xsd">
     <airport>
         <name>Heathrow</name>
         <runways>
             <runway>
                 <name>09L/27R</name> <!-- Runway name ie. (09L/27R)-->
-                <logicalRunway>
+                <logicalRunway dir="left">
                     <name>09L</name> <!-- Logical runway name ie. (09L) -->
                     <tora>3901</tora>
                     <toda>3901</toda>
@@ -16,7 +19,7 @@
                     <stopway>0</stopway>
                     <displacedThreshold>309</displacedThreshold>
                 </logicalRunway>
-                <logicalRunway>
+                <logicalRunway dir="right">
                     <name>27R</name>
                     <tora>3882</tora>
                     <toda>3960</toda>
@@ -29,7 +32,7 @@
             </runway>
             <runway>
                 <name>09R/27L</name>
-                <logicalRunway>
+                <logicalRunway dir="right">
                     <name>09R</name>
                     <tora>3658</tora>
                     <toda>3658</toda>
@@ -39,7 +42,7 @@
                     <stopway>0</stopway>
                     <displacedThreshold>308</displacedThreshold>
                 </logicalRunway>
-                <logicalRunway>
+                <logicalRunway dir="left">
                     <name>27L</name>
                     <tora>3658</tora>
                     <toda>3658</toda>
@@ -57,7 +60,7 @@
         <runways>
             <runway>
                 <name>08R/26L</name>
-                <logicalRunway>
+                <logicalRunway dir="right">
                     <name>08R</name>
                     <tora>3159</tora>
                     <toda>3311</toda>
@@ -67,7 +70,7 @@
                     <stopway>74</stopway>
                     <displacedThreshold>393</displacedThreshold>
                 </logicalRunway>
-                <logicalRunway>
+                <logicalRunway dir="left">
                     <name>26L</name>
                     <tora>3255</tora>
                     <toda>3399</toda>
@@ -80,7 +83,7 @@
             </runway>
             <runway>
                 <name>08L/26R</name>
-                <logicalRunway>
+                <logicalRunway dir="left">
                     <name>08L</name>
                     <tora>2561</tora>
                     <toda>3040</toda>
@@ -90,7 +93,7 @@
                     <stopway>0</stopway>
                     <displacedThreshold>322</displacedThreshold>
                 </logicalRunway>
-                <logicalRunway>
+                <logicalRunway dir="right">
                     <name>26R</name>
                     <tora>2515</tora>
                     <toda>2657</toda>
