@@ -1,5 +1,7 @@
 package uk.ac.soton.comp2211.scene;
 
+import java.io.File;
+import java.io.IOException;
 import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -19,7 +21,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPath;
 import java.util.logging.Logger;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
@@ -49,7 +61,7 @@ public class MainScene extends BaseScene {
     //Backend Fields
     private Tool tool;
     private Runway selectedRunway = null;
-    private Obstacle selectedObstacle = null;
+    private AdvancedObstacle selectedObstacle = null;
     
     //Collapse panel variables
     private Boolean leftPanelCollapsed = false;
@@ -63,6 +75,9 @@ public class MainScene extends BaseScene {
     private VBox leftBar;
     private VBox activeBar;
     private ActiveObstacle activeObstacle;
+    private RunwayBox runwayBox;
+    
+    private String selectedDirection = null;
     
     
     public MainScene(AppWindow appWindow) {
@@ -108,7 +123,7 @@ public class MainScene extends BaseScene {
         
         leftBar = new VBox();
         leftBar.setAlignment(Pos.TOP_CENTER);
-        var runwayBox = new RunwayBox();
+        runwayBox = new RunwayBox();
         var obstacleBox = new ObstaclesBox();
         leftBar.getChildren().addAll(runwayBox,obstacleBox);
         VBox.setVgrow(runwayBox, Priority.ALWAYS);
@@ -165,6 +180,10 @@ public class MainScene extends BaseScene {
         calcTab.previousAsda.bind(tool.previousAsda);
         calcTab.previousLda.bind(tool.previousLda);
         
+        runwayBox.clearwayProperty().bind(tool.clearway);
+        runwayBox.stopwayProperty().bind(tool.stopway);
+        runwayBox.displacedThresholdProperty().bind(tool.displacedThreshold);
+        
         leftCollapseButton.setOnAction(this::collapseLeftPanel);
         rightCollapseButton.setOnAction(this::collapseRightPanel);
         
@@ -184,7 +203,7 @@ public class MainScene extends BaseScene {
                 alert.setContentText("Please select a runway before calculating");
                 alert.showAndWait();
             } else  {
-                recalculate(selectedRunway, selectedObstacle);
+                recalculate();
             }
             
         });
@@ -234,6 +253,114 @@ public class MainScene extends BaseScene {
             
             updateObstacle( obstacle );
         });
+        
+        runwayBox.getAirportSelection().setOnAction(this::selectAirport);
+        runwayBox.getRunwaySelection().setOnAction(this::selectRunway);
+    }
+    
+    private void selectAirport(Event event) {
+        logger.info("Airport Selected");
+        
+        var airport = (String) runwayBox.getAirportSelection().getSelectionModel().getSelectedItem();
+        runwayBox.getRunwaySelection().getItems().clear();
+        runwayBox.getRunwaySelection().setPromptText("Select Runway");
+        
+        try {
+            //fetching the airport data
+            var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            var doc = builder.parse(new File(getClass().getResource("/xml/airports.xml").getFile()));
+            var xpath = XPathFactory.newInstance().newXPath();
+            var search = "//airport/name[text()=\"" + airport + "\"]/parent::airport/runways/runway";
+            var nodes = (NodeList) xpath.compile(search).evaluate(doc, XPathConstants.NODESET);
+            
+            for (int i = 0; i < nodes.getLength(); i++) {
+                var node = nodes.item(i);
+                var name = (String) xpath.compile("name/text()").evaluate(node, XPathConstants.STRING);
+                runwayBox.getRunwaySelection().getItems().add(name);
+            }
+            runwayBox.getRunwaySelection().setDisable(false);
+            
+        } catch (ParserConfigurationException | SAXException | IOException |
+                 XPathExpressionException ex) {
+            //popup error message in case of failure
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Unable to fetch airport data");
+            alert.setContentText("Error: " + ex.getMessage());
+            alert.showAndWait();
+        }
+    }
+    
+    private void selectRunway(Event e) {
+        logger.info("Runway Selected");
+        
+        var airportName = (String) runwayBox.getAirportSelection().getSelectionModel().getSelectedItem();
+        var runwayName = (String) runwayBox.getRunwaySelection().getSelectionModel().getSelectedItem();
+        try {
+            var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            var doc = builder.parse(new File(getClass().getResource("/xml/airports.xml").getFile()));
+            XPath xpath = XPathFactory.newInstance().newXPath();
+            var search = "//airport/name[text()=\"" + airportName + "\"]/"
+                + "parent::airport/runways/runway/name[text()=\"" + runwayName + "\"]"
+                + "/parent::runway/logicalRunway";
+            var nodes = (NodeList) xpath.compile(search).evaluate(doc, XPathConstants.NODESET);
+            
+            if (nodes.getLength() == 1) {
+                runwayBox.getLogicalLeftButton().setDisable(true);
+                runwayBox.getLogicalRightButton().setDisable(true);
+                
+                var node = nodes.item(0);
+                
+                var name = (String) xpath.compile("name").evaluate(node, XPathConstants.STRING);
+                var tora = (Double) xpath.compile("tora").evaluate(node, XPathConstants.NUMBER);
+                var toda = (Double) xpath.compile("toda").evaluate(node, XPathConstants.NUMBER);
+                var asda = (Double) xpath.compile("asda").evaluate(node, XPathConstants.NUMBER);
+                var lda = (Double) xpath.compile("lda").evaluate(node, XPathConstants.NUMBER);
+                var clearway = (Double) xpath.compile("clearway").evaluate(node, XPathConstants.NUMBER);
+                var stopway = (Double) xpath.compile("stopway").evaluate(node, XPathConstants.NUMBER);
+                var displacedThreshold = (Double) xpath.compile("displacedThreshold").evaluate(node, XPathConstants.NUMBER);
+                
+                var runway = new Runway(name, tora, toda, asda, lda);
+                runway.setClearway(clearway);
+                runway.setStopway(stopway);
+                runway.setDisplacedThreshold(displacedThreshold);
+                
+                updateRunway(runway);
+            } else if (nodes.getLength() == 2) {
+                runwayBox.getLogicalLeftButton().setDisable(true);
+                runwayBox.getLogicalRightButton().setDisable(false);
+                selectedDirection = "left";
+                
+                search = search + "[@dir = \"left\"]";
+                var node = (Node) xpath.compile(search).evaluate(doc, XPathConstants.NODE);
+                
+                var name = (String) xpath.compile("name").evaluate(node, XPathConstants.STRING);
+                var tora = (Double) xpath.compile("tora").evaluate(node, XPathConstants.NUMBER);
+                var toda = (Double) xpath.compile("toda").evaluate(node, XPathConstants.NUMBER);
+                var asda = (Double) xpath.compile("asda").evaluate(node, XPathConstants.NUMBER);
+                var lda = (Double) xpath.compile("lda").evaluate(node, XPathConstants.NUMBER);
+                var clearway = (Double) xpath.compile("clearway").evaluate(node, XPathConstants.NUMBER);
+                var stopway = (Double) xpath.compile("stopway").evaluate(node, XPathConstants.NUMBER);
+                var displacedThreshold = (Double) xpath.compile("displacedThreshold").evaluate(node, XPathConstants.NUMBER);
+                
+                var runway = new Runway(name, tora, toda, asda, lda);
+                runway.setClearway(clearway);
+                runway.setStopway(stopway);
+                runway.setDisplacedThreshold(displacedThreshold);
+                
+                updateRunway(runway);
+            }
+            
+        } catch (ParserConfigurationException | SAXException | IOException |
+            XPathExpressionException ex) {
+            //popup error message in case of failure
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Unable to fetch runway data");
+            alert.setContentText("Error: " + ex.getMessage());
+            alert.showAndWait();
+        }
+        
     }
     
     private void collapseLeftPanel(Event event) {
@@ -266,8 +393,28 @@ public class MainScene extends BaseScene {
         }
     }
     
-    private void recalculate(Runway runway, Obstacle obstacle) {
-        tool.recalculate(obstacle);
+    private void recalculate() {
+        logger.info("Recalculating");
+        
+        if (selectedDirection.equals("left")) {
+            selectedObstacle.setDistanceFromThreshold(selectedObstacle.getDistanceLeftThreshold());
+            
+            if (selectedObstacle.getDistanceLeftThreshold() > selectedObstacle.getDistanceRightThreshold()) {
+                tool.recalculate(selectedObstacle, "TOTLT");
+            } else {
+                tool.recalculate(selectedObstacle, "TOALO");
+            }
+            
+        } else if (selectedDirection.equals("right")) {
+            selectedObstacle.setDistanceFromThreshold(selectedObstacle.getDistanceRightThreshold());
+            
+            if (selectedObstacle.getDistanceRightThreshold() > selectedObstacle.getDistanceLeftThreshold()) {
+                tool.recalculate(selectedObstacle, "TOTLT");
+            } else {
+                tool.recalculate(selectedObstacle, "TOALO");
+            }
+        }
+        
     }
     
     private void updateRunway(Runway runway) {
