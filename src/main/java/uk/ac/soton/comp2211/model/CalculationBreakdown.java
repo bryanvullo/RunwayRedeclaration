@@ -30,54 +30,54 @@ public class CalculationBreakdown {
                     + " = 240 + 60 \n"
                     + " = 300";
                 if (runway.getDisplacedThreshold() != null) {
-                    toraBreakdown.set(" = Original TORA - Distance from the threshold - Displaced Threshold - Blast Protection \n"
-                        + String.format(" = %f - %f - %f - 300 \n", runway.getTora(), obstacle.getDistanceFromThreshold(), runway.getDisplacedThreshold())
+                    toraBreakdown.set(" = Original TORA - Distance from threshold\n - Displaced Threshold - Blast Protection \n"
+                        + String.format(" = %.1f - %.1f - %.1f - 300 \n", runway.getTora(), obstacle.getDistanceFromThreshold(), runway.getDisplacedThreshold())
                         + " = " + calculation.getTora());
                 } else {
-                    toraBreakdown.set(" = Original TORA - Distance from the threshold - Blast Protection \n"
-                        + String.format(" = %f - %f - 300 \n", runway.getTora(), obstacle.getDistanceFromThreshold())
+                    toraBreakdown.set(" = Original TORA - Distance from threshold\n - Blast Protection \n"
+                        + String.format(" = %.1f - %.1f - 300 \n", runway.getTora(), obstacle.getDistanceFromThreshold())
                         + " = " + calculation.getTora());
                 }
                 if (runway.getClearway() != null) {
                     todaBreakdown.set(" = TORA + Clearway \n"
-                        + String.format(" = %f + %f \n", calculation.getTora(), runway.getClearway())
+                        + String.format(" = %.1f + %.1f \n", calculation.getTora(), runway.getClearway())
                         + " = " + calculation.getToda());
                 } else {
                     todaBreakdown.set(" = TORA \n = " + calculation.getTora());
                 }
                 if (runway.getStopway() != null) {
                     asdaBreakdown.set(" = TORA + Stopway \n"
-                        + String.format(" = %f + %f \n", calculation.getTora(), runway.getStopway())
+                        + String.format(" = %.1f + %.1f \n", calculation.getTora(), runway.getStopway())
                         + " = " + calculation.getAsda());
                 } else {
                     asdaBreakdown.set(" = TORA \n = " + calculation.getTora());
                 }
-                alsBreakdown = String.format(" = max(RESA, 50 x %f) \n", obstacle.getHeight())
-                    + String.format(" = max(240, %f) \n", 50 * obstacle.getHeight())
-                    + String.format(" = %f", Math.max(240, 50 * obstacle.getHeight()));
-                ldaBreakdown.set(" = Original LDA - Distance from the threshold - Strip End - ALS \n"
-                    + String.format(" = %f - %f - 60 - %f \n", runway.getLda(), obstacle.getDistanceFromThreshold(), Math.max(240, 50 * obstacle.getHeight()))
+                alsBreakdown = String.format(" = max(RESA, 50 x %.1f) \n", obstacle.getHeight())
+                    + String.format(" = max(240, %.1f) \n", 50 * obstacle.getHeight())
+                    + String.format(" = %.1f", Math.max(240, 50 * obstacle.getHeight()));
+                ldaBreakdown.set(" = Original LDA - Distance from threshold\n - Strip End - ALS \n"
+                    + String.format(" = %.1f - %.1f - 60 - %.1f \n", runway.getLda(), obstacle.getDistanceFromThreshold(), Math.max(240, 50 * obstacle.getHeight()))
                     + " = " + calculation.getLda() + "\n(ALS = " + alsBreakdown + ")");
                 break;
             case "TOTLT": // Take-Off Towards and Landing Towards
                 // Calculate the breakdown of the TORA, TODA, ASDA, LDA, and TOCS
-                tocsBreakdown = String.format(" = max(RESA, 50 x %f) \n", obstacle.getHeight())
-                    + String.format(" = max(240, %f) \n", 50 * obstacle.getHeight())
-                    + String.format(" = %f", Math.max(240, 50 * obstacle.getHeight()));
+                tocsBreakdown = String.format(" = max(RESA, 50 x %.1f) \n", obstacle.getHeight())
+                    + String.format(" = max(240, %.1f) \n", 50 * obstacle.getHeight())
+                    + String.format(" = %.1f", Math.max(240, 50 * obstacle.getHeight()));
                 
                 if (runway.getDisplacedThreshold() != null) {
-                    toraBreakdown.set(" = Distance from the threshold + Displaced Threshold - TOCS - Strip End \n"
-                        + String.format(" = %f + %f - %f - 60 \n", obstacle.getDistanceFromThreshold(), runway.getDisplacedThreshold(), Math.max(240, 50 * obstacle.getHeight()))
+                    toraBreakdown.set(" = Distance from threshold + Displaced Threshold\n - TOCS - Strip End \n"
+                        + String.format(" = %.1f + %.1f - %.1f - 60 \n", obstacle.getDistanceFromThreshold(), runway.getDisplacedThreshold(), Math.max(240, 50 * obstacle.getHeight()))
                         + " = " + calculation.getTora());
                 } else {
-                    toraBreakdown.set(" = Distance from the threshold - TOCS - Strip End \n"
-                        + String.format(" = %f - %f - 60 \n", obstacle.getDistanceFromThreshold(), Math.max(240, 50 * obstacle.getHeight()))
+                    toraBreakdown.set(" = Distance from threshold - TOCS - Strip End \n"
+                        + String.format(" = %.1f - %.1f - 60 \n", obstacle.getDistanceFromThreshold(), Math.max(240, 50 * obstacle.getHeight()))
                         + " = " + calculation.getTora());
                 }
                 todaBreakdown.set(" = TORA \n = " + calculation.getTora());
                 asdaBreakdown.set(" = TORA \n = " + calculation.getTora());
-                ldaBreakdown.set(" = Distance from the threshold - RESA - Strip End \n"
-                    + String.format(" = %f - 240 - 60 \n", obstacle.getDistanceFromThreshold())
+                ldaBreakdown.set(" = Distance from threshold - RESA - Strip End \n"
+                    + String.format(" = %.1f - 240 - 60 \n", obstacle.getDistanceFromThreshold())
                     + " = " + calculation.getLda() + "\n(TOCS = " + tocsBreakdown + ")");
                 break;
         }
