@@ -474,7 +474,7 @@ public class MainScene extends BaseScene {
         activeObstacle.update(obstacle);
     }
 
-  public Parent getRoot() {
+    public Parent getRoot() {
     return root;
   }
 }
