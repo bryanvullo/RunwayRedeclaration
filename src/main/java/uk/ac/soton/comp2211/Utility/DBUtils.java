@@ -59,6 +59,7 @@ public class DBUtils {
 
     // Set the scene to your main scene
     Scene scene = new Scene(mainScene.getRoot()); // Ensure getRoot() provides access to the root pane of MainScene
+    scene.getStylesheets().add(DBUtils.class.getResource("/style/main.css").toExternalForm());
     stage.setTitle("Runway Re-declaration Tool");
     stage.setScene(scene);
 
