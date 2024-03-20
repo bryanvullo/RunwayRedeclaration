@@ -21,7 +21,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
@@ -35,7 +34,7 @@ import org.xml.sax.SAXException;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
-import uk.ac.soton.comp2211.component.CalculationBreakdown;
+import uk.ac.soton.comp2211.component.CalculationBreakdownBox;
 import uk.ac.soton.comp2211.component.CalculationTab;
 import uk.ac.soton.comp2211.component.CustomObstacleDialog;
 import uk.ac.soton.comp2211.component.MenuBar;
@@ -50,7 +49,6 @@ import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
 import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
 import uk.ac.soton.comp2211.model.obstacles.Container;
-import uk.ac.soton.comp2211.model.obstacles.Obstacle;
 import uk.ac.soton.comp2211.model.obstacles.Plane;
 import uk.ac.soton.comp2211.model.obstacles.ShuttleBus;
 
@@ -78,6 +76,7 @@ public class MainScene extends BaseScene {
     private RunwayBox runwayBox;
     
     private String selectedDirection = null;
+    private CalculationBreakdownBox calculationBreakdownBox;
     
     
     public MainScene(AppWindow appWindow) {
@@ -143,8 +142,8 @@ public class MainScene extends BaseScene {
         activeBar = new VBox();
         activeBar.setAlignment(Pos.TOP_CENTER);
         activeObstacle = new ActiveObstacle();
-        var calculationBreakdownBox = new CalculationBreakdown();
-        activeBar.getChildren().addAll(activeObstacle,calculationBreakdownBox);
+        calculationBreakdownBox = new CalculationBreakdownBox();
+        activeBar.getChildren().addAll(activeObstacle, calculationBreakdownBox);
         VBox.setVgrow(activeObstacle, Priority.ALWAYS);
         VBox.setVgrow(calculationBreakdownBox, Priority.ALWAYS);
         rightPanel.getChildren().addAll(rightCollapsibleBar, activeBar);
@@ -413,7 +412,15 @@ public class MainScene extends BaseScene {
                 tool.recalculate(selectedObstacle, "TOALO");
             }
         }
-        
+        updateBreakdown();
+    }
+    
+    private void updateBreakdown() {
+        var breakdown = tool.getRevisedCalculation().calculationBreakdown;
+        calculationBreakdownBox.toraBreakdownProperty().bind(breakdown.getToraBreakdown());
+        calculationBreakdownBox.todaBreakdownProperty().bind(breakdown.getTodaBreakdown());
+        calculationBreakdownBox.asdaBreakdownProperty().bind(breakdown.getAsdaBreakdown());
+        calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
     }
     
     private void updateRunway(Runway runway) {
