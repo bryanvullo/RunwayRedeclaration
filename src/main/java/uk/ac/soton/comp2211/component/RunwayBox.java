@@ -26,6 +26,8 @@ public class RunwayBox extends VBox {
     private DoubleProperty displacedThreshold;
     private ComboBox runwaySelection;
     private ComboBox airportSelection;
+    private Button logicalLeftButton;
+    private Button logicalRightButton;
     
     
     public RunwayBox() {
@@ -91,8 +93,8 @@ public class RunwayBox extends VBox {
         getChildren().addAll(clearwayBox, stopwayBox, displacedThresholdBox);
         
         var logicalRunwayBox = new HBox();
-        var logicalLeftButton = new Button("Logical Left");
-        var logicalRightButton = new Button("Logical Right");
+        logicalLeftButton = new Button("Logical Left");
+        logicalRightButton = new Button("Logical Right");
         logicalRunwayBox.getChildren().addAll(logicalLeftButton, logicalRightButton);
         getChildren().add(logicalRunwayBox);
         
@@ -112,6 +114,26 @@ public class RunwayBox extends VBox {
     
     public ComboBox getAirportSelection() {
         return airportSelection;
+    }
+    
+    public DoubleProperty clearwayProperty() {
+        return clearway;
+    }
+    
+    public DoubleProperty stopwayProperty() {
+        return stopway;
+    }
+    
+    public DoubleProperty displacedThresholdProperty() {
+        return displacedThreshold;
+    }
+    
+    public Button getLogicalLeftButton() {
+        return logicalLeftButton;
+    }
+    
+    public Button getLogicalRightButton() {
+        return logicalRightButton;
     }
 }
    

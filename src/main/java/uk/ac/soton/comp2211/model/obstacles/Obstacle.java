@@ -64,4 +64,13 @@ public class Obstacle {
         logger.info("Getting distance from threshold");
         return distanceFromThreshold;
     }
+    
+    /**
+     * Sets the distance from the threshold
+     * @param distanceFromThreshold the distance from the threshold
+     */
+    public void setDistanceFromThreshold(Double distanceFromThreshold) {
+        logger.info("Setting distance from threshold to " + distanceFromThreshold);
+        this.distanceFromThreshold = distanceFromThreshold;
+    }
 }

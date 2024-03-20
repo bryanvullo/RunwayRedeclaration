@@ -13,7 +13,10 @@ public class Tool {
     
     private Runway runway;
     
-    private Runway secondarRunway;
+    //runway values
+    public DoubleProperty clearway;
+    public DoubleProperty stopway;
+    public DoubleProperty displacedThreshold;
     
     //original values
     public DoubleProperty tora;
@@ -34,6 +37,10 @@ public class Tool {
     public DoubleProperty previousLda;
     
     public Tool() {
+        clearway = new SimpleDoubleProperty(0.0);
+        stopway = new SimpleDoubleProperty(0.0);
+        displacedThreshold = new SimpleDoubleProperty(0.0);
+        
         tora = new SimpleDoubleProperty(0.0);
         toda = new SimpleDoubleProperty(0.0);
         asda = new SimpleDoubleProperty(0.0);
@@ -50,7 +57,7 @@ public class Tool {
         previousLda = new SimpleDoubleProperty(0.0);
     }
     
-    public void recalculate(Obstacle obstacle) {
+    public void recalculate(Obstacle obstacle, String type) {
         previousCalculation = revisedCalculation;
         previousTora.set(revisedTora.get());
         previousToda.set(revisedToda.get());
@@ -58,7 +65,11 @@ public class Tool {
         previousLda.set(revisedlLda.get());
         
         revisedCalculation = new Calculation(runway, obstacle);
-        revisedCalculation.calculateTakeOffAwayLandingOver();
+        if (type.equals("TOTLT")) {
+            revisedCalculation.calculateTakeOffTowardsLandingTowards();
+        } else {
+            revisedCalculation.calculateTakeOffAwayLandingOver();
+        }
         
         revisedTora.set(revisedCalculation.getTora());
         revisedToda.set(revisedCalculation.getToda());
@@ -68,6 +79,10 @@ public class Tool {
     
     public void setRunway(Runway runway) {
         this.runway = runway;
+        
+        clearway.set(runway.getClearway());
+        stopway.set(runway.getStopway());
+        displacedThreshold.set(runway.getDisplacedThreshold());
         
         tora.set(runway.getTora());
         toda.set(runway.getToda());

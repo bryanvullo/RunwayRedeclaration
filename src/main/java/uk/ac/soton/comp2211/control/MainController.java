@@ -64,7 +64,7 @@ public class MainController implements Initializable {
 
     var obstacle = new Obstacle(height, lthreshold);
 
-    tool.recalculate(obstacle);
+    tool.recalculate(obstacle, "TOALO");
   }
 
   public void save(ActionEvent e) {
