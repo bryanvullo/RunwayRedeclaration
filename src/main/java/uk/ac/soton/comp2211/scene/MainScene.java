@@ -110,8 +110,7 @@ public class MainScene extends BaseScene {
         //Toolbar at the top
         var toolbar = new MenuBar();
         mainPane.setTop(toolbar);
-
-        //Todo: add runway selection functionality
+        
         //Left Panel
         leftPanel = new HBox();
         leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("0598ff"), null, null)));
