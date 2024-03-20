@@ -8,6 +8,7 @@ module uk.ac.soton.comp2211 {
   requires org.mongodb.bson;
   requires java.logging;
   requires com.jfoenix;
+  requires spring.security.crypto;
 
   opens uk.ac.soton.comp2211 to javafx.fxml;
   opens uk.ac.soton.comp2211.control to javafx.fxml;

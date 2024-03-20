@@ -1,26 +1,110 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<airports>
+<airports
+    xmlns="http://www.github.com/bryanvullo/RunwayRedeclaration"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.github.com/bryanvullo/RunwayRedeclaration airportSchema.xsd">
     <airport>
         <name>Heathrow</name>
         <runways>
             <runway>
-                <name></name> <!-- Runway name ie. (09L/27R)-->
-                <logicalRunway>
-                    <name></name> <!-- Logical runway name ie. (09L) -->
-                    <tora></tora>
-                    <toda></toda>
-                    <asda></asda>
-                    <lda></lda>
-                    <clearway></clearway>
-                    <stopway></stopway>
-                    <displacedThreshold></displacedThreshold>
+                <name>09L/27R</name> <!-- Runway name ie. (09L/27R)-->
+                <logicalRunway dir="left">
+                    <name>09L</name> <!-- Logical runway name ie. (09L) -->
+                    <tora>3901</tora>
+                    <toda>3901</toda>
+                    <asda>3901</asda>
+                    <lda>3592</lda>
+                    <clearway>0</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>309</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway dir="right">
+                    <name>27R</name>
+                    <tora>3882</tora>
+                    <toda>3960</toda>
+                    <asda>3882</asda>
+                    <lda>3882</lda>
+                    <clearway>78</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>0</displacedThreshold>
+                </logicalRunway>
+            </runway>
+            <runway>
+                <name>09R/27L</name>
+                <logicalRunway dir="right">
+                    <name>09R</name>
+                    <tora>3658</tora>
+                    <toda>3658</toda>
+                    <asda>3658</asda>
+                    <lda>3350</lda>
+                    <clearway>0</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>308</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway dir="left">
+                    <name>27L</name>
+                    <tora>3658</tora>
+                    <toda>3658</toda>
+                    <asda>3658</asda>
+                    <lda>3658</lda>
+                    <clearway>0</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>0</displacedThreshold>
                 </logicalRunway>
             </runway>
         </runways>
     </airport>
     <airport>
       <name>Gatwick</name>
+        <runways>
+            <runway>
+                <name>08R/26L</name>
+                <logicalRunway dir="right">
+                    <name>08R</name>
+                    <tora>3159</tora>
+                    <toda>3311</toda>
+                    <asda>3233</asda>
+                    <lda>2765</lda>
+                    <clearway>144</clearway>
+                    <stopway>74</stopway>
+                    <displacedThreshold>393</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway dir="left">
+                    <name>26L</name>
+                    <tora>3255</tora>
+                    <toda>3399</toda>
+                    <asda>3317</asda>
+                    <lda>2830</lda>
+                    <clearway>152</clearway>
+                    <stopway>61</stopway>
+                    <displacedThreshold>424</displacedThreshold>
+                </logicalRunway>
+            </runway>
+            <runway>
+                <name>08L/26R</name>
+                <logicalRunway dir="left">
+                    <name>08L</name>
+                    <tora>2561</tora>
+                    <toda>3040</toda>
+                    <asda>2561</asda>
+                    <lda>2241</lda>
+                    <clearway>142</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>322</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway dir="right">
+                    <name>26R</name>
+                    <tora>2515</tora>
+                    <toda>2657</toda>
+                    <asda>2515</asda>
+                    <lda>2146</lda>
+                    <clearway>479</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>417</displacedThreshold>
+                </logicalRunway>
+            </runway>
+        </runways>
     </airport>
     <airport>
         <name>Stansted</name>

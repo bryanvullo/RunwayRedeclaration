@@ -29,7 +29,7 @@ public class SignUpController implements Initializable {
   @FXML
   private Label testConnection1;
 
-  private final Logger logger = Logger.getLogger(LoginController.class.getName());
+  private final Logger logger = Logger.getLogger(SignUpController.class.getName());
 
   private final String[] accessLevels = {"Viewer", "Editor"};
 
