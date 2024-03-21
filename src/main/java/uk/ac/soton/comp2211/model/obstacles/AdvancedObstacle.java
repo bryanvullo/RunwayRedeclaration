@@ -235,4 +235,14 @@ public class AdvancedObstacle extends Obstacle {
             throw new IllegalArgumentException(fieldName + " is unrealistically large. Please enter max. of 5 digits.");
         }
     }
+    public static double parseNumericInput(String input, String fieldName) throws IllegalArgumentException {
+        try {
+            double value = Double.parseDouble(input);
+            validateNotUnrealistic(value, fieldName);
+            validatePositive(value, fieldName);
+            return value;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(fieldName + " must be a numeric value.");
+        }
+    }
 }
