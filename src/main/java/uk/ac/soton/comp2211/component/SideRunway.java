@@ -1,6 +1,8 @@
 package uk.ac.soton.comp2211.component;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -25,11 +27,32 @@ public class SideRunway extends HBox {
         VBox.setVgrow(runwayView, Priority.ALWAYS);
         getChildren().add(runwayView);
 
-        StackPane topDownRunwayPane = new StackPane();
-        Rectangle runway = new Rectangle(0, 0, 600, 10);
+        StackPane SideRunwayPane = new StackPane();
+        Rectangle runway = new Rectangle(0, 0, 700, 10);
         runway.setFill(Color.GRAY);
-        topDownRunwayPane.getChildren().addAll(runway);
-        runwayView.getChildren().add(topDownRunwayPane);
+        VBox viewVBox = new VBox();
+
+        HBox LDAHBox = new HBox();
+
+        VBox landingDirectionVBox = new VBox();
+        landingDirectionVBox.setSpacing(10);
+        landingDirectionVBox.setAlignment(Pos.CENTER_LEFT);
+        Arrow landingDirectionarrow = new Arrow(100, 20, 300, 20);
+        Label landingDirectionLabel = new Label("Landing Direction");
+        landingDirectionVBox.getChildren().addAll(landingDirectionarrow, landingDirectionLabel);
+        landingDirectionVBox.setPadding(new Insets(0, 0, 100, 0));
+
+        Arrow LDAarrow = new Arrow(100, 20, 500, 20);
+        Label LDAarrowLabel = new Label("Landing Distance Available");
+        VBox LDAVBox = new VBox();
+        LDAVBox.getChildren().addAll(LDAarrow, LDAarrowLabel);
+        LDAVBox.setAlignment(Pos.CENTER_RIGHT);
+
+        SideRunwayPane.getChildren().addAll(runway);
+        viewVBox.getChildren().addAll(landingDirectionVBox,SideRunwayPane, LDAVBox);
+        viewVBox.setAlignment(Pos.CENTER);
+        viewVBox.setSpacing(10);
+        runwayView.getChildren().add(viewVBox);
     }
 
 }
