@@ -22,6 +22,7 @@ public class TopDownRunway extends HBox {
     private VBox LDAVBox;
     private StackPane topDownRunwayPane;
     private VBox viewVBox;
+    private Rectangle obstacle;
 
 
     public TopDownRunway() {
@@ -133,9 +134,8 @@ public class TopDownRunway extends HBox {
 
     public void addObstacle(Double height, Double width, Double length) {
         System.out.println("the values inputted are: " + height + " " + width + " " + length);
-        Rectangle obstacle = new Rectangle(0, 0, 600, 150);
-        // Create and add the new obstacle
-        obstacle = new Rectangle(100, 100);
+        topDownRunwayPane.getChildren().remove(obstacle);
+        obstacle = new Rectangle(width * 1.5, length*1.5);
         obstacle.setFill(Color.RED);
         topDownRunwayPane.getChildren().add(obstacle);
 

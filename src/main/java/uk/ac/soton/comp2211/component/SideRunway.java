@@ -11,6 +11,12 @@ import org.apache.logging.log4j.Logger;
 
 public class SideRunway extends HBox {
     private static final Logger logger = LogManager.getLogger(SideRunway.class);
+    private StackPane SideRunwayPane;
+    private Rectangle runway;
+    private Rectangle obstacle;
+    private VBox viewVBox;
+    private VBox obstacleContainer;
+    private VBox landingDirectionVBox;
 
     public SideRunway() {
         logger.info("Creating Side Runway View");
@@ -27,19 +33,22 @@ public class SideRunway extends HBox {
         VBox.setVgrow(runwayView, Priority.ALWAYS);
         getChildren().add(runwayView);
 
-        StackPane SideRunwayPane = new StackPane();
-        Rectangle runway = new Rectangle(0, 0, 700, 10);
+        SideRunwayPane = new StackPane();
+        obstacleContainer = new VBox();
+        SideRunwayPane.getChildren().add(obstacleContainer);
+        SideRunwayPane.setAlignment(Pos.CENTER_LEFT);
+        runway = new Rectangle(0, 0, 730, 10);
         runway.setFill(Color.GRAY);
-        VBox viewVBox = new VBox();
+        viewVBox = new VBox();
 
         HBox LDAHBox = new HBox();
 
-        VBox landingDirectionVBox = new VBox();
+        landingDirectionVBox = new VBox();
         landingDirectionVBox.setSpacing(10);
         landingDirectionVBox.setAlignment(Pos.CENTER_LEFT);
         Arrow landingDirectionarrow = new Arrow(100, 20, 300, 20);
         Label landingDirectionLabel = new Label("Landing Direction");
-        landingDirectionVBox.getChildren().addAll(landingDirectionarrow, landingDirectionLabel);
+        landingDirectionVBox.getChildren().addAll(landingDirectionLabel, landingDirectionarrow);
         landingDirectionVBox.setPadding(new Insets(0, 0, 100, 0));
 
         Arrow LDAarrow = new Arrow(100, 20, 500, 20);
@@ -50,9 +59,21 @@ public class SideRunway extends HBox {
 
         SideRunwayPane.getChildren().addAll(runway);
         viewVBox.getChildren().addAll(landingDirectionVBox,SideRunwayPane, LDAVBox);
-        viewVBox.setAlignment(Pos.CENTER);
+        viewVBox.setAlignment(Pos.CENTER_LEFT);
         viewVBox.setSpacing(10);
+
         runwayView.getChildren().add(viewVBox);
+    }
+
+    public void addObstacle(Double height, Double width, Double length) {
+        SideRunwayPane.getChildren().remove(obstacleContainer);
+        obstacle = new Rectangle(width * 1.5, height * 1.5);
+        obstacle.setFill(Color.RED);
+        obstacle.setY(runway.getY());
+        obstacleContainer = new VBox();
+        obstacleContainer.getChildren().add(obstacle);
+        obstacleContainer.setPadding(new Insets(0, 0,   runway.getHeight() + obstacle.getHeight(), 0));
+        SideRunwayPane.getChildren().add(obstacleContainer);
     }
 
 }

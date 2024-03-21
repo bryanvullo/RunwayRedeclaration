@@ -223,6 +223,11 @@ public class MainScene extends BaseScene {
             updateObstacleLocation(obstacle);
 
             updateObstacle( obstacle );
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+
+
         });
         obstacleBox.getAirbusButton().setOnAction((e) -> {
             logger.info("Airbus Button Pressed");
@@ -232,6 +237,9 @@ public class MainScene extends BaseScene {
             updateObstacleLocation(obstacle);
 
             updateObstacle( obstacle );
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
         });
         obstacleBox.getContainerButton().setOnAction((e) -> {
             logger.info("Container Button Pressed");
@@ -241,6 +249,9 @@ public class MainScene extends BaseScene {
             updateObstacleLocation(obstacle);
 
             updateObstacle( obstacle );
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
         });
         obstacleBox.getShuttleBusButton().setOnAction((e) -> {
             logger.info("Shuttle Bus Button Pressed");
@@ -250,6 +261,9 @@ public class MainScene extends BaseScene {
             updateObstacleLocation(obstacle);
 
             updateObstacle( obstacle );
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
         });
         obstacleBox.getCustomButton().setOnAction((e) -> {
             logger.info("Custom Button Pressed");
@@ -259,6 +273,8 @@ public class MainScene extends BaseScene {
             getInputAdvancedObstacle(obstacle);
 
             updateObstacle( obstacle );
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
         });
 
         runwayBox.getAirportSelection().setOnAction(this::selectAirport);
@@ -442,7 +458,6 @@ public class MainScene extends BaseScene {
         var locationDialog = new ObstacleLocationDialog();
         locationDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
-                runwayViewBox.getTopDownRunway().addObstacle(locationDialog.getHeight(), locationDialog.getWidth(), 20.0);
                 return new ObstacleLocation(
                         Double.parseDouble(locationDialog.getDistanceFromLeftThreshold()),
                         Double.parseDouble(locationDialog.getDistanceFromRightThreshold()),
@@ -471,7 +486,6 @@ public class MainScene extends BaseScene {
         var customObstacleDialog = new CustomObstacleDialog();
         customObstacleDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
-                runwayViewBox.getTopDownRunway().addObstacle(customObstacleDialog.getHeight(), customObstacleDialog.getWidth(), 20.0);
                 return new CustomObstacleLocation(
                         customObstacleDialog.getName(),
                         Double.parseDouble(customObstacleDialog.getHeightValue()),

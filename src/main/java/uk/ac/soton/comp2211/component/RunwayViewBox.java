@@ -99,7 +99,6 @@ public class RunwayViewBox extends VBox {
         // Clear the existing runway view
         runwayView.getChildren().clear();
         VBox runwayVBox = new VBox();
-        runwayVBox.setSpacing(100);
         runwayVBox.setAlignment(Pos.CENTER);
         runwayVBox.getChildren().addAll(topDownRunway, sideRunway);
         runwayView.getChildren().add(runwayVBox);
@@ -107,6 +106,10 @@ public class RunwayViewBox extends VBox {
 
     public TopDownRunway getTopDownRunway() {
         return topDownRunway;
+    }
+
+    public SideRunway getSideRunway() {
+        return sideRunway;
     }
 }
 
