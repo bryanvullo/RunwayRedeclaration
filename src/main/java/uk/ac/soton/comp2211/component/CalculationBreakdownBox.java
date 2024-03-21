@@ -79,9 +79,9 @@ public class CalculationBreakdownBox extends VBox {
         ldaBox.getChildren().addAll(ldaLabel, ldaText);
         
         var breakdownBox = new VBox(toraBox, todaBox, asdaBox, ldaBox);
+        breakdownBox.setSpacing(10);
         
         var scroll = new ScrollPane();
-        scroll.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
         scroll.setContent(breakdownBox);
         scroll.setFitToWidth(true);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
