@@ -35,16 +35,24 @@ public class AdvancedObstacle extends Obstacle {
      * @param obstacleProperties the additional properties of the obstacle that may provide additional information
      */
     public AdvancedObstacle(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold,
-        Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
-        super(validatePositive(validateNotUnrealistic(height, "Height"), "Height"),
-            Math.min(distanceRightThreshold, distanceLeftThreshold)); //This is assuming the correct calculations for distance and correct values for obstacles are already correct and calculated correctly
+        Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) throws IllegalArgumentException {
+        super(height, 0.0);
         this.obstacleName = obstacleName;
-        this.width = validatePositive(validateNotUnrealistic(width, "Width"), "Width");
-        this.length = validatePositive(validateNotUnrealistic(length, "Length"), "Length");
+        this.width = length;
+        this.length = length;
         this.distanceRightThreshold = distanceRightThreshold;
         this.distanceLeftThreshold = distanceLeftThreshold;
         this.distanceFromCentre = distanceFromCentre;
         this.obstacleProperties = obstacleProperties;
+        
+        //validate the distance values
+        validateNotUnrealistic(height, "Height");
+        validatePositive(height, "Height");
+        validateNotUnrealistic(width, "Width");
+        validatePositive(width, "Width");
+        validateNotUnrealistic(length, "Length");
+        validatePositive(length, "Length");
+        
     }
     
     public AdvancedObstacle() {
@@ -126,7 +134,9 @@ public class AdvancedObstacle extends Obstacle {
      * Sets the width of the obstacle.
      * @param width the obstacle width.
      */
-    public void setWidth(Double width) {
+    public void setWidth(Double width) throws IllegalArgumentException {
+        validatePositive(width, "Width");
+        validateNotUnrealistic(width, "Width");
         this.width = width;
     }
     /**
@@ -140,8 +150,17 @@ public class AdvancedObstacle extends Obstacle {
      * Sets the length of the obstacle.
      * @param length the obstacle length
      */
-    public void setLength(Double length) {
+    public void setLength(Double length) throws  IllegalArgumentException {
+        validatePositive(length, "Length");
+        validateNotUnrealistic(length, "Length");
         this.length = length;
+    }
+    
+    @Override
+    public void setHeight(Double height) throws IllegalArgumentException {
+        validatePositive(height, "Height");
+        validateNotUnrealistic(height, "Height");
+        super.setHeight(height);
     }
 
     /**
@@ -205,17 +224,15 @@ public class AdvancedObstacle extends Obstacle {
     }
 
     // This is a utility method for validating that a value is positive - for physical dimensions, i.e. Height, Length, and Width
-    private static Double validatePositive(Double value, String fieldName) {
+    private static void validatePositive(Double value, String fieldName) throws IllegalArgumentException {
         if (value < 0) {
             throw new IllegalArgumentException(fieldName + " cannot be a negative value.");
         }
-        return value; //Return the value if it passes the check
     }
     // This utility method validates that a dimension value is not unrealistically large
-    private static Double validateNotUnrealistic(Double value, String fieldName) {
+    private static void validateNotUnrealistic(Double value, String fieldName) throws IllegalArgumentException{
         if (value > 100000) {
             throw new IllegalArgumentException(fieldName + " is unrealistically large and cannot be accepted.");
         }
-        return value;
     }
 }
