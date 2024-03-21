@@ -35,22 +35,30 @@ public class TestObstacle {
         assertThrows(IllegalArgumentException.class, () -> {
             // Attempt to create an AdvancedObstacle with unrealistic height, width and length values
             new AdvancedObstacle("Unrealistically Large Obstacle", 200000.0, 100001.0, 100002.0, 50.0, 50.0, 50.0, Optional.empty());
-            }, "Obstacle dimensions should be within realistic limits.");
+            }, "Obstacle dimensions should be within realistic limits. Please enter a maximum of 5 digits");
 
             // Test for height
             assertThrows(IllegalArgumentException.class, () -> {
                 new AdvancedObstacle("Unrealistically Large Obstacle", 200001.0, 50.0, 50.0, 100.0, 0.0, 0.0, Optional.empty());
-            }, "Height is unrealistically large and should not be accepted.");
+            }, "Height is unrealistically large and should not be accepted. Please enter a maximum of 5 digits");
 
             // Test for width
             assertThrows(IllegalArgumentException.class, () -> {
                 new AdvancedObstacle("Unrealistically Large Obstacle", 20.0, 100001.0, 50.0, 20.0, 50.0, 0.0, Optional.empty());
-            }, "Width is unrealistically large and should not be accepted.");
+            }, "Width is unrealistically large and should not be accepted. Please enter a maximum of 5 digits");
 
             // Test for length
             assertThrows(IllegalArgumentException.class, () -> {
                 new AdvancedObstacle("Unrealistically Large Obstacle", 20.0, 50.0, 100002.0, 500.0, 0.0, 110.0, Optional.empty());
-            }, "Length is unrealistically large and should not be accepted.");
+            }, "Length is unrealistically large and should not be accepted. Please enter a maximum of 5 digits");
+    }
+
+    @Test
+    void testMaxFiveDigitsAllowed() {
+        // Testing each dimension individually for the 5-digit limit
+        assertThrows(IllegalArgumentException.class, () -> new AdvancedObstacle("Too High Height", 100000.0, 50.0, 50.0, 100.0, 0.0, 0.0, Optional.empty()), "Please enter a maximum of 5 digits for Height");
+        assertThrows(IllegalArgumentException.class, () -> new AdvancedObstacle("Too High Width", 20.0, 100000.0, 50.0, 20.0, 50.0, 0.0, Optional.empty()), "Please enter a maximum of 5 digits for Width");
+        assertThrows(IllegalArgumentException.class, () -> new AdvancedObstacle("Too High Length", 20.0, 50.0, 100000.0, 500.0, 0.0, 110.0, Optional.empty()), "Please enter a maximum of 5 digits for Length");
     }
 
     // This tests for proper functioning of specialised methods like estimateClearanceTime for Plane

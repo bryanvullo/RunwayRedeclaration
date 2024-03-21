@@ -231,8 +231,8 @@ public class AdvancedObstacle extends Obstacle {
     }
     // This utility method validates that a dimension value is not unrealistically large
     private static void validateNotUnrealistic(Double value, String fieldName) throws IllegalArgumentException{
-        if (value > 100000) {
-            throw new IllegalArgumentException(fieldName + " is unrealistically large and cannot be accepted.");
+        if (value > 99999) {
+            throw new IllegalArgumentException(fieldName + " is unrealistically large. Please enter a maximum of 5 digits.");
         }
     }
 }
