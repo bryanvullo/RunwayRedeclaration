@@ -35,22 +35,22 @@ public class TestObstacle {
         assertThrows(IllegalArgumentException.class, () -> {
             // Attempt to create an AdvancedObstacle with unrealistic height, width and length values
             new AdvancedObstacle("Unrealistically Large Obstacle", 200000.0, 100001.0, 100002.0, 50.0, 50.0, 50.0, Optional.empty());
-            }, "Obstacle dimensions should be within realistic limits. Please enter a maximum of 5 digits");
+            }, "Obstacle dimensions should be within realistic limits. Please enter max. of 5 digits.");
 
             // Test for height
             assertThrows(IllegalArgumentException.class, () -> {
                 new AdvancedObstacle("Unrealistically Large Obstacle", 200001.0, 50.0, 50.0, 100.0, 0.0, 0.0, Optional.empty());
-            }, "Height is unrealistically large and should not be accepted. Please enter a maximum of 5 digits");
+            }, "Height is unrealistically large and should not be accepted. Please enter max. of 5 digits.");
 
             // Test for width
             assertThrows(IllegalArgumentException.class, () -> {
                 new AdvancedObstacle("Unrealistically Large Obstacle", 20.0, 100001.0, 50.0, 20.0, 50.0, 0.0, Optional.empty());
-            }, "Width is unrealistically large and should not be accepted. Please enter a maximum of 5 digits");
+            }, "Width is unrealistically large and should not be accepted. Please enter max. of 5 digits.");
 
             // Test for length
             assertThrows(IllegalArgumentException.class, () -> {
                 new AdvancedObstacle("Unrealistically Large Obstacle", 20.0, 50.0, 100002.0, 500.0, 0.0, 110.0, Optional.empty());
-            }, "Length is unrealistically large and should not be accepted. Please enter a maximum of 5 digits");
+            }, "Length is unrealistically large and should not be accepted. Please enter max. of 5 digits.");
     }
 
     @Test
