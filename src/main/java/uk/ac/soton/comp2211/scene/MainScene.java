@@ -21,7 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javax.xml.parsers.DocumentBuilder;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
@@ -79,8 +79,8 @@ public class MainScene extends BaseScene {
     private String selectedDirection = null;
     private RunwayViewBox runwayViewBox;
     private CalculationBreakdownBox calculationBreakdownBox;
-    
-    
+
+
     public MainScene(AppWindow appWindow) {
         super(appWindow);
     }
@@ -118,7 +118,7 @@ public class MainScene extends BaseScene {
         //Toolbar at the top
         var toolbar = new MenuBar();
         mainPane.setTop(toolbar);
-        
+
         //Left Panel
         leftPanel = new HBox();
         leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("0598ff"), null, null)));
@@ -356,6 +356,7 @@ public class MainScene extends BaseScene {
                 runway.setDisplacedThreshold(displacedThreshold);
 
                 updateRunway(runway);
+                runwayViewBox.getTopDownRunway().updateArrows(tora, toda, asda, lda);
             }
 
         } catch (ParserConfigurationException | SAXException | IOException |
@@ -423,7 +424,7 @@ public class MainScene extends BaseScene {
         }
         updateBreakdown();
     }
-    
+
     private void updateBreakdown() {
         var breakdown = tool.getRevisedCalculation().calculationBreakdown;
         calculationBreakdownBox.toraBreakdownProperty().bind(breakdown.getToraBreakdown());
@@ -441,6 +442,7 @@ public class MainScene extends BaseScene {
         var locationDialog = new ObstacleLocationDialog();
         locationDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
+                runwayViewBox.getTopDownRunway().addObstacle(locationDialog.getHeight(), locationDialog.getWidth(), 20.0);
                 return new ObstacleLocation(
                         Double.parseDouble(locationDialog.getDistanceFromLeftThreshold()),
                         Double.parseDouble(locationDialog.getDistanceFromRightThreshold()),
@@ -469,16 +471,16 @@ public class MainScene extends BaseScene {
         var customObstacleDialog = new CustomObstacleDialog();
         customObstacleDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
+                runwayViewBox.getTopDownRunway().addObstacle(customObstacleDialog.getHeight(), customObstacleDialog.getWidth(), 20.0);
                 return new CustomObstacleLocation(
-                    customObstacleDialog.getName(),
-                    Double.parseDouble(customObstacleDialog.getHeightValue()),
-                    Double.parseDouble(customObstacleDialog.getWidthValue()),
-                    Double.parseDouble(customObstacleDialog.getLength()),
-                    Double.parseDouble(customObstacleDialog.getDistanceFromLeftThreshold()),
-                    Double.parseDouble(customObstacleDialog.getDistanceFromRightThreshold()),
-                    Double.parseDouble(customObstacleDialog.getDistanceFromCentre()));
-            }
-            return null;
+                        customObstacleDialog.getName(),
+                        Double.parseDouble(customObstacleDialog.getHeightValue()),
+                        Double.parseDouble(customObstacleDialog.getWidthValue()),
+                        Double.parseDouble(customObstacleDialog.getLength()),
+                        Double.parseDouble(customObstacleDialog.getDistanceFromLeftThreshold()),
+                        Double.parseDouble(customObstacleDialog.getDistanceFromRightThreshold()),
+                        Double.parseDouble(customObstacleDialog.getDistanceFromCentre()));
+            }return null;
         });
         var optionalResult = customObstacleDialog.showAndWait();
         optionalResult.ifPresent( (CustomObstacleLocation result) -> {
@@ -508,4 +510,10 @@ public class MainScene extends BaseScene {
     public Parent getRoot() {
         return root;
     }
+
+    public Runway getSelectedRunway(){
+        return selectedRunway;
+    }
+
+
 }

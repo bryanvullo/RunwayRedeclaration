@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import uk.ac.soton.comp2211.model.Runway;
 
 public class RunwayViewBox extends VBox {
     
@@ -102,6 +103,10 @@ public class RunwayViewBox extends VBox {
         runwayVBox.setAlignment(Pos.CENTER);
         runwayVBox.getChildren().addAll(topDownRunway, sideRunway);
         runwayView.getChildren().add(runwayVBox);
+    }
+
+    public TopDownRunway getTopDownRunway() {
+        return topDownRunway;
     }
 }
 
