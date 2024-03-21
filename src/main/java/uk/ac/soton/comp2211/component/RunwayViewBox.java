@@ -43,7 +43,7 @@ public class RunwayViewBox extends VBox {
         simultaneousButton = new Button("Simultaneous View");
         sideButton = new Button("Side View");
 
-        viewSelectionBox.getChildren().addAll(topdownButton, simultaneousButton, sideButton);
+        viewSelectionBox.getChildren().addAll(topdownButton, sideButton,simultaneousButton);
         
         //TODO add Runway View here
 
@@ -102,6 +102,13 @@ public class RunwayViewBox extends VBox {
         runwayVBox.setAlignment(Pos.CENTER);
         runwayVBox.getChildren().addAll(topDownRunway, sideRunway);
         runwayView.getChildren().add(runwayVBox);
+    }
+
+    public SideRunway getSideRunway() {
+        return sideRunway;
+    }
+    public TopDownRunway getTopDownRunway() {
+        return topDownRunway;
     }
 }
 
