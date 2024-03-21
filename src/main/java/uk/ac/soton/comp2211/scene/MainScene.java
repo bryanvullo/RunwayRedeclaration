@@ -441,9 +441,17 @@ public class MainScene extends BaseScene {
             });
         var optionalResult = locationDialog.showAndWait();
         optionalResult.ifPresent( (ObstacleLocation result) -> {
-            obstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-            obstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-            obstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+            try {
+                obstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
+                obstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
+                obstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+            } catch (Exception e) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Input");
+                alert.setContentText("Please enter a valid number: \n" + e.getMessage());
+                alert.showAndWait();
+            }
         });
     }
     
@@ -465,13 +473,21 @@ public class MainScene extends BaseScene {
             });
         var optionalResult = customObstacleDialog.showAndWait();
         optionalResult.ifPresent( (CustomObstacleLocation result) -> {
-            customObstacle.setObstacleName(result.getName());
-            customObstacle.setHeight(result.getHeight());
-            customObstacle.setWidth(result.getWidth());
-            customObstacle.setLength(result.getLength());
-            customObstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-            customObstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-            customObstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+            try {
+                customObstacle.setObstacleName(result.getName());
+                customObstacle.setHeight(result.getHeight());
+                customObstacle.setWidth(result.getWidth());
+                customObstacle.setLength(result.getLength());
+                customObstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
+                customObstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
+                customObstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+            } catch (Exception e) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Input");
+                alert.setContentText("Please enter a valid number: \n" + e.getMessage());
+                alert.showAndWait();
+            }
         });
     }
     
