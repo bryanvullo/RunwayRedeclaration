@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
-import uk.ac.soton.comp2211.component.CalculationBreakdown;
+import uk.ac.soton.comp2211.component.CalculationBreakdownBox;
 import uk.ac.soton.comp2211.component.CalculationTab;
 import uk.ac.soton.comp2211.component.CustomObstacleDialog;
 import uk.ac.soton.comp2211.component.MenuBar;
@@ -50,7 +50,6 @@ import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
 import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
 import uk.ac.soton.comp2211.model.obstacles.Container;
-import uk.ac.soton.comp2211.model.obstacles.Obstacle;
 import uk.ac.soton.comp2211.model.obstacles.Plane;
 import uk.ac.soton.comp2211.model.obstacles.ShuttleBus;
 
@@ -79,8 +78,9 @@ public class MainScene extends BaseScene {
 
     private String selectedDirection = null;
     private RunwayViewBox runwayViewBox;
-
-
+    private CalculationBreakdownBox calculationBreakdownBox;
+    
+    
     public MainScene(AppWindow appWindow) {
         super(appWindow);
     }
@@ -118,8 +118,7 @@ public class MainScene extends BaseScene {
         //Toolbar at the top
         var toolbar = new MenuBar();
         mainPane.setTop(toolbar);
-
-        //Todo: add runway selection functionality
+        
         //Left Panel
         leftPanel = new HBox();
         leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("0598ff"), null, null)));
@@ -152,8 +151,8 @@ public class MainScene extends BaseScene {
         activeBar = new VBox();
         activeBar.setAlignment(Pos.TOP_CENTER);
         activeObstacle = new ActiveObstacle();
-        var calculationBreakdownBox = new CalculationBreakdown();
-        activeBar.getChildren().addAll(activeObstacle,calculationBreakdownBox);
+        calculationBreakdownBox = new CalculationBreakdownBox();
+        activeBar.getChildren().addAll(activeObstacle, calculationBreakdownBox);
         VBox.setVgrow(activeObstacle, Priority.ALWAYS);
         VBox.setVgrow(calculationBreakdownBox, Priority.ALWAYS);
         rightPanel.getChildren().addAll(rightCollapsibleBar, activeBar);
@@ -422,7 +421,15 @@ public class MainScene extends BaseScene {
                 tool.recalculate(selectedObstacle, "TOALO");
             }
         }
-
+        updateBreakdown();
+    }
+    
+    private void updateBreakdown() {
+        var breakdown = tool.getRevisedCalculation().calculationBreakdown;
+        calculationBreakdownBox.toraBreakdownProperty().bind(breakdown.getToraBreakdown());
+        calculationBreakdownBox.todaBreakdownProperty().bind(breakdown.getTodaBreakdown());
+        calculationBreakdownBox.asdaBreakdownProperty().bind(breakdown.getAsdaBreakdown());
+        calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
     }
 
     private void updateRunway(Runway runway) {
@@ -443,9 +450,17 @@ public class MainScene extends BaseScene {
         });
         var optionalResult = locationDialog.showAndWait();
         optionalResult.ifPresent( (ObstacleLocation result) -> {
-            obstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-            obstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-            obstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+            try {
+                obstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
+                obstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
+                obstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+            } catch (Exception e) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Input");
+                alert.setContentText("Please enter a valid number: \n" + e.getMessage());
+                alert.showAndWait();
+            }
         });
     }
 
@@ -455,25 +470,33 @@ public class MainScene extends BaseScene {
         customObstacleDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
                 return new CustomObstacleLocation(
-                        customObstacleDialog.getName(),
-                        Double.parseDouble(customObstacleDialog.getHeightValue()),
-                        Double.parseDouble(customObstacleDialog.getWidthValue()),
-                        Double.parseDouble(customObstacleDialog.getLength()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromLeftThreshold()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromRightThreshold()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromCentre()));
+                    customObstacleDialog.getName(),
+                    Double.parseDouble(customObstacleDialog.getHeightValue()),
+                    Double.parseDouble(customObstacleDialog.getWidthValue()),
+                    Double.parseDouble(customObstacleDialog.getLength()),
+                    Double.parseDouble(customObstacleDialog.getDistanceFromLeftThreshold()),
+                    Double.parseDouble(customObstacleDialog.getDistanceFromRightThreshold()),
+                    Double.parseDouble(customObstacleDialog.getDistanceFromCentre()));
             }
             return null;
         });
         var optionalResult = customObstacleDialog.showAndWait();
         optionalResult.ifPresent( (CustomObstacleLocation result) -> {
-            customObstacle.setObstacleName(result.getName());
-            customObstacle.setHeight(result.getHeight());
-            customObstacle.setWidth(result.getWidth());
-            customObstacle.setLength(result.getLength());
-            customObstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-            customObstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-            customObstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+            try {
+                customObstacle.setObstacleName(result.getName());
+                customObstacle.setHeight(result.getHeight());
+                customObstacle.setWidth(result.getWidth());
+                customObstacle.setLength(result.getLength());
+                customObstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
+                customObstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
+                customObstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+            } catch (Exception e) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Input");
+                alert.setContentText("Please enter a valid number: \n" + e.getMessage());
+                alert.showAndWait();
+            }
         });
     }
 

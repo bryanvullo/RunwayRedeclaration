@@ -26,7 +26,6 @@ public class MenuBar extends HBox {
 
   private MenuButton fileButton;
   private MenuButton editButton;
-  private MenuButton viewButton;
   private MenuButton settingsButton;
   private MenuButton helpButton;
   private MenuButton userButton;
@@ -42,19 +41,43 @@ public class MenuBar extends HBox {
     setSpacing(10);
     setPadding(new Insets(10));
     setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
-
-//        var toolbar = new ToolBar();
-//        toolbar.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, null, null)));
+    
     fileButton = new MenuButton("File");
+    fileButton.getItems().addAll(
+        new MenuItem("Import"),
+        new MenuItem("Export"),
+        new MenuItem("Reset"),
+        new MenuItem("Add Airport"),
+        new MenuItem("PDF Report")
+    );
     editButton = new MenuButton("Edit");
-    viewButton = new MenuButton("View");
+    editButton.getItems().addAll(
+        new MenuItem("Edit Airports"),
+        new MenuItem("Edit Obstacles"),
+        new MenuItem("Undo")
+    );
     unitButton = new MenuButton("Units");
+    unitButton.getItems().addAll(
+        new MenuItem("Metric"),
+        new MenuItem("Imperial")
+    );
     settingsButton = new MenuButton("Settings");
+    settingsButton.getItems().addAll(
+        new MenuItem("Change Colour Scheme"),
+        new MenuItem("Change Font"),
+        new MenuItem("Light/Dark Mode"),
+        new MenuItem("System Notifications"),
+        new MenuItem("Clear System Messages")
+    );
     helpButton = new MenuButton("Help");
+    helpButton.getItems().addAll(
+        new MenuItem("FAQs"),
+        new MenuItem("Walkthrough Tutorial Video"),
+        new MenuItem("User Guide"),
+        new MenuItem("Contact Us")
+    );
 
-//        toolbar.getItems().addAll(fileButton, editButton, viewButton, settingsButton, helpButton);
-//        getChildren().add(toolbar);
-    getChildren().addAll(fileButton, editButton, viewButton, unitButton, settingsButton, helpButton);
+    getChildren().addAll(fileButton, editButton, unitButton, settingsButton, helpButton);
 
     var filler = new HBox();
     getChildren().add(filler);
@@ -98,10 +121,6 @@ public class MenuBar extends HBox {
 
   public MenuButton editButton() {
     return editButton;
-  }
-
-  public MenuButton viewButton() {
-    return viewButton;
   }
 
   public MenuButton settingsButton() {

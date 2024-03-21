@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import uk.ac.soton.comp2211.model.obstacles.Obstacle;
 
 public class Tool {
+    
     private Calculation revisedCalculation;
     
     private Calculation previousCalculation;
@@ -102,5 +103,9 @@ public class Tool {
     
     public Runway getRunway() {
         return runway;
+    }
+    
+    public Calculation getRevisedCalculation() {
+        return revisedCalculation;
     }
 }
