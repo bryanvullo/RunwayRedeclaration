@@ -17,6 +17,9 @@ public class SideRunway extends HBox {
     private VBox viewVBox;
     private VBox obstacleContainer;
     private VBox landingDirectionVBox;
+    private Rectangle runwayStopway;
+    private Rectangle runwayStopway2;
+
 
     public SideRunway() {
         logger.info("Creating Side Runway View");
@@ -57,8 +60,20 @@ public class SideRunway extends HBox {
         LDAVBox.getChildren().addAll(LDAarrow, LDAarrowLabel);
         LDAVBox.setAlignment(Pos.CENTER_RIGHT);
 
+        runwayStopway = new Rectangle(0, 0, 50, 10);
+        runwayStopway.setFill(Color.TRANSPARENT); // Set fill color to transparent
+        runwayStopway.setStroke(Color.BLACK); // Set stroke color to black
+
+        runwayStopway2 = new Rectangle(0, 0, 50, 10);
+        runwayStopway2.setFill(Color.TRANSPARENT); // Set fill color to transparent
+        runwayStopway2.setStroke(Color.BLACK); // Set stroke color to black
+
+        HBox runwayWithStopway = new HBox();
+        runwayWithStopway.setAlignment(Pos.CENTER);
+        runwayWithStopway.getChildren().addAll(runwayStopway, SideRunwayPane, runwayStopway2);
+
         SideRunwayPane.getChildren().addAll(runway);
-        viewVBox.getChildren().addAll(landingDirectionVBox,SideRunwayPane, LDAVBox);
+        viewVBox.getChildren().addAll(landingDirectionVBox,runwayWithStopway, LDAVBox);
         viewVBox.setAlignment(Pos.CENTER_LEFT);
         viewVBox.setSpacing(10);
 
