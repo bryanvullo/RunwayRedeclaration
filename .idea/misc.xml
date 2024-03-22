@@ -8,5 +8,9 @@
       </list>
     </option>
   </component>
+  <component name="ProjectResources">
+    <resource url="http://www.bryanvullo.com" location="$PROJECT_DIR$" />
+    <resource url="http://www.https://github.com/bryanvullo/RunwayRedeclaration" location="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK" />
 </project>
