@@ -488,18 +488,21 @@ public class MainScene extends BaseScene {
         locationDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
                 return new ObstacleLocation(
-                        Double.parseDouble(locationDialog.getDistanceFromLeftThreshold()),
-                        Double.parseDouble(locationDialog.getDistanceFromRightThreshold()),
-                        Double.parseDouble(locationDialog.getDistanceFromCentre()));
+                        locationDialog.getDistanceFromLeftThreshold(),
+                        locationDialog.getDistanceFromRightThreshold(),
+                        locationDialog.getDistanceFromCentre());
             }
             return null;
         });
         var optionalResult = locationDialog.showAndWait();
         optionalResult.ifPresent( (ObstacleLocation result) -> {
             try {
-                obstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-                obstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-                obstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+                var distanceLeft = Double.parseDouble(result.getDistanceFromLeftThreshold());
+                var distanceRight = Double.parseDouble(result.getDistanceFromRightThreshold());
+                var distanceCentre = Double.parseDouble(result.getDistanceFromCentre());
+                obstacle.setDistanceLeftThreshold(distanceLeft);
+                obstacle.setDistanceRightThreshold(distanceRight);
+                obstacle.setDistanceFromCentre(distanceCentre);
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -515,7 +518,6 @@ public class MainScene extends BaseScene {
         var customObstacleDialog = new CustomObstacleDialog();
         customObstacleDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
-                var height = customObstacleDialog.getHeightValue();
                 return new CustomObstacleLocation(
                         customObstacleDialog.getName(),
                         customObstacleDialog.getHeightValue(),
