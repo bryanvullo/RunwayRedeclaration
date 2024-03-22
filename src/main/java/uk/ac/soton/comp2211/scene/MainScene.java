@@ -224,10 +224,8 @@ public class MainScene extends BaseScene {
 
             updateObstacle( obstacle );
 
-            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-
-
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
         });
         obstacleBox.getAirbusButton().setOnAction((e) -> {
             logger.info("Airbus Button Pressed");
@@ -238,9 +236,8 @@ public class MainScene extends BaseScene {
 
             updateObstacle( obstacle );
 
-
-            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
         });
         obstacleBox.getContainerButton().setOnAction((e) -> {
             logger.info("Container Button Pressed");
@@ -251,8 +248,8 @@ public class MainScene extends BaseScene {
 
             updateObstacle( obstacle );
 
-            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
         });
         obstacleBox.getShuttleBusButton().setOnAction((e) -> {
             logger.info("Shuttle Bus Button Pressed");
@@ -263,8 +260,8 @@ public class MainScene extends BaseScene {
 
             updateObstacle( obstacle );
 
-            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
         });
         obstacleBox.getCustomButton().setOnAction((e) -> {
             logger.info("Custom Button Pressed");
@@ -274,30 +271,9 @@ public class MainScene extends BaseScene {
             getInputAdvancedObstacle(obstacle);
 
             updateObstacle( obstacle );
-            if(obstacle.getWidth()*1.5 > runwayViewBox.getTopDownRunway().getRunway().getHeight()) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid Width");
-                alert.setContentText("Obstacle Width is larger than runway width");
-                alert.showAndWait();
-                System.out.println(obstacle.getWidth());
-                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-            }
-            else if(obstacle.getLength()*1.5 > runwayViewBox.getTopDownRunway().getRunway().getWidth()) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid Length");
-                alert.setContentText("Obstacle Length is larger than runway length");
-                alert.showAndWait();
-                System.out.println(obstacle.getWidth());
-                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-            }
-            else {
-                runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-                runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-                System.out.println(obstacle.getWidth());
-                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-            }
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
         });
 
         runwayBox.getAirportSelection().setOnAction(this::selectAirport);
