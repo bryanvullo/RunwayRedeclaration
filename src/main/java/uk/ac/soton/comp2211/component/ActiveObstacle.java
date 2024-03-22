@@ -58,42 +58,48 @@ public class ActiveObstacle extends VBox {
         heightLabel.getStyleClass().add("subtitle");
         var heightText = new Text();
         heightText.textProperty().bind(height.asString());
-        heightBox.getChildren().addAll(heightLabel, heightText);
+        var unitText = new Text("m");
+        heightBox.getChildren().addAll(heightLabel, heightText, unitText);
         
         var widthBox = new HBox();
         var widthLabel = new Text("Width: ");
         widthLabel.getStyleClass().add("subtitle");
         var widthText = new Text();
         widthText.textProperty().bind(width.asString());
-        widthBox.getChildren().addAll(widthLabel, widthText);
+        unitText = new Text("m");
+        widthBox.getChildren().addAll(widthLabel, widthText, unitText);
         
         var lengthBox = new HBox();
         var lengthLabel = new Text("Length: ");
         lengthLabel.getStyleClass().add("subtitle");
         var lengthText = new Text();
         lengthText.textProperty().bind(length.asString());
-        lengthBox.getChildren().addAll(lengthLabel, lengthText);
+        unitText = new Text("m");
+        lengthBox.getChildren().addAll(lengthLabel, lengthText, unitText);
         
         var distanceFromLeftThresholdBox = new HBox();
         var distanceFromLeftThresholdLabel = new Text("Distance from Left Threshold: ");
         distanceFromLeftThresholdLabel.getStyleClass().add("subtitle");
         var distanceFromLeftThresholdText = new Text();
         distanceFromLeftThresholdText.textProperty().bind(distanceFromLeftThreshold.asString());
-        distanceFromLeftThresholdBox.getChildren().addAll(distanceFromLeftThresholdLabel, distanceFromLeftThresholdText);
+        unitText = new Text("m");
+        distanceFromLeftThresholdBox.getChildren().addAll(distanceFromLeftThresholdLabel, distanceFromLeftThresholdText, unitText);
         
         var distanceFromRightThresholdBox = new HBox();
         var distanceFromRightThresholdLabel = new Text("Distance from Right Threshold: ");
         distanceFromRightThresholdLabel.getStyleClass().add("subtitle");
         var distanceFromRightThresholdText = new Text();
         distanceFromRightThresholdText.textProperty().bind(distanceFromRightThreshold.asString());
-        distanceFromRightThresholdBox.getChildren().addAll(distanceFromRightThresholdLabel, distanceFromRightThresholdText);
+        unitText = new Text("m");
+        distanceFromRightThresholdBox.getChildren().addAll(distanceFromRightThresholdLabel, distanceFromRightThresholdText, unitText);
         
         var distanceFromCenterBox = new HBox();
         var distanceFromCenterLabel = new Text("Distance from Center: ");
         distanceFromCenterLabel.getStyleClass().add("subtitle");
         var distanceFromCenterText = new Text();
         distanceFromCenterText.textProperty().bind(distanceFromCenter.asString());
-        distanceFromCenterBox.getChildren().addAll(distanceFromCenterLabel, distanceFromCenterText);
+        unitText = new Text("m");
+        distanceFromCenterBox.getChildren().addAll(distanceFromCenterLabel, distanceFromCenterText, unitText);
         
         getChildren().addAll(nameText, heightBox, widthBox, lengthBox,
             distanceFromLeftThresholdBox, distanceFromRightThresholdBox, distanceFromCenterBox);
