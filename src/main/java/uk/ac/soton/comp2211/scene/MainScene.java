@@ -171,7 +171,7 @@ public class MainScene extends BaseScene {
 
         ///////////////////////Configure the UI///////////////////////
         toolbar.userButton().getItems().get(0).setDisable(true);
-        toolbar.userButton().getItems().get(1).setDisable(true);
+//        toolbar.userButton().getItems().get(1).setDisable(true);
 
         //calculation tab binding
         calcTab.orignalTora.bind(tool.tora);
