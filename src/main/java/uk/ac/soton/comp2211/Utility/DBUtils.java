@@ -8,7 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import uk.ac.soton.comp2211.App;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.scene.MainScene;
@@ -23,6 +26,7 @@ public class DBUtils {
   static MongoClient mongoClient = null;
 
   private static final Logger logger = Logger.getLogger(Database.class.getName());
+  private static Window stage;
 
   public static void changeScene(ActionEvent actionEvent, String fxmlFile, String title, String username, String acess_level) {
     Parent root = null;
@@ -62,6 +66,10 @@ public class DBUtils {
     stage.setScene(scene);
 
     stage.show();
+  }
+
+  public static void openModalScene(String sceneFXML) {
+
   }
 
   public static void logInUser(ActionEvent actionEvent, String username, String password) throws IOException {

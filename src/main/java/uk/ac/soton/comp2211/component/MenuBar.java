@@ -13,12 +13,15 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import uk.ac.soton.comp2211.App;
 import uk.ac.soton.comp2211.Utility.DBUtils;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MenuBar extends HBox {
 
@@ -41,7 +44,7 @@ public class MenuBar extends HBox {
     setSpacing(10);
     setPadding(new Insets(10));
     setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
-    
+
     fileButton = new MenuButton("File");
     fileButton.getItems().addAll(
         new MenuItem("Import"),
@@ -87,18 +90,35 @@ public class MenuBar extends HBox {
     MenuItem logoutItem = new MenuItem("Log Out");
     logoutItem.setOnAction(event -> performLogout());
 
+    MenuItem manageUsersItem = new MenuItem("Manage Users");
+    manageUsersItem.setOnAction(this::manageUsers);
+
     userButton = new MenuButton();
 
-    var userImage = new ImageView(getClass().getResource("/img/user.png").toExternalForm());
+    var userImage = new ImageView(Objects.requireNonNull(getClass().getResource("/img/user.png")).toExternalForm());
     userImage.setFitWidth(20);
     userImage.setFitHeight(20);
     userButton.setGraphic(userImage);
-    userButton.getItems().addAll(new MenuItem("Username"), new MenuItem("Access Level"), logoutItem);
+    userButton.getItems().addAll(new MenuItem("Username"),logoutItem,manageUsersItem);
 
     getChildren().add(userButton);
 
   }
 
+  private void manageUsers(ActionEvent event) {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/manage-users.fxml"));
+    Parent root = null;
+    try {
+      root = loader.load();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    Scene scene = new Scene(root);
+    Stage stage = new Stage();
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.setScene(scene);
+    stage.show();
+  }
 
   private void performLogout() {
     // Example scene change code. Adjust according to your application's structure.

@@ -42,7 +42,7 @@ public class Database {
     MongoCollection<Document> users = database.getCollection("users");
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     String encryptedPass = encoder.encode(password);
-    Document user = new Document("username", username).append("password", encryptedPass).append("access_level", accessLevel);
+    Document user = new Document("username", username).append("password", encryptedPass).append("access_level", accessLevel).append("accessStatus", User.AccessStatus.UNAUTHORISED.toString());
     if (userExists(username)) {
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setContentText("User Already exists! please choose different username or contact admin to change password.");
@@ -91,7 +91,7 @@ public class Database {
     }
   }
 
-  public boolean updateUser (User user){
+  public static boolean updateUser(User user){
     MongoDatabase database = mongoClient.getDatabase("UserDatabase");
     MongoCollection<Document> users = database.getCollection("users");
     Document query = new Document("username", user.getUsername());
@@ -170,7 +170,7 @@ public class Database {
   }
 
 
-  public ArrayList<User> getAllUsers() {
+  public static ArrayList<User> getAllUsers() {
     ArrayList<User> usersList = new ArrayList<>();
 
     try {
@@ -179,9 +179,9 @@ public class Database {
       users.find().forEach((document) -> {
         String username = document.getString("username");
         String password = document.getString("password");
-        String role = document.getString("role");
-        String status = document.getString("status");
-        usersList.add(new User(username, password, User.AccessLevel.valueOf(role), User.AccessStatus.valueOf(status)));
+        String AccessLevel = document.getString("access_level");
+        String status = document.getString("accessStatus");
+        usersList.add(new User(username, password, User.AccessLevel.valueOf(AccessLevel), User.AccessStatus.valueOf(status)));
       });
     } catch (Exception var4) {
       logger.log(Level.SEVERE, "Error fetching all users: " + var4.getMessage());
