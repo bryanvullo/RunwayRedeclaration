@@ -43,15 +43,14 @@ public class MenuBar extends HBox {
     logger.info("Building the MenuBar");
     setSpacing(10);
     setPadding(new Insets(10));
-    setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+    setBackground(new Background(new BackgroundFill(Color.valueOf("051bff"), null, null)));
 
     fileButton = new MenuButton("File");
     fileButton.getItems().addAll(
         new MenuItem("Import"),
         new MenuItem("Export"),
         new MenuItem("Reset"),
-        new MenuItem("Add Airport"),
-        new MenuItem("PDF Report")
+        new MenuItem("Add Airport")
     );
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
