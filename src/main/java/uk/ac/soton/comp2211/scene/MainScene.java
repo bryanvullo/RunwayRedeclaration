@@ -515,26 +515,34 @@ public class MainScene extends BaseScene {
         var customObstacleDialog = new CustomObstacleDialog();
         customObstacleDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
+                var height = customObstacleDialog.getHeightValue();
                 return new CustomObstacleLocation(
                         customObstacleDialog.getName(),
-                        Double.parseDouble(customObstacleDialog.getHeightValue()),
-                        Double.parseDouble(customObstacleDialog.getWidthValue()),
-                        Double.parseDouble(customObstacleDialog.getLength()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromLeftThreshold()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromRightThreshold()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromCentre()));
-            }return null;
+                        customObstacleDialog.getHeightValue(),
+                        customObstacleDialog.getWidthValue(),
+                        customObstacleDialog.getLength(),
+                        customObstacleDialog.getDistanceFromLeftThreshold(),
+                        customObstacleDialog.getDistanceFromRightThreshold(),
+                        customObstacleDialog.getDistanceFromCentre());
+            }
+            return null;
         });
         var optionalResult = customObstacleDialog.showAndWait();
         optionalResult.ifPresent( (CustomObstacleLocation result) -> {
             try {
+                var height = Double.parseDouble(result.getHeight());
+                var width = Double.parseDouble(result.getWidth());
+                var length = Double.parseDouble(result.getLength());
+                var distanceLeft = Double.parseDouble(result.getDistanceFromLeftThreshold());
+                var distanceRight = Double.parseDouble(result.getDistanceFromRightThreshold());
+                var distanceCentre = Double.parseDouble(result.getDistanceFromCentre());
                 customObstacle.setObstacleName(result.getName());
-                customObstacle.setHeight(result.getHeight());
-                customObstacle.setWidth(result.getWidth());
-                customObstacle.setLength(result.getLength());
-                customObstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-                customObstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-                customObstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+                customObstacle.setHeight(height);
+                customObstacle.setWidth(width);
+                customObstacle.setLength(length);
+                customObstacle.setDistanceLeftThreshold(distanceLeft);
+                customObstacle.setDistanceRightThreshold(distanceRight);
+                customObstacle.setDistanceFromCentre(distanceCentre);
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
