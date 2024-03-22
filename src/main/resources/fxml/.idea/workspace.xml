@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4647da3d-01fb-431f-a140-5d8e5cb46406" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../../out/artifacts/RunwayRedeclaration_jar/RunwayRedeclaration.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../out/artifacts/RunwayRedeclaration_jar/RunwayRedeclaration.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/uk/ac/soton/comp2211/component/MenuBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/uk/ac/soton/comp2211/component/MenuBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sign-up.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/sign-up.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="2dvrhrbE6FjGraNztwES8TBSCgR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Sarvesh Mina/OneDrive/Desktop/Everything/rishabh/runway/runway",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4647da3d-01fb-431f-a140-5d8e5cb46406" name="Changes" comment="" />
+      <created>1710899515147</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710899515147</updated>
+      <workItem from="1710899516236" duration="45000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

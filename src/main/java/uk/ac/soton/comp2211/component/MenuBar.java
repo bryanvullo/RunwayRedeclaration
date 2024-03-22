@@ -104,6 +104,7 @@ public class MenuBar extends HBox {
     // Example scene change code. Adjust according to your application's structure.
     try {
       Stage stage = (Stage) userButton.getScene().getWindow(); // Retrieve the current stage
+      DBUtils.closeStage(stage); // Close the current stage
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login-page.fxml")); // Adjust the path to your FXML
       Parent root = loader.load();
       Scene scene = new Scene(root);

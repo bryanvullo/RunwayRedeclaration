@@ -310,11 +310,14 @@ public class MainScene extends BaseScene {
         var airport = (String) runwayBox.getAirportSelection().getSelectionModel().getSelectedItem();
         runwayBox.getRunwaySelection().getItems().clear();
         runwayBox.getRunwaySelection().setPromptText("Select Runway");
-
+        
         try {
             //fetching the airport data
             var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            var doc = builder.parse(new File(getClass().getResource("/xml/airports.xml").getFile()));
+            var resource = getClass().getResourceAsStream("/xml/airports.xml");
+            System.out.println(resource);
+            
+            var doc = builder.parse(resource);
             var xpath = XPathFactory.newInstance().newXPath();
             var search = "//airport/name[text()=\"" + airport + "\"]/parent::airport/runways/runway";
             var nodes = (NodeList) xpath.compile(search).evaluate(doc, XPathConstants.NODESET);
@@ -344,7 +347,10 @@ public class MainScene extends BaseScene {
         var runwayName = (String) runwayBox.getRunwaySelection().getSelectionModel().getSelectedItem();
         try {
             var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            var doc = builder.parse(new File(getClass().getResource("/xml/airports.xml").getFile()));
+            var resource = getClass().getResourceAsStream("/xml/airports.xml");
+            System.out.println(resource);
+            
+            var doc = builder.parse(resource);
             XPath xpath = XPathFactory.newInstance().newXPath();
             var search = "//airport/name[text()=\"" + airportName + "\"]/"
                     + "parent::airport/runways/runway/name[text()=\"" + runwayName + "\"]"

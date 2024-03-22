@@ -108,11 +108,86 @@
     </airport>
     <airport>
         <name>Stansted</name>
+        <runways>
+            <runway>
+                <name>04/22</name>
+                <logicalRunway dir="left">
+                    <name>04</name>
+                    <tora>3049</tora>
+                    <toda>3338</toda>
+                    <asda>3049</asda>
+                    <lda>2748</lda>
+                    <clearway>292</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>300</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway dir="right">
+                    <name>22</name>
+                    <tora>3049</tora>
+                    <toda>3316</toda>
+                    <asda>3049</asda>
+                    <lda>3049</lda>
+                    <clearway>267</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>0</displacedThreshold>
+                </logicalRunway>
+            </runway>
+        </runways>
     </airport>
     <airport>
         <name>Birmingham</name>
+        <runways>
+            <runway>
+                <name>15/33</name>
+                <logicalRunway dir="left">
+                    <name>15</name>
+                    <tora>3003</tora>
+                    <toda>3063</toda>
+                    <asda>3003</asda>
+                    <lda>2580</lda>
+                    <clearway>60</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>326</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway dir="right">
+                    <name>33</name>
+                    <tora>3003</tora>
+                    <toda>3196</toda>
+                    <asda>3003</asda>
+                    <lda>2449</lda>
+                    <clearway>193</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>411</displacedThreshold>
+                </logicalRunway>
+            </runway>
+        </runways>
     </airport>
     <airport>
         <name>Luton</name>
+        <runways>
+            <runway>
+                <name>07/25</name>
+                <logicalRunway dir="left">
+                    <name>07</name>
+                    <tora>2162</tora>
+                    <toda>3243</toda>
+                    <asda>2162</asda>
+                    <lda>2162</lda>
+                    <clearway>1081</clearway>
+                    <stopway>0</stopway>
+                    <displacedThreshold>0</displacedThreshold>
+                </logicalRunway>
+                <logicalRunway dir="right">
+                    <name>25</name>
+                    <tora>2162</tora>
+                    <toda>3243</toda>
+                    <asda>2219</asda>
+                    <lda>2080</lda>
+                    <clearway>1081</clearway>
+                    <stopway>57</stopway>
+                    <displacedThreshold>82</displacedThreshold>
+                </logicalRunway>
+            </runway>
+        </runways>
     </airport>
 </airports>

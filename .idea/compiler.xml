@@ -7,8 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="runway-redeclaration" />
-        <module name="RunwayRedeclaration" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="RunwayRedeclaration" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
