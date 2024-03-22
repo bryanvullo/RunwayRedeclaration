@@ -10,7 +10,9 @@ import uk.ac.soton.comp2211.model.obstacles.Obstacle;
  */
 public class Calculation {
 
-  private static final java.util.logging.Logger logger = Logger.getLogger(Calculation.class.getName());
+    private static final java.util.logging.Logger logger = Logger.getLogger(Calculation.class.getName());
+  
+    public CalculationBreakdown calculationBreakdown;
     
     /**
      * The runway for this calculation
@@ -138,6 +140,8 @@ public class Calculation {
         
         calcLandingOver();
         calcTOAway();
+        
+        calculationBreakdown = new CalculationBreakdown("TOALO", this);
     }
     
     /**
@@ -150,6 +154,8 @@ public class Calculation {
         
         calcLandingTowards();
         calcTOTowards();
+        
+        calculationBreakdown = new CalculationBreakdown("TOTLT", this);
     }
     
     /**

@@ -65,7 +65,7 @@
                   <Image url="@../img/key-solid.png" />
                </image>
             </ImageView>
-            <Hyperlink fx:id="buttonSignUp" layoutX="40.0" layoutY="334.0" text="Don't have an account? Request Access">
+            <Hyperlink fx:id="buttonSignUp" layoutX="40.0" layoutY="334.0" onAction="#openSignUp" text="Don't have an account? Request Access">
                <font>
                   <Font size="15.0" />
                </font></Hyperlink>
@@ -80,7 +80,7 @@
                </font>
             </Text>
             <Label fx:id="testConnection" layoutX="99.0" layoutY="41.0" prefHeight="18.0" prefWidth="172.0" text="Database Status: DisConnected" />
-            <JFXButton fx:id="buttonLogin" buttonType="RAISED" layoutX="110.0" layoutY="282.0" prefHeight="35.0" prefWidth="150.0" ripplerFill="#0598ff" styleClass="loginButton" stylesheets="@../css/stylesheet.css" text="Login">
+            <JFXButton fx:id="buttonLogin" buttonType="RAISED" layoutX="110.0" layoutY="282.0" onAction="#performLogin" prefHeight="35.0" prefWidth="150.0" ripplerFill="#0598ff" styleClass="loginButton" stylesheets="@../css/stylesheet.css" text="Login">
                <font>
                   <Font name="Ebrima Bold" size="12.0" />
                </font>

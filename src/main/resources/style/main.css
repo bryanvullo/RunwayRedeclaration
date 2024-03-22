@@ -14,3 +14,8 @@
     -fx-font-weight: bold;
     -fx-fill: black;
 }
+
+.tinytext {
+    -fx-font-size: 10px;
+    -fx-fill: black;
+}

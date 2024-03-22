@@ -3,25 +3,27 @@ package uk.ac.soton.comp2211.component;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class RunwayViewBox extends VBox {
     
     private static final Logger logger = LogManager.getLogger(RunwayViewBox.class);
-    
+
+    private Button topdownButton;
+    private Button simultaneousButton;
+    private Button sideButton;
+    private HBox runwayView;
+    private SideRunway sideRunway;
+    private TopDownRunway topDownRunway;
+
     public RunwayViewBox() {
         logger.info("Creating Runway View");
+        sideRunway = new SideRunway();
+        topDownRunway = new TopDownRunway();
         build();
     }
 
@@ -37,27 +39,27 @@ public class RunwayViewBox extends VBox {
         viewSelectionBox.setSpacing(10);
         getChildren().add(viewSelectionBox);
         
-        var topdownButton = new Button("Top-Down View");
-        var simultaneousButton = new Button("Simultaneous View");
-        var sideButton = new Button("Side View");
-        
+        topdownButton = new Button("Top-Down View");
+        simultaneousButton = new Button("Simultaneous View");
+        sideButton = new Button("Side View");
+
         viewSelectionBox.getChildren().addAll(topdownButton, simultaneousButton, sideButton);
         
         //TODO add Runway View here
-        //Start of TEMP code
-        //temp HBox to show space
-        var runwayView = new HBox();
+
+        runwayView = new HBox();
         runwayView.setAlignment(Pos.CENTER);
         runwayView.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         VBox.setVgrow(runwayView, Priority.ALWAYS);
         getChildren().add(runwayView);
-        
-        var testText = new Text("Runway View");
-        runwayView.getChildren().add(testText);
+
+        var topDownRunwayPane = new TopDownRunway();
+        runwayView.getChildren().add(topDownRunwayPane);
+
         //End of TEMP code
-        
+
         var runwayViewTools = new HBox();
-        runwayViewTools.setAlignment(Pos.CENTER_RIGHT);
+        runwayViewTools.setAlignment(Pos.CENTER);
         runwayViewTools.setSpacing(10);
         getChildren().add(runwayViewTools);
         
@@ -72,5 +74,35 @@ public class RunwayViewBox extends VBox {
             zoomInButton, zoomOutButton, rotateButton, alignButton, panButton, resetButton);
         
     }
-    
+    public Button getSideButton() {
+        return sideButton;
+    }
+    public Button getSimultaneousButton() {
+        return simultaneousButton;
+    }
+    public Button getTopdownButton() {
+        return topdownButton;
+    }
+
+    public void changeViewToSide() {
+        // Clear the existing runway view
+        runwayView.getChildren().clear();
+        runwayView.getChildren().add(sideRunway);
+    }
+    public void changeViewToTopdown() {
+        // Clear the existing runway view
+        runwayView.getChildren().clear();
+        runwayView.getChildren().add(topDownRunway);
+    }
+    public void changeViewToSimultaneous() {
+        // Clear the existing runway view
+        runwayView.getChildren().clear();
+        VBox runwayVBox = new VBox();
+        runwayVBox.setSpacing(100);
+        runwayVBox.setAlignment(Pos.CENTER);
+        runwayVBox.getChildren().addAll(topDownRunway, sideRunway);
+        runwayView.getChildren().add(runwayVBox);
+    }
 }
+
+
