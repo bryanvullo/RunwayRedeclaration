@@ -2,26 +2,26 @@ package uk.ac.soton.comp2211.dataStructure;
 
 public class ObstacleLocation {
 
-    private double distanceFromLeftThreshold;
-    private double distanceFromRightThreshold;
-    private double distanceFromCentre;
+    private String distanceFromLeftThreshold;
+    private String distanceFromRightThreshold;
+    private String distanceFromCentre;
     
-    public ObstacleLocation(double distanceFromLeftThreshold, double distanceFromRightThreshold,
-        double distanceFromCentre) {
+    public ObstacleLocation(String distanceFromLeftThreshold, String distanceFromRightThreshold,
+        String distanceFromCentre) {
         this.distanceFromLeftThreshold = distanceFromLeftThreshold;
         this.distanceFromRightThreshold = distanceFromRightThreshold;
         this.distanceFromCentre = distanceFromCentre;
     }
     
-    public double getDistanceFromLeftThreshold() {
+    public String getDistanceFromLeftThreshold() {
         return distanceFromLeftThreshold;
     }
     
-    public double getDistanceFromRightThreshold() {
+    public String getDistanceFromRightThreshold() {
         return distanceFromRightThreshold;
     }
     
-    public double getDistanceFromCentre() {
+    public String getDistanceFromCentre() {
         return distanceFromCentre;
     }
 }

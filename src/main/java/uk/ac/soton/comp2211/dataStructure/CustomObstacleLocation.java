@@ -3,15 +3,15 @@ package uk.ac.soton.comp2211.dataStructure;
 public class CustomObstacleLocation {
     
     private String name;
-    private double height;
-    private double width;
-    private double length;
-    private double distanceFromLeftThreshold;
-    private double distanceFromRightThreshold;
-    private double distanceFromCentre;
+    private String height;
+    private String width;
+    private String length;
+    private String distanceFromLeftThreshold;
+    private String distanceFromRightThreshold;
+    private String distanceFromCentre;
     
-    public CustomObstacleLocation(String name, double height, double width, double length, double distanceFromLeftThreshold,
-        double distanceFromRightThreshold, double distanceFromCentre) {
+    public CustomObstacleLocation(String name, String height, String width, String length, String distanceFromLeftThreshold,
+        String distanceFromRightThreshold, String distanceFromCentre) {
         this.name = name;
         this.height = height;
         this.width = width;
@@ -25,27 +25,27 @@ public class CustomObstacleLocation {
         return name;
     }
     
-    public double getHeight() {
+    public String getHeight() {
         return height;
     }
     
-    public double getWidth() {
+    public String getWidth() {
         return width;
     }
     
-    public double getLength() {
+    public String getLength() {
         return length;
     }
     
-    public double getDistanceFromLeftThreshold() {
+    public String getDistanceFromLeftThreshold() {
         return distanceFromLeftThreshold;
     }
     
-    public double getDistanceFromRightThreshold() {
+    public String getDistanceFromRightThreshold() {
         return distanceFromRightThreshold;
     }
     
-    public double getDistanceFromCentre() {
+    public String getDistanceFromCentre() {
         return distanceFromCentre;
     }
 }
