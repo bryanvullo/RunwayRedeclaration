@@ -67,7 +67,7 @@ public class SideRunway extends HBox {
 
     public void addObstacle(Double height, Double width, Double length) {
         SideRunwayPane.getChildren().remove(obstacleContainer);
-        obstacle = new Rectangle(width * 1.5, height * 1.5);
+        obstacle = new Rectangle(length * 1.5, height * 1.5);
         obstacle.setFill(Color.RED);
         obstacle.setY(runway.getY());
         obstacleContainer = new VBox();
