@@ -238,6 +238,7 @@ public class MainScene extends BaseScene {
 
             updateObstacle( obstacle );
 
+
             runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
             runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
         });
@@ -273,8 +274,30 @@ public class MainScene extends BaseScene {
             getInputAdvancedObstacle(obstacle);
 
             updateObstacle( obstacle );
-            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            if(obstacle.getWidth()*1.5 > runwayViewBox.getTopDownRunway().getRunway().getHeight()) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Width");
+                alert.setContentText("Obstacle Width is larger than runway width");
+                alert.showAndWait();
+                System.out.println(obstacle.getWidth());
+                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+            }
+            else if(obstacle.getLength()*1.5 > runwayViewBox.getTopDownRunway().getRunway().getWidth()) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Length");
+                alert.setContentText("Obstacle Length is larger than runway length");
+                alert.showAndWait();
+                System.out.println(obstacle.getWidth());
+                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+            }
+            else {
+                runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+                runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+                System.out.println(obstacle.getWidth());
+                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+            }
         });
 
         runwayBox.getAirportSelection().setOnAction(this::selectAirport);

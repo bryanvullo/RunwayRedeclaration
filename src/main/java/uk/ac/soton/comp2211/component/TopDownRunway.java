@@ -24,6 +24,8 @@ public class TopDownRunway extends HBox {
     private VBox viewVBox;
     private Rectangle obstacle;
 
+    private Rectangle runwayStopway;
+    private Rectangle runwayStopway2;
 
     public TopDownRunway() {
         logger.info("Creating Top Down Runway View");
@@ -56,7 +58,7 @@ public class TopDownRunway extends HBox {
         TODAarrow = new Arrow(0, 20, runway.getWidth() + 100, 20);
         ASDAarrow = new Arrow(0, 20, runway.getWidth() + 50, 20);
         TORAarrow = new Arrow(0, 20, runway.getWidth() - 100, 20);
-        LDAarrow = new Arrow(0, 20, runway.getWidth() - 120, 20);
+        LDAarrow = new Arrow(40, 20, runway.getWidth() - 120, 20);
         Arrow landingDirectionarrow = new Arrow(100, 20, 300, 20);
 
         TODAVBox = new VBox();
@@ -79,15 +81,14 @@ public class TopDownRunway extends HBox {
         LDAVBox.setAlignment(Pos.CENTER_LEFT);
         LDAVBox.getChildren().addAll(LDALabel, LDAarrow);
 
-        VBox arrowsVBox = new VBox();
-        arrowsVBox.setSpacing(10);
-        arrowsVBox.setAlignment(Pos.CENTER_LEFT);
-        arrowsVBox.getChildren().addAll(TODAVBox, ASDAVBox, TORAVBox, LDAVBox);
-
         HBox landingDirectionVBox = new HBox();
         landingDirectionVBox.setSpacing(10);
         landingDirectionVBox.setAlignment(Pos.CENTER_LEFT);
         landingDirectionVBox.getChildren().addAll(landingDirectionLabel, landingDirectionarrow);
+
+        VBox arrowsVBox = new VBox();
+        arrowsVBox.setSpacing(10);
+        arrowsVBox.setAlignment(Pos.CENTER_LEFT);
 
         var dashHBox = new HBox();
         double dashWidth = 40;
@@ -108,7 +109,23 @@ public class TopDownRunway extends HBox {
         dashHBox.setSpacing(padding);
         dashHBox.setPadding(new Insets(0, 0, 0, 30));
         topDownRunwayPane.getChildren().add(dashHBox);
-        viewVBox.getChildren().addAll(arrowsVBox,topDownRunwayPane, landingDirectionVBox);
+
+        runwayStopway = new Rectangle(0, 0, 50, 150);
+        runwayStopway.setFill(Color.TRANSPARENT); // Set fill color to transparent
+        runwayStopway.setStroke(Color.BLACK); // Set stroke color to black
+
+        runwayStopway2 = new Rectangle(0, 0, 50, 150);
+        runwayStopway2.setFill(Color.TRANSPARENT); // Set fill color to transparent
+        runwayStopway2.setStroke(Color.BLACK); // Set stroke color to black
+
+        HBox runwayWithStopway = new HBox();
+        runwayWithStopway.setAlignment(Pos.CENTER);
+        runwayWithStopway.getChildren().addAll(runwayStopway, topDownRunwayPane, runwayStopway2);
+
+        arrowsVBox.getChildren().addAll(TODAVBox, ASDAVBox, TORAVBox, LDAVBox);
+        arrowsVBox.setPadding(new Insets(0, 0, 0, runwayStopway.getWidth() * 2));
+
+        viewVBox.getChildren().addAll(arrowsVBox,runwayWithStopway, landingDirectionVBox);
         viewVBox.setAlignment(Pos.CENTER_LEFT);
         viewVBox.setSpacing(10);
         viewVBox.setPadding(new Insets(0, 0, 0, 30));
@@ -135,9 +152,17 @@ public class TopDownRunway extends HBox {
     public void addObstacle(Double height, Double width, Double length) {
         System.out.println("the values inputted are: " + height + " " + width + " " + length);
         topDownRunwayPane.getChildren().remove(obstacle);
-        obstacle = new Rectangle(width * 1.5, length*1.5);
+        obstacle = new Rectangle(length * 1.5, width*1.5);
         obstacle.setFill(Color.RED);
         topDownRunwayPane.getChildren().add(obstacle);
 
+    }
+
+    public Rectangle getRunway() {
+        return runway;
+    }
+
+    public Rectangle getRunwayStopway() {
+        return runwayStopway;
     }
 }
