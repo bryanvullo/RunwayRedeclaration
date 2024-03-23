@@ -68,10 +68,6 @@ public class DBUtils {
     stage.show();
   }
 
-  public static void openModalScene(String sceneFXML) {
-
-  }
-
   public static void logInUser(ActionEvent actionEvent, String username, String password) throws IOException {
     changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
   }
