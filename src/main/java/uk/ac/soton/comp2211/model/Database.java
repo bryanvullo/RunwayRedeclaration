@@ -23,6 +23,7 @@ public class Database {
   private static final Logger logger = Logger.getLogger(Database.class.getName());
 
   private static MongoClient mongoClient;
+  private static User currentUser = new User(null, null, null, null);
 
   public Database() {
     Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
@@ -137,7 +138,19 @@ public class Database {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     assert user != null;
     logger.log(Level.INFO, "Checking password for user: " + user.getString("username"));
-    return encoder.matches(password, user.getString("password"));
+
+    if (encoder.matches(password, user.getString("password"))) {
+      logger.log(Level.INFO, "Password is correct");
+      currentUser = Database.getUser(username);
+      return true;
+    } else {
+      logger.log(Level.INFO, "Password is incorrect");
+      return false;
+    }
+  }
+
+  public static User getCurrentUser() {
+    return currentUser;
   }
 
   public static User getUser(String username) {
