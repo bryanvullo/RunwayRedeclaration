@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -19,6 +20,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp2211.App;
 import uk.ac.soton.comp2211.Utility.DBUtils;
+import uk.ac.soton.comp2211.control.LoginController;
+import uk.ac.soton.comp2211.model.Database;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -93,13 +96,15 @@ public class MenuBar extends HBox {
     MenuItem manageUsersItem = new MenuItem("Manage Users");
     manageUsersItem.setOnAction(this::manageUsers);
 
+    MenuItem username = new MenuItem(Database.getCurrentUser().getUsername());
+
     userButton = new MenuButton();
 
     var userImage = new ImageView(Objects.requireNonNull(getClass().getResource("/img/user.png")).toExternalForm());
     userImage.setFitWidth(20);
     userImage.setFitHeight(20);
     userButton.setGraphic(userImage);
-    userButton.getItems().addAll(new MenuItem("Username"),logoutItem,manageUsersItem);
+    userButton.getItems().addAll(username ,manageUsersItem, logoutItem);
 
     getChildren().add(userButton);
 
