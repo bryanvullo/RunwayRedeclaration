@@ -1,6 +1,5 @@
 package uk.ac.soton.comp2211.scene;
 
-import java.io.File;
 import java.io.IOException;
 import javafx.event.Event;
 import javafx.geometry.Pos;
@@ -171,7 +170,7 @@ public class MainScene extends BaseScene {
 
         ///////////////////////Configure the UI///////////////////////
         toolbar.userButton().getItems().get(0).setDisable(true);
-        toolbar.userButton().getItems().get(1).setDisable(true);
+//        toolbar.userButton().getItems().get(1).setDisable(true);
 
         //calculation tab binding
         calcTab.orignalTora.bind(tool.tora);
@@ -377,7 +376,7 @@ public class MainScene extends BaseScene {
                 runway.setDisplacedThreshold(displacedThreshold);
 
                 updateRunway(runway);
-                runwayViewBox.getTopDownRunway().updateArrows(tora, toda, asda, lda);
+                runwayViewBox.getTopDownRunway().updateRunway(tora, toda, asda, lda, clearway, stopway, displacedThreshold);
             }
 
         } catch (ParserConfigurationException | SAXException | IOException |
@@ -464,18 +463,21 @@ public class MainScene extends BaseScene {
         locationDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
                 return new ObstacleLocation(
-                        Double.parseDouble(locationDialog.getDistanceFromLeftThreshold()),
-                        Double.parseDouble(locationDialog.getDistanceFromRightThreshold()),
-                        Double.parseDouble(locationDialog.getDistanceFromCentre()));
+                        locationDialog.getDistanceFromLeftThreshold(),
+                        locationDialog.getDistanceFromRightThreshold(),
+                        locationDialog.getDistanceFromCentre());
             }
             return null;
         });
         var optionalResult = locationDialog.showAndWait();
         optionalResult.ifPresent( (ObstacleLocation result) -> {
             try {
-                obstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-                obstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-                obstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+                var distanceLeft = Double.parseDouble(result.getDistanceFromLeftThreshold());
+                var distanceRight = Double.parseDouble(result.getDistanceFromRightThreshold());
+                var distanceCentre = Double.parseDouble(result.getDistanceFromCentre());
+                obstacle.setDistanceLeftThreshold(distanceLeft);
+                obstacle.setDistanceRightThreshold(distanceRight);
+                obstacle.setDistanceFromCentre(distanceCentre);
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -493,24 +495,31 @@ public class MainScene extends BaseScene {
             if (button == ButtonType.OK) {
                 return new CustomObstacleLocation(
                         customObstacleDialog.getName(),
-                        Double.parseDouble(customObstacleDialog.getHeightValue()),
-                        Double.parseDouble(customObstacleDialog.getWidthValue()),
-                        Double.parseDouble(customObstacleDialog.getLength()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromLeftThreshold()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromRightThreshold()),
-                        Double.parseDouble(customObstacleDialog.getDistanceFromCentre()));
-            }return null;
+                        customObstacleDialog.getHeightValue(),
+                        customObstacleDialog.getWidthValue(),
+                        customObstacleDialog.getLength(),
+                        customObstacleDialog.getDistanceFromLeftThreshold(),
+                        customObstacleDialog.getDistanceFromRightThreshold(),
+                        customObstacleDialog.getDistanceFromCentre());
+            }
+            return null;
         });
         var optionalResult = customObstacleDialog.showAndWait();
         optionalResult.ifPresent( (CustomObstacleLocation result) -> {
             try {
+                var height = Double.parseDouble(result.getHeight());
+                var width = Double.parseDouble(result.getWidth());
+                var length = Double.parseDouble(result.getLength());
+                var distanceLeft = Double.parseDouble(result.getDistanceFromLeftThreshold());
+                var distanceRight = Double.parseDouble(result.getDistanceFromRightThreshold());
+                var distanceCentre = Double.parseDouble(result.getDistanceFromCentre());
                 customObstacle.setObstacleName(result.getName());
-                customObstacle.setHeight(result.getHeight());
-                customObstacle.setWidth(result.getWidth());
-                customObstacle.setLength(result.getLength());
-                customObstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-                customObstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-                customObstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+                customObstacle.setHeight(height);
+                customObstacle.setWidth(width);
+                customObstacle.setLength(length);
+                customObstacle.setDistanceLeftThreshold(distanceLeft);
+                customObstacle.setDistanceRightThreshold(distanceRight);
+                customObstacle.setDistanceFromCentre(distanceCentre);
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");

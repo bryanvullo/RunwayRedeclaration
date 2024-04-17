@@ -1,6 +1,6 @@
 Mar 22, 2024 11:50:59 AM uk.ac.soton.comp2211.App main
 INFO: Application started.
-Mar 22, 2024 11:50:59 AM uk.ac.soton.comp2211.App openApp
+Mar 22, 2024 11:51:00 AM uk.ac.soton.comp2211.App openApp
 INFO: Opening login page
 Mar 22, 2024 11:51:00 AM uk.ac.soton.comp2211.UI.AppWindow startTool
 INFO: Starting the tool
@@ -8,53 +8,51 @@ Mar 22, 2024 11:51:00 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
 INFO: Clearing up previous scene
 Mar 22, 2024 11:51:00 AM uk.ac.soton.comp2211.scene.MainScene build
 INFO: Building uk.ac.soton.comp2211.scene.MainScene
-Mar 22, 2024 11:51:00 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+Mar 22, 2024 11:51:01 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 Mar 22, 2024 11:51:01 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
 INFO: Connected to the database
-Mar 22, 2024 11:51:01 AM uk.ac.soton.comp2211.scene.MainScene initialise
+Mar 22, 2024 11:51:02 AM uk.ac.soton.comp2211.scene.MainScene initialise
 INFO: initialising the menu scene
-Mar 22, 2024 11:51:08 AM uk.ac.soton.comp2211.control.LoginController performLogin
-INFO: User exists
-Mar 22, 2024 11:51:08 AM uk.ac.soton.comp2211.model.Database checkPassword
-INFO: Checking password for user: DwijeshD
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.control.LoginController performLogin
-INFO: User exists
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.model.Database checkPassword
-INFO: Checking password for user: DwijeshD
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.control.LoginController performLogin
-INFO: Password is correct
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.control.LoginController performLogin
-INFO: User DwijeshD logged in successfully
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.UI.AppWindow startTool
-INFO: Starting the tool
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
-INFO: Clearing up previous scene
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.scene.MainScene build
-INFO: Building uk.ac.soton.comp2211.scene.MainScene
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+Mar 22, 2024 11:51:04 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
 INFO: Connected to the database
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.scene.MainScene initialise
-INFO: initialising the menu scene
-Mar 22, 2024 11:51:09 AM uk.ac.soton.comp2211.scene.MainScene build
+Mar 22, 2024 11:51:19 AM uk.ac.soton.comp2211.model.Database insertUser
+INFO: User inserted successfully
+Mar 22, 2024 11:51:19 AM uk.ac.soton.comp2211.control.SignUpController signUpUser
+INFO: User registered successfully
+Mar 22, 2024 11:51:19 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+Mar 22, 2024 11:51:29 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User exists
+Mar 22, 2024 11:51:29 AM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Checking password for user: sarvu1
+Mar 22, 2024 11:51:29 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: Password is correct
+Mar 22, 2024 11:51:29 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User sarvu1 logged in successfully
+Mar 22, 2024 11:51:29 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Mar 22, 2024 11:51:29 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Mar 22, 2024 11:51:29 AM uk.ac.soton.comp2211.scene.MainScene build
 INFO: Building uk.ac.soton.comp2211.scene.MainScene
-Mar 22, 2024 11:51:10 AM uk.ac.soton.comp2211.scene.MainScene initialise
+Mar 22, 2024 11:51:30 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+Mar 22, 2024 11:51:30 AM uk.ac.soton.comp2211.scene.MainScene initialise
 INFO: initialising the menu scene
-Mar 22, 2024 11:51:12 AM uk.ac.soton.comp2211.scene.MainScene selectAirport
-INFO: Airport Selected
-Mar 22, 2024 11:51:13 AM uk.ac.soton.comp2211.scene.MainScene selectRunway
-INFO: Runway Selected
-Mar 22, 2024 11:51:16 AM uk.ac.soton.comp2211.scene.MainScene lambda$build$4
-INFO: Boeing Button Pressed
-Mar 22, 2024 11:51:22 AM uk.ac.soton.comp2211.scene.MainScene lambda$build$3
-INFO: Recalculate button pressed
-Mar 22, 2024 11:51:22 AM uk.ac.soton.comp2211.scene.MainScene recalculate
-INFO: Recalculating
-Mar 22, 2024 11:51:22 AM uk.ac.soton.comp2211.model.Calculation calculateTakeOffAwayLandingOver
-INFO: Calculating for Landing Over and Take-Off Away
-Mar 22, 2024 11:51:22 AM uk.ac.soton.comp2211.model.Calculation calcLandingOver
-INFO: Calculating LDA for Landing Over
-Mar 22, 2024 11:51:22 AM uk.ac.soton.comp2211.model.Calculation calcTOAway
-INFO: Calculating TORA, TODA and ASDA for Take-Off Away
-Mar 22, 2024 11:53:32 AM uk.ac.soton.comp2211.App shutdown
+Mar 22, 2024 11:51:30 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Mar 22, 2024 11:51:30 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Mar 22, 2024 11:56:01 AM uk.ac.soton.comp2211.model.Database updateUser
+INFO: User updated successfully
+Mar 22, 2024 11:56:10 AM uk.ac.soton.comp2211.model.Database updateUser
+INFO: User updated successfully
+Mar 22, 2024 11:56:38 AM uk.ac.soton.comp2211.model.Database updateUser
+INFO: User updated successfully
+Mar 22, 2024 11:56:46 AM uk.ac.soton.comp2211.model.Database updateUser
+INFO: User updated successfully
+Mar 22, 2024 11:57:02 AM uk.ac.soton.comp2211.model.Database updateUser
+INFO: User updated successfully
+Mar 22, 2024 11:57:36 AM uk.ac.soton.comp2211.App shutdown
 INFO: Application shutting down.

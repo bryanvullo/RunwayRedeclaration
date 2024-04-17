@@ -27,6 +27,8 @@ public class TopDownRunway extends HBox {
     private Rectangle runwayStopway;
     private Rectangle runwayStopway2;
     private VBox obstacleVBox;
+    private HBox runwayWithStopway;
+    private VBox arrowsVBox;
 
     public TopDownRunway() {
         logger.info("Creating Top Down Runway View");
@@ -87,7 +89,7 @@ public class TopDownRunway extends HBox {
         landingDirectionVBox.setAlignment(Pos.CENTER_LEFT);
         landingDirectionVBox.getChildren().addAll(landingDirectionLabel, landingDirectionarrow);
 
-        VBox arrowsVBox = new VBox();
+        arrowsVBox = new VBox();
         arrowsVBox.setSpacing(10);
         arrowsVBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -119,12 +121,12 @@ public class TopDownRunway extends HBox {
         runwayStopway2.setFill(Color.TRANSPARENT); // Set fill color to transparent
         runwayStopway2.setStroke(Color.BLACK); // Set stroke color to black
 
-        HBox runwayWithStopway = new HBox();
+        runwayWithStopway = new HBox();
         runwayWithStopway.setAlignment(Pos.CENTER);
         runwayWithStopway.getChildren().addAll(runwayStopway, topDownRunwayPane, runwayStopway2);
 
         arrowsVBox.getChildren().addAll(TODAVBox, ASDAVBox, TORAVBox, LDAVBox);
-        arrowsVBox.setPadding(new Insets(0, 0, 0, runwayStopway.getWidth() * 2));
+        arrowsVBox.setPadding(new Insets(0, 0, 0, runwayStopway.getWidth()));
 
         viewVBox.getChildren().addAll(arrowsVBox,runwayWithStopway, landingDirectionVBox);
         viewVBox.setAlignment(Pos.CENTER_LEFT);
@@ -133,21 +135,41 @@ public class TopDownRunway extends HBox {
         runwayView.getChildren().add(viewVBox);
     }
 
-    public void updateArrows(double tora, double toda, double asda, double lda) {
-        TODAarrow = new Arrow(0, 20, runway.getWidth() + 100, 20);
-        ASDAarrow = new Arrow(0, 20, runway.getWidth() + 50, 20);
-        TORAarrow = new Arrow(0, 20, runway.getWidth() - 100, 20);
-        LDAarrow = new Arrow(0, 20, runway.getWidth() - 120, 20);
-
+    public void updateRunway(double toda, double tora, double asda, double lda, double clearway, double stopway, double displacedThreshold) {
         TODAVBox.getChildren().removeAll(TODAarrow);
         ASDAVBox.getChildren().remove(ASDAarrow);
         TORAVBox.getChildren().remove(TORAarrow);
         LDAVBox.getChildren().remove(LDAarrow);
+        arrowsVBox.getChildren().removeAll(TODAVBox, TORAVBox, ASDAVBox, LDAVBox);
+        runwayWithStopway.getChildren().removeAll(runwayStopway, runwayStopway2);
+
+        System.out.println(stopway);
+        double scalingFactor = runway.getWidth()/tora;
+
+        TODAarrow = new Arrow(0, 20, toda*scalingFactor, 20);
+        ASDAarrow = new Arrow(0, 20, asda*scalingFactor, 20);
+        TORAarrow = new Arrow(0, 20, tora*scalingFactor, 20);
+        LDAarrow = new Arrow(100, 20, lda*scalingFactor, 20);
+
 
         TODAVBox.getChildren().add(TODAarrow);
-        TODAVBox.getChildren().add(TODAarrow);
-        TODAVBox.getChildren().add(TODAarrow);
-        TODAVBox.getChildren().add(TODAarrow);
+        ASDAVBox.getChildren().add(ASDAarrow);
+        TORAVBox.getChildren().add(TORAarrow);
+        LDAVBox.getChildren().add(LDAarrow);
+        LDAVBox.setPadding(new Insets(0, 0, 0, displacedThreshold*scalingFactor));
+        arrowsVBox.getChildren().addAll(TODAVBox, TORAVBox, ASDAVBox, LDAVBox);
+
+        runwayStopway = new Rectangle(0, 0, stopway*scalingFactor, 150);
+        runwayStopway.setFill(Color.TRANSPARENT); // Set fill color to transparent
+        runwayStopway.setStroke(Color.BLACK); // Set stroke color to black
+
+        runwayStopway2 = new Rectangle(0, 0, stopway*scalingFactor, 150);
+        runwayStopway2.setFill(Color.TRANSPARENT); // Set fill color to transparent
+        runwayStopway2.setStroke(Color.BLACK); // Set stroke color to black
+
+        runwayWithStopway.getChildren().addAll(runwayStopway, runwayStopway2);
+        arrowsVBox.setPadding(new Insets(0, 0, 0, runwayStopway.getWidth()));
+
     }
 
     public void addObstacle(Double height, Double width, Double length, Double lThreshold, Double rThreshold, Double cThreshold) {
@@ -166,7 +188,4 @@ public class TopDownRunway extends HBox {
         return runway;
     }
 
-    public Rectangle getRunwayStopway() {
-        return runwayStopway;
-    }
 }
