@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -13,12 +14,17 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import uk.ac.soton.comp2211.App;
 import uk.ac.soton.comp2211.Utility.DBUtils;
+import uk.ac.soton.comp2211.control.LoginController;
+import uk.ac.soton.comp2211.model.Database;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MenuBar extends HBox {
 
@@ -40,15 +46,14 @@ public class MenuBar extends HBox {
     logger.info("Building the MenuBar");
     setSpacing(10);
     setPadding(new Insets(10));
-    setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
-    
+    setBackground(new Background(new BackgroundFill(Color.valueOf("051bff"), null, null)));
+
     fileButton = new MenuButton("File");
     fileButton.getItems().addAll(
         new MenuItem("Import"),
         new MenuItem("Export"),
         new MenuItem("Reset"),
-        new MenuItem("Add Airport"),
-        new MenuItem("PDF Report")
+        new MenuItem("Add Airport")
     );
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
@@ -87,23 +92,43 @@ public class MenuBar extends HBox {
     MenuItem logoutItem = new MenuItem("Log Out");
     logoutItem.setOnAction(event -> performLogout());
 
+    MenuItem manageUsersItem = new MenuItem("Manage Users");
+    manageUsersItem.setOnAction(this::manageUsers);
+
+    MenuItem username = new MenuItem(Database.getCurrentUser().getUsername());
+
     userButton = new MenuButton();
 
-    var userImage = new ImageView(getClass().getResource("/img/user.png").toExternalForm());
+    var userImage = new ImageView(Objects.requireNonNull(getClass().getResource("/img/user.png")).toExternalForm());
     userImage.setFitWidth(20);
     userImage.setFitHeight(20);
     userButton.setGraphic(userImage);
-    userButton.getItems().addAll(new MenuItem("Username"), new MenuItem("Access Level"), logoutItem);
+    userButton.getItems().addAll(username ,manageUsersItem, logoutItem);
 
     getChildren().add(userButton);
 
   }
 
+  private void manageUsers(ActionEvent event) {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/manage-users.fxml"));
+    Parent root = null;
+    try {
+      root = loader.load();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    Scene scene = new Scene(root);
+    Stage stage = new Stage();
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.setScene(scene);
+    stage.show();
+  }
 
   private void performLogout() {
     // Example scene change code. Adjust according to your application's structure.
     try {
       Stage stage = (Stage) userButton.getScene().getWindow(); // Retrieve the current stage
+      DBUtils.closeStage(stage); // Close the current stage
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login-page.fxml")); // Adjust the path to your FXML
       Parent root = loader.load();
       Scene scene = new Scene(root);

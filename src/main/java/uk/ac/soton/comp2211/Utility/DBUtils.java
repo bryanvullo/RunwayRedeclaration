@@ -7,8 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.scene.MainScene;
@@ -23,6 +23,7 @@ public class DBUtils {
   static MongoClient mongoClient = null;
 
   private static final Logger logger = Logger.getLogger(Database.class.getName());
+  private static Window stage;
 
   public static void changeScene(ActionEvent actionEvent, String fxmlFile, String title, String username, String acess_level) {
     Parent root = null;
@@ -49,56 +50,27 @@ public class DBUtils {
   }
 
   public static <AppWindow> void changeSceneToMainScene(ActionEvent actionEvent, uk.ac.soton.comp2211.UI.AppWindow appWindow) {
-    // Assuming AppWindow is accessible and correctly initialized earlier in your application
     MainScene mainScene = new MainScene(appWindow);
-    mainScene.initialise(); // If needed to initialise components
-    mainScene.build(); // Builds the UI components
+    mainScene.initialise();
+    mainScene.build();
 
-    // Get the current stage from the action event
-    Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
     // Set the scene to your main scene
-    Scene scene = new Scene(mainScene.getRoot()); // Ensure getRoot() provides access to the root pane of MainScene
-    scene.getStylesheets().add(DBUtils.class.getResource("/style/main.css").toExternalForm());
+    Scene scene = new Scene(mainScene.getRoot());
+    scene.getStylesheets().add(DBUtils.class.getResource("/css/main.css").toExternalForm());
     stage.setTitle("Runway Re-declaration Tool");
     stage.setScene(scene);
 
     stage.show();
   }
 
-
-  public static void signUpUser(ActionEvent actionEvent, String username, String password, String acess_level) {
-    if (!username.isEmpty() && !password.isEmpty()) {
-      Database.insertUser(username, password, acess_level);
-      logger.info("User registered successfully");
-      changeScene(actionEvent, "/fxml/login-page.fxml", "Login", null, null);
-    } else {
-      logger.warning("Username or password is empty");
-    }
+  public static void logInUser(ActionEvent actionEvent, String username, String password) throws IOException {
+    changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
   }
 
-  public static void logInUser(ActionEvent actionEvent, String username, String password) throws IOException {
-    if (username != null && password != null) {
-      if (Database.userExists(username)) {
-        logger.info("User exists");
-        if (Database.checkPassword(username, password)) {
-          changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
-          logger.info("Password is correct");
-        } else {
-          Alert alert = new Alert(Alert.AlertType.ERROR);
-          alert.setContentText("Invalid username or password! If you forgot username or password, please sign up again!");
-          alert.show();
-          logger.warning("Password is incorrect");
-        }
-      } else {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setContentText("Invalid username or password! If you forgot username or password, please sign up again!");
-        alert.show();
-        logger.warning("User does not exist");
-      }
-    } else {
-      logger.warning("Text fields are not initialized");
-    }
+  public static void closeStage(Stage stage) {
+    stage.close();
   }
 
   public static boolean isDbConnected() {

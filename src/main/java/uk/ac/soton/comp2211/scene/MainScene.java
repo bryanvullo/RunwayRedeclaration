@@ -79,8 +79,8 @@ public class MainScene extends BaseScene {
     private String selectedDirection = null;
     private RunwayViewBox runwayViewBox;
     private CalculationBreakdownBox calculationBreakdownBox;
-    
-    
+
+
     public MainScene(AppWindow appWindow) {
         super(appWindow);
     }
@@ -118,7 +118,7 @@ public class MainScene extends BaseScene {
         //Toolbar at the top
         var toolbar = new MenuBar();
         mainPane.setTop(toolbar);
-        
+
         //Left Panel
         leftPanel = new HBox();
         leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("0598ff"), null, null)));
@@ -171,7 +171,7 @@ public class MainScene extends BaseScene {
 
         ///////////////////////Configure the UI///////////////////////
         toolbar.userButton().getItems().get(0).setDisable(true);
-        toolbar.userButton().getItems().get(1).setDisable(true);
+//        toolbar.userButton().getItems().get(1).setDisable(true);
 
         //calculation tab binding
         calcTab.orignalTora.bind(tool.tora);
@@ -223,6 +223,11 @@ public class MainScene extends BaseScene {
             updateObstacleLocation(obstacle);
 
             updateObstacle( obstacle );
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+
+
         });
         obstacleBox.getAirbusButton().setOnAction((e) -> {
             logger.info("Airbus Button Pressed");
@@ -232,6 +237,10 @@ public class MainScene extends BaseScene {
             updateObstacleLocation(obstacle);
 
             updateObstacle( obstacle );
+
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
         });
         obstacleBox.getContainerButton().setOnAction((e) -> {
             logger.info("Container Button Pressed");
@@ -241,6 +250,9 @@ public class MainScene extends BaseScene {
             updateObstacleLocation(obstacle);
 
             updateObstacle( obstacle );
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
         });
         obstacleBox.getShuttleBusButton().setOnAction((e) -> {
             logger.info("Shuttle Bus Button Pressed");
@@ -250,6 +262,9 @@ public class MainScene extends BaseScene {
             updateObstacleLocation(obstacle);
 
             updateObstacle( obstacle );
+
+            runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+            runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
         });
         obstacleBox.getCustomButton().setOnAction((e) -> {
             logger.info("Custom Button Pressed");
@@ -259,6 +274,30 @@ public class MainScene extends BaseScene {
             getInputAdvancedObstacle(obstacle);
 
             updateObstacle( obstacle );
+            if(obstacle.getWidth()*1.5 > runwayViewBox.getTopDownRunway().getRunway().getHeight()) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Width");
+                alert.setContentText("Obstacle Width is larger than runway width");
+                alert.showAndWait();
+                System.out.println(obstacle.getWidth());
+                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+            }
+            else if(obstacle.getLength()*1.5 > runwayViewBox.getTopDownRunway().getRunway().getWidth()) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Length");
+                alert.setContentText("Obstacle Length is larger than runway length");
+                alert.showAndWait();
+                System.out.println(obstacle.getWidth());
+                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+            }
+            else {
+                runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+                runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+                System.out.println(obstacle.getWidth());
+                System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+            }
         });
 
         runwayBox.getAirportSelection().setOnAction(this::selectAirport);
@@ -271,11 +310,14 @@ public class MainScene extends BaseScene {
         var airport = (String) runwayBox.getAirportSelection().getSelectionModel().getSelectedItem();
         runwayBox.getRunwaySelection().getItems().clear();
         runwayBox.getRunwaySelection().setPromptText("Select Runway");
-
+        
         try {
             //fetching the airport data
             var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            var doc = builder.parse(new File(getClass().getResource("/xml/airports.xml").getFile()));
+            var resource = getClass().getResourceAsStream("/xml/airports.xml");
+            System.out.println(resource);
+            
+            var doc = builder.parse(resource);
             var xpath = XPathFactory.newInstance().newXPath();
             var search = "//airport/name[text()=\"" + airport + "\"]/parent::airport/runways/runway";
             var nodes = (NodeList) xpath.compile(search).evaluate(doc, XPathConstants.NODESET);
@@ -305,7 +347,10 @@ public class MainScene extends BaseScene {
         var runwayName = (String) runwayBox.getRunwaySelection().getSelectionModel().getSelectedItem();
         try {
             var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            var doc = builder.parse(new File(getClass().getResource("/xml/airports.xml").getFile()));
+            var resource = getClass().getResourceAsStream("/xml/airports.xml");
+            System.out.println(resource);
+            
+            var doc = builder.parse(resource);
             XPath xpath = XPathFactory.newInstance().newXPath();
             var search = "//airport/name[text()=\"" + airportName + "\"]/"
                     + "parent::airport/runways/runway/name[text()=\"" + runwayName + "\"]"
@@ -424,7 +469,7 @@ public class MainScene extends BaseScene {
         }
         updateBreakdown();
     }
-    
+
     private void updateBreakdown() {
         var breakdown = tool.getRevisedCalculation().calculationBreakdown;
         calculationBreakdownBox.toraBreakdownProperty().bind(breakdown.getToraBreakdown());
@@ -442,20 +487,22 @@ public class MainScene extends BaseScene {
         var locationDialog = new ObstacleLocationDialog();
         locationDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
-                runwayViewBox.getTopDownRunway().addObstacle(locationDialog.getHeight(), locationDialog.getWidth(), 20.0);
                 return new ObstacleLocation(
-                        Double.parseDouble(locationDialog.getDistanceFromLeftThreshold()),
-                        Double.parseDouble(locationDialog.getDistanceFromRightThreshold()),
-                        Double.parseDouble(locationDialog.getDistanceFromCentre()));
+                        locationDialog.getDistanceFromLeftThreshold(),
+                        locationDialog.getDistanceFromRightThreshold(),
+                        locationDialog.getDistanceFromCentre());
             }
             return null;
         });
         var optionalResult = locationDialog.showAndWait();
         optionalResult.ifPresent( (ObstacleLocation result) -> {
             try {
-                obstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-                obstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-                obstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+                var distanceLeft = Double.parseDouble(result.getDistanceFromLeftThreshold());
+                var distanceRight = Double.parseDouble(result.getDistanceFromRightThreshold());
+                var distanceCentre = Double.parseDouble(result.getDistanceFromCentre());
+                obstacle.setDistanceLeftThreshold(distanceLeft);
+                obstacle.setDistanceRightThreshold(distanceRight);
+                obstacle.setDistanceFromCentre(distanceCentre);
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -471,27 +518,33 @@ public class MainScene extends BaseScene {
         var customObstacleDialog = new CustomObstacleDialog();
         customObstacleDialog.setResultConverter(button -> {
             if (button == ButtonType.OK) {
-                runwayViewBox.getTopDownRunway().addObstacle(customObstacleDialog.getHeight(), customObstacleDialog.getWidth(), 20.0);
                 return new CustomObstacleLocation(
-                    customObstacleDialog.getName(),
-                    Double.parseDouble(customObstacleDialog.getHeightValue()),
-                    Double.parseDouble(customObstacleDialog.getWidthValue()),
-                    Double.parseDouble(customObstacleDialog.getLength()),
-                    Double.parseDouble(customObstacleDialog.getDistanceFromLeftThreshold()),
-                    Double.parseDouble(customObstacleDialog.getDistanceFromRightThreshold()),
-                    Double.parseDouble(customObstacleDialog.getDistanceFromCentre()));
-            }return null;
+                        customObstacleDialog.getName(),
+                        customObstacleDialog.getHeightValue(),
+                        customObstacleDialog.getWidthValue(),
+                        customObstacleDialog.getLength(),
+                        customObstacleDialog.getDistanceFromLeftThreshold(),
+                        customObstacleDialog.getDistanceFromRightThreshold(),
+                        customObstacleDialog.getDistanceFromCentre());
+            }
+            return null;
         });
         var optionalResult = customObstacleDialog.showAndWait();
         optionalResult.ifPresent( (CustomObstacleLocation result) -> {
             try {
+                var height = Double.parseDouble(result.getHeight());
+                var width = Double.parseDouble(result.getWidth());
+                var length = Double.parseDouble(result.getLength());
+                var distanceLeft = Double.parseDouble(result.getDistanceFromLeftThreshold());
+                var distanceRight = Double.parseDouble(result.getDistanceFromRightThreshold());
+                var distanceCentre = Double.parseDouble(result.getDistanceFromCentre());
                 customObstacle.setObstacleName(result.getName());
-                customObstacle.setHeight(result.getHeight());
-                customObstacle.setWidth(result.getWidth());
-                customObstacle.setLength(result.getLength());
-                customObstacle.setDistanceLeftThreshold(result.getDistanceFromLeftThreshold());
-                customObstacle.setDistanceRightThreshold(result.getDistanceFromRightThreshold());
-                customObstacle.setDistanceFromCentre(result.getDistanceFromCentre());
+                customObstacle.setHeight(height);
+                customObstacle.setWidth(width);
+                customObstacle.setLength(length);
+                customObstacle.setDistanceLeftThreshold(distanceLeft);
+                customObstacle.setDistanceRightThreshold(distanceRight);
+                customObstacle.setDistanceFromCentre(distanceCentre);
             } catch (Exception e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
