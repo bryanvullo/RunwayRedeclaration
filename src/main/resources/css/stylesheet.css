@@ -2,6 +2,79 @@
     -fx-text-fill: #0598ff;
 }
 
+.jfx-list-cell:selected {
+    -fx-background-color: #0598ff;
+    -fx-text-fill: #FFF;
+}
+
+.jfx-list-cell:selected:hover {
+    -fx-background-color: #0598ff;
+    -fx-text-fill: #FFF;
+}
+
+.jfx-list-cell:hover {
+    -fx-background-color: #0598ff;
+    -fx-text-fill: #FFF;
+}
+
+.jfx-list-cell {
+    -fx-background-color: #FFF;
+    -fx-text-fill: #000;
+}
+
+.jf-list-cell .jfx.rippler {
+    -fx-background-color: #0598ff;
+}
+
+.jfx-list-view {
+    -fx-background-color: #FFF;
+}
+
+.jfx-list-view .scroll-bar {
+    -fx-background-color: #FFF;
+}
+
+.jfx-list-view .scroll-bar .track {
+    -fx-background-color: #FFF;
+}
+
+.jfx-list-view .scroll-bar .thumb {
+    -fx-background-color: #000000;
+}
+
+.jfx-list-view .scroll-bar .thumb:hover {
+    -fx-background-color: #000000;
+}
+
+.jfx-list-view .scroll-bar .thumb:pressed {
+    -fx-background-color: #000000;
+}
+
+.jfx-list-view .scroll-bar .increment-button {
+    -fx-background-color: #FFF;
+}
+
+.jfx-list-view .scroll-bar .decrement-button {
+    -fx-background-color: #FFF;
+}
+
+.jfx-list-view .scroll-bar .increment-button:hover {
+    -fx-background-color: #FFF;
+}
+
+.jfx-list-view .scroll-bar .decrement-button:hover {
+    -fx-background-color: #FFF;
+}
+
+.jfx-list-view .scroll-bar .increment-button:pressed {
+    -fx-background-color: #FFF;
+}
+
+.jfx-list-view .scroll-bar .decrement-button:pressed {
+    -fx-background-color: #FFF;
+}
+
+
 .loginButton {
     -fx-background-color: #0598ff;
     -fx-text-fill: #FFF;
@@ -19,6 +92,75 @@
     -fx-background-radius: 5px;
     -fx-text-fill: #0598ff;
     -fx-border-color: #0598ff;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+
+/* Style for ComboBox to make it smaller */
+.combo-box {
+    -fx-font-size: 12px; /* Reduced font size */
+    -fx-text-fill: #FFFFFF; /* Black text */
+    -fx-border-radius: 3.5px; /* Slightly smaller radius for a sharper look */
+    -fx-padding: 3px 6px; /* Smaller padding */
+}
+
+.combo-box .list-cell {
+    -fx-padding: 3px 6px; /* Smaller padding for list items */
+}
+
+.combo-box .button {
+    -fx-background-insets: 0;
+    -fx-background-radius: 3.5px; /* Consistent with border radius */
+}
+
+.combo-box .arrow {
+    -fx-background-color: #333;
+    -fx-padding: 4px; /* Reduced padding */
+    -fx-shape: "M0 0L1 0L0.5 1Z"; /* Custom arrow shape */
+}
+
+/* Focused and hover states for the combo box */
+.combo-box:focused {
+    -fx-border-color: #2070f0;
+    -fx-border-width: 1px; /* Thinner border for focused state */
+}
+
+.combo-box:hover {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Styles for the dropdown menu */
+.combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+}
+
+/* Normal state of the button */
+.direction-button {
+    -fx-background-color: #FFFFFF; /* White background */
+    -fx-text-fill: #000000; /* Black text */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+
+/* Hover state of the button */
+.direction-button:hover {
+    -fx-background-color: #F0F0F0; /* Lighter shade for hover */
+    -fx-text-fill: #0598ff; /* Black text remains the same */
+    -fx-border-color: #0598ff; /* Blue border on hover */
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+/* Selected state of the button */
+.direction-button:selected {
+    -fx-background-color: #0598ff; /* Blue background to indicate selection */
+    -fx-text-fill: #FFFFFF; /* White text for contrast */
+    -fx-border-color: #0052CC; /* Darker blue border for emphasis */
     -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-border-radius: 5px;

@@ -132,24 +132,34 @@ public class TopDownRunway extends HBox {
         runwayView.getChildren().add(viewVBox);
     }
 
-    public void updateArrows(double tora, double toda, double asda, double lda) {
-        TODAarrow = new Arrow(0, 20, runway.getWidth() + 100, 20);
-        ASDAarrow = new Arrow(0, 20, runway.getWidth() + 50, 20);
-        TORAarrow = new Arrow(0, 20, runway.getWidth() - 100, 20);
-        LDAarrow = new Arrow(0, 20, runway.getWidth() - 120, 20);
+  public void updateArrows(double tora, double toda, double asda, double lda) {
+    // Create new Arrow instances
+    Arrow newTODAarrow = new Arrow(0, 20, runway.getWidth() + 100, 20);
+    Arrow newASDAarrow = new Arrow(0, 20, runway.getWidth() + 50, 20);
+    Arrow newTORAarrow = new Arrow(0, 20, runway.getWidth() - 100, 20);
+    Arrow newLDAarrow = new Arrow(0, 20, runway.getWidth() - 120, 20);
 
-        TODAVBox.getChildren().removeAll(TODAarrow);
-        ASDAVBox.getChildren().remove(ASDAarrow);
-        TORAVBox.getChildren().remove(TORAarrow);
-        LDAVBox.getChildren().remove(LDAarrow);
+    // Remove old arrows
+    TODAVBox.getChildren().remove(TODAarrow);
+    ASDAVBox.getChildren().remove(ASDAarrow);
+    TORAVBox.getChildren().remove(TORAarrow);
+    LDAVBox.getChildren().remove(LDAarrow);
 
-        TODAVBox.getChildren().add(TODAarrow);
-        TODAVBox.getChildren().add(TODAarrow);
-        TODAVBox.getChildren().add(TODAarrow);
-        TODAVBox.getChildren().add(TODAarrow);
-    }
+    // Add new arrows
+    TODAVBox.getChildren().add(newTODAarrow);
+    ASDAVBox.getChildren().add(newASDAarrow);
+    TORAVBox.getChildren().add(newTORAarrow);
+    LDAVBox.getChildren().add(newLDAarrow);
 
-    public void addObstacle(Double height, Double width, Double length) {
+    // Update references to the new arrows
+    TODAarrow = newTODAarrow;
+    ASDAarrow = newASDAarrow;
+    TORAarrow = newTORAarrow;
+    LDAarrow = newLDAarrow;
+  }
+
+
+  public void addObstacle(Double height, Double width, Double length) {
         System.out.println("the values inputted are: " + height + " " + width + " " + length);
         topDownRunwayPane.getChildren().remove(obstacle);
         obstacle = new Rectangle(length * 1.5, width*1.5);

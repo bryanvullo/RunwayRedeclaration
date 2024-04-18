@@ -123,5 +123,8 @@ public class AppWindow {
     public int getHeight() {
         return this.height;
     }
-    
+
+  public Object getCurrentScene() {
+    return currentScene;
+  }
 }

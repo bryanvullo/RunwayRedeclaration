@@ -90,6 +90,8 @@ public class RunwayViewBox extends VBox {
         runwayView.getChildren().clear();
         runwayView.getChildren().add(sideRunway);
     }
+
+
     public void changeViewToTopdown() {
         // Clear the existing runway view
         runwayView.getChildren().clear();

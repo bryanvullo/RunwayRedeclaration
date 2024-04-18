@@ -12,7 +12,7 @@ import java.util.Properties;
 public class ShuttleBus extends AdvancedObstacle {
 
     private ShuttleBus(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold, Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
-        super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre, obstacleProperties);
+        super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre);
     }
 
     public static ShuttleBus createShuttleBus() {

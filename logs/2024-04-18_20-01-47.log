@@ -1,0 +1,62 @@
+Apr 18, 2024 8:01:47 PM uk.ac.soton.comp2211.App main
+INFO: Application started.
+Apr 18, 2024 8:01:47 PM uk.ac.soton.comp2211.App openApp
+INFO: Opening login page
+Apr 18, 2024 8:01:47 PM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 18, 2024 8:01:47 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 18, 2024 8:01:47 PM uk.ac.soton.comp2211.scene.MainScene loadAirports
+INFO: Loading airports from XML
+Apr 18, 2024 8:01:47 PM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 18, 2024 8:01:47 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 18, 2024 8:01:47 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Apr 18, 2024 8:01:47 PM uk.ac.soton.comp2211.utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 18, 2024 8:01:48 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 18, 2024 8:01:48 PM uk.ac.soton.comp2211.scene.MainScene loadAirports
+INFO: Loading airports from XML
+Apr 18, 2024 8:01:54 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User exists
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Checking password for user: admin
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Password is correct
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: Password is correct
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User admin logged in successfully
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene loadAirports
+INFO: Loading airports from XML
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene loadAirports
+INFO: Loading airports from XML
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene loadAirports
+INFO: Loading airports from XML
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 18, 2024 8:01:55 PM uk.ac.soton.comp2211.scene.MainScene loadAirports
+INFO: Loading airports from XML
+Apr 18, 2024 8:02:15 PM uk.ac.soton.comp2211.utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 18, 2024 8:02:17 PM uk.ac.soton.comp2211.App shutdown
+INFO: Application shutting down.

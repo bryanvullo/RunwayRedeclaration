@@ -1,4 +1,4 @@
-package uk.ac.soton.comp2211.Utility;
+package uk.ac.soton.comp2211.utility;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
