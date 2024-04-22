@@ -1,9 +1,7 @@
 package uk.ac.soton.comp2211.scene;
 
-import java.io.IOException;
-
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Pos;
@@ -12,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Control;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -25,19 +24,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import javax.xml.xpath.XPath;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
@@ -50,20 +39,22 @@ import uk.ac.soton.comp2211.component.ObstaclesBox;
 import uk.ac.soton.comp2211.component.RunwayBox;
 import uk.ac.soton.comp2211.component.RunwayViewBox;
 import uk.ac.soton.comp2211.component.SystemMessageBox;
-import uk.ac.soton.comp2211.control.ImportController;
+import uk.ac.soton.comp2211.control.ImportAirportController;
+import uk.ac.soton.comp2211.control.ImportObstacleController;
 import uk.ac.soton.comp2211.dataStructure.CustomObstacleLocation;
 import uk.ac.soton.comp2211.dataStructure.ObstacleLocation;
+import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
 import uk.ac.soton.comp2211.model.obstacles.*;
 
 public class MainScene extends BaseScene {
-
+  private static MainScene instance = null;
   private static final Logger logger = Logger.getLogger(MainScene.class.getName());
 
   //Backend Fields
-  private Tool tool;
-  private Runway selectedRunway = null;
+  private static Tool tool;
+  private static Runway selectedRunway = null;
   private AdvancedObstacle selectedObstacle = null;
   private static ObstaclesBox obstacleBox = new ObstaclesBox();
 
@@ -78,40 +69,32 @@ public class MainScene extends BaseScene {
   private HBox leftPanel;
   private VBox leftBar;
   private VBox activeBar;
+  BorderPane mainPane;
   private ActiveObstacle activeObstacle;
-  private RunwayBox runwayBox;
-  private static SystemMessageBox systemMessageBox;
+  private static RunwayBox runwayBox = new RunwayBox();
 
-  private String selectedDirection = null;
-  private RunwayViewBox runwayViewBox;
+  ObservableList<Airport> airportList = FXCollections.observableArrayList();
+  private static SystemMessageBox systemMessageBox;
+  private static RunwayViewBox runwayViewBox;
   private CalculationBreakdownBox calculationBreakdownBox;
-  private ImportController importController = new ImportController();
 
   public MainScene(AppWindow appWindow) {
     super(appWindow); // Make sure this controller is instantiated correctly
     if (obstacleBox == null) {
       obstacleBox = new ObstaclesBox();
     }
-    this.initialise();  // Ensure initialise is called to set up listeners
+  }
+
+  public static MainScene getInstance(AppWindow appWindow) {
+    if (instance == null) {
+      instance = new MainScene(appWindow);
+    }
+    return instance;
   }
 
   @Override
   public void initialise() {
     logger.info("initialising the menu scene");
-    runwayBox = new RunwayBox();
-    loadAirports();
-//    importController.getLoadedObstaclesNames().addListener((ListChangeListener.Change<? extends String> c) -> {
-//      Platform.runLater(() -> {
-//        while (c.next()) {
-//          if (c.wasAdded()) {
-//            c.getAddedSubList().forEach(obstacleName -> {
-//              obstacleBox.addObstacleOption(obstacleName);
-//            });
-//          }
-//        }
-//      });
-//    });
-
   }
 
   @Override
@@ -122,7 +105,7 @@ public class MainScene extends BaseScene {
 
     root = new AppPane(appWindow.getWidth(), appWindow.getHeight());
 
-    var mainPane = new BorderPane();
+    mainPane = new BorderPane();
     mainPane.setMaxWidth(appWindow.getWidth());
     mainPane.setMaxHeight(appWindow.getHeight());
     root.getChildren().add(mainPane);
@@ -154,10 +137,18 @@ public class MainScene extends BaseScene {
     leftBar = new VBox();
     leftBar.setAlignment(Pos.TOP_CENTER);
     leftBar.getChildren().addAll(runwayBox, obstacleBox);
-    VBox.setVgrow(runwayBox, Priority.ALWAYS);
-    VBox.setVgrow(obstacleBox, Priority.ALWAYS);
+    VBox.setVgrow(runwayBox, Priority.SOMETIMES);
+    VBox.setVgrow(obstacleBox, Priority.SOMETIMES);
     leftPanel.getChildren().addAll(leftBar, leftCollapsibleBar);
     mainPane.setLeft(leftPanel);
+
+    if (runwayBox.getAirportSelection().getItems().isEmpty()) {
+      ImportAirportController.loadInitialeAirports();
+    }
+
+    if (obstacleBox.getObstacleChooser().getItems().isEmpty()) {
+      ImportObstacleController.loadInitialeObstacles();
+    }
 
     //Todo set calculation breakdowns
     //Right Panel
@@ -256,44 +247,65 @@ public class MainScene extends BaseScene {
       }
     });
 
+//    obstacleBox.getCustomButton().setOnAction((e) -> {
+//      logger.info("Custom Button Pressed");
+//
+//      var obstacle = new AdvancedObstacle();
+//
+//      getInputAdvancedObstacle(obstacle);
+//
+//      updateObstacle(obstacle);
+//      if (obstacle.getWidth() * 1.5 > runwayViewBox.getTopDownRunway().getRunway().getHeight()) {
+//        Alert alert = new Alert(AlertType.ERROR);
+//        alert.setTitle("Error");
+//        alert.setHeaderText("Invalid Width");
+//        alert.setContentText("Obstacle Width is larger than runway width");
+//        alert.showAndWait();
+//        System.out.println(obstacle.getWidth());
+//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+//      } else if (obstacle.getLength() * 1.5 > runwayViewBox.getTopDownRunway().getRunway().getWidth()) {
+//        Alert alert = new Alert(AlertType.ERROR);
+//        alert.setTitle("Error");
+//        alert.setHeaderText("Invalid Length");
+//        alert.setContentText("Obstacle Length is larger than runway length");
+//        alert.showAndWait();
+//        System.out.println(obstacle.getWidth());
+//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+//      } else {
+//        runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+//        runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+//        System.out.println(obstacle.getWidth());
+//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+//      }
+//    });
 
-    obstacleBox.getCustomButton().setOnAction((e) -> {
-      logger.info("Custom Button Pressed");
-
-      var obstacle = new AdvancedObstacle();
-
-      getInputAdvancedObstacle(obstacle);
-
-      updateObstacle(obstacle);
-      if (obstacle.getWidth() * 1.5 > runwayViewBox.getTopDownRunway().getRunway().getHeight()) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Invalid Width");
-        alert.setContentText("Obstacle Width is larger than runway width");
-        alert.showAndWait();
-        System.out.println(obstacle.getWidth());
-        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-      } else if (obstacle.getLength() * 1.5 > runwayViewBox.getTopDownRunway().getRunway().getWidth()) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Invalid Length");
-        alert.setContentText("Obstacle Length is larger than runway length");
-        alert.showAndWait();
-        System.out.println(obstacle.getWidth());
-        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-      } else {
-        runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-        runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-        System.out.println(obstacle.getWidth());
-        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-      }
-    });
-
-
-    runwayBox.getAirportSelection().setOnAction(this::selectAirport);
-    runwayBox.getRunwaySelection().setOnAction(this::selectRunway);
 
   }
+
+
+//  private static void updateAirportSelectionUI() {
+//    Platform.runLater(() -> {
+//      // Clear existing items in the ComboBoxes
+//      runwayBox.getAirportSelection().getItems().clear();
+//      runwayBox.getRunwaySelection().getItems().clear();
+//
+//      // Add all airports to the airport selection ComboBox
+//      airportRunways.values().forEach(airports -> {
+//        runwayBox.getAirportSelection().getItems().addAll(airports);
+//      });
+//
+//      // Log the update
+//      System.out.println("Updated UI with new airport and runway data.");
+//    });
+//  }
+
+
+  public static void updateAirportsList(Airport newAirport) {
+    Platform.runLater(() -> {
+      runwayBox.getAirportSelection().getItems().add(newAirport);
+    });
+  }
+
 
   private void handleObstacleSelection(AdvancedObstacle obstacle) {
     if (obstacle != null) {
@@ -313,62 +325,37 @@ public class MainScene extends BaseScene {
     }
   }
 
-  private void loadAirports() {
-    logger.info("Loading airports from XML");
 
-    try {
-      var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      var resource = getClass().getResourceAsStream("/xml/newAirports.xml");
-      var doc = builder.parse(resource);
-      var xpath = XPathFactory.newInstance().newXPath();
-
-      var search = "/airports/airport/name";
-      var nodes = (NodeList) xpath.compile(search).evaluate(doc, XPathConstants.NODESET);
-
-      for (int i = 0; i < nodes.getLength(); i++) {
-        var node = nodes.item(i);
-        runwayBox.getAirportSelection().getItems().add(node.getTextContent());
-      }
-    } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException ex) {
-      Alert alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Error");
-      alert.setHeaderText("Unable to fetch airport data");
-      alert.setContentText("Error: " + ex.getMessage());
-      alert.showAndWait();
-    }
-  }
-
-  private void selectAirport(Event event) {
-    logger.info("Airport Selected");
-
-    var airport = (String) runwayBox.getAirportSelection().getSelectionModel().getSelectedItem();
-    runwayBox.getRunwaySelection().getItems().clear();
-    runwayBox.getRunwaySelection().setPromptText("Select Runway");
-
-    try {
-      var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      var resource = getClass().getResourceAsStream("/xml/newAirports.xml");
-      var doc = builder.parse(resource);
-      var xpath = XPathFactory.newInstance().newXPath();
-      var search = "//airport[name='" + airport + "']/runways/runway";
-      var nodes = (NodeList) xpath.compile(search).evaluate(doc, XPathConstants.NODESET);
-
-      for (int i = 0; i < nodes.getLength(); i++) {
-        var node = nodes.item(i);
-        var name = (String) xpath.compile("name/text()").evaluate(node, XPathConstants.STRING);
-        runwayBox.getRunwaySelection().getItems().add(name);
-      }
-      runwayBox.getRunwaySelection().setDisable(nodes.getLength() == 0);
-
-    } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException ex) {
-      Alert alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Error");
-      alert.setHeaderText("Unable to fetch runway data");
-      alert.setContentText("Error: " + ex.getMessage());
-      alert.showAndWait();
-    }
-  }
-
+//  private void selectAirport(Event event) {
+//    logger.info("Airport Selected");
+//
+//    var airport = (String) runwayBox.getAirportSelection().getSelectionModel().getSelectedItem();
+//    runwayBox.getRunwaySelection().getItems().clear();
+//    runwayBox.getRunwaySelection().setPromptText("Select Runway");
+//
+//    try {
+//      var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+//      var resource = getClass().getResourceAsStream("/xml/newAirports.xml");
+//      var doc = builder.parse(resource);
+//      var xpath = XPathFactory.newInstance().newXPath();
+//      var search = "//airport[name='" + airport + "']/runways/runway";
+//      var nodes = (NodeList) xpath.compile(search).evaluate(doc, XPathConstants.NODESET);
+//
+//      for (int i = 0; i < nodes.getLength(); i++) {
+//        var node = nodes.item(i);
+//        var name = (String) xpath.compile("name/text()").evaluate(node, XPathConstants.STRING);
+//        runwayBox.getRunwaySelection().getItems().add(name);
+//      }
+//      runwayBox.getRunwaySelection().setDisable(nodes.getLength() == 0);
+//
+//    } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException ex) {
+//      Alert alert = new Alert(AlertType.ERROR);
+//      alert.setTitle("Error");
+//      alert.setHeaderText("Unable to fetch runway data");
+//      alert.setContentText("Error: " + ex.getMessage());
+//      alert.showAndWait();
+//    }
+//  }
 
 
 //  private void selectAirport(Event event) {
@@ -405,56 +392,61 @@ public class MainScene extends BaseScene {
 //    }
 //  }
 
-  private void selectRunway(Event e) {
-    logger.info("Runway Selected");
-
-    var airportName = (String) runwayBox.getAirportSelection().getSelectionModel().getSelectedItem();
-    var runwayName = (String) runwayBox.getRunwaySelection().getSelectionModel().getSelectedItem();
-    try {
-      var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      var resource = getClass().getResourceAsStream("/xml/newAirports.xml");
-      System.out.println(resource);
-      selectedDirection = "left";
-      var doc = builder.parse(resource);
-      XPath xpath = XPathFactory.newInstance().newXPath();
-      var search = "//airport[name='" + airportName + "']/runways/runway[name='" + runwayName + "']";
-      var node = (Node) xpath.compile(search).evaluate(doc, XPathConstants.NODE);
-
-      if (node != null) {
-        var name = (String) xpath.compile("name").evaluate(node, XPathConstants.STRING);
-        var tora = Double.parseDouble((String) xpath.compile("tora").evaluate(node, XPathConstants.STRING));
-        var toda = Double.parseDouble((String) xpath.compile("toda").evaluate(node, XPathConstants.STRING));
-        var asda = Double.parseDouble((String) xpath.compile("asda").evaluate(node, XPathConstants.STRING));
-        var lda = Double.parseDouble((String) xpath.compile("lda").evaluate(node, XPathConstants.STRING));
-        var clearway = Double.parseDouble((String) xpath.compile("clearway").evaluate(node, XPathConstants.STRING));
-        var stopway = Double.parseDouble((String) xpath.compile("stopway").evaluate(node, XPathConstants.STRING));
-        var displacedThreshold = Double.parseDouble((String) xpath.compile("displacedThreshold").evaluate(node, XPathConstants.STRING));
-
-        var runway = new Runway(name, tora, toda, asda, lda);
-        runway.setClearway(clearway);
-        runway.setStopway(stopway);
-        runway.setDisplacedThreshold(displacedThreshold);
-
-        updateRunway(runway);
-        runwayViewBox.getTopDownRunway().updateArrows(tora, toda, asda, lda);
-      } else {
-        // Handle the case where no matching runway is found
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("No Runway Found");
-        alert.setHeaderText(null);
-        alert.setContentText("No runway found matching the selection.");
-        alert.showAndWait();
-      }
-
-    } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException ex) {
-      // Popup error message in case of failure
-      Alert alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Error");
-      alert.setHeaderText("Unable to fetch runway data");
-      alert.setContentText("Error: " + ex.getMessage());
-      alert.showAndWait();
-    }
+  public static RunwayViewBox getRunwayViewBox() {
+    return runwayViewBox;
   }
+
+
+//  private void selectRunway(Event e) {
+//    logger.info("Runway Selected");
+//
+//    var airportName = (String) runwayBox.getAirportSelection().getSelectionModel().getSelectedItem();
+//    var runwayName = (String) runwayBox.getRunwaySelection().getSelectionModel().getSelectedItem();
+//    try {
+//      var builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+//      var resource = getClass().getResourceAsStream("/xml/newAirports.xml");
+//      System.out.println(resource);
+//      selectedDirection = "left";
+//      var doc = builder.parse(resource);
+//      XPath xpath = XPathFactory.newInstance().newXPath();
+//      var search = "//airport[name='" + airportName + "']/runways/runway[name='" + runwayName + "']";
+//      var node = (Node) xpath.compile(search).evaluate(doc, XPathConstants.NODE);
+//
+//      if (node != null) {
+//        var name = (String) xpath.compile("name").evaluate(node, XPathConstants.STRING);
+//        var tora = Double.parseDouble((String) xpath.compile("tora").evaluate(node, XPathConstants.STRING));
+//        var toda = Double.parseDouble((String) xpath.compile("toda").evaluate(node, XPathConstants.STRING));
+//        var asda = Double.parseDouble((String) xpath.compile("asda").evaluate(node, XPathConstants.STRING));
+//        var lda = Double.parseDouble((String) xpath.compile("lda").evaluate(node, XPathConstants.STRING));
+//        var clearway = Double.parseDouble((String) xpath.compile("clearway").evaluate(node, XPathConstants.STRING));
+//        var stopway = Double.parseDouble((String) xpath.compile("stopway").evaluate(node, XPathConstants.STRING));
+//        var displacedThreshold = Double.parseDouble((String) xpath.compile("displacedThreshold").evaluate(node, XPathConstants.STRING));
+//
+//        var runway = new Runway(name, tora, toda, asda, lda);
+//        runway.setClearway(clearway);
+//        runway.setStopway(stopway);
+//        runway.setDisplacedThreshold(displacedThreshold);
+//
+//        updateRunway(runway);
+//        runwayViewBox.getTopDownRunway().updateArrows(tora, toda, asda, lda);
+//      } else {
+//        // Handle the case where no matching runway is found
+//        Alert alert = new Alert(AlertType.INFORMATION);
+//        alert.setTitle("No Runway Found");
+//        alert.setHeaderText(null);
+//        alert.setContentText("No runway found matching the selection.");
+//        alert.showAndWait();
+//      }
+//
+//    } catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException ex) {
+//      // Popup error message in case of failure
+//      Alert alert = new Alert(AlertType.ERROR);
+//      alert.setTitle("Error");
+//      alert.setHeaderText("Unable to fetch runway data");
+//      alert.setContentText("Error: " + ex.getMessage());
+//      alert.showAndWait();
+//    }
+//  }
 
 
   private void collapseLeftPanel(Event event) {
@@ -462,13 +454,17 @@ public class MainScene extends BaseScene {
       leftCollapseButton.setText("<");
       leftPanel.getChildren().clear();
       leftPanel.getChildren().addAll(leftBar, leftCollapsibleBar);
+      leftPanel.setPrefWidth(Control.USE_COMPUTED_SIZE);
       leftPanelCollapsed = false;
     } else {
       leftCollapseButton.setText(">");
       leftPanel.getChildren().clear();
       leftPanel.getChildren().addAll(leftCollapsibleBar);
+      leftPanel.setPrefWidth(50);
       leftPanelCollapsed = true;
     }
+    mainPane.setLeft(leftPanel);
+    mainPane.requestLayout();
   }
 
   private void collapseRightPanel(Event event) {
@@ -476,13 +472,18 @@ public class MainScene extends BaseScene {
       rightCollapseButton.setText(">");
       rightPanel.getChildren().clear();
       rightPanel.getChildren().addAll(rightCollapsibleBar, activeBar);
+      rightPanel.setPrefWidth(Control.USE_COMPUTED_SIZE);
       rightPanelCollapsed = false;
     } else {
       rightCollapseButton.setText("<");
       rightPanel.getChildren().clear();
       rightPanel.getChildren().addAll(rightCollapsibleBar);
       rightPanelCollapsed = true;
+      rightPanel.setPrefWidth(50);
     }
+
+    mainPane.setRight(rightPanel);
+    mainPane.requestLayout(); // Request layout update
   }
 
   private void recalculate() {
@@ -528,6 +529,7 @@ public class MainScene extends BaseScene {
     alert.setContentText(contentText);
     alert.showAndWait();
   }
+
   private void updateBreakdown() {
     var breakdown = tool.getRevisedCalculation().calculationBreakdown;
     calculationBreakdownBox.toraBreakdownProperty().bind(breakdown.getToraBreakdown());
@@ -536,7 +538,7 @@ public class MainScene extends BaseScene {
     calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
   }
 
-  private void updateRunway(Runway runway) {
+  public static void updateRunway(Runway runway) {
     selectedRunway = runway;
     tool.setRunway(runway);
   }
@@ -626,13 +628,16 @@ public class MainScene extends BaseScene {
     return root;
   }
 
+  public static RunwayBox getRunwayBox() {
+    return runwayBox;
+  }
+
   public static SystemMessageBox getSystemMessageBox() {
     return systemMessageBox;
   }
 
-  public Runway getSelectedRunway() {
+  public static Runway getSelectedRunway() {
     return selectedRunway;
   }
-
 
 }

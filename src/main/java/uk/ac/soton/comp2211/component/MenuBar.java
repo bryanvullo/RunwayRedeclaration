@@ -60,18 +60,23 @@ public class MenuBar extends HBox {
     fileButton = new MenuButton("File");
     MenuItem importObstacles = new MenuItem("Import Obstacles");
     importObstacles.setOnAction(event -> loadFXML(event, "importObstacles.fxml"));
+    MenuItem importAirports = new MenuItem("Import Airports");
+    importAirports.setOnAction(event -> loadFXML(event, "importAirport.fxml"));
+
     MenuItem exportObstacles = new MenuItem("Export Obstacles");
     exportObstacles.setOnAction(event -> exportObstacles());
 
     fileButton.getItems().addAll(
         importObstacles,
         exportObstacles,
+        importAirports,
         new MenuItem("Reset"),
         new MenuItem("Add Airport")
     );
 
     MenuItem editObstacles = new MenuItem("Edit Obstacles");
     editObstacles.setOnAction(event -> loadFXML(event, "edit-obstacles.fxml"));
+
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
         new MenuItem("Edit Airports"),

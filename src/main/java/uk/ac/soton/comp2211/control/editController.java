@@ -40,6 +40,8 @@ public class editController {
     confirmButton.setVisible(false);
     cancelButton.setVisible(false);
 
+
+    editButton.setOnAction(e -> startEdit());
     closeButton.setOnAction(e -> closeStage());
     deleteButton.setOnAction(e -> deleteObstacle());
     cancelButton.setOnAction(e -> cancelAddition());
@@ -111,7 +113,7 @@ public class editController {
     rightThresholdLabel.setText(String.valueOf(obstacle.getDistanceRightThreshold()));
     centreDistanceLabel.setText(String.valueOf(obstacle.getDistanceFromCentre()));
 
-    // Set text fields for editing
+    // Set text fields for editing but don't show them
     nameField.setText(obstacle.getObstacleName());
     heightField.setText(String.valueOf(obstacle.getHeight()));
     widthField.setText(String.valueOf(obstacle.getWidth()));
@@ -119,10 +121,8 @@ public class editController {
     leftThresholdField.setText(String.valueOf(obstacle.getDistanceLeftThreshold()));
     rightThresholdField.setText(String.valueOf(obstacle.getDistanceRightThreshold()));
     centreDistanceField.setText(String.valueOf(obstacle.getDistanceFromCentre()));
-
-    // Initially, show labels, hide text fields
-    toggleEdit(false);
   }
+
 
   private void toggleAddObstacle(boolean isAdding) {
     // Toggle visibility of fields and labels
@@ -133,6 +133,7 @@ public class editController {
     leftThresholdField.setVisible(isAdding);
     rightThresholdField.setVisible(isAdding);
     centreDistanceField.setVisible(isAdding);
+    saveChangesButton.setVisible(isAdding);
 
     nameLabel.setVisible(!isAdding);
     heightLabel.setVisible(!isAdding);
@@ -152,6 +153,14 @@ public class editController {
     confirmButton.setVisible(isAdding);
     cancelButton.setVisible(isAdding);
   }
+
+  @FXML
+  private void startEdit() {
+    if (editListView.getSelectionModel().getSelectedItem() != null) {
+      toggleEdit(true);
+    }
+  }
+
 
   private void confirmAddition() {
     try {
@@ -196,29 +205,32 @@ public class editController {
   }
 
   private void toggleEdit(boolean isEditing) {
-    // Toggle visibility of labels and text fields
-    nameLabel.setVisible(isEditing);
-    heightLabel.setVisible(isEditing);
-    widthLabel.setVisible(isEditing);
-    lengthLabel.setVisible(isEditing);
-    leftThresholdLabel.setVisible(isEditing);
-    rightThresholdLabel.setVisible(isEditing);
-    centreDistanceLabel.setVisible(isEditing);
+    // Toggle visibility of text fields and labels
+    nameField.setVisible(isEditing);
+    heightField.setVisible(isEditing);
+    widthField.setVisible(isEditing);
+    lengthField.setVisible(isEditing);
+    leftThresholdField.setVisible(isEditing);
+    rightThresholdField.setVisible(isEditing);
+    centreDistanceField.setVisible(isEditing);
 
-    nameField.setVisible(!isEditing);
-    heightField.setVisible(!isEditing);
-    widthField.setVisible(!isEditing);
-    lengthField.setVisible(!isEditing);
-    leftThresholdField.setVisible(!isEditing);
-    rightThresholdField.setVisible(!isEditing);
-    centreDistanceField.setVisible(!isEditing);
+    nameLabel.setVisible(!isEditing);
+    heightLabel.setVisible(!isEditing);
+    widthLabel.setVisible(!isEditing);
+    lengthLabel.setVisible(!isEditing);
+    leftThresholdLabel.setVisible(!isEditing);
+    rightThresholdLabel.setVisible(!isEditing);
+    centreDistanceLabel.setVisible(!isEditing);
 
-    // Toggle buttons
+    // Control button visibility
     editButton.setVisible(!isEditing);
     deleteButton.setVisible(!isEditing);
+    reloadButton.setVisible(!isEditing);
+    addObstacleButton.setVisible(!isEditing);
     cancelButton.setVisible(isEditing);
     saveChangesButton.setVisible(isEditing);
   }
+
 
   private void deleteObstacle() {
     AdvancedObstacle selectedObstacle = (AdvancedObstacle) editListView.getSelectionModel().getSelectedItem();

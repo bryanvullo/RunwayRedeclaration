@@ -1,6 +1,5 @@
 package uk.ac.soton.comp2211.control;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
@@ -22,15 +21,16 @@ import uk.ac.soton.comp2211.scene.MainScene;
 
 import java.io.File;
 
-public class ImportController {
+public class ImportObstacleController {
 
   @FXML
-  JFXButton selectFileButton;
+  JFXButton selectFileButton = new JFXButton();
   @FXML
-  JFXButton importButton;
+  JFXButton importButton = new JFXButton();
   @FXML
+  static
   JFXListView<AdvancedObstacle> obstaclesListView;
-  private ObservableList<String> loadedObstaclesNames = FXCollections.observableArrayList();
+  private static ObservableList<String> loadedObstaclesNames = FXCollections.observableArrayList();
 
   public void initialize() {
     selectFileButton.setOnAction(e -> loadObstacles());
@@ -51,7 +51,7 @@ public class ImportController {
 
   private void importObstacles() {
     Stage stage = (Stage) importButton.getScene().getWindow();
-    for (int i = 0; i < 100; i++){
+    for (int i = 0; i < 100; i++) {
       MainScene.getSystemMessageBox().addMessage("Obstacles loaded successfully");
     }
 
@@ -95,7 +95,34 @@ public class ImportController {
     }
   }
 
-  private AdvancedObstacle createObstacleFromElement(Element element) {
+
+  public static void loadInitialeObstacles() {
+
+    try {
+      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+      Document doc = dBuilder.parse(ImportAirportController.class.getResourceAsStream("/xml/obstacles.xml"));
+      doc.getDocumentElement().normalize();
+
+      ObservableList<AdvancedObstacle> obstacles = FXCollections.observableArrayList();
+      NodeList nList = doc.getElementsByTagName("obstacle");
+      for (int i = 0; i < nList.getLength(); i++) {
+        Node node = nList.item(i);
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+          Element element = (Element) node;
+          AdvancedObstacle obstacle = createObstacleFromElement(element);
+          obstacles.add(obstacle);
+          loadedObstaclesNames.add(obstacle.getObstacleName());
+        }
+      }
+
+      MainScene.getObstaclesBox().addObstacleOptions(obstacles);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static AdvancedObstacle createObstacleFromElement(Element element) {
     String name = element.getElementsByTagName("obstacleName").item(0).getTextContent();
     double height = Double.parseDouble(element.getElementsByTagName("obstacleHeight").item(0).getTextContent());
     double width = Double.parseDouble(element.getElementsByTagName("obstacleWidth").item(0).getTextContent());
