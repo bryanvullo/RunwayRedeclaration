@@ -10,12 +10,12 @@ import javafx.scene.shape.Path;
  * @author kn
  */
 public class Arrow extends Path{
-    private static final double defaultArrowHeadSize = 8.0;
+    private static final double defaultArrowHeadSize = 12;
 
     public Arrow(double startX, double startY, double endX, double endY, double arrowHeadSize){
         super();
         strokeProperty().bind(fillProperty());
-        setFill(Color.BLACK);
+        setFill(Color.WHITE);
 
         //Line
         getElements().add(new MoveTo(startX, startY));

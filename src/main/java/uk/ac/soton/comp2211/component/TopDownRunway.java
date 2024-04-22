@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 public class TopDownRunway extends StackPane {
     private static final Logger logger = LogManager.getLogger(TopDownRunway.class);
+    private VBox obstacleVBox;
 
 
     public TopDownRunway() {
@@ -20,8 +21,6 @@ public class TopDownRunway extends StackPane {
     }
     private void build() {
         logger.info("Building Top Down Runway View");
-
-        //TODO add Runway View here
 
         // Code for green background
         Rectangle greenBackground = new Rectangle(900, 400);
@@ -80,6 +79,15 @@ public class TopDownRunway extends StackPane {
     }
 
     public void addObstacle(Double height, Double width, Double length, Double lThreshold, Double rThreshold, Double cThreshold) {
-
+        if (this.getChildren().contains(obstacleVBox)) {
+            this.getChildren().remove(obstacleVBox);
+        }
+        Rectangle obstacle = new Rectangle(length, width);
+        obstacle.setFill(Color.RED);
+        obstacleVBox = new VBox();
+        obstacleVBox.getChildren().add(obstacle);
+        obstacleVBox.setAlignment(Pos.CENTER_LEFT);
+        obstacleVBox.setPadding(new Insets(-cThreshold ,0,0,lThreshold + 100));
+        this.getChildren().add(obstacleVBox);
     }
 }
