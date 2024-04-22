@@ -42,9 +42,6 @@ public class ObstaclesBox extends VBox {
     obstacleChooser.getItems().addAll();
     obstacleChooser.setPromptText("Choose an Obstacle");
     getChildren().add(obstacleChooser);
-
-    customButton = new Button("Custom");
-    getChildren().add(customButton);
   }
 //  public void addObstacleOptions(ObservableList<String> obstacleNames) {
 //    obstacleChooser.getItems().addAll(obstacleNames);

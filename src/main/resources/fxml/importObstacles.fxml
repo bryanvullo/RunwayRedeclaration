@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.ImportController">
+<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.ImportObstacleController">
    <children>
       <JFXButton fx:id="importButton" layoutX="283.0" layoutY="444.0" prefHeight="30.0" prefWidth="64.0" styleClass="loginButton" stylesheets="@../css/stylesheet.css" text="Import">
          <font>

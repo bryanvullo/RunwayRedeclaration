@@ -74,4 +74,54 @@
             </runway>
         </runways>
     </airport>
+    <airport>
+        <name>Manchester</name>
+        <runways>
+            <runway>
+                <name>05L</name>
+                <tora>3050</tora>
+                <toda>3050</toda>
+                <asda>3050</asda>
+                <lda>2980</lda>
+                <clearway>0</clearway>
+                <stopway>0</stopway>
+                <displacedThreshold>70</displacedThreshold>
+            </runway>
+            <runway>
+                <name>23R</name>
+                <tora>3195</tora>
+                <toda>3195</toda>
+                <asda>3195</asda>
+                <lda>3100</lda>
+                <clearway>0</clearway>
+                <stopway>0</stopway>
+                <displacedThreshold>95</displacedThreshold>
+            </runway>
+        </runways>
+    </airport>
+    <airport>
+        <name>Birmingham</name>
+        <runways>
+            <runway>
+                <name>15</name>
+                <tora>2606</tora>
+                <toda>2606</toda>
+                <asda>2606</asda>
+                <lda>2474</lda>
+                <clearway>0</clearway>
+                <stopway>0</stopway>
+                <displacedThreshold>132</displacedThreshold>
+            </runway>
+            <runway>
+                <name>33</name>
+                <tora>2606</tora>
+                <toda>2746</toda>
+                <asda>2606</asda>
+                <lda>2474</lda>
+                <clearway>140</clearway>
+                <stopway>0</stopway>
+                <displacedThreshold>132</displacedThreshold>
+            </runway>
+        </runways>
+    </airport>
 </airports>

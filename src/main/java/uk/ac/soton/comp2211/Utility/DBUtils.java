@@ -49,19 +49,16 @@ public class DBUtils {
     stage.show();
   }
 
-  public static <AppWindow> void changeSceneToMainScene(ActionEvent actionEvent, uk.ac.soton.comp2211.UI.AppWindow appWindow) {
-    MainScene mainScene = new MainScene(appWindow);
+  public static void changeSceneToMainScene(ActionEvent actionEvent, AppWindow appWindow) {
+    MainScene mainScene = MainScene.getInstance(appWindow);
     mainScene.initialise();
     mainScene.build();
 
     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-    // Set the scene to your main scene
     Scene scene = new Scene(mainScene.getRoot());
     scene.getStylesheets().add(DBUtils.class.getResource("/css/main.css").toExternalForm());
     stage.setTitle("Runway Re-declaration Tool");
     stage.setScene(scene);
-
     stage.show();
   }
 
