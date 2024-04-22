@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uk.ac.soton.comp2211.model.Runway;
 
 public class RunwayViewBox extends VBox {
     
@@ -44,7 +43,7 @@ public class RunwayViewBox extends VBox {
         simultaneousButton = new Button("Simultaneous View");
         sideButton = new Button("Side View");
 
-        viewSelectionBox.getChildren().addAll(topdownButton, simultaneousButton, sideButton);
+        viewSelectionBox.getChildren().addAll(topdownButton, sideButton,simultaneousButton);
         
         //TODO add Runway View here
 
@@ -101,17 +100,17 @@ public class RunwayViewBox extends VBox {
         // Clear the existing runway view
         runwayView.getChildren().clear();
         VBox runwayVBox = new VBox();
+        runwayVBox.setSpacing(100);
         runwayVBox.setAlignment(Pos.CENTER);
         runwayVBox.getChildren().addAll(topDownRunway, sideRunway);
         runwayView.getChildren().add(runwayVBox);
     }
 
-    public TopDownRunway getTopDownRunway() {
-        return topDownRunway;
-    }
-
     public SideRunway getSideRunway() {
         return sideRunway;
+    }
+    public TopDownRunway getTopDownRunway() {
+        return topDownRunway;
     }
 }
 
