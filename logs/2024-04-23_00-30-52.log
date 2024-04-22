@@ -1,0 +1,40 @@
+Apr 23, 2024 12:30:52 AM uk.ac.soton.comp2211.App main
+INFO: Application started.
+Apr 23, 2024 12:30:52 AM uk.ac.soton.comp2211.App openApp
+INFO: Opening login page
+Apr 23, 2024 12:30:52 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 23, 2024 12:30:52 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 23, 2024 12:30:52 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 23, 2024 12:30:53 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Apr 23, 2024 12:30:53 AM uk.ac.soton.comp2211.utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 23, 2024 12:30:53 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User exists
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Checking password for user: admin
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Password is correct
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: Password is correct
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User admin logged in successfully
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 23, 2024 12:30:59 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 23, 2024 12:31:00 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene

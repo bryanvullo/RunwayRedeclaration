@@ -18,7 +18,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXListView fx:id="runwayListView" layoutX="7.0" layoutY="41.0" prefHeight="400.0" prefWidth="386.0" />
+      <JFXListView fx:id="airportListView" layoutX="7.0" layoutY="41.0" prefHeight="400.0" prefWidth="386.0" />
       <Label layoutX="44.0" layoutY="14.0" text="These Airports will be Imported">
          <font>
             <Font name="System Bold" size="20.0" />
