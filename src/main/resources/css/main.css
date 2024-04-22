@@ -1,0 +1,21 @@
+.componentTitle {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-fill: black;
+}
+
+.subtitle {
+    -fx-font-weight: bold;
+    -fx-fill: black;
+}
+
+.title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-fill: black;
+}
+
+.tinytext {
+    -fx-font-size: 10px;
+    -fx-fill: black;
+}

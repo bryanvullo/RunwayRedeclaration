@@ -31,6 +31,7 @@ public class LoginController implements Initializable {
   private PasswordField textField_Password;
   @FXML
   private Label testConnection;
+  private User currentUser;
 
   private final Logger logger = Logger.getLogger(LoginController.class.getName());
 
@@ -98,8 +99,9 @@ public class LoginController implements Initializable {
         logger.info("User exists");
         if (Database.checkPassword(username, password)) {
           logger.info("Password is correct");
-          User user = Database.getUser(username); // will implement this
-          logger.log(Level.INFO, "User {0} logged in successfully", user.getUsername());
+          currentUser = Database.getUser(username); // will implement this
+          logger.log(Level.INFO, "User {0} logged in successfully", currentUser.getUsername());
+          Notification.showNotification("User: " + username + " logged in successfully");
           DBUtils.closeStage((Stage) textField_UserName.getScene().getWindow());
           DBUtils.changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
         } else {
@@ -111,5 +113,9 @@ public class LoginController implements Initializable {
         alert.showAndWait();
       }
     }
+  }
+
+  public User getUsername(){
+    return currentUser;
   }
 }
