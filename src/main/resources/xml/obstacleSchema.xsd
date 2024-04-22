@@ -1,0 +1,21 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.github.com/bryanvullo/RunwayRedeclaration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="obstacles">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="obstacle" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="obstacleName"/>
+                            <xs:element type="xs:float" name="obstacleHeight"/>
+                            <xs:element type="xs:float" name="obstacleWidth"/>
+                            <xs:element type="xs:float" name="obstacleLength"/>
+                            <xs:element type="xs:float" name="obstacleLeftThresholdDistance"/>
+                            <xs:element type="xs:float" name="obstacleRightThresholdDistance"/>
+                            <xs:element type="xs:float" name="obstacleDistanceFromCentre"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

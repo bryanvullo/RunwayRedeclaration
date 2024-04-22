@@ -51,12 +51,11 @@ public class AppWindow {
         
         startTool();
     }
-    
-    public void startTool() throws IOException {
-        logger.info("Starting the tool");
-        loadScene(new MainScene(this));
-    }
-    
+
+  public void startTool() throws IOException {
+    logger.info("Starting the tool");
+    loadScene(MainScene.getInstance(this));
+  }
     /**
      * Set up the default settings for the stage itself (the window), such as the title and minimum width and height.
      */
@@ -123,5 +122,8 @@ public class AppWindow {
     public int getHeight() {
         return this.height;
     }
-    
+
+  public Object getCurrentScene() {
+    return currentScene;
+  }
 }

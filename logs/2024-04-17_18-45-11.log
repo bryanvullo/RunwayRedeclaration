@@ -1,0 +1,54 @@
+Apr 17, 2024 6:45:11 PM uk.ac.soton.comp2211.App main
+INFO: Application started.
+Apr 17, 2024 6:45:11 PM uk.ac.soton.comp2211.App openApp
+INFO: Opening login page
+Apr 17, 2024 6:45:11 PM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 17, 2024 6:45:11 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 17, 2024 6:45:11 PM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 17, 2024 6:45:11 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 17, 2024 6:45:11 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Apr 17, 2024 6:45:11 PM uk.ac.soton.comp2211.utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 17, 2024 6:45:12 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 17, 2024 6:45:19 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User exists
+Apr 17, 2024 6:45:19 PM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Checking password for user: admin
+Apr 17, 2024 6:45:19 PM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Password is correct
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: Password is correct
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User admin logged in successfully
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 17, 2024 6:45:20 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 17, 2024 6:45:26 PM uk.ac.soton.comp2211.scene.MainScene selectAirport
+INFO: Airport Selected
+Apr 17, 2024 6:45:29 PM uk.ac.soton.comp2211.scene.MainScene selectRunway
+INFO: Runway Selected
+Apr 17, 2024 6:45:45 PM uk.ac.soton.comp2211.scene.MainScene lambda$build$3
+INFO: Recalculate button pressed
+Apr 17, 2024 6:45:45 PM uk.ac.soton.comp2211.scene.MainScene recalculate
+INFO: Recalculating

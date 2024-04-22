@@ -11,6 +11,7 @@ module uk.ac.soton.comp2211 {
   requires spring.security.crypto;
   requires fontawesomefx;
   requires org.controlsfx.controls;
+  requires java.desktop;
 
   opens uk.ac.soton.comp2211 to javafx.fxml;
   opens uk.ac.soton.comp2211.control to javafx.fxml;

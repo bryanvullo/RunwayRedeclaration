@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -31,7 +32,7 @@
                                 <Insets left="5.0" top="5.0" />
                             </padding>
                             <font>
-                                <Font size="17.0" />
+                                <Font name="System Bold" size="16.0" />
                             </font>
                         </Label>
                         <Label fx:id="roleLabel" layoutX="15.0" layoutY="139.0" stylesheets="@../css/stylesheet.css" text="Access Level:">
@@ -39,7 +40,7 @@
                                 <Insets left="5.0" top="5.0" />
                             </padding>
                             <font>
-                                <Font size="17.0" />
+                                <Font name="System Bold" size="16.0" />
                             </font>
                         </Label>
                         <Label fx:id="statusLabel" layoutX="15.0" layoutY="185.0" stylesheets="@../css/stylesheet.css" text="Access Status:">
@@ -47,11 +48,14 @@
                                 <Insets left="5.0" top="5.0" />
                             </padding>
                             <font>
-                                <Font size="17.0" />
+                                <Font name="System Bold" size="16.0" />
                             </font>
                         </Label>
-                        <Button fx:id="grantAccessButton" layoutX="22.0" layoutY="320.0" mnemonicParsing="false" onAction="#grant" prefHeight="41.0" prefWidth="257.0" styleClass="sign-up-button" stylesheets="@../css/stylesheet.css" text="Grant Access" />
-                        <SplitMenuButton fx:id="changeRoleButton" layoutX="22.0" layoutY="247.0" mnemonicParsing="false" onAction="#changeRole" prefHeight="49.0" prefWidth="257.0" styleClass="sign-up-button" stylesheets="@../css/stylesheet.css" text="Change Access Level">
+                        <Button fx:id="grantAccessButton" layoutX="22.0" layoutY="303.0" mnemonicParsing="false" onAction="#grant" prefHeight="41.0" prefWidth="257.0" styleClass="loginButton" stylesheets="@../css/stylesheet.css" text="Grant Access">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Button>
+                        <SplitMenuButton fx:id="changeRoleButton" layoutX="22.0" layoutY="240.0" mnemonicParsing="false" onAction="#changeRole" prefHeight="49.0" prefWidth="257.0" styleClass="jf-list-cell" stylesheets="@../css/stylesheet.css" text="Change Access Level">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Action 1" />
                                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -71,9 +75,9 @@
                                 <Tab text="All Users">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="270.0">
-                                            <children>
-                                                <ListView fx:id="allUsersListView" layoutX="25.0" layoutY="28.0" prefHeight="371.2" prefWidth="301.6" stylesheets="@../css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                            </children>
+                                 <children>
+                                    <JFXListView fx:id="allUsersListView" layoutX="-1.0" prefHeight="371.0" prefWidth="303.0" stylesheets="@../css/stylesheet.css" />
+                                 </children>
                                         </AnchorPane>
                                     </content>
                                 </Tab>

@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -14,15 +13,25 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uk.ac.soton.comp2211.App;
-import uk.ac.soton.comp2211.Utility.DBUtils;
-import uk.ac.soton.comp2211.control.LoginController;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
+import uk.ac.soton.comp2211.scene.MainScene;
+import uk.ac.soton.comp2211.utility.DBUtils;
 import uk.ac.soton.comp2211.model.Database;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -49,16 +58,29 @@ public class MenuBar extends HBox {
     setBackground(new Background(new BackgroundFill(Color.valueOf("051bff"), null, null)));
 
     fileButton = new MenuButton("File");
+    MenuItem importObstacles = new MenuItem("Import Obstacles");
+    importObstacles.setOnAction(event -> loadFXML(event, "importObstacles.fxml"));
+    MenuItem importAirports = new MenuItem("Import Airports");
+    importAirports.setOnAction(event -> loadFXML(event, "importAirport.fxml"));
+
+    MenuItem exportObstacles = new MenuItem("Export Obstacles");
+    exportObstacles.setOnAction(event -> exportObstacles());
+
     fileButton.getItems().addAll(
-        new MenuItem("Import"),
-        new MenuItem("Export"),
+        importObstacles,
+        exportObstacles,
+        importAirports,
         new MenuItem("Reset"),
         new MenuItem("Add Airport")
     );
+
+    MenuItem editObstacles = new MenuItem("Edit Obstacles");
+    editObstacles.setOnAction(event -> loadFXML(event, "edit-obstacles.fxml"));
+
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
         new MenuItem("Edit Airports"),
-        new MenuItem("Edit Obstacles"),
+        editObstacles,
         new MenuItem("Undo")
     );
     unitButton = new MenuButton("Units");
@@ -93,7 +115,7 @@ public class MenuBar extends HBox {
     logoutItem.setOnAction(event -> performLogout());
 
     MenuItem manageUsersItem = new MenuItem("Manage Users");
-    manageUsersItem.setOnAction(this::manageUsers);
+    manageUsersItem.setOnAction(event -> loadFXML(event, "manage-users.fxml"));
 
     MenuItem username = new MenuItem(Database.getCurrentUser().getUsername());
 
@@ -109,8 +131,66 @@ public class MenuBar extends HBox {
 
   }
 
-  private void manageUsers(ActionEvent event) {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/manage-users.fxml"));
+  private void exportObstacles() {
+    try {
+      DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+
+      // root element with namespace and schema
+      Document document = documentBuilder.newDocument();
+      Element root = document.createElementNS("http://www.github.com/bryanvullo/RunwayRedeclaration", "obstacles");
+      root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+      root.setAttribute("xsi:schemaLocation", "http://www.github.com/bryanvullo/RunwayRedeclaration obstacleSchema.xsd");
+      document.appendChild(root);
+
+      // Export each obstacle as an <obstacle> element
+      for (AdvancedObstacle obstacle : MainScene.getObstaclesBox().getObstacleChooser().getItems()) {
+        Element obstacleElement = document.createElement("obstacle");
+        root.appendChild(obstacleElement);
+
+        // Obstacle properties using the specified tags from the sample
+        createElement(obstacleElement, "obstacleName", obstacle.getObstacleName());
+        createElement(obstacleElement, "obstacleHeight", String.valueOf(obstacle.getHeight()));
+        createElement(obstacleElement, "obstacleWidth", String.valueOf(obstacle.getWidth()));
+        createElement(obstacleElement, "obstacleLength", String.valueOf(obstacle.getLength()));
+        createElement(obstacleElement, "obstacleLeftThresholdDistance", String.valueOf(obstacle.getDistanceLeftThreshold()));
+        createElement(obstacleElement, "obstacleRightThresholdDistance", String.valueOf(obstacle.getDistanceRightThreshold()));
+        createElement(obstacleElement, "obstacleDistanceFromCentre", String.valueOf(obstacle.getDistanceFromCentre()));
+      }
+
+      // Create the XML file
+      TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      Transformer transformer = transformerFactory.newTransformer();
+      transformer.setOutputProperty(javax.xml.transform.OutputKeys.INDENT, "yes");
+      transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2"); // Set indentation amount
+
+      DOMSource domSource = new DOMSource(document);
+
+      // Let the user choose where to save the file
+      FileChooser fileChooser = new FileChooser();
+      fileChooser.setInitialFileName("exported_obstacles.xml");
+      File file = fileChooser.showSaveDialog((Stage) fileButton.getScene().getWindow());
+
+      if (file != null) {
+        StreamResult streamResult = new StreamResult(file);
+        transformer.transform(domSource, streamResult);
+        MainScene.getSystemMessageBox().addMessage("Obstacles exported successfully to " + file.getAbsolutePath());
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      MainScene.getSystemMessageBox().addMessage("Failed to export obstacles");
+    }
+  }
+
+  private void createElement(Element parent, String name, String value) {
+    Element element = parent.getOwnerDocument().createElement(name);
+    element.appendChild(parent.getOwnerDocument().createTextNode(value));
+    parent.appendChild(element);
+  }
+
+
+  private void loadFXML(ActionEvent event, String filename) {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + filename));
     Parent root = null;
     try {
       root = loader.load();
@@ -139,7 +219,6 @@ public class MenuBar extends HBox {
       e.printStackTrace();
     }
   }
-
   public MenuButton fileButton() {
     return fileButton;
   }

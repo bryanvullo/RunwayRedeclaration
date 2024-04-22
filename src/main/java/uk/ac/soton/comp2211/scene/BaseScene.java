@@ -17,7 +17,7 @@ public abstract class BaseScene {
   /**
    * The AppWindow of the Scene
    */
-  protected final AppWindow appWindow;
+  protected static AppWindow appWindow;
 
   /**
    * The root AppPane of the Scene

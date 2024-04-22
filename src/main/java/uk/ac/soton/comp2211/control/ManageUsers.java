@@ -1,5 +1,6 @@
 package uk.ac.soton.comp2211.control;
 
+import com.jfoenix.controls.JFXListView;
 import javafx.fxml.Initializable;
 
 import com.mongodb.client.MongoClient;
@@ -28,7 +29,7 @@ public class ManageUsers implements Initializable {
   @FXML
   private VBox cardsVBox = new VBox();
   @FXML
-  private ListView allUsersListView = new ListView();
+  private JFXListView allUsersListView = new JFXListView();
   @FXML
   private Label usernameLabel;
   @FXML
@@ -110,6 +111,7 @@ public class ManageUsers implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     ArrayList<User> users = Database.getAllUsers();
+    allUsersListView.depthProperty().set(1);
 
     for (User user : users) {
       allUsersListView.getItems().add(user.getUsername());
