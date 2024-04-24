@@ -204,10 +204,7 @@ public class RunwayBox extends VBox {
       logger.info("Runway selected: " + selectedRunway.getName());
       MainScene.updateRunway(selectedRunway);
       // You may also update any UI elements to display runway details
-      MainScene.getRunwayViewBox().getTopDownRunway().updateArrows(
-          selectedRunway.getTora(), selectedRunway.getToda(),
-          selectedRunway.getAsda(), selectedRunway.getLda()
-      );
+      MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold());
     } else {
       logger.info("No runway selected or selection is null.");
     }

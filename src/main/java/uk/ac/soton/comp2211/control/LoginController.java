@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import uk.ac.soton.comp2211.UI.AppWindow;
-import uk.ac.soton.comp2211.utility.DBUtils;
+import uk.ac.soton.comp2211.Utility.DBUtils;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.model.User;
 

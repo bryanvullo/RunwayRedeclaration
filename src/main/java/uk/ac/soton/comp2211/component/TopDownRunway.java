@@ -1,18 +1,22 @@
 package uk.ac.soton.comp2211.component;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class TopDownRunway extends StackPane {
     private static final Logger logger = LogManager.getLogger(TopDownRunway.class);
+    private Rectangle runway;
     private VBox obstacleVBox;
+
+    private Arrow TODAarrow;
+    private Arrow LDAarrow;
+    private Arrow TORAarrow;
+    private Arrow ASDAarrow;
+
 
 
     public TopDownRunway() {
@@ -35,7 +39,7 @@ public class TopDownRunway extends StackPane {
         blueBackground.setFill(Color.web("#1e90ff"));
 
         // Code for Runway Strip
-        Rectangle runway = new Rectangle(700, 125);
+        runway = new Rectangle(700, 125);
         runway.setFill(Color.web("#262626"));
 
         // This code adds 9 center line white stripes to the runway
@@ -69,13 +73,25 @@ public class TopDownRunway extends StackPane {
         }
         rightRunwayStripeVBox.setPadding(new Insets(0, 0, 0, runway.getWidth()*2/3 + 50));
 
-
-
         this.getChildren().addAll(greenBackground, purpleBackground, blueBackground, runway, runwayCenterLineStripeHBox, leftRunwayStripeVBox, rightRunwayStripeVBox);
     }
 
     public void updateRunway(double toda, double tora, double asda, double lda, double clearway, double stopway, double displacedThreshold) {
+        double scalingFactor = runway.getWidth()/tora;
+        if(this.getChildren().contains(TODAarrow)) {
+            this.getChildren().removeAll(TODAarrow, ASDAarrow, TORAarrow, LDAarrow);
+        }
 
+        TODAarrow = new Arrow(0, 20, toda*scalingFactor, 20);
+        ASDAarrow = new Arrow(0, 20, asda*scalingFactor, 20);
+        TORAarrow = new Arrow(0, 20, tora*scalingFactor, 20);
+        LDAarrow = new Arrow(100, 20, lda*scalingFactor, 20);
+
+        this.getChildren().addAll(TODAarrow, ASDAarrow, TORAarrow, LDAarrow);
+        TODAarrow.setTranslateY(-160);
+        ASDAarrow.setTranslateY(-130);
+        TORAarrow.setTranslateY(-100);
+        LDAarrow.setTranslateY(-70);
     }
 
     public void addObstacle(Double height, Double width, Double length, Double lThreshold, Double rThreshold, Double cThreshold) {
