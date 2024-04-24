@@ -147,6 +147,7 @@ public class MainScene extends BaseScene {
     }
 
     if (obstacleBox.getObstacleChooser().getItems().isEmpty()) {
+      System.out.println("Loading initial obstacles");
       ImportObstacleController.loadInitialeObstacles();
     }
 
@@ -636,8 +637,9 @@ public class MainScene extends BaseScene {
     return systemMessageBox;
   }
 
+
+
   public static Runway getSelectedRunway() {
     return selectedRunway;
   }
-
 }
