@@ -147,6 +147,7 @@ public class MainScene extends BaseScene {
     }
 
     if (obstacleBox.getObstacleChooser().getItems().isEmpty()) {
+      System.out.println("Loading initial obstacles");
       ImportObstacleController.loadInitialeObstacles();
     }
 
@@ -318,8 +319,8 @@ public class MainScene extends BaseScene {
       System.out.println("Distance from Centre: " + obstacle.getDistanceFromCentre());
 
       updateObstacle(obstacle);
-      runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-      runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+      runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
+      runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
     } else {
       System.out.println("No obstacle selected or obstacle is null");
     }
@@ -536,6 +537,7 @@ public class MainScene extends BaseScene {
     calculationBreakdownBox.todaBreakdownProperty().bind(breakdown.getTodaBreakdown());
     calculationBreakdownBox.asdaBreakdownProperty().bind(breakdown.getAsdaBreakdown());
     calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
   }
 
   public static void updateRunway(Runway runway) {
@@ -636,8 +638,9 @@ public class MainScene extends BaseScene {
     return systemMessageBox;
   }
 
+
+
   public static Runway getSelectedRunway() {
     return selectedRunway;
   }
-
 }

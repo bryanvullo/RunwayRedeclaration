@@ -9,16 +9,12 @@ import javafx.scene.shape.Rectangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SideRunway extends HBox {
+public class SideRunway extends StackPane {
     private static final Logger logger = LogManager.getLogger(SideRunway.class);
-    private StackPane SideRunwayPane;
     private Rectangle runway;
     private Rectangle obstacle;
-    private VBox viewVBox;
     private VBox obstacleContainer;
-    private VBox landingDirectionVBox;
-    private Rectangle runwayStopway;
-    private Rectangle runwayStopway2;
+    private Rectangle blueBackground;
 
 
     public SideRunway() {
@@ -27,68 +23,42 @@ public class SideRunway extends HBox {
     }
     private void build() {
         logger.info("Building Side Runway View");
+        // Code for green background
+        Rectangle greenBackground = new Rectangle(900, 400);
+        greenBackground.setFill(Color.LIMEGREEN);
+        greenBackground.setTranslateX(this.getWidth()/2);
 
-        //TODO add Runway View here
+        // Code for Blue stripe
+        Rectangle purpleBackground = new Rectangle(800 ,350);
+        purpleBackground.setFill(Color.web("#7f3d9e"));
+        purpleBackground.setTranslateX(this.getWidth()/2);
 
-        var runwayView = new HBox();
-        runwayView.setAlignment(Pos.CENTER);
-        runwayView.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        VBox.setVgrow(runwayView, Priority.ALWAYS);
-        getChildren().add(runwayView);
+        // Code for blue background
+        blueBackground = new Rectangle(800, 250);
+        blueBackground.setFill(Color.web("#1e90ff"));
+        blueBackground.setTranslateX(this.getWidth()/2);
 
-        SideRunwayPane = new StackPane();
+        this.getChildren().addAll(greenBackground, purpleBackground, blueBackground);
+
         obstacleContainer = new VBox();
-        SideRunwayPane.getChildren().add(obstacleContainer);
-        SideRunwayPane.setAlignment(Pos.CENTER_LEFT);
+        this.getChildren().add(obstacleContainer);
+        this.setAlignment(Pos.CENTER_LEFT);
         runway = new Rectangle(0, 0, 730, 10);
-        runway.setFill(Color.GRAY);
-        viewVBox = new VBox();
+        runway.setFill(Color.web("#262626"));
 
-        HBox LDAHBox = new HBox();
+        this.getChildren().add(runway);
 
-        landingDirectionVBox = new VBox();
-        landingDirectionVBox.setSpacing(10);
-        landingDirectionVBox.setAlignment(Pos.CENTER_LEFT);
-        Arrow landingDirectionarrow = new Arrow(100, 20, 300, 20);
-        Label landingDirectionLabel = new Label("Landing Direction");
-        landingDirectionVBox.getChildren().addAll(landingDirectionLabel, landingDirectionarrow);
-        landingDirectionVBox.setPadding(new Insets(0, 0, 100, 0));
-
-        Arrow LDAarrow = new Arrow(100, 20, 500, 20);
-        Label LDAarrowLabel = new Label("Landing Distance Available");
-        VBox LDAVBox = new VBox();
-        LDAVBox.getChildren().addAll(LDAarrow, LDAarrowLabel);
-        LDAVBox.setAlignment(Pos.CENTER_RIGHT);
-
-        runwayStopway = new Rectangle(0, 0, 50, 10);
-        runwayStopway.setFill(Color.TRANSPARENT); // Set fill color to transparent
-        runwayStopway.setStroke(Color.BLACK); // Set stroke color to black
-
-        runwayStopway2 = new Rectangle(0, 0, 50, 10);
-        runwayStopway2.setFill(Color.TRANSPARENT); // Set fill color to transparent
-        runwayStopway2.setStroke(Color.BLACK); // Set stroke color to black
-
-        HBox runwayWithStopway = new HBox();
-        runwayWithStopway.setAlignment(Pos.CENTER);
-        runwayWithStopway.getChildren().addAll(runwayStopway, SideRunwayPane, runwayStopway2);
-
-        SideRunwayPane.getChildren().addAll(runway);
-        viewVBox.getChildren().addAll(landingDirectionVBox,runwayWithStopway, LDAVBox);
-        viewVBox.setAlignment(Pos.CENTER_LEFT);
-        viewVBox.setSpacing(10);
-
-        runwayView.getChildren().add(viewVBox);
     }
 
-    public void addObstacle(Double height, Double width, Double length) {
-        SideRunwayPane.getChildren().remove(obstacleContainer);
+    public void addObstacle(Double height, Double width, Double length, Double lThreshold, Double rThreshold, Double cThreshold) {
+        this.getChildren().remove(obstacleContainer);
         obstacle = new Rectangle(length * 1.5, height * 1.5);
         obstacle.setFill(Color.RED);
         obstacle.setY(runway.getY());
         obstacleContainer = new VBox();
         obstacleContainer.getChildren().add(obstacle);
-        obstacleContainer.setPadding(new Insets(0, 0,   runway.getHeight() + obstacle.getHeight(), 0));
-        SideRunwayPane.getChildren().add(obstacleContainer);
+        obstacleContainer.setPadding(new Insets(0, 0,   runway.getHeight() + obstacle.getHeight(), lThreshold));
+        this.getChildren().add(obstacleContainer);
     }
 
 }
