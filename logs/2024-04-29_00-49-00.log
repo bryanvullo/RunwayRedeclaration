@@ -1,0 +1,10 @@
+Apr 29, 2024 12:49:00 AM uk.ac.soton.comp2211.App main
+INFO: Application started.
+Apr 29, 2024 12:49:00 AM uk.ac.soton.comp2211.App openApp
+INFO: Opening login page
+Apr 29, 2024 12:49:00 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 29, 2024 12:49:01 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 29, 2024 12:49:01 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene

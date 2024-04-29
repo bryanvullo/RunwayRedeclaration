@@ -1,0 +1,42 @@
+Apr 29, 2024 1:27:49 AM uk.ac.soton.comp2211.App main
+INFO: Application started.
+Apr 29, 2024 1:27:49 AM uk.ac.soton.comp2211.App openApp
+INFO: Opening login page
+Apr 29, 2024 1:27:49 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 29, 2024 1:27:50 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 29, 2024 1:27:50 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 29, 2024 1:27:50 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Apr 29, 2024 1:27:50 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 29, 2024 1:27:51 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User exists
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Checking password for user: DwijeshD
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Password is correct
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: Password is correct
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User DwijeshD logged in successfully
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Apr 29, 2024 1:27:57 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Apr 29, 2024 1:28:02 AM uk.ac.soton.comp2211.App shutdown
+INFO: Application shutting down.

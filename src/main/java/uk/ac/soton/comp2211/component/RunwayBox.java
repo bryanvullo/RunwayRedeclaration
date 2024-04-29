@@ -204,11 +204,11 @@ public class RunwayBox extends VBox {
       logger.info("Runway selected: " + selectedRunway.getName());
       MainScene.updateRunway(selectedRunway);
       // You may also update any UI elements to display runway details
-      MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
-
     } else {
       logger.info("No runway selected or selection is null.");
     }
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+
   }
 
   private void applyStyles() {
@@ -263,5 +263,9 @@ public class RunwayBox extends VBox {
 
   public DoubleProperty displacedThresholdProperty() {
     return displacedThreshold;
+  }
+
+  public void updateRunway(Runway selectedRunway) {
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
   }
 }

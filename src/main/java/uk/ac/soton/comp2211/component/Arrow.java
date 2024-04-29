@@ -1,5 +1,6 @@
 package uk.ac.soton.comp2211.component;
 
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
@@ -8,7 +9,7 @@ import javafx.scene.shape.*;
  * @author kn
  */
 public class Arrow extends Path {
-    private static final double defaultArrowHeadSize = 20;
+    private static final double defaultArrowHeadSize = 12;
     private double startX;
     private double endX;
 
@@ -32,7 +33,7 @@ public class Arrow extends Path {
         getElements().add(new MoveTo(startX, startY));
         getElements().add(new LineTo(endX, endY));
 
-        // Additional elements for arrow head can be added here if needed
+
     }
 
     /**
@@ -42,9 +43,7 @@ public class Arrow extends Path {
      * @param endX The ending x-coordinate of the arrow.
      * @param endY The ending y-coordinate of the arrow.
      */
-    public Arrow(double startX, double startY, double endX, double endY) {
-        this(startX, startY, endX, endY, defaultArrowHeadSize);
-    }
+
 
     /**
      * Returns the width of the arrow, which is the absolute difference between the start and end x-coordinates.
@@ -53,4 +52,5 @@ public class Arrow extends Path {
     public double getWidth() {
         return Math.abs(endX - startX);
     }
+
 }
