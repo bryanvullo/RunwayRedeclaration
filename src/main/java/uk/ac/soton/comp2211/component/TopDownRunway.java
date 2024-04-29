@@ -2,6 +2,7 @@ package uk.ac.soton.comp2211.component;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -51,15 +52,28 @@ public class TopDownRunway extends StackPane {
     private double scalingFactor2;
     private Rectangle clearwayRect;
     private Label clearwayLabel;
+    private Rectangle clip;
 
 
 
     public TopDownRunway() {
         logger.info("Creating Top Down Runway View");
         build();
+        // Set the StackPane size to match the Rectangle
+        this.setMaxWidth(900);
+        this.setMaxHeight(400);
     }
     private void build() {
         logger.info("Building Top Down Runway View");
+
+        // Set up the clipping rectangle with the maximum size
+        Rectangle clip = new Rectangle(900, 400);
+        this.setClip(clip);
+
+        // Handle scroll events for zooming
+        this.setOnScroll(event -> handleZoom(event, this));
+
+
 
         // Code for green background
         Rectangle greenBackground = new Rectangle(900, 400);
@@ -111,6 +125,9 @@ public class TopDownRunway extends StackPane {
 
         // This code adds all previous static elements to the build
         this.getChildren().addAll(greenBackground, purpleBackground, blueBackground, runway, runwayCenterLineStripeHBox, leftRunwayStripeVBox, rightRunwayStripeVBox);
+
+
+
     }
 
     public void updateRunway(double toda, double tora, double asda, double lda, double clearway, double stopway, double displacedThreshold, String runwayName) {
@@ -253,7 +270,7 @@ public class TopDownRunway extends StackPane {
 
 
         this.getChildren().addAll(DTLVBox, DTTVBox, RDNVBox, RDVLBox);
-
+        System.out.println(tora + " " + asda + " " + tora + " " + lda + " " + stopway + " " + clearway + " " + displacedThreshold);
     }
 
     public void addObstacle(Double height, Double width, Double length, Double lThreshold, Double rThreshold, Double cThreshold) {
@@ -365,4 +382,18 @@ public class TopDownRunway extends StackPane {
         leftRunwayStripeVBox.setTranslateX(-runway.getWidth()/2 +(displacementThreshold*scalingFactor) + 45);
         this.getChildren().add(leftRunwayStripeVBox);
     }
+
+    private void handleZoom(ScrollEvent event, StackPane pane) {
+        double zoomFactor = 1.05;
+        double deltaY = event.getDeltaY();
+
+        if (deltaY > 0) {
+            pane.setScaleX(pane.getScaleX() * zoomFactor);
+            pane.setScaleY(pane.getScaleY() * zoomFactor);
+        } else if (deltaY < 0) {
+            pane.setScaleX(pane.getScaleX() / zoomFactor);
+            pane.setScaleY(pane.getScaleY() / zoomFactor);
+        }
+    }
+
 }
