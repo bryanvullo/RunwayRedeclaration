@@ -1,40 +1,22 @@
 package uk.ac.soton.comp2211.component;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.scene.MainScene;
 
-import javax.xml.XMLConstants;
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class RunwayBox extends VBox {
@@ -87,7 +69,7 @@ public class RunwayBox extends VBox {
       @Override
       protected void updateItem(Runway item, boolean empty) {
         super.updateItem(item, empty);
-        setText(empty ? null : item.getName());
+        setText(empty ? null : item.getRunwayName());
       }
     });
     runwaySelection.setButtonCell(new ListCell<Runway>() {
@@ -97,7 +79,7 @@ public class RunwayBox extends VBox {
         if (empty || item == null) {
           setText("Select Runway");
         } else {
-          setText(item.getName());
+          setText(item.getRunwayName());
         }
       }
     });
@@ -201,13 +183,13 @@ public class RunwayBox extends VBox {
   private void selectRunway(Event event) {
     Runway selectedRunway = runwaySelection.getSelectionModel().getSelectedItem(); // Directly obtain the selected Runway object
     if (selectedRunway != null) {
-      logger.info("Runway selected: " + selectedRunway.getName());
+      logger.info("Runway selected: " + selectedRunway.getRunwayName());
       MainScene.updateRunway(selectedRunway);
       // You may also update any UI elements to display runway details
     } else {
       logger.info("No runway selected or selection is null.");
     }
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getRunwayName());
 
   }
 
@@ -266,6 +248,6 @@ public class RunwayBox extends VBox {
   }
 
   public void updateRunway(Runway selectedRunway) {
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getRunwayName());
   }
 }

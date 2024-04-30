@@ -12,6 +12,10 @@ public class Airport {
     this.runways = new ArrayList<>();
   }
 
+  public void setAirportName(String airportName) {
+    this.airportName = airportName;
+  }
+
   public String getAirportName() {
     return airportName;
   }

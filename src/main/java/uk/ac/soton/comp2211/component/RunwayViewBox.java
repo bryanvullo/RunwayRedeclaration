@@ -43,6 +43,10 @@ public class RunwayViewBox extends VBox {
     simultaneousButton = new Button("Simultaneous View");
     sideButton = new Button("Side View");
 
+    topdownButton.getStyleClass().add("runwayBoxButton");
+    simultaneousButton.getStyleClass().add("runwayBoxButton");
+    sideButton.getStyleClass().add("runwayBoxButton");
+
     viewSelectionBox.getChildren().addAll(topdownButton, sideButton,simultaneousButton);
 
     //TODO add Runway View here

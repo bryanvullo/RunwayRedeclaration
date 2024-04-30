@@ -6,16 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
-import javafx.scene.image.PixelFormat;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
-import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -29,14 +24,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.util.List;
 import java.util.logging.Logger;
 
 import uk.ac.soton.comp2211.UI.AppWindow;
@@ -59,8 +46,6 @@ import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
 import uk.ac.soton.comp2211.model.obstacles.*;
-
-import javax.imageio.ImageIO;
 
 public class MainScene extends BaseScene {
   private static MainScene instance = null;
@@ -141,7 +126,7 @@ public class MainScene extends BaseScene {
 
     //Left Panel
     leftPanel = new HBox();
-    leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("0598ff"), null, null)));
+    leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("add8e6"), null, null)));
     leftPanel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     leftPanel.setAlignment(Pos.CENTER);
     leftCollapseButton = new Button("<");
@@ -168,7 +153,7 @@ public class MainScene extends BaseScene {
     //Todo set calculation breakdowns
     //Right Panel
     rightPanel = new HBox();
-    rightPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("0598ff"), null, null)));
+    rightPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("add8e6"), null, null)));
     rightPanel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     rightPanel.setAlignment(Pos.CENTER);
     rightCollapseButton = new Button(">");
@@ -500,7 +485,7 @@ public class MainScene extends BaseScene {
     calculationBreakdownBox.todaBreakdownProperty().bind(breakdown.getTodaBreakdown());
     calculationBreakdownBox.asdaBreakdownProperty().bind(breakdown.getAsdaBreakdown());
     calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getRunwayName());
   }
 
   public static void updateRunway(Runway runway) {

@@ -78,6 +78,7 @@
 .loginButton {
     -fx-background-color: #0598ff;
     -fx-text-fill: #FFF;
+    -fx-font-weight: bold;
     -fx-background-radius: 5px;
 }
 
@@ -100,8 +101,8 @@
 
 
 .mainSceneButton {
-    -fx-background-color: #f0f8ff;
-    -fx-text-fill: #000000;
+    -fx-background-color: #4682b4;
+    -fx-text-fill: #FFF;
     -fx-font-weight: bold;
     -fx-background-radius: 5px;
 }
@@ -109,14 +110,35 @@
 .mainSceneButton:hover {
     -fx-background-color: transparent;
     -fx-background-radius: 5px;
+    -fx-text-fill: #000000;
+    -fx-border-color: #4682b4;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
 }
 
 
-.mainSceneButton:hover {
+.runwayBoxButton {
+    -fx-background-color: #4682b4;
+    -fx-text-fill: #FFF;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+}
+
+.runwayBoxButton:hover {
     -fx-background-color: transparent;
     -fx-background-radius: 5px;
-    -fx-text-fill: #f0f8ff;
-    -fx-border-color: #f0f8ff;
+    -fx-text-fill: #4682b4;
+    -fx-border-color: #4682b4;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+.runwayBoxButton:selected {
+    -fx-background-color: Transparent;
+    -fx-text-fill: #000000;
+    -fx-border-color: #4682b4;
     -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
@@ -164,8 +186,8 @@
 
 /* Normal state of the button */
 .direction-button {
-    -fx-background-color: #f0f8ff; /* White background */
-    -fx-text-fill: #000000; /* Black text */
+    -fx-background-color: #4682b4; /*Blue Background*/
+    -fx-text-fill: #FFF; /* Black text */
     -fx-font-weight: bold; /* Bold text */
     -fx-background-radius: 5px;
     -fx-padding: 5px 10px;
@@ -174,8 +196,8 @@
 /* Hover state of the button */
 .direction-button:hover {
     -fx-background-color: Transparent;
-    -fx-text-fill: #f0f8ff;
-    -fx-border-color: #f0f8ff;
+    -fx-text-fill: #4682b4;
+    -fx-border-color: #4682b4;
     -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
@@ -183,9 +205,9 @@
 
 /* Selected state of the button */
 .direction-button:selected {
-    -fx-background-color: Transparent; /* Blue background to indicate selection */
-    -fx-text-fill: #f0f8ff; /* White text for contrast */
-    -fx-border-color: #cd5c5c; /* Darker blue border for emphasis */
+    -fx-background-color: Transparent;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
     -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-border-radius: 5px;

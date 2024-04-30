@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -57,34 +58,55 @@ public class MenuBar extends HBox {
     logger.info("Building the MenuBar");
     setSpacing(10);
     setPadding(new Insets(10));
-    setBackground(new Background(new BackgroundFill(Color.valueOf("051bff"), null, null)));
+    setBackground(new Background(new BackgroundFill(Color.valueOf("73a9c2"), null, null)));
 
     fileButton = new MenuButton("File");
+
+    Menu importOption = new Menu("Import");
     MenuItem importObstacles = new MenuItem("Import Obstacles");
     importObstacles.setOnAction(event -> loadFXML(event, "importObstacles.fxml"));
     MenuItem importAirports = new MenuItem("Import Airports");
     importAirports.setOnAction(event -> loadFXML(event, "importAirport.fxml"));
+    importOption.getItems().addAll(importObstacles, importAirports);
+
+    Menu exportOption = new Menu("Export");
+    Menu asXML = new Menu("As XML");
+    Menu snapshot = new Menu("Snapshot");
+
+
+    MenuItem exportTopDown = new MenuItem("Export TopDown View");
+    MenuItem exportSideView = new MenuItem("Export Side View");
+    MenuItem exportSimultaneous = new MenuItem("Export Simultaneous View");
 
     MenuItem exportObstacles = new MenuItem("Export Obstacles");
     exportObstacles.setOnAction(event -> exportObstacles());
+    MenuItem exportAirports = new MenuItem("Export Airports");
+//    exportAirports.setOnAction(event -> XMLExporter);
+
+    snapshot.getItems().addAll(exportTopDown, exportSideView, exportSimultaneous);
+    asXML.getItems().addAll(exportObstacles, exportAirports);
+
+    exportOption.getItems().addAll(asXML, snapshot);
 
     fileButton.getItems().addAll(
-        importObstacles,
-        exportObstacles,
-        importAirports,
+        importOption,
+        exportOption,
         new MenuItem("Reset")
     );
 
     MenuItem editObstacles = new MenuItem("Edit Obstacles");
     editObstacles.setOnAction(event -> loadFXML(event, "edit-obstacles.fxml"));
 
+    MenuItem editAirports = new MenuItem("Edit Airports");
+    editAirports.setOnAction(event -> loadFXML(event, "edit-airport.fxml"));
+
     MenuItem airportImg = new MenuItem("Capture Airport");
     airportImg.setOnAction(event -> captureAirport());
 
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
-        new MenuItem("Edit Airports"),
         editObstacles,
+        editAirports,
         airportImg,
         new MenuItem("Undo")
     );
@@ -143,6 +165,11 @@ public class MenuBar extends HBox {
 
   private void exportObstacles() {
     XMLExporter.exportObstacles();
+  }
+
+  public void changeStyling (String backgroundColor) {
+    // Change the styling of the menu bar
+    setBackground(new Background(new BackgroundFill(Color.valueOf(backgroundColor), null, null)));
   }
 
 

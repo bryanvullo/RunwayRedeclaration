@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.editController">
+<AnchorPane prefHeight="500.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.editObstacleController">
    <children>
       <JFXButton fx:id="deleteButton" layoutX="152.0" layoutY="315.0" prefHeight="30.0" prefWidth="95.0" styleClass="loginButton" stylesheets="@../css/stylesheet.css" text="Delete">
          <font>

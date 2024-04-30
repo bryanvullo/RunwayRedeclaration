@@ -16,7 +16,7 @@ public class Runway {
     /**
      * The name of the runway
      */
-    private final String name;
+    private String name;
     
     /**
      * The clearway of the runway
@@ -79,12 +79,16 @@ public class Runway {
         this.displacedThreshold = null;
         this.obstacles = new ArrayList<>();
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
     /**
      * Returns the name of the runway
      * @return the name of the runway
      */
-    public String getName() {
+    public String getRunwayName() {
         return name;
     }
     

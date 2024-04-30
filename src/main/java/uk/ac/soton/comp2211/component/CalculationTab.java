@@ -72,6 +72,7 @@ public class CalculationTab extends VBox {
         
         var title = new Text("Calculation Tab");
         title.getStyleClass().add("componentTitle");
+        title.getStyleClass().add("componentTitle");
         getChildren().add(title);
         
         var box = new HBox();
@@ -164,6 +165,7 @@ public class CalculationTab extends VBox {
             previousToraText, previousTodaText, previousAsdaText, previousLdaText);
         
         recalculateButton = new Button("Recalculate");
+        recalculateButton.getStyleClass().add("mainSceneButton");
         box.getChildren().add(recalculateButton);
     }
     
