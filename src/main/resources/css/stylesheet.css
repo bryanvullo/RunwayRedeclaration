@@ -98,6 +98,31 @@
 }
 
 
+
+.mainSceneButton {
+    -fx-background-color: #f0f8ff;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+}
+
+.mainSceneButton:hover {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+
+.mainSceneButton:hover {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #f0f8ff;
+    -fx-border-color: #f0f8ff;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+
 /* Style for ComboBox to make it smaller */
 .combo-box {
     -fx-font-size: 12px; /* Reduced font size */
@@ -139,7 +164,7 @@
 
 /* Normal state of the button */
 .direction-button {
-    -fx-background-color: #FFFFFF; /* White background */
+    -fx-background-color: #f0f8ff; /* White background */
     -fx-text-fill: #000000; /* Black text */
     -fx-font-weight: bold; /* Bold text */
     -fx-background-radius: 5px;
@@ -148,9 +173,9 @@
 
 /* Hover state of the button */
 .direction-button:hover {
-    -fx-background-color: #F0F0F0; /* Lighter shade for hover */
-    -fx-text-fill: #0598ff; /* Black text remains the same */
-    -fx-border-color: #0598ff; /* Blue border on hover */
+    -fx-background-color: Transparent;
+    -fx-text-fill: #f0f8ff;
+    -fx-border-color: #f0f8ff;
     -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
@@ -158,9 +183,9 @@
 
 /* Selected state of the button */
 .direction-button:selected {
-    -fx-background-color: #0598ff; /* Blue background to indicate selection */
-    -fx-text-fill: #FFFFFF; /* White text for contrast */
-    -fx-border-color: #0052CC; /* Darker blue border for emphasis */
+    -fx-background-color: Transparent; /* Blue background to indicate selection */
+    -fx-text-fill: #f0f8ff; /* White text for contrast */
+    -fx-border-color: #cd5c5c; /* Darker blue border for emphasis */
     -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-border-radius: 5px;

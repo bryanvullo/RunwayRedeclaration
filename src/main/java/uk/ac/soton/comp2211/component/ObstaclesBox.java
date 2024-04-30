@@ -18,7 +18,7 @@ import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
 public class ObstaclesBox extends VBox {
 
   private static final Logger logger = LogManager.getLogger(ObstaclesBox.class);
-  private Button customButton;
+  private Button editObstacleButton;
   private ComboBox<AdvancedObstacle> obstacleChooser;
 
   public ObstaclesBox() {
@@ -38,14 +38,16 @@ public class ObstaclesBox extends VBox {
     title.getStyleClass().add("componentTitle");
     getChildren().add(title);
 
+    editObstacleButton = new Button("Edit/Add Obstacle");
+    editObstacleButton.getStyleClass().add("mainSceneButton");
+    getChildren().add(editObstacleButton);
+
+    editObstacleButton.setOnAction(e -> MenuBar.loadFXML(e, "edit-obstacles.fxml"));
 
     obstacleChooser.getItems().addAll();
     obstacleChooser.setPromptText("Choose an Obstacle");
     getChildren().add(obstacleChooser);
   }
-//  public void addObstacleOptions(ObservableList<String> obstacleNames) {
-//    obstacleChooser.getItems().addAll(obstacleNames);
-//  }
 
 
   public void clearObstacleOptions() {
@@ -64,8 +66,7 @@ public class ObstaclesBox extends VBox {
     return obstacleChooser;
   }
 
-  public Button getCustomButton() {
-    return customButton;
+  public Button getEditObstacleButton() {
+    return editObstacleButton;
   }
-
 }

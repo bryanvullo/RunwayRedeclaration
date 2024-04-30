@@ -6,11 +6,16 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
+import javafx.scene.image.PixelFormat;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
+import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -24,6 +29,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -47,6 +59,8 @@ import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
 import uk.ac.soton.comp2211.model.obstacles.*;
+
+import javax.imageio.ImageIO;
 
 public class MainScene extends BaseScene {
   private static MainScene instance = null;
@@ -247,58 +261,7 @@ public class MainScene extends BaseScene {
         handleObstacleSelection(newVal);
       }
     });
-
-//    obstacleBox.getCustomButton().setOnAction((e) -> {
-//      logger.info("Custom Button Pressed");
-//
-//      var obstacle = new AdvancedObstacle();
-//
-//      getInputAdvancedObstacle(obstacle);
-//
-//      updateObstacle(obstacle);
-//      if (obstacle.getWidth() * 1.5 > runwayViewBox.getTopDownRunway().getRunway().getHeight()) {
-//        Alert alert = new Alert(AlertType.ERROR);
-//        alert.setTitle("Error");
-//        alert.setHeaderText("Invalid Width");
-//        alert.setContentText("Obstacle Width is larger than runway width");
-//        alert.showAndWait();
-//        System.out.println(obstacle.getWidth());
-//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-//      } else if (obstacle.getLength() * 1.5 > runwayViewBox.getTopDownRunway().getRunway().getWidth()) {
-//        Alert alert = new Alert(AlertType.ERROR);
-//        alert.setTitle("Error");
-//        alert.setHeaderText("Invalid Length");
-//        alert.setContentText("Obstacle Length is larger than runway length");
-//        alert.showAndWait();
-//        System.out.println(obstacle.getWidth());
-//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-//      } else {
-//        runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-//        runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
-//        System.out.println(obstacle.getWidth());
-//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
-//      }
-//    });
-
-
   }
-
-
-//  private static void updateAirportSelectionUI() {
-//    Platform.runLater(() -> {
-//      // Clear existing items in the ComboBoxes
-//      runwayBox.getAirportSelection().getItems().clear();
-//      runwayBox.getRunwaySelection().getItems().clear();
-//
-//      // Add all airports to the airport selection ComboBox
-//      airportRunways.values().forEach(airports -> {
-//        runwayBox.getAirportSelection().getItems().addAll(airports);
-//      });
-//
-//      // Log the update
-//      System.out.println("Updated UI with new airport and runway data.");
-//    });
-//  }
 
 
   public static void updateAirportsList(Airport newAirport) {
