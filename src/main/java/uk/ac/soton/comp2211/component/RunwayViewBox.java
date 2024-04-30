@@ -1,5 +1,6 @@
 package uk.ac.soton.comp2211.component;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,9 +14,9 @@ public class RunwayViewBox extends VBox {
 
   private static final Logger logger = LogManager.getLogger(RunwayViewBox.class);
 
-  private Button topdownButton;
-  private Button simultaneousButton;
-  private Button sideButton;
+  private JFXButton topdownButton;
+  private JFXButton simultaneousButton;
+  private JFXButton sideButton;
   private HBox runwayView;
   private SideRunway sideRunway;
   private TopDownRunway topDownRunway;
@@ -39,9 +40,9 @@ public class RunwayViewBox extends VBox {
     viewSelectionBox.setSpacing(10);
     getChildren().add(viewSelectionBox);
 
-    topdownButton = new Button("Top-Down View");
-    simultaneousButton = new Button("Simultaneous View");
-    sideButton = new Button("Side View");
+    topdownButton = new JFXButton("Top-Down View");
+    simultaneousButton = new JFXButton("Simultaneous View");
+    sideButton = new JFXButton("Side View");
 
     topdownButton.getStyleClass().add("runwayBoxButton");
     simultaneousButton.getStyleClass().add("runwayBoxButton");

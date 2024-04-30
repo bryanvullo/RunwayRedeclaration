@@ -76,7 +76,7 @@
 
 
 .loginButton {
-    -fx-background-color: #0598ff;
+    -fx-background-color: #4682b4;
     -fx-text-fill: #FFF;
     -fx-font-weight: bold;
     -fx-background-radius: 5px;
@@ -91,19 +91,22 @@
 .loginButton:hover {
     -fx-background-color: transparent;
     -fx-background-radius: 5px;
-    -fx-text-fill: #0598ff;
-    -fx-border-color: #0598ff;
+    -fx-text-fill: #4682b4;
+    -fx-border-color: #4682b4;
     -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-border-radius: 5px;
 }
 
-
-
 .mainSceneButton {
     -fx-background-color: #4682b4;
     -fx-text-fill: #FFF;
     -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+}
+
+.mainSceneButton:hover {
+    -fx-background-color: transparent;
     -fx-background-radius: 5px;
 }
 

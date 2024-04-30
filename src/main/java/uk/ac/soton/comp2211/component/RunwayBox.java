@@ -1,5 +1,6 @@
 package uk.ac.soton.comp2211.component;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -31,6 +32,7 @@ public class RunwayBox extends VBox {
   private ToggleGroup directionToggleGroup;
   private ToggleButton leftButton;
   private ToggleButton rightButton;
+  private JFXButton editAirportButton;
 
 
 
@@ -104,6 +106,11 @@ public class RunwayBox extends VBox {
         System.out.println("Direction selected: " + direction);
       }
     });
+
+    editAirportButton = new JFXButton("Edit/Add Airports");
+    editAirportButton.getStyleClass().add("mainSceneButton");
+    editAirportButton.setOnAction(e -> MenuBar.loadFXML(e, "edit-airport.fxml"));
+    getChildren().add(editAirportButton);
 
     HBox directionBox = new HBox(10, leftButton, rightButton);
     directionBox.setAlignment(Pos.CENTER);

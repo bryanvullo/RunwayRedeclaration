@@ -1,5 +1,6 @@
 package uk.ac.soton.comp2211.component;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,7 +19,7 @@ import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
 public class ObstaclesBox extends VBox {
 
   private static final Logger logger = LogManager.getLogger(ObstaclesBox.class);
-  private Button editObstacleButton;
+  private JFXButton editObstacleButton;
   private ComboBox<AdvancedObstacle> obstacleChooser;
 
   public ObstaclesBox() {
@@ -38,7 +39,7 @@ public class ObstaclesBox extends VBox {
     title.getStyleClass().add("componentTitle");
     getChildren().add(title);
 
-    editObstacleButton = new Button("Edit/Add Obstacle");
+    editObstacleButton = new JFXButton("Edit/Add Obstacle");
     editObstacleButton.getStyleClass().add("mainSceneButton");
     getChildren().add(editObstacleButton);
 
