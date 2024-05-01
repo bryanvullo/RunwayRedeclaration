@@ -70,7 +70,7 @@ public class MenuBar extends HBox {
     MenuItem exportObstacles = new MenuItem("Export Obstacles");
     exportObstacles.setOnAction(event -> exportObstacles());
     MenuItem exportAirports = new MenuItem("Export Airports");
-//    exportAirports.setOnAction(event -> XMLExporter);
+    exportAirports.setOnAction(event -> exportAirports());
 
     snapshot.getItems().addAll(exportTopDown, exportSideView, exportSimultaneous);
     asXML.getItems().addAll(exportObstacles, exportAirports);
@@ -154,6 +154,10 @@ public class MenuBar extends HBox {
 
   private void exportObstacles() {
     XMLExporter.exportObstacles();
+  }
+
+  private void exportAirports() {
+    XMLExporter.exportAirports();
   }
 
   public void changeStyling (String backgroundColor) {
