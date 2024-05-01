@@ -129,7 +129,7 @@ public class editAirportController {
 
 //      airportList.refresh();
       runwayList.refresh();
-      runwayList.getSelectionModel().selectFirst();
+      runwayList.getSelectionModel().selectFirst();g
       toggleRunwayEdit(false);
     }
   }
