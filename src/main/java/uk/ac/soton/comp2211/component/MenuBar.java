@@ -61,18 +61,36 @@ public class MenuBar extends HBox {
     Menu exportOption = new Menu("Export");
     Menu asXML = new Menu("As XML");
     Menu snapshot = new Menu("Snapshot");
+    Menu asJPG = new Menu("as JPG");
+    Menu asPNG = new Menu("as PNG");
 
 
-    MenuItem exportTopDown = new MenuItem("Export TopDown View");
-    MenuItem exportSideView = new MenuItem("Export Side View");
-    MenuItem exportSimultaneous = new MenuItem("Export Simultaneous View");
+    MenuItem exportTopDownJPG = new MenuItem("Export TopDown View");
+    MenuItem exportSideViewJPG = new MenuItem("Export Side View");
+    MenuItem exportSimultaneousJPG = new MenuItem("Export Simultaneous View");
+
+    exportTopDownJPG.setOnAction(event -> ImageExporter.exportViewAsImage(MainScene.getRunwayViewBox().getTopDownRunway(), "jpg"));
+    exportSideViewJPG.setOnAction(event -> ImageExporter.exportViewAsImage(MainScene.getRunwayViewBox().getSideRunway(), "jpg"));
+    exportSimultaneousJPG.setOnAction(event -> ImageExporter.exportViewAsImage(MainScene.getRunwayViewBox().getSimulataneaousView(), "jpg"));
+
+    MenuItem exportTopDownPNG = new MenuItem("Export TopDown View");
+    MenuItem exportSideViewPNG = new MenuItem("Export Side View");
+    MenuItem exportSimultaneousPNG = new MenuItem("Export Simultaneous View");
+
+    exportTopDownPNG.setOnAction(event -> ImageExporter.exportViewAsImage(MainScene.getRunwayViewBox().getTopDownRunway(), "png"));
+    exportSideViewPNG.setOnAction(event -> ImageExporter.exportViewAsImage(MainScene.getRunwayViewBox().getSideRunway(), "png"));
+    exportSimultaneousPNG.setOnAction(event -> ImageExporter.exportViewAsImage(MainScene.getRunwayViewBox().getSimulataneaousView(), "png"));
+
+    asJPG.getItems().addAll(exportTopDownJPG, exportSideViewJPG, exportSimultaneousJPG);
+    asPNG.getItems().addAll(exportTopDownPNG, exportSideViewPNG, exportSimultaneousPNG);
+
 
     MenuItem exportObstacles = new MenuItem("Export Obstacles");
     exportObstacles.setOnAction(event -> exportObstacles());
     MenuItem exportAirports = new MenuItem("Export Airports");
     exportAirports.setOnAction(event -> exportAirports());
 
-    snapshot.getItems().addAll(exportTopDown, exportSideView, exportSimultaneous);
+    snapshot.getItems().addAll(asJPG, asPNG);
     asXML.getItems().addAll(exportObstacles, exportAirports);
 
     exportOption.getItems().addAll(asXML, snapshot);
@@ -89,14 +107,10 @@ public class MenuBar extends HBox {
     MenuItem editAirports = new MenuItem("Edit Airports");
     editAirports.setOnAction(event -> loadFXML(event, "edit-airport.fxml"));
 
-    MenuItem airportImg = new MenuItem("Capture Airport");
-    airportImg.setOnAction(event -> captureAirport());
-
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
         editObstacles,
         editAirports,
-        airportImg,
         new MenuItem("Undo")
     );
     unitButton = new MenuButton("Units");
@@ -147,9 +161,6 @@ public class MenuBar extends HBox {
 
   }
 
-  private void captureAirport() {
-    ImageExporter.captureRunwayViewBoxScreenshot(MainScene.getRunwayViewBox());
-  }
 
 
   private void exportObstacles() {

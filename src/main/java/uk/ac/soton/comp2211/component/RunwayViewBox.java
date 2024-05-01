@@ -20,6 +20,7 @@ public class RunwayViewBox extends VBox {
   private HBox runwayView;
   private SideRunway sideRunway;
   private TopDownRunway topDownRunway;
+  private VBox runwayVBox;
 
   public RunwayViewBox() {
     logger.info("Creating Runway View");
@@ -102,11 +103,15 @@ public class RunwayViewBox extends VBox {
   public void changeViewToSimultaneous() {
     // Clear the existing runway view
     runwayView.getChildren().clear();
-    VBox runwayVBox = new VBox();
+    runwayVBox = new VBox();
     runwayVBox.setSpacing(100);
     runwayVBox.setAlignment(Pos.CENTER);
     runwayVBox.getChildren().addAll(topDownRunway, sideRunway);
     runwayView.getChildren().add(runwayVBox);
+  }
+
+  public VBox getSimulataneaousView() {
+    return runwayVBox;
   }
 
   public SideRunway getSideRunway() {
