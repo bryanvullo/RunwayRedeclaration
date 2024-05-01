@@ -108,6 +108,13 @@ public class MainScene extends BaseScene {
     mainPane.setMaxWidth(appWindow.getWidth());
     mainPane.setMaxHeight(appWindow.getHeight());
     root.getChildren().add(mainPane);
+    
+    appWindow.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+      mainPane.setMaxWidth(newVal.doubleValue());
+    });
+    appWindow.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+      mainPane.setMaxHeight(newVal.doubleValue());
+    });
 
     runwayViewBox = new RunwayViewBox();
     Button sideButton = runwayViewBox.getSideButton();

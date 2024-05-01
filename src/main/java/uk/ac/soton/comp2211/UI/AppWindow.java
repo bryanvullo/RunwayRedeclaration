@@ -26,7 +26,7 @@ public class AppWindow {
     private final int width;
     private final int height;
     
-    private final Stage stage;
+    public final Stage stage;
     
     private BaseScene currentScene;
     private Scene scene;
@@ -88,7 +88,7 @@ public class AppWindow {
      * Set up the default scene (an empty black scene) when no scene is loaded
      */
     public void setupDefaultScene() {
-        this.scene = new Scene(new Pane(),1000,800, Color.BLACK);
+        this.scene = new Scene(new Pane(),500,400, Color.BLACK);
         stage.setScene(this.scene);
     }
     
