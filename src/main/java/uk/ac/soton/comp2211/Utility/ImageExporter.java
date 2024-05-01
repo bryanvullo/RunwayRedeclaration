@@ -1,10 +1,9 @@
-package uk.ac.soton.comp2211.utility;
+package uk.ac.soton.comp2211.Utility;
 
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import uk.ac.soton.comp2211.component.RunwayBox;
 import uk.ac.soton.comp2211.component.RunwayViewBox;
 
 import javax.imageio.ImageIO;

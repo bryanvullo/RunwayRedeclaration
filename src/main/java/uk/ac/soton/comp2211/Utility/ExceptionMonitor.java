@@ -1,4 +1,4 @@
-package uk.ac.soton.comp2211.utility;
+package uk.ac.soton.comp2211.Utility;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

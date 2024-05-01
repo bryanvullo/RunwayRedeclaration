@@ -1,4 +1,4 @@
-package uk.ac.soton.comp2211.utility;
+package uk.ac.soton.comp2211.Utility;
 
 import uk.ac.soton.comp2211.control.MainController;
 

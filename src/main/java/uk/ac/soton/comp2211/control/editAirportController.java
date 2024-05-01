@@ -33,6 +33,7 @@ public class editAirportController {
     airportList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
       if (newVal != null) {
         runwayList.setItems(FXCollections.observableArrayList(newVal.getRunways())); // Correct conversion
+        runwayList.getSelectionModel().selectFirst();
         airportNameLabel.setText(newVal.getAirportName());
       }
     });
@@ -83,6 +84,7 @@ public class editAirportController {
     airportList.refresh();
     runwayList.refresh();
     airportList.getSelectionModel().selectFirst();
+    runwayList.getSelectionModel().selectFirst();
   }
 
   public void closeStage() {
@@ -221,6 +223,9 @@ public class editAirportController {
   }
 
   public void initialiseFields(boolean editing) {
+    airportList.getSelectionModel().selectFirst();
+    runwayList.getSelectionModel().selectFirst();
+
     airportNameField.setVisible(editing);
     runwayNameField.setVisible(editing);
     toraField.setVisible(editing);

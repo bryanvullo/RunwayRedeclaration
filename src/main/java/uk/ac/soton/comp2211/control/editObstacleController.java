@@ -61,6 +61,7 @@ public class editObstacleController {
       toggleEdit(false);
     });
 
+    editListView.getSelectionModel().selectFirst();
     populateList();
   }
 
@@ -241,12 +242,13 @@ public class editObstacleController {
   }
 
   public void reloadList() {
-    editListView.getItems().clear();
-    populateList();
+    editListView.refresh();
+    editListView.getSelectionModel().selectFirst();
   }
 
   public void populateList() {
     editListView.getItems().addAll(MainScene.getObstaclesBox().getObstacleChooser().getItems());
+    editListView.getSelectionModel().selectFirst();
   }
 
 
