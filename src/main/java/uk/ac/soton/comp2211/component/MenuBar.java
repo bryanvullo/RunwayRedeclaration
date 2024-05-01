@@ -23,7 +23,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
 import uk.ac.soton.comp2211.scene.MainScene;
-import uk.ac.soton.comp2211.utility.DBUtils;
+import uk.ac.soton.comp2211.Utility.DBUtils;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.utility.ImageExporter;
 import uk.ac.soton.comp2211.utility.XMLExporter;
