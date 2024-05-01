@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import javafx.scene.shape.Rectangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,10 +35,12 @@ public class RunwayViewBox extends VBox {
     setSpacing(10);
     setPadding(new Insets(10));
 
+    Rectangle clip = new Rectangle(925, 495);
+    this.setClip(clip);
+
     var viewSelectionBox = new HBox();
     viewSelectionBox.setAlignment(Pos.CENTER);
     viewSelectionBox.setSpacing(10);
-    getChildren().add(viewSelectionBox);
 
     topdownButton = new Button("Top-Down View");
     simultaneousButton = new Button("Simultaneous View");
@@ -56,7 +59,9 @@ public class RunwayViewBox extends VBox {
     var topDownRunwayPane = new TopDownRunway();
     runwayView.getChildren().add(topDownRunwayPane);
 
+
     //End of TEMP code
+    getChildren().add(viewSelectionBox);
 
     var runwayViewTools = new HBox();
     runwayViewTools.setAlignment(Pos.CENTER);
@@ -73,7 +78,43 @@ public class RunwayViewBox extends VBox {
     runwayViewTools.getChildren().addAll(
         zoomInButton, zoomOutButton, rotateButton, alignButton, panButton, resetButton);
 
+    zoomInButton.setOnAction(event -> {
+      // Increase the scale by 10%
+      double scaleFactor = 1.05;
+      topDownRunway.setScaleX(topDownRunway.getScaleX() * scaleFactor);
+      topDownRunway.setScaleY(topDownRunway.getScaleY() * scaleFactor);
+    });
+
+    zoomOutButton.setOnAction(event -> {
+      // Increase the scale by 10%
+      double scaleFactor = 0.95;
+      topDownRunway.setScaleX(topDownRunway.getScaleX() * scaleFactor);
+      topDownRunway.setScaleY(topDownRunway.getScaleY() * scaleFactor);
+    });
+
+    rotateButton.setOnAction(event -> {
+      // Rotate the topDownRunway by 10 degrees more
+      topDownRunway.setRotate(topDownRunway.getRotate() + 10);
+    });
+
+    resetButton.setOnAction(event -> {
+      // Reset scale, rotation, and translation to default
+      if(topDownRunway.getIsRotated()) {
+        topDownRunway.setScaleX(-1.0);
+      }
+      else {
+        topDownRunway.setScaleX(1.0);
+
+      }
+      topDownRunway.setScaleY(1.0);
+      topDownRunway.setRotate(0);
+      topDownRunway.setTranslateX(0);
+      topDownRunway.setTranslateY(0);
+      topDownRunway.setLabels();
+    });
   }
+
+
   public Button getSideButton() {
     return sideButton;
   }
@@ -98,7 +139,6 @@ public class RunwayViewBox extends VBox {
     // Clear the existing runway view
     runwayView.getChildren().clear();
     VBox runwayVBox = new VBox();
-    runwayVBox.setSpacing(100);
     runwayVBox.setAlignment(Pos.CENTER);
     runwayVBox.getChildren().addAll(topDownRunway, sideRunway);
     runwayView.getChildren().add(runwayVBox);

@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.scene.shape.Rectangle;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
@@ -117,6 +118,9 @@ public class MainScene extends BaseScene {
     sideButton.setOnAction(event -> runwayViewBox.changeViewToSide());
     topDownButton.setOnAction(event -> runwayViewBox.changeViewToTopdown());
     simultaneousButton.setOnAction(event -> runwayViewBox.changeViewToSimultaneous());
+
+
+
     //this is for all backend stuff
     mainPane.setCenter(runwayViewBox);
 
@@ -173,7 +177,6 @@ public class MainScene extends BaseScene {
 //        }
 //      }
 //    });
-
     activeBar = new VBox();
     activeBar.setAlignment(Pos.TOP_CENTER);
     activeObstacle = new ActiveObstacle();
@@ -247,6 +250,15 @@ public class MainScene extends BaseScene {
         handleObstacleSelection(newVal);
       }
     });
+    runwayBox.getRunwaySelection().valueProperty().addListener((obs, oldVal, newVal) -> {
+      if (newVal != null) {
+        System.out.println(newVal.getName());
+        runwayViewBox.getTopDownRunway().updateRunway(newVal.getToda(), newVal.getToda(), newVal.getTora(), newVal.getLda(), newVal.getClearway(), newVal.getStopway(), newVal.getDisplacedThreshold(), newVal.getName());
+      }
+
+
+    });
+
 
 //    obstacleBox.getCustomButton().setOnAction((e) -> {
 //      logger.info("Custom Button Pressed");
@@ -537,7 +549,9 @@ public class MainScene extends BaseScene {
     calculationBreakdownBox.todaBreakdownProperty().bind(breakdown.getTodaBreakdown());
     calculationBreakdownBox.asdaBreakdownProperty().bind(breakdown.getAsdaBreakdown());
     calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunwayWithoutScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getSideRunway().updateRunway(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+
   }
 
   public static void updateRunway(Runway runway) {
@@ -642,5 +656,8 @@ public class MainScene extends BaseScene {
 
   public static Runway getSelectedRunway() {
     return selectedRunway;
+  }
+  public RunwayViewBox runwayViewBox() {
+    return runwayViewBox;
   }
 }
