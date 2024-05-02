@@ -1,0 +1,52 @@
+May 01, 2024 10:00:07 PM uk.ac.soton.comp2211.App main
+INFO: Application started.
+May 01, 2024 10:00:07 PM uk.ac.soton.comp2211.App openApp
+INFO: Opening login page
+May 01, 2024 10:00:08 PM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+May 01, 2024 10:00:08 PM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+May 01, 2024 10:00:08 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+May 01, 2024 10:00:08 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+May 01, 2024 10:00:08 PM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+May 01, 2024 10:00:09 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+May 01, 2024 10:00:13 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User exists
+May 01, 2024 10:00:13 PM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Checking password for user: DwijeshD
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.model.Database checkPassword
+INFO: Password is correct
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: Password is correct
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.control.LoginController performLogin
+INFO: User DwijeshD logged in successfully
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+May 01, 2024 10:00:14 PM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+May 01, 2024 10:00:18 PM uk.ac.soton.comp2211.scene.MainScene lambda$build$3
+INFO: Recalculate button pressed
+May 01, 2024 10:00:18 PM uk.ac.soton.comp2211.scene.MainScene recalculate
+INFO: Recalculating
+May 01, 2024 10:00:18 PM uk.ac.soton.comp2211.model.Calculation calculateTakeOffAwayLandingOver
+INFO: Calculating for Landing Over and Take-Off Away
+May 01, 2024 10:00:18 PM uk.ac.soton.comp2211.model.Calculation calcLandingOver
+INFO: Calculating LDA for Landing Over
+May 01, 2024 10:00:18 PM uk.ac.soton.comp2211.model.Calculation calcTOAway
+INFO: Calculating TORA, TODA and ASDA for Take-Off Away
+May 01, 2024 10:00:21 PM uk.ac.soton.comp2211.App shutdown
+INFO: Application shutting down.

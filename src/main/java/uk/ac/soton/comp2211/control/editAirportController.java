@@ -42,13 +42,13 @@ public class editAirportController {
       @Override
       protected void updateItem(Runway item, boolean empty) {
         super.updateItem(item, empty);
-        setText(empty || item == null ? null : item.getRunwayName());
+        setText(empty || item == null ? null : item.getName());
       }
     });
 
     runwayList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
       if (newVal != null) {
-        runwayNameLabel.setText(newVal.getRunwayName());
+        runwayNameLabel.setText(newVal.getName());
         toraLabel.setText(String.valueOf(newVal.getTora()));
         todaLabel.setText(String.valueOf(newVal.getToda()));
         asdaLabel.setText(String.valueOf(newVal.getAsda()));

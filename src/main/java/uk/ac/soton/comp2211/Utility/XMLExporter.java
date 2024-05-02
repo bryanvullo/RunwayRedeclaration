@@ -94,7 +94,7 @@ public class XMLExporter {
           Element runwayElement = document.createElement("runway");
           runwaysElement.appendChild(runwayElement);
 
-          createElement(runwayElement, "name", runway.getRunwayName());
+          createElement(runwayElement, "name", runway.getName());
           createElement(runwayElement, "tora", String.valueOf(runway.getTora()));
           createElement(runwayElement, "toda", String.valueOf(runway.getToda()));
           createElement(runwayElement, "asda", String.valueOf(runway.getAsda()));
