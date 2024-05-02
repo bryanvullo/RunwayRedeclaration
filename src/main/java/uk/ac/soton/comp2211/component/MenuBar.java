@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -21,6 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp2211.Utility.PDFExporter;
 import uk.ac.soton.comp2211.model.Runway;
+import uk.ac.soton.comp2211.model.User;
 import uk.ac.soton.comp2211.scene.MainScene;
 import uk.ac.soton.comp2211.Utility.DBUtils;
 import uk.ac.soton.comp2211.model.Database;
@@ -42,7 +44,12 @@ public class MenuBar extends HBox {
   private MenuButton userButton;
   private MenuButton unitButton;
 
+  MenuItem editAirports;
+  MenuItem importAirports;
+  User currentUser;
+
   public MenuBar() {
+    currentUser = Database.getCurrentUser();
     logger.info("Creating the MenuBar");
     build();
   }
@@ -58,8 +65,12 @@ public class MenuBar extends HBox {
     Menu importOption = new Menu("Import");
     MenuItem importObstacles = new MenuItem("Import Obstacles");
     importObstacles.setOnAction(event -> loadFXML(event, "importObstacles.fxml"));
-    MenuItem importAirports = new MenuItem("Import Airports");
-    importAirports.setOnAction(event -> loadFXML(event, "importAirport.fxml"));
+    importAirports = new MenuItem("Import Airports");
+    if (currentUser.getAccessLevel() == User.AccessLevel.VIEWER) {
+      importAirports.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION, "You do not have permission to import airports. Only editors and administrators can import airports."));
+    } else {
+      importAirports.setOnAction(event -> loadFXML(event, "importAirport.fxml"));
+    }
     importOption.getItems().addAll(importObstacles, importAirports);
 
     Menu exportOption = new Menu("Export");
@@ -89,7 +100,6 @@ public class MenuBar extends HBox {
         System.out.println("File save cancelled.");
       }
     });
-
 
 
     MenuItem exportTopDownJPG = new MenuItem("Export TopDown View");
@@ -131,9 +141,13 @@ public class MenuBar extends HBox {
     MenuItem editObstacles = new MenuItem("Edit Obstacles");
     editObstacles.setOnAction(event -> loadFXML(event, "edit-obstacles.fxml"));
 
-    MenuItem editAirports = new MenuItem("Edit Airports");
-    editAirports.setOnAction(event -> loadFXML(event, "edit-airport.fxml"));
+    editAirports = new MenuItem("Edit Airports");
 
+    if (User.AccessLevel.VIEWER == currentUser.getAccessLevel()) {
+      editAirports.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION,"You do not have permission to edit airports. Only editors and administrators can edit airports."));
+    } else {
+      editAirports.setOnAction(event -> loadFXML(event, "edit-airport.fxml"));
+    }
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
         editObstacles,
@@ -172,10 +186,13 @@ public class MenuBar extends HBox {
     logoutItem.setOnAction(event -> performLogout());
 
     MenuItem manageUsersItem = new MenuItem("Manage Users");
-    manageUsersItem.setOnAction(event -> loadFXML(event, "manage-users.fxml"));
+    if (currentUser.getAccessLevel() != User.AccessLevel.ADMIN) {
+      manageUsersItem.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION, "You do not have permission to manage users. Only administrators can manage users."));
+    } else {
+      manageUsersItem.setOnAction(event -> loadFXML(event, "manage-users.fxml"));
+    }
 
     MenuItem username = new MenuItem(Database.getCurrentUser().getUsername());
-
     userButton = new MenuButton();
 
     var userImage = new ImageView(Objects.requireNonNull(getClass().getResource("/img/user.png")).toExternalForm());
@@ -188,6 +205,11 @@ public class MenuBar extends HBox {
 
   }
 
+  private void showAlertDialog(Alert.AlertType alertType,String message) {
+    Alert alert = new Alert(alertType);
+    alert.setContentText(message);
+    alert.show();
+  }
 
   private void exportObstacles() {
     XMLExporter.exportObstacles();
