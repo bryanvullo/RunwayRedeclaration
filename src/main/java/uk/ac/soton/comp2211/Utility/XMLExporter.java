@@ -1,5 +1,6 @@
 package uk.ac.soton.comp2211.Utility;
 
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.w3c.dom.Document;
@@ -63,6 +64,7 @@ public class XMLExporter {
         StreamResult streamResult = new StreamResult(file);
         transformer.transform(domSource, streamResult);
         MainScene.getSystemMessageBox().addMessage("Obstacles exported successfully to " + file.getAbsolutePath());
+        showAlertDialog(Alert.AlertType.INFORMATION, "Obstacles exported successfully to " + file.getAbsolutePath());
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -119,6 +121,7 @@ public class XMLExporter {
       if (file != null) {
         StreamResult streamResult = new StreamResult(file);
         transformer.transform(domSource, streamResult);
+        showAlertDialog(Alert.AlertType.INFORMATION, "Airports exported successfully to " + file.getAbsolutePath());
         System.out.println("Airports exported successfully to " + file.getAbsolutePath());
       }
     } catch (Exception e) {
@@ -126,6 +129,13 @@ public class XMLExporter {
       System.out.println("Failed to export airports");
     }
   }
+
+  private static void showAlertDialog(Alert.AlertType alertType, String message) {
+    Alert alert = new Alert(alertType);
+    alert.setContentText(message);
+    alert.show();
+  }
+
 
   private static void createElement(Element parent, String name, String value) {
     Element element = parent.getOwnerDocument().createElement(name);
