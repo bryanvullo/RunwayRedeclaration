@@ -28,7 +28,7 @@ public class RunwayBox extends VBox {
   private DoubleProperty stopway;
   private DoubleProperty displacedThreshold;
   private static ComboBox <Airport> airportSelection = new ComboBox<>();
-  private ComboBox <Runway> runwaySelection = new ComboBox<>();
+  private static ComboBox <Runway> runwaySelection = new ComboBox<>();
   private ToggleGroup directionToggleGroup;
   private ToggleButton leftButton;
   private ToggleButton rightButton;
@@ -230,7 +230,7 @@ public class RunwayBox extends VBox {
     return selectedToggle != null ? selectedToggle.getText() : null;
   }
 
-  public ComboBox<Runway> getRunwaySelection() {
+  public static ComboBox<Runway> getRunwaySelection() {
     return runwaySelection;
   }
 

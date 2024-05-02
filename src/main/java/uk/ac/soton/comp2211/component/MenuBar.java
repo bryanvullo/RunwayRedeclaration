@@ -14,16 +14,20 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import uk.ac.soton.comp2211.Utility.PDFExporter;
+import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.scene.MainScene;
 import uk.ac.soton.comp2211.Utility.DBUtils;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.Utility.ImageExporter;
 import uk.ac.soton.comp2211.Utility.XMLExporter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -63,6 +67,28 @@ public class MenuBar extends HBox {
     Menu snapshot = new Menu("Snapshot");
     Menu asJPG = new Menu("as JPG");
     Menu asPNG = new Menu("as PNG");
+    Menu calculations = new Menu("Calculations");
+
+    MenuItem exportPDF = new MenuItem("as PDF");
+    exportPDF.setOnAction(event -> {
+      FileChooser fileChooser = new FileChooser();
+      fileChooser.setTitle("Save PDF");
+      fileChooser.getExtensionFilters().addAll(
+          new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+      );
+      File file = fileChooser.showSaveDialog(null); // You might want to provide a window here instead of null if available
+      if (file != null) {
+        Runway selectedRunway = RunwayBox.getRunwaySelection().getSelectionModel().getSelectedItem();
+        if (selectedRunway != null) {
+          PDFExporter.exportRunwayViews(MainScene.getRunwayViewBox().getTopDownRunway(), MainScene.getRunwayViewBox().getSideRunway(), RunwayBox.getAirportSelection().getSelectionModel().getSelectedItem().getAirportName(), selectedRunway.getRunwayName(), selectedRunway, file.getPath(), MainScene.getCalculationBreakdown());
+        } else {
+          System.out.println("No runway selected.");
+        }
+      } else {
+        System.out.println("File save cancelled.");
+      }
+    });
+
 
 
     MenuItem exportTopDownJPG = new MenuItem("Export TopDown View");
@@ -83,7 +109,7 @@ public class MenuBar extends HBox {
 
     asJPG.getItems().addAll(exportTopDownJPG, exportSideViewJPG, exportSimultaneousJPG);
     asPNG.getItems().addAll(exportTopDownPNG, exportSideViewPNG, exportSimultaneousPNG);
-
+    calculations.getItems().addAll(exportPDF);
 
     MenuItem exportObstacles = new MenuItem("Export Obstacles");
     exportObstacles.setOnAction(event -> exportObstacles());
@@ -93,7 +119,7 @@ public class MenuBar extends HBox {
     snapshot.getItems().addAll(asJPG, asPNG);
     asXML.getItems().addAll(exportObstacles, exportAirports);
 
-    exportOption.getItems().addAll(asXML, snapshot);
+    exportOption.getItems().addAll(asXML, snapshot, calculations);
 
     fileButton.getItems().addAll(
         importOption,
@@ -162,7 +188,6 @@ public class MenuBar extends HBox {
   }
 
 
-
   private void exportObstacles() {
     XMLExporter.exportObstacles();
   }
@@ -171,7 +196,7 @@ public class MenuBar extends HBox {
     XMLExporter.exportAirports();
   }
 
-  public void changeStyling (String backgroundColor) {
+  public void changeStyling(String backgroundColor) {
     // Change the styling of the menu bar
     setBackground(new Background(new BackgroundFill(Color.valueOf(backgroundColor), null, null)));
   }

@@ -43,6 +43,7 @@ import uk.ac.soton.comp2211.control.ImportObstacleController;
 import uk.ac.soton.comp2211.dataStructure.CustomObstacleLocation;
 import uk.ac.soton.comp2211.dataStructure.ObstacleLocation;
 import uk.ac.soton.comp2211.model.Airport;
+import uk.ac.soton.comp2211.model.CalculationBreakdown;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
 import uk.ac.soton.comp2211.model.obstacles.*;
@@ -69,6 +70,7 @@ public class MainScene extends BaseScene {
   private VBox leftBar;
   private VBox activeBar;
   BorderPane mainPane;
+  private static CalculationBreakdown breakdown;
   private ActiveObstacle activeObstacle;
   private static RunwayBox runwayBox = new RunwayBox();
 
@@ -442,6 +444,10 @@ public class MainScene extends BaseScene {
     mainPane.requestLayout(); // Request layout update
   }
 
+  public static CalculationBreakdown getCalculationBreakdown(){
+    return breakdown;
+  }
+
   private void recalculate() {
     logger.info("Recalculating");
 
@@ -487,7 +493,7 @@ public class MainScene extends BaseScene {
   }
 
   private void updateBreakdown() {
-    var breakdown = tool.getRevisedCalculation().calculationBreakdown;
+    breakdown = tool.getRevisedCalculation().calculationBreakdown;
     calculationBreakdownBox.toraBreakdownProperty().bind(breakdown.getToraBreakdown());
     calculationBreakdownBox.todaBreakdownProperty().bind(breakdown.getTodaBreakdown());
     calculationBreakdownBox.asdaBreakdownProperty().bind(breakdown.getAsdaBreakdown());

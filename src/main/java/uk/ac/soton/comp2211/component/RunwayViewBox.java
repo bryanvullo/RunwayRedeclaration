@@ -110,6 +110,7 @@ public class RunwayViewBox extends VBox {
     runwayView.getChildren().add(runwayVBox);
   }
 
+
   public VBox getSimulataneaousView() {
     return runwayVBox;
   }
