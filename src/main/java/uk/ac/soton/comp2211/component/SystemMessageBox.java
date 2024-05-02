@@ -2,6 +2,7 @@ package uk.ac.soton.comp2211.component;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -71,4 +72,12 @@ public class SystemMessageBox extends VBox {
     scrollBox.setVvalue(1.0);
   }
 
+  public String getAllMessages() {
+    StringBuilder allMessages = new StringBuilder();
+    for (Node textNode : messageBox.getChildren()) {
+      Text text = (Text) textNode;
+      allMessages.append(text.getText());
+    }
+    return allMessages.toString();
+  }
 }
