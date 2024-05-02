@@ -1,10 +1,10 @@
 package uk.ac.soton.comp2211.control;
 
+import com.jfoenix.controls.JFXListView;
 import javafx.fxml.Initializable;
 
 import com.mongodb.client.MongoClient;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,7 +29,7 @@ public class ManageUsers implements Initializable {
   @FXML
   private VBox cardsVBox = new VBox();
   @FXML
-  private ListView allUsersListView = new ListView();
+  private JFXListView allUsersListView = new JFXListView();
   @FXML
   private Label usernameLabel;
   @FXML
@@ -111,39 +111,38 @@ public class ManageUsers implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     ArrayList<User> users = Database.getAllUsers();
-    Iterator var2 = users.iterator();
+    allUsersListView.depthProperty().set(1);
 
-    while (var2.hasNext()) {
-      User user = (User) var2.next();
-      this.allUsersListView.getItems().add(user.getUsername());
+    for (User user : users) {
+      allUsersListView.getItems().add(user.getUsername());
       if (user.getAccessStatus() == User.AccessStatus.UNAUTHORISED) {
-        this.unAuthorisedUsersListView.getItems().add(user.getUsername());
+        unAuthorisedUsersListView.getItems().add(user.getUsername());
       } else {
-        this.authorisedUsersListView.getItems().add(user.getUsername());
+        authorisedUsersListView.getItems().add(user.getUsername());
       }
     }
 
-    this.allUsersListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    allUsersListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue != null) {
+        username = newValue.toString();
+        updateUser();
+      }
+    });
+    authorisedUsersListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue != null) {
         this.username = newValue.toString();
         this.updateUser();
       }
     });
-    this.authorisedUsersListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    unAuthorisedUsersListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue != null) {
         this.username = newValue.toString();
         this.updateUser();
       }
     });
-    this.unAuthorisedUsersListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-      if (newValue != null) {
-        this.username = newValue.toString();
-        this.updateUser();
-      }
-    });
-    this.changeRoleButton.getItems().clear();
-    this.changeRoleButton.getItems().addAll(new MenuItem[]{new MenuItem("ADMIN"), new MenuItem("EDITOR"), new MenuItem("VIEWER")});
-    this.usersTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    changeRoleButton.getItems().clear();
+    changeRoleButton.getItems().addAll(new MenuItem[]{new MenuItem("ADMIN"), new MenuItem("EDITOR"), new MenuItem("VIEWER")});
+    usersTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue != null) {
         if (newValue.getText().equals("All Users")) {
           if (this.allUsersListView.getSelectionModel().getSelectedItem() == null) {

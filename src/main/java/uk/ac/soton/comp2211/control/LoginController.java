@@ -1,17 +1,15 @@
 package uk.ac.soton.comp2211.control;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import uk.ac.soton.comp2211.UI.AppWindow;
-import uk.ac.soton.comp2211.Utility.DBUtils;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.model.User;
+import uk.ac.soton.comp2211.Utility.DBUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +29,7 @@ public class LoginController implements Initializable {
   private PasswordField textField_Password;
   @FXML
   private Label testConnection;
+  private User currentUser;
 
   private final Logger logger = Logger.getLogger(LoginController.class.getName());
 
@@ -98,8 +97,9 @@ public class LoginController implements Initializable {
         logger.info("User exists");
         if (Database.checkPassword(username, password)) {
           logger.info("Password is correct");
-          User user = Database.getUser(username); // will implement this
-          logger.log(Level.INFO, "User {0} logged in successfully", user.getUsername());
+          currentUser = Database.getUser(username); // will implement this
+          logger.log(Level.INFO, "User {0} logged in successfully", currentUser.getUsername());
+          Notification.showNotification("User: " + username + " logged in successfully");
           DBUtils.closeStage((Stage) textField_UserName.getScene().getWindow());
           DBUtils.changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
         } else {
@@ -111,5 +111,9 @@ public class LoginController implements Initializable {
         alert.showAndWait();
       }
     }
+  }
+
+  public User getUsername(){
+    return currentUser;
   }
 }

@@ -7,11 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import uk.ac.soton.comp2211.App;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.scene.MainScene;
@@ -52,24 +49,17 @@ public class DBUtils {
     stage.show();
   }
 
-  public static <AppWindow> void changeSceneToMainScene(ActionEvent actionEvent, uk.ac.soton.comp2211.UI.AppWindow appWindow) {
-    MainScene mainScene = new MainScene(appWindow);
+  public static void changeSceneToMainScene(ActionEvent actionEvent, AppWindow appWindow) {
+    MainScene mainScene = MainScene.getInstance(appWindow);
     mainScene.initialise();
     mainScene.build();
 
     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-    // Set the scene to your main scene
     Scene scene = new Scene(mainScene.getRoot());
-    scene.getStylesheets().add(DBUtils.class.getResource("/style/main.css").toExternalForm());
+    scene.getStylesheets().add(DBUtils.class.getResource("/css/main.css").toExternalForm());
     stage.setTitle("Runway Re-declaration Tool");
     stage.setScene(scene);
-
     stage.show();
-  }
-
-  public static void openModalScene(String sceneFXML) {
-
   }
 
   public static void logInUser(ActionEvent actionEvent, String username, String password) throws IOException {

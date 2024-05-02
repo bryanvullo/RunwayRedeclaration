@@ -13,7 +13,7 @@ import java.util.Properties;
 public class Container extends AdvancedObstacle {
 
     private Container(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold, Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
-        super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre, obstacleProperties);
+        super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre);
     }
 
     public static Container createContainer() {

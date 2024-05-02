@@ -10,6 +10,10 @@ module uk.ac.soton.comp2211 {
   requires com.jfoenix;
   requires spring.security.crypto;
   requires fontawesomefx;
+  requires org.controlsfx.controls;
+  requires java.desktop;
+  requires javafx.swing;
+  requires org.apache.pdfbox;
 
   opens uk.ac.soton.comp2211 to javafx.fxml;
   opens uk.ac.soton.comp2211.control to javafx.fxml;

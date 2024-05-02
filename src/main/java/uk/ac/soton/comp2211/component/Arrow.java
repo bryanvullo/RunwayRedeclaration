@@ -1,43 +1,56 @@
 package uk.ac.soton.comp2211.component;
 
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.*;
 
 /**
- *
+ * Arrow component that extends Path for graphical representation of directional arrows.
  * @author kn
  */
-public class Arrow extends Path{
-    private static final double defaultArrowHeadSize = 8.0;
+public class Arrow extends Path {
+    private static final double defaultArrowHeadSize = 12;
+    private double startX;
+    private double endX;
 
-    public Arrow(double startX, double startY, double endX, double endY, double arrowHeadSize){
+    /**
+     * Constructs an Arrow object with specified start and end points and a custom arrow head size.
+     * @param startX The starting x-coordinate of the arrow.
+     * @param startY The starting y-coordinate of the arrow.
+     * @param endX The ending x-coordinate of the arrow.
+     * @param endY The ending y-coordinate of the arrow.
+     * @param arrowHeadSize The size of the arrow head.
+     */
+    public Arrow(double startX, double startY, double endX, double endY, double arrowHeadSize) {
         super();
+        this.startX = startX;
+        this.endX = endX;
         strokeProperty().bind(fillProperty());
-        setFill(Color.BLACK);
+        setFill(Color.WHITE);
+        setStrokeWidth(5);
 
-        //Line
+        // Main line of the arrow
         getElements().add(new MoveTo(startX, startY));
         getElements().add(new LineTo(endX, endY));
 
-        //ArrowHead
-        double angle = Math.atan2((endY - startY), (endX - startX)) - Math.PI / 2.0;
-        double sin = Math.sin(angle);
-        double cos = Math.cos(angle);
-        //point1
-        double x1 = (- 1.0 / 2.0 * cos + Math.sqrt(3) / 2 * sin) * arrowHeadSize + endX;
-        double y1 = (- 1.0 / 2.0 * sin - Math.sqrt(3) / 2 * cos) * arrowHeadSize + endY;
-        //point2
-        double x2 = (1.0 / 2.0 * cos + Math.sqrt(3) / 2 * sin) * arrowHeadSize + endX;
-        double y2 = (1.0 / 2.0 * sin - Math.sqrt(3) / 2 * cos) * arrowHeadSize + endY;
 
-        getElements().add(new LineTo(x1, y1));
-        getElements().add(new LineTo(x2, y2));
-        getElements().add(new LineTo(endX, endY));
     }
 
-    public Arrow(double startX, double startY, double endX, double endY){
-        this(startX, startY, endX, endY, defaultArrowHeadSize);
+    /**
+     * Constructs an Arrow object with specified start and end points using the default arrow head size.
+     * @param startX The starting x-coordinate of the arrow.
+     * @param startY The starting y-coordinate of the arrow.
+     * @param endX The ending x-coordinate of the arrow.
+     * @param endY The ending y-coordinate of the arrow.
+     */
+
+
+    /**
+     * Returns the width of the arrow, which is the absolute difference between the start and end x-coordinates.
+     * @return The horizontal width of the arrow.
+     */
+    public double getWidth() {
+        return Math.abs(endX - startX);
     }
+
 }

@@ -26,7 +26,7 @@ public class AppWindow {
     private final int width;
     private final int height;
     
-    private final Stage stage;
+    public final Stage stage;
     
     private BaseScene currentScene;
     private Scene scene;
@@ -51,12 +51,11 @@ public class AppWindow {
         
         startTool();
     }
-    
-    public void startTool() throws IOException {
-        logger.info("Starting the tool");
-        loadScene(new MainScene(this));
-    }
-    
+
+  public void startTool() throws IOException {
+    logger.info("Starting the tool");
+    loadScene(MainScene.getInstance(this));
+  }
     /**
      * Set up the default settings for the stage itself (the window), such as the title and minimum width and height.
      */
@@ -89,7 +88,7 @@ public class AppWindow {
      * Set up the default scene (an empty black scene) when no scene is loaded
      */
     public void setupDefaultScene() {
-        this.scene = new Scene(new Pane(),1000,800, Color.BLACK);
+        this.scene = new Scene(new Pane(),500,400, Color.BLACK);
         stage.setScene(this.scene);
     }
     
@@ -123,5 +122,8 @@ public class AppWindow {
     public int getHeight() {
         return this.height;
     }
-    
+
+  public Object getCurrentScene() {
+    return currentScene;
+  }
 }
