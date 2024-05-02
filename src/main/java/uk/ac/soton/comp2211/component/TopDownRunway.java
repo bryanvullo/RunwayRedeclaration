@@ -80,6 +80,11 @@ public class TopDownRunway extends StackPane {
     private Rectangle stopwayRect;
     private double initialX;
     private double initialY;
+    private Label stopwayLabel;
+    private Rectangle RESARect;
+    private double obstacleWidth;
+    private double lThreshold;
+    private Label RESALabel;
 
 
     public TopDownRunway() {
@@ -92,7 +97,6 @@ public class TopDownRunway extends StackPane {
         this.flip = 1;
         this.isTakeOffAway = true;
         this.lDisplacement = 0;
-        this.runwayName = "";
         // Handle mouse press events
         this.setOnMousePressed(event -> {
             initialX = event.getSceneX() - this.getTranslateX();
@@ -180,16 +184,23 @@ public class TopDownRunway extends StackPane {
         this.oldclearway = clearway;
         scalingFactor = runway.getWidth()/tora;
         if(this.getChildren().contains(TODAarrow)) {
-            this.getChildren().removeAll(TODAarrow, ASDAarrow, TORAarrow, LDAarrow, clearwayRect, clearwayLabel);
+            this.getChildren().removeAll(TODAarrow, ASDAarrow, TORAarrow, LDAarrow, clearwayRect, clearwayLabel, stopwayRect, stopwayLabel, RESARect, RESALabel);
             this.getChildren().removeAll(todaLine1, todaLine2, asdaLine1, asdaLine2, toraLine1, toraLine2, ldaLine1, ldaLine2);
             this.getChildren().removeAll(DTLVBox, DisplacementThresholdText, RunwayDirectionNumber, RunwayDirectionLetter);
             this.getChildren().removeAll(arrowhead1, arrowhead2, arrowhead3, arrowhead4);
             this.getChildren().removeAll(TODALabel, ASDALabel, TORALabel, LDALabel);
             this.getChildren().removeAll(directionArrow, directionLabel, directionArrowHead);
         }
+        if(this.getChildren().contains(RESARect)) {
+            this.getChildren().removeAll(RESARect, RESALabel);
+        }
 
         moveRunwayDetails(displacedThreshold);
 
+        stopwayRect = new Rectangle(stopway*scalingFactor, runway.getHeight());
+        stopwayRect.setFill(Color.LIMEGREEN);
+        stopwayRect.setTranslateX(blueBackground.getWidth()/2 - 43);
+        this.getChildren().add(stopwayRect);
 
         clearwayRect = new Rectangle(clearway*scalingFactor, 150);
         clearwayRect.setFill(Color.web("#564f3d"));
@@ -205,9 +216,23 @@ public class TopDownRunway extends StackPane {
             clearwayLabel = new Label("Clearway");
         }
 
+        if(stopway == 0) {
+            stopwayLabel = new Label("No Stopway");
+        }
+        else {
+            clearwayLabel = new Label("Stopway");
+        }
+
+        stopwayLabel.setRotate(90);
+        stopwayLabel.setFont(Font.font("Arial", FontWeight.BLACK, 14));
+        stopwayLabel.setTextFill(Color.WHITE);
+        stopwayLabel.setTranslateX(blueBackground.getWidth()/2 - 45);
+        this.getChildren().add(stopwayLabel);
+
         clearwayLabel.setRotate(90);
         clearwayLabel.setFont(Font.font("Arial", FontWeight.BLACK, 25));
         clearwayLabel.setTranslateX(blueBackground.getWidth()/2 - 15);
+        clearwayLabel.setTextFill(Color.WHITE);
         this.getChildren().add(clearwayLabel);
 
 
@@ -352,7 +377,8 @@ public class TopDownRunway extends StackPane {
 
     public void addObstacle(Double height, Double width, Double length, Double lThreshold, Double rThreshold, Double cThreshold) {
         scalingFactor2 = runway.getHeight()/50;
-
+        this.obstacleWidth = length*scalingFactor2;
+        this.lThreshold = lThreshold*scalingFactor;
         if (this.getChildren().contains(obstacleVBox)) {
             this.getChildren().remove(obstacleVBox);
         }
@@ -361,7 +387,9 @@ public class TopDownRunway extends StackPane {
             this.getChildren().removeAll(todaLine1, todaLine2, asdaLine1, asdaLine2, toraLine1, toraLine2, ldaLine1, ldaLine2);
             this.getChildren().removeAll(arrowhead1, arrowhead2, arrowhead3, arrowhead4);
             this.getChildren().removeAll(TODALabel, ASDALabel, TORALabel, LDALabel);
+            this.getChildren().removeAll(DTLVBox, DisplacementThresholdText, RunwayDirectionNumber, RunwayDirectionLetter);
             this.getChildren().removeAll(todaLine1, todaLine2, asdaLine1, asdaLine2, toraLine1, toraLine2, ldaLine1, ldaLine2);
+            this.getChildren().removeAll(RESARect, RESALabel, stopwayRect, stopwayLabel);
         }
 
         Rectangle obstacle = new Rectangle(length*scalingFactor2, width*scalingFactor2);
@@ -512,7 +540,7 @@ public class TopDownRunway extends StackPane {
     }
 
     public void addRightRunwayDirection() {
-        directionLabel.setScaleX(this.getScaleX());
+
         if(this.getChildren().contains(directionArrow)) {
             this.getChildren().removeAll(directionArrow, directionLabel, directionArrowHead);
             System.out.println(true);
@@ -538,6 +566,7 @@ public class TopDownRunway extends StackPane {
         directionLabel.setTextFill(Color.WHITE);
         directionLabel.setScaleX(this.getScaleX());
         isTakeOffAway = false;
+        directionLabel.setScaleX(this.getScaleX());
         this.getChildren().addAll(directionArrow, directionArrowHead, directionLabel);
     }
 
@@ -550,23 +579,21 @@ public class TopDownRunway extends StackPane {
         this.newDisplacementThreshold = displacedThreshold;
 
         if(this.getChildren().contains(TODAarrow)) {
-            this.getChildren().removeAll(TODAarrow, ASDAarrow, TORAarrow, LDAarrow, clearwayRect, clearwayLabel);
+            this.getChildren().removeAll(TODAarrow, ASDAarrow, TORAarrow, LDAarrow, clearwayRect, clearwayLabel, stopwayRect, stopwayLabel);
             this.getChildren().removeAll(todaLine1, todaLine2, asdaLine1, asdaLine2, toraLine1, toraLine2, ldaLine1, ldaLine2);
             this.getChildren().removeAll(DTLVBox, DisplacementThresholdText, RunwayDirectionNumber, RunwayDirectionLetter);
             this.getChildren().removeAll(arrowhead1, arrowhead2, arrowhead3, arrowhead4);
             this.getChildren().removeAll(TODALabel, ASDALabel, TORALabel, LDALabel);
+            this.getChildren().removeAll(RESARect, RESALabel, stopwayRect, stopwayLabel);
         }
+
+
 
         double toraPush =oldtora - newtora;
         double asdaPush = oldasda - newasda;
         double todaPush = oldtoda - newtoda;
         double ldaPush = oldlda - newlda;
-        System.out.println(newlda);
-        System.out.println(toraPush*scalingFactor);
-        System.out.println(todaPush*scalingFactor);
-        System.out.println(ldaPush*scalingFactor);
-        System.out.println(asdaPush*scalingFactor);
-        System.out.println(newDisplacementThreshold*scalingFactor);
+
 
         moveRunwayDetails(displacedThreshold);
         clearwayRect = new Rectangle(clearway*scalingFactor, 150);
@@ -582,6 +609,20 @@ public class TopDownRunway extends StackPane {
         else {
             clearwayLabel = new Label("Clearway");
         }
+
+        if(stopway == 0) {
+            stopwayLabel = new Label("No Stopway");
+        }
+        else {
+            clearwayLabel = new Label("Stopway");
+        }
+
+        stopwayLabel.setRotate(90);
+        stopwayLabel.setFont(Font.font("Arial", FontWeight.BLACK, 14));
+        stopwayLabel.setTextFill(Color.WHITE);
+        stopwayLabel.setTranslateX(blueBackground.getWidth()/2 - 45);
+        clearwayLabel.setTextFill(Color.WHITE);
+        this.getChildren().add(stopwayLabel);
 
         clearwayLabel.setRotate(90);
         clearwayLabel.setFont(Font.font("Arial", FontWeight.BLACK, 25));
@@ -616,7 +657,7 @@ public class TopDownRunway extends StackPane {
         TODAarrow.setTranslateX((TODAarrow.getWidth() + 2*(todaPush*scalingFactor) - runway.getWidth())/2 + 3);
         ASDAarrow.setTranslateX((ASDAarrow.getWidth() + 2*(asdaPush*scalingFactor) - runway.getWidth())/2 + 3);
         TORAarrow.setTranslateX((TORAarrow.getWidth() + 2*(toraPush*scalingFactor)  - runway.getWidth())/2 + 3);
-        LDAarrow.setTranslateX((LDAarrow.getWidth() + 2*(ldaPush*scalingFactor) - runway.getWidth())/2 + displacedThreshold*scalingFactor + 3);
+        LDAarrow.setTranslateX((runway.getWidth()-LDAarrow.getWidth())/2 - 8);
 
         todaLine1 = new Line(100, 100, 100 ,197);
         todaLine1.setStroke(Color.WHITE);
@@ -651,7 +692,7 @@ public class TopDownRunway extends StackPane {
         ldaLine1 = new Line(100, 100, 100 ,105);
         ldaLine1.setStroke(Color.WHITE);
         ldaLine1.setTranslateY(-65);
-        ldaLine1.setTranslateX(-(newlda*scalingFactor)/2 + 1 - (runway.getWidth()- newlda*scalingFactor)/2 + newDisplacementThreshold*scalingFactor + ldaPush*scalingFactor);
+        ldaLine1.setTranslateX(-runway.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth()) - 10);
 
         ldaLine2 = new Line(100, 100, 100 ,105);
         ldaLine2.setStroke(Color.WHITE);
@@ -660,6 +701,49 @@ public class TopDownRunway extends StackPane {
 
         this.getChildren().addAll(todaLine1, todaLine2, asdaLine1, asdaLine2, toraLine1, toraLine2, ldaLine1 ,ldaLine2);
 
+
+        Rectangle DisplacementThresholdLine = new Rectangle(10, runway.getHeight());
+        DTLVBox = new VBox(DisplacementThresholdLine);
+        DisplacementThresholdLine.setFill(Color.YELLOW);
+        DTLVBox.setTranslateY(200 - runway.getHeight()/2);
+        DTLVBox.setTranslateX(newDisplacementThreshold*scalingFactor + 100);
+
+        DisplacementThresholdText = new Label("Displacement Threshold");
+        DisplacementThresholdText.setRotate(90);
+        DisplacementThresholdText.setFont(Font.font("Arial", FontWeight.BLACK, 10));
+        DisplacementThresholdText.setTranslateX(-runway.getWidth()/2 + (newDisplacementThreshold*scalingFactor) + 5);
+
+        RunwayDirectionNumber = new Label(runwayName.substring(0,2));
+        RunwayDirectionNumber.setTextFill(Color.WHITE);
+        RunwayDirectionNumber.setRotate(90);
+        RunwayDirectionNumber.setFont(Font.font("Arial", FontWeight.BLACK, 30));
+        RunwayDirectionNumber.setTranslateX(150 + newDisplacementThreshold*scalingFactor - runway.getWidth()/2);
+
+        RunwayDirectionLetter = new Label(runwayName.substring(2,3));
+        RunwayDirectionLetter.setTextFill(Color.WHITE);
+        RunwayDirectionLetter.setRotate(90);
+        RunwayDirectionLetter.setFont(Font.font("Arial", FontWeight.BLACK, 30));
+        RunwayDirectionLetter.setTranslateX(120 + newDisplacementThreshold*scalingFactor - runway.getWidth()/2);
+
+
+        directionArrow = new Arrow(0, 20, 100, 20, 12);
+
+        RESARect = new Rectangle(runway.getWidth() - LDAarrow.getWidth() - obstacleWidth - 10, runway.getHeight());
+        RESARect.setFill(Color.YELLOW);
+        RESARect.setTranslateX(-runway.getWidth()/2 + RESARect.getWidth()/2 + obstacleWidth + lThreshold);
+        RESARect.setOpacity(0.6);
+        this.getChildren().add(RESARect);
+
+        RESALabel = new Label("RESA");
+        RESALabel.setRotate(90);
+        RESALabel.setFont(Font.font("Arial", FontWeight.BLACK, 25));
+        RESALabel.setTextFill(Color.WHITE);
+        RESALabel.setTranslateX(-runway.getWidth()/2 + obstacleWidth + lThreshold + 20);
+        RESALabel.setTextFill(Color.RED);
+        RESALabel.toFront();
+        this.getChildren().add(RESALabel);
+
+        this.getChildren().addAll(DTLVBox, DisplacementThresholdText, RunwayDirectionNumber, RunwayDirectionLetter);
 
         if(runwayName.contains("R") && !isRotated) {
             flipRunway();
@@ -671,6 +755,8 @@ public class TopDownRunway extends StackPane {
         }
 
         setLabels();
+        this.RESALabel.setScaleX(this.getScaleX());
+
 
     }
 
@@ -685,6 +771,25 @@ public class TopDownRunway extends StackPane {
         LDALabel.setScaleX(this.getScaleX());
         RunwayDirectionNumber.setScaleX(this.getScaleX());
         RunwayDirectionLetter.setScaleX(this.getScaleX());
+        stopwayLabel.setScaleX(this.getScaleX());
+    }
+
+
+
+    public double calculateRunwayRotation() {
+        if (runwayName == null || runwayName.length() < 2) {
+            throw new IllegalArgumentException("Invalid runway designation");
+        }
+
+        // Extract the first two characters and parse them as integer
+        String numericPart = runwayName.substring(0, 2);
+        int runwayNumber = Integer.parseInt(numericPart);
+
+        // Each runway number corresponds to a compass heading multiplied by 10
+        double headingDegrees = runwayNumber * 10;
+
+        // Return the calculated degrees
+        return headingDegrees;
     }
 
 }

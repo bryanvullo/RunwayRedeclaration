@@ -1,16 +1,17 @@
 package uk.ac.soton.comp2211.component;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.transform.Rotate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 
 public class SideRunway extends StackPane {
     private static final Logger logger = LogManager.getLogger(SideRunway.class);
@@ -36,17 +37,30 @@ public class SideRunway extends StackPane {
     private Arrow directionArrow;
     private Label directionLabel;
     private double obstacleWidth;
-    private double toda;
-    private double lda;
-    private double asda;
-    private double tora;
-    private double clearway;
-    private double stopway;
-    private double displacedThreshold;
+    private double oldtoda;
+    private double oldlda;
+    private double oldasda;
+    private double oldtora;
+    private double oldclearway;
+    private double oldstopway;
+    private double olddisplacedThreshold;
+    private double newtoda;
+    private double newlda;
+    private double newasda;
+    private double newtora;
+    private double newclearway;
+    private double newstopway;
+    private double newdisplacedThreshold;
     private double lThreshold;
     private String runwayName;
     private Arrow clearance;
     private double altVal;
+    private double oldLDALength;
+    private double newcomparisonValue;
+    private double obstacleHeight;
+    private Arrow ALS;
+    private Boolean isRotated;
+    private double flip;
 
 
 
@@ -55,15 +69,17 @@ public class SideRunway extends StackPane {
         logger.info("Creating Side Runway View");
         build();
         this.obstacleWidth = 0;
-        this.toda = 0;
-        this.asda = 0;
-        this.tora = 0;
-        this.lda = 0;
-        this.displacedThreshold = 0;
+        this.oldtoda = 0;
+        this.oldasda = 0;
+        this.oldtora = 0;
+        this.oldlda = 0;
+        this.olddisplacedThreshold = 0;
         this.lThreshold = 0;
-        this.clearway = 0;
-        this.stopway = 0;
+        this.oldclearway = 0;
+        this.oldstopway = 0;
         this.altVal = 0;
+        this.oldLDALength = 0;
+        this.flip = 1;
     }
     private void build() {
         logger.info("Building Side Runway View");
@@ -100,51 +116,27 @@ public class SideRunway extends StackPane {
         double tipY = 0;
         double baseY = 15;
 
-        this.toda = toda;
-        this.asda = asda;
-        this.tora = tora;
-        this.lda = lda;
-        this.displacedThreshold = displacedThreshold;
-        this.clearway = clearway;
-        this.stopway = stopway;
+        this.oldtoda = toda;
+        this.oldasda = asda;
+        this.oldtora = tora;
+        this.oldlda = lda;
+        this.olddisplacedThreshold = displacedThreshold;
+        this.oldclearway = clearway;
+        this.oldstopway = stopway;
         this.runwayName = runwayName;
+        this.oldLDALength = oldtora*scalingFactor - 30 - olddisplacedThreshold*scalingFactor;
 
 
         arrowhead1 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
         arrowhead1.setTranslateX(340);
 
-        LDAarrow = new Arrow(0, 20, (lda/(lda + 1200 )*runway.getWidth() - 60), 20, 12);
+        LDAarrow = new Arrow(displacedThreshold*scalingFactor, 20, tora*scalingFactor - 30, 20, 12);
         LDAarrow.setTranslateY(30);
-        LDAarrow.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 - 3 + 15);
+        LDAarrow.setTranslateX((LDAarrow.getWidth() - runway.getWidth())/2 + displacedThreshold*scalingFactor + 15);
 
         arrowhead2 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
         arrowhead2.setRotate(-90);
-        arrowhead2.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 - 3 + 15 - LDAarrow.getWidth()/2);
-
-        arrowhead3 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
-        arrowhead3.setRotate(90);
-        arrowhead3.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 - 3  - LDAarrow.getWidth()/2);
-
-
-        Sixty = new Arrow(0, 20, (240/(lda + 1200))*runway.getWidth(), 20, 12);
-        Sixty.setTranslateY(30);
-        Sixty.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 + 3 - 15 - LDAarrow.getWidth()/2 - Sixty.getWidth()/2);
-
-        arrowhead4 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
-        arrowhead4.setRotate(-90);
-        arrowhead4.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 + 3 - 15 - LDAarrow.getWidth()/2 - Sixty.getWidth());
-
-        arrowhead5 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
-        arrowhead5.setRotate(90);
-        arrowhead5.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 + 3 - 30 - LDAarrow.getWidth()/2 - Sixty.getWidth());
-
-        RESA = new Arrow(0, 20, (960/(lda + 1200))*runway.getWidth() - 20, 20, 12);
-        RESA.setTranslateY(30);
-        RESA.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 + 9 - 45 - LDAarrow.getWidth()/2 - Sixty.getWidth() - RESA.getWidth()/2);
-
-        arrowhead6 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
-        arrowhead6.setRotate(-90);
-        arrowhead6.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 + 9 - 45 - LDAarrow.getWidth()/2 - Sixty.getWidth() - RESA.getWidth());
+        arrowhead2.setTranslateX((LDAarrow.getWidth() - runway.getWidth())/2 + displacedThreshold*scalingFactor + 15 - LDAarrow.getWidth()/2);
 
         LDALabel = new Label("LDA: " + lda + "m");
         LDALabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
@@ -152,25 +144,14 @@ public class SideRunway extends StackPane {
         LDALabel.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 - 3 + 15);
         LDALabel.setTextFill(Color.WHITE);
 
-        SixtyLabel = new Label("60m");
-        SixtyLabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
-        SixtyLabel.setTranslateY(45);
-        SixtyLabel.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 + 3 - 15 - LDAarrow.getWidth()/2 - Sixty.getWidth()/2 + 5);
-        SixtyLabel.setTextFill(Color.WHITE);
-
-        RESALabel = new Label("RESA: 240m (min)");
-        RESALabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
-        RESALabel.setTranslateY(45);
-        RESALabel.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 + 9 - 45 - LDAarrow.getWidth()/2 - Sixty.getWidth() - RESA.getWidth()/2 + 10);
-        RESALabel.setTextFill(Color.WHITE);
-
 
 
         this.getChildren().addAll(arrowhead1, LDAarrow, arrowhead2);
-        this.getChildren().addAll(arrowhead3, Sixty,  arrowhead4);
-        this.getChildren().addAll(arrowhead5, RESA, arrowhead6);
-        this.getChildren().addAll(LDALabel, SixtyLabel, RESALabel);
+        this.getChildren().addAll(LDALabel);
         addLeftRunwayDirection();
+
+
+
     }
 
     public void addObstacle(Double height, Double width, Double length, Double lThreshold, Double rThreshold, Double cThreshold) {
@@ -178,16 +159,15 @@ public class SideRunway extends StackPane {
         this.lThreshold = lThreshold;
         this.obstacleWidth = length*2;
         this.altVal = - (-runway.getWidth()/2 + lThreshold*scalingFactor + obstacleWidth/2);
-
+        this.obstacleHeight = height*2;
         this.getChildren().removeAll(obstacle);
         if(this.getChildren().contains(Sixty)) {
             this.getChildren().removeAll(arrowhead1, LDAarrow, arrowhead2);
             this.getChildren().removeAll(arrowhead3, Sixty,  arrowhead4);
             this.getChildren().removeAll(arrowhead5, RESA, arrowhead6);
             this.getChildren().removeAll(LDALabel, SixtyLabel, RESALabel);
+            this.getChildren().removeAll(ALS);
         }
-
-        updateRunway(toda, asda, tora, lda, clearway, stopway, displacedThreshold, runwayName);
 
         obstacle = new Rectangle(length * 2, height*2);
         obstacle.setFill(Color.RED);
@@ -195,7 +175,6 @@ public class SideRunway extends StackPane {
         obstacle.setTranslateX(-runway.getWidth()/2 + lThreshold*scalingFactor + length);
         this.getChildren().add(obstacle);
         clearance = new Arrow(0,height*2 + 10, 50, 0, 12);
-
     }
 
     public Polygon createArrowhead(double distance, double scalingFactor, double tipY, double baseY, double width, double translateY) {
@@ -209,7 +188,6 @@ public class SideRunway extends StackPane {
         );
         arrowhead.setFill(Color.WHITE);
         arrowhead.setRotate(90); // Rotate the arrowhead to point downwards
-        arrowhead.setTranslateX((distance * scalingFactor) / 2 + (-runway.getWidth() + distance * scalingFactor) / 2 + 130);
         arrowhead.setTranslateY(translateY);
         return arrowhead;
     }
@@ -266,6 +244,130 @@ public class SideRunway extends StackPane {
         directionLabel.setTextFill(Color.WHITE);
 
         this.getChildren().addAll(directionArrow, directionArrowHead, directionLabel);
+    }
+
+    public void updateRunwayWithouScale(double toda, double tora, double asda, double lda, double clearway, double stopway, double displacedThreshold, String runwayName) {
+
+        if(this.getChildren().contains(LDAarrow)) {
+            this.getChildren().removeAll(arrowhead1, LDAarrow, arrowhead2);
+            this.getChildren().removeAll(arrowhead3, Sixty,  arrowhead4);
+            this.getChildren().removeAll(arrowhead5, RESA, arrowhead6);
+            this.getChildren().removeAll(LDALabel, SixtyLabel, RESALabel);
+            this.getChildren().removeAll(ALS);
+        }
+
+        double baseWidth = 15;
+        double tipY = 0;
+        double baseY = 15;
+
+        this.newtoda = toda;
+        this.newasda = asda;
+        this.newtora = tora;
+        this.newlda = lda;
+        this.newdisplacedThreshold = displacedThreshold;
+        this.newclearway = clearway;
+        this.newstopway = stopway;
+        this.runwayName = runwayName;
+        this.newcomparisonValue = (newlda/(newlda + 1200 )*runway.getWidth() - 60);
+        var remainder = runway.getWidth() - ((newlda/oldlda)* oldLDALength) - 50 - obstacleWidth - lThreshold*scalingFactor;
+
+
+        arrowhead1 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
+        arrowhead1.setTranslateX(340);
+
+        LDAarrow = new Arrow(0, 20, ((newlda/oldlda)* oldLDALength) - 50, 20, 12);
+        LDAarrow.setTranslateY(30);
+        LDAarrow.setTranslateX((runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 15);
+        System.out.println(((newlda/oldlda)* oldLDALength));
+        var remainder2 = oldLDALength - LDAarrow.getWidth();
+
+
+                arrowhead2 = createArrowhead(0, scalingFactor, tipY, baseY, baseWidth, 30);
+        arrowhead2.setRotate(-90);
+        arrowhead2.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 15);
+
+
+        arrowhead3 = createArrowhead(0, scalingFactor, tipY, baseY, baseWidth, 30);
+        arrowhead3.setRotate(90);
+        arrowhead3.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 30);
+
+
+        Sixty = new Arrow(0, 20, remainder/5, 20, 12);
+        Sixty.setTranslateY(30);
+        Sixty.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 + 3 - 45 - Sixty.getWidth()/2);
+
+        arrowhead4 = createArrowhead(0, scalingFactor, tipY, baseY, baseWidth, 30);
+        arrowhead4.setRotate(-90);
+        arrowhead4.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 + 3 - 60 - Sixty.getWidth() + 5);
+
+        arrowhead5 = createArrowhead(0, scalingFactor, tipY, baseY, baseWidth, 30);
+        arrowhead5.setRotate(90);
+        arrowhead5.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 60 - Sixty.getWidth() - 5);
+
+        RESA = new Arrow(0, 20, (remainder/5)*4, 20, 12);
+        RESA.setTranslateY(30);
+        RESA.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 70 - Sixty.getWidth() - 5 - RESA.getWidth()/2);
+
+        arrowhead6 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
+        arrowhead6.setRotate(-90);
+        arrowhead6.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 70 - Sixty.getWidth() - 5 - RESA.getWidth());
+
+        LDALabel = new Label("LDA: " + newlda + "m");
+        LDALabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
+        LDALabel.setTranslateY(45);
+        LDALabel.setTranslateX((runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 15);
+        LDALabel.setTextFill(Color.WHITE);
+
+        SixtyLabel = new Label("60m");
+        SixtyLabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
+        SixtyLabel.setTranslateY(45);
+        SixtyLabel.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 + 3 - 45 - Sixty.getWidth()/2);
+        SixtyLabel.setTextFill(Color.WHITE);
+
+        RESALabel = new Label("RESA: 240m (min)");
+        RESALabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
+        RESALabel.setTranslateY(55);
+        RESALabel.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 70 - Sixty.getWidth() - 5 - RESA.getWidth()/2);
+        RESALabel.setTextFill(Color.WHITE);
+
+        var adjacent = RESA.getWidth() + Sixty.getWidth() + obstacleWidth + lThreshold*scalingFactor + 100;
+
+        ALS = new Arrow(0, 0, adjacent, 0, 12);
+        ALS.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 + 3 - 45 - Sixty.getWidth()/2 - ALS.getWidth()/2 + 21);
+        ALS.setTranslateY(-(runway.getHeight()/2) - (2.5));
+        this.getChildren().add(ALS);
+
+
+        var adjacent2 = runway.getWidth() - LDAarrow.getWidth();
+        var opposite = obstacleHeight;
+        var angle = Math.atan(opposite/adjacent2) + Math.toRadians(2);
+        ALS.setRotate(Math.toDegrees(angle));
+        var movement = Math.cos(angle)*ALS.getWidth();
+        ALS.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 + 3 - 45 - Sixty.getWidth()/2 - ALS.getWidth()/2 + 21 + ((ALS.getWidth() - movement)/2));
+        var movement2 = Math.sin(angle)*ALS.getWidth()/2;
+        ALS.setTranslateY(-(runway.getHeight()/2) - (2.5) - movement2);
+        this.getChildren().addAll(arrowhead1, LDAarrow, arrowhead2, LDALabel, arrowhead3, Sixty, arrowhead4, arrowhead5, RESA, arrowhead6, SixtyLabel, RESALabel);
+        addLeftRunwayDirection();
+
+
+        setLabels();
+    }
+
+    public void flipRunway() {
+        this.setScaleX(-flip);
+        this.flip = -flip;
+        setLabels();
+    }
+
+    public void setLabels() {
+        this.LDALabel.setScaleX(this.getScaleX());
+        this.Sixty.setScaleX(this.getScaleX());
+        this.RESA.setScaleX(this.getScaleX());
+        this.directionLabel.setScaleX(this.getScaleX());
+    }
+
+    public Boolean getIsRotated() {
+        return isRotated;
     }
 
 

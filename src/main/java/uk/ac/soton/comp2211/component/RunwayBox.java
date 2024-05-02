@@ -101,7 +101,6 @@ public class RunwayBox extends VBox {
     leftButton.setSelected(true);
     runwaySelection.valueProperty().addListener((obs, oldVal, newVal) -> {
       if (newVal != null) {
-        System.out.println(newVal.getName());
         MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(newVal.getToda(), newVal.getToda(), newVal.getTora(), newVal.getLda(), newVal.getClearway(), newVal.getStopway(), newVal.getDisplacedThreshold(), newVal.getName());
       }
 

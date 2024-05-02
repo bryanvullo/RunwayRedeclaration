@@ -550,7 +550,7 @@ public class MainScene extends BaseScene {
     calculationBreakdownBox.asdaBreakdownProperty().bind(breakdown.getAsdaBreakdown());
     calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
     MainScene.getRunwayViewBox().getTopDownRunway().updateRunwayWithoutScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
-    MainScene.getRunwayViewBox().getSideRunway().updateRunway(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getSideRunway().updateRunwayWithouScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
 
   }
 
