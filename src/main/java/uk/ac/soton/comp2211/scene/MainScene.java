@@ -73,6 +73,7 @@ public class MainScene extends BaseScene {
   private static CalculationBreakdown breakdown;
   private ActiveObstacle activeObstacle;
   private static RunwayBox runwayBox = new RunwayBox();
+  private static CalculationTab calcTab;
 
   ObservableList<Airport> airportList = FXCollections.observableArrayList();
   private static SystemMessageBox systemMessageBox;
@@ -199,7 +200,7 @@ public class MainScene extends BaseScene {
     var bottomBar = new HBox();
     systemMessageBox = new SystemMessageBox();
     bottomBar.getChildren().add(systemMessageBox);
-    var calcTab = new CalculationTab();
+    calcTab = new CalculationTab();
     bottomBar.getChildren().add(calcTab);
     HBox.setHgrow(systemMessageBox, Priority.ALWAYS);
     HBox.setHgrow(calcTab, Priority.ALWAYS);
@@ -545,6 +546,10 @@ public class MainScene extends BaseScene {
 
     MainScene.getRunwayViewBox().getTopDownRunway().updateRunwayWithoutScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
     MainScene.getRunwayViewBox().getSideRunway().updateRunwayWithouScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+  }
+
+  public static CalculationTab getCalculationTab() {
+    return calcTab;
   }
 
   public static void updateRunway(Runway runway) {

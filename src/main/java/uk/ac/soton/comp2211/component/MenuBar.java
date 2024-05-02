@@ -80,7 +80,8 @@ public class MenuBar extends HBox {
       if (file != null) {
         Runway selectedRunway = RunwayBox.getRunwaySelection().getSelectionModel().getSelectedItem();
         if (selectedRunway != null) {
-          PDFExporter.exportRunwayViews(MainScene.getRunwayViewBox().getTopDownRunway(), MainScene.getRunwayViewBox().getSideRunway(), RunwayBox.getAirportSelection().getSelectionModel().getSelectedItem().getAirportName(), selectedRunway.getName(), selectedRunway, file.getPath());
+          System.out.println(MainScene.getCalculationBreakdown().getAsdaBreakdown() + " " + MainScene.getCalculationBreakdown().getToraBreakdown() + " " + MainScene.getCalculationBreakdown().getTodaBreakdown() + " " + MainScene.getCalculationBreakdown().getLdaBreakdown());
+          PDFExporter.exportRunwayViews(MainScene.getRunwayViewBox().getTopDownRunway(), MainScene.getRunwayViewBox().getSideRunway(), RunwayBox.getAirportSelection().getSelectionModel().getSelectedItem().getAirportName(), selectedRunway.getName(), file.getPath(), MainScene.getCalculationBreakdown(), MainScene.getCalculationTab());
         } else {
           System.out.println("No runway selected.");
         }
