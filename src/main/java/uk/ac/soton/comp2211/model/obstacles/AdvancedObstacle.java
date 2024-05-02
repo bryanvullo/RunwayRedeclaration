@@ -1,5 +1,7 @@
 package uk.ac.soton.comp2211.model.obstacles;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp2211.model.Calculation;
@@ -19,7 +21,7 @@ import uk.ac.soton.comp2211.model.Runway;
 public class AdvancedObstacle extends Obstacle {
     private String obstacleName;
     private Double width, length; //height and width of obstacle. Note: height is inherited from Obstacle
-    private Double distanceRightThreshold, distanceLeftThreshold, distanceFromCentre; //distance from the threshold
+    private DoubleProperty distanceRightThreshold = new SimpleDoubleProperty(), distanceLeftThreshold = new SimpleDoubleProperty(), distanceFromCentre = new SimpleDoubleProperty(); //distance from the threshold
     private Optional <Properties> obstacleProperties; //the properties of an obstacle outside dimensions that may be relevant
     private static final Logger logger = LogManager.getLogger(AdvancedObstacle.class);
 
@@ -32,18 +34,16 @@ public class AdvancedObstacle extends Obstacle {
      * @param distanceRightThreshold the distance from the right threshold
      * @param distanceLeftThreshold the distance from the left threshold
      * @param distanceFromCentre the distance from the center-line
-     * @param obstacleProperties the additional properties of the obstacle that may provide additional information
      */
     public AdvancedObstacle(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold,
-        Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) throws IllegalArgumentException {
+        Double distanceLeftThreshold, Double distanceFromCentre) throws IllegalArgumentException {
         super(height, 0.0);
         this.obstacleName = obstacleName;
         this.width = length;
         this.length = length;
-        this.distanceRightThreshold = distanceRightThreshold;
-        this.distanceLeftThreshold = distanceLeftThreshold;
-        this.distanceFromCentre = distanceFromCentre;
-        this.obstacleProperties = obstacleProperties;
+        this.distanceRightThreshold.setValue(distanceRightThreshold);
+        this.distanceLeftThreshold.setValue(distanceLeftThreshold);
+        this.distanceFromCentre.setValue(distanceFromCentre);
         
         //validate the distance values
         validateNotUnrealistic(height, "Height");
@@ -52,9 +52,10 @@ public class AdvancedObstacle extends Obstacle {
         validatePositive(width, "Width");
         validateNotUnrealistic(length, "Length");
         validatePositive(length, "Length");
-        
     }
-    
+
+
+
     public AdvancedObstacle() {
     }
     
@@ -168,14 +169,14 @@ public class AdvancedObstacle extends Obstacle {
      * @return the distance from the right threshold.
      */
     public double getDistanceRightThreshold() {
-        return distanceRightThreshold;
+        return distanceRightThreshold.getValue();
     }
     /**
      * Sets the distance from the right threshold.
      * @param distanceRightThreshold the distance from the right threshold.
      */
     public void setDistanceRightThreshold(double distanceRightThreshold) {
-        this.distanceRightThreshold = distanceRightThreshold;
+        this.distanceRightThreshold.setValue(distanceRightThreshold);
     }
 
     /**
@@ -183,14 +184,14 @@ public class AdvancedObstacle extends Obstacle {
      * @return the distance from the left threshold.
      */
     public double getDistanceLeftThreshold() {
-        return distanceLeftThreshold;
+        return distanceLeftThreshold.getValue();
     }
     /**
      * Sets the distance from the left threshold.
      * @param distanceLeftThreshold the distance from the left threshold.
      */
     public void setDistanceLeftThreshold(double distanceLeftThreshold) {
-        this.distanceLeftThreshold = distanceLeftThreshold;
+        this.distanceLeftThreshold.setValue(distanceLeftThreshold);
     }
 
     /**
@@ -198,14 +199,24 @@ public class AdvancedObstacle extends Obstacle {
      * @return the distance from the centre line.
      */
     public double getDistanceFromCentre() {
-        return distanceFromCentre;
+        return distanceFromCentre.getValue();
     }
     /**
      * Sets the distance from the centre line.
      * @param distanceFromCentre the distance from the centre line.
      */
     public void setDistanceFromCentre(double distanceFromCentre) {
-        this.distanceFromCentre = distanceFromCentre;
+        this.distanceFromCentre.setValue(distanceFromCentre);
+    }
+
+    public DoubleProperty distanceRightThresholdProperty() {
+        return distanceRightThreshold;
+    }
+    public DoubleProperty distanceLeftThresholdProperty() {
+        return distanceLeftThreshold;
+    }
+    public DoubleProperty distanceFromCentreProperty() {
+      return distanceFromCentre;
     }
 
     /**

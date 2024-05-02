@@ -11,7 +11,7 @@ public class Plane extends AdvancedObstacle {
      * This private constructor prevents direct instantiation, using a factory method instead.
      */
     private Plane(String obstacleName, Double height, Double width, Double length, Double distanceRightThreshold, Double distanceLeftThreshold, Double distanceFromCentre, Optional<Properties> obstacleProperties) {
-        super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre, obstacleProperties);
+        super(obstacleName, height, width, length, distanceRightThreshold, distanceLeftThreshold, distanceFromCentre);
     }
     /**
      * This is a factory method for creating Plane instances based on the model type.

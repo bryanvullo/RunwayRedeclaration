@@ -10,8 +10,5 @@
         <module name="RunwayRedeclaration" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="RunwayRedeclaration" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

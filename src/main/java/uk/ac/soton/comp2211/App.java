@@ -5,6 +5,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.logging.Logger;
 import uk.ac.soton.comp2211.UI.AppWindow;
@@ -27,6 +28,7 @@ public class App extends Application {
    * Base resolution height
    */
   private final int height = 800;
+
 
 
 //    /**

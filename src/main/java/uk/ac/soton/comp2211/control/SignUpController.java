@@ -1,13 +1,12 @@
 package uk.ac.soton.comp2211.control;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.Utility.DBUtils;
 import uk.ac.soton.comp2211.model.Database;
 
@@ -28,7 +27,7 @@ public class SignUpController implements Initializable {
   PasswordField textFieldPassword;
 
   @FXML
-  private ChoiceBox<String> alvlChoiceBox;
+  private JFXComboBox <String> alvlChoiceBox;
 
   @FXML
   private Label testConnection1;

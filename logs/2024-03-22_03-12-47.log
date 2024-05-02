@@ -1,0 +1,38 @@
+Mar 22, 2024 3:12:47 AM uk.ac.soton.comp2211.App main
+INFO: Application started.
+Mar 22, 2024 3:12:47 AM uk.ac.soton.comp2211.App openApp
+INFO: Opening login page
+Mar 22, 2024 3:12:47 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Mar 22, 2024 3:12:47 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Mar 22, 2024 3:12:47 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Mar 22, 2024 3:12:48 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Mar 22, 2024 3:12:48 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+Mar 22, 2024 3:12:49 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Mar 22, 2024 3:12:51 AM uk.ac.soton.comp2211.Utility.DBUtils logInUser
+INFO: User exists
+Mar 22, 2024 3:12:51 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+Mar 22, 2024 3:12:51 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+Mar 22, 2024 3:12:51 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Mar 22, 2024 3:12:51 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+Mar 22, 2024 3:12:51 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Mar 22, 2024 3:12:51 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+Mar 22, 2024 3:12:52 AM uk.ac.soton.comp2211.Utility.DBUtils logInUser
+INFO: Password is correct
+Mar 22, 2024 3:12:52 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+Mar 22, 2024 3:12:53 AM uk.ac.soton.comp2211.scene.MainScene lambda$build$8
+INFO: Custom Button Pressed
+Mar 22, 2024 3:13:27 AM uk.ac.soton.comp2211.App shutdown
+INFO: Application shutting down.

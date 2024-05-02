@@ -14,15 +14,27 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uk.ac.soton.comp2211.App;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
+import uk.ac.soton.comp2211.scene.MainScene;
 import uk.ac.soton.comp2211.Utility.DBUtils;
-import uk.ac.soton.comp2211.control.LoginController;
 import uk.ac.soton.comp2211.model.Database;
+import uk.ac.soton.comp2211.utility.ImageExporter;
+import uk.ac.soton.comp2211.utility.XMLExporter;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -46,19 +58,56 @@ public class MenuBar extends HBox {
     logger.info("Building the MenuBar");
     setSpacing(10);
     setPadding(new Insets(10));
-    setBackground(new Background(new BackgroundFill(Color.valueOf("051bff"), null, null)));
+    setBackground(new Background(new BackgroundFill(Color.valueOf("73a9c2"), null, null)));
 
     fileButton = new MenuButton("File");
+
+    Menu importOption = new Menu("Import");
+    MenuItem importObstacles = new MenuItem("Import Obstacles");
+    importObstacles.setOnAction(event -> loadFXML(event, "importObstacles.fxml"));
+    MenuItem importAirports = new MenuItem("Import Airports");
+    importAirports.setOnAction(event -> loadFXML(event, "importAirport.fxml"));
+    importOption.getItems().addAll(importObstacles, importAirports);
+
+    Menu exportOption = new Menu("Export");
+    Menu asXML = new Menu("As XML");
+    Menu snapshot = new Menu("Snapshot");
+
+
+    MenuItem exportTopDown = new MenuItem("Export TopDown View");
+    MenuItem exportSideView = new MenuItem("Export Side View");
+    MenuItem exportSimultaneous = new MenuItem("Export Simultaneous View");
+
+    MenuItem exportObstacles = new MenuItem("Export Obstacles");
+    exportObstacles.setOnAction(event -> exportObstacles());
+    MenuItem exportAirports = new MenuItem("Export Airports");
+//    exportAirports.setOnAction(event -> XMLExporter);
+
+    snapshot.getItems().addAll(exportTopDown, exportSideView, exportSimultaneous);
+    asXML.getItems().addAll(exportObstacles, exportAirports);
+
+    exportOption.getItems().addAll(asXML, snapshot);
+
     fileButton.getItems().addAll(
-        new MenuItem("Import"),
-        new MenuItem("Export"),
-        new MenuItem("Reset"),
-        new MenuItem("Add Airport")
+        importOption,
+        exportOption,
+        new MenuItem("Reset")
     );
+
+    MenuItem editObstacles = new MenuItem("Edit Obstacles");
+    editObstacles.setOnAction(event -> loadFXML(event, "edit-obstacles.fxml"));
+
+    MenuItem editAirports = new MenuItem("Edit Airports");
+    editAirports.setOnAction(event -> loadFXML(event, "edit-airport.fxml"));
+
+    MenuItem airportImg = new MenuItem("Capture Airport");
+    airportImg.setOnAction(event -> captureAirport());
+
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
-        new MenuItem("Edit Airports"),
-        new MenuItem("Edit Obstacles"),
+        editObstacles,
+        editAirports,
+        airportImg,
         new MenuItem("Undo")
     );
     unitButton = new MenuButton("Units");
@@ -93,7 +142,7 @@ public class MenuBar extends HBox {
     logoutItem.setOnAction(event -> performLogout());
 
     MenuItem manageUsersItem = new MenuItem("Manage Users");
-    manageUsersItem.setOnAction(this::manageUsers);
+    manageUsersItem.setOnAction(event -> loadFXML(event, "manage-users.fxml"));
 
     MenuItem username = new MenuItem(Database.getCurrentUser().getUsername());
 
@@ -103,14 +152,29 @@ public class MenuBar extends HBox {
     userImage.setFitWidth(20);
     userImage.setFitHeight(20);
     userButton.setGraphic(userImage);
-    userButton.getItems().addAll(username ,manageUsersItem, logoutItem);
+    userButton.getItems().addAll(username, manageUsersItem, logoutItem);
 
     getChildren().add(userButton);
 
   }
 
-  private void manageUsers(ActionEvent event) {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/manage-users.fxml"));
+  private void captureAirport() {
+    ImageExporter.captureRunwayViewBoxScreenshot(MainScene.getRunwayViewBox());
+  }
+
+
+  private void exportObstacles() {
+    XMLExporter.exportObstacles();
+  }
+
+  public void changeStyling (String backgroundColor) {
+    // Change the styling of the menu bar
+    setBackground(new Background(new BackgroundFill(Color.valueOf(backgroundColor), null, null)));
+  }
+
+
+  static void loadFXML(ActionEvent event, String filename) {
+    FXMLLoader loader = new FXMLLoader(MenuBar.class.getResource("/fxml/" + filename));
     Parent root = null;
     try {
       root = loader.load();
