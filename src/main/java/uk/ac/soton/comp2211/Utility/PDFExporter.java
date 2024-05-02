@@ -75,18 +75,18 @@ public class PDFExporter {
 
         contentStream = new PDPageContentStream(document, secondPage);
 
-// Calculation Breakdown
+        // Calculation Breakdown
         writeTextWithNewLines(contentStream, "Calculation Breakdown:", 50, 750, -20);
 
-// Now write the individual breakdowns, each call adjusts the y-coordinate to start appropriately
+        // Now write the individual breakdowns, each call adjusts the y-coordinate to start appropriately
         int currentY = 730; // Adjust starting y-coordinate as needed
         writeTextWithNewLines(contentStream, "TORA Breakdown: " + calculationBreakdown.getToraBreakdown().get(), 50, currentY, -15);
         currentY -= 40; // Adjust spacing as needed based on content length
-        writeTextWithNewLines(contentStream, "TODA Breakdown: " + calculationBreakdown.getTodaBreakdown().get(), 50, currentY -20, -15);
+        writeTextWithNewLines(contentStream, "TODA Breakdown: " + calculationBreakdown.getTodaBreakdown().get(), 50, currentY - 20, -15);
         currentY -= 40;
         writeTextWithNewLines(contentStream, "ASDA Breakdown: " + calculationBreakdown.getAsdaBreakdown().get(), 50, currentY - 20, -15);
         currentY -= 40;
-        writeTextWithNewLines(contentStream, "LDA Breakdown: " + calculationBreakdown.getLdaBreakdown().get(), 50, currentY -20, -15);
+        writeTextWithNewLines(contentStream, "LDA Breakdown: " + calculationBreakdown.getLdaBreakdown().get(), 50, currentY - 20, -15);
 
         contentStream.close();
         document.save(file);

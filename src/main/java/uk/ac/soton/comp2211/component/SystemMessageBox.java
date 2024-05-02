@@ -16,6 +16,9 @@ import javafx.scene.text.TextFlow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class SystemMessageBox extends VBox {
 
   private static final Logger logger = LogManager.getLogger(SystemMessageBox.class);
@@ -35,7 +38,7 @@ public class SystemMessageBox extends VBox {
     setPadding(new Insets(20));
     setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    var title = new Text("System Messages");
+    var title = new Text("System Notifications");
     title.getStyleClass().add("componentTitle");
     getChildren().add(title);
 
@@ -55,9 +58,17 @@ public class SystemMessageBox extends VBox {
 
   public static void addMessage(String message) {
     logger.info("Adding message to System Message Box");
-    var text = new Text(message + "\n");
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
+    String formattedDateTime = now.format(formatter);
+
+    String fullMessage = formattedDateTime + " - " + message + "\n";
+
+    var text = new Text(fullMessage);
     messageBox.getChildren().add(text);
-    messageBox.layout(); // Force layout pass
-    scrollBox.setVvalue(1.0); // Auto-scroll to the bottom as new messages are added
+    messageBox.layout();
+    scrollBox.setVvalue(1.0);
   }
+
 }

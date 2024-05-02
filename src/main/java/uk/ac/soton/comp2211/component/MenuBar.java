@@ -67,7 +67,7 @@ public class MenuBar extends HBox {
     importObstacles.setOnAction(event -> loadFXML(event, "importObstacles.fxml"));
     importAirports = new MenuItem("Import Airports");
     if (currentUser.getAccessLevel() == User.AccessLevel.VIEWER) {
-      importAirports.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION, "You do not have permission to import airports. Only editors and administrators can import airports."));
+      importAirports.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION, "You do not have permission to import airports. Only editors and administrators can import airports." + " Your access level is: " + currentUser.getAccessLevel()));
     } else {
       importAirports.setOnAction(event -> loadFXML(event, "importAirport.fxml"));
     }
@@ -144,9 +144,9 @@ public class MenuBar extends HBox {
     editAirports = new MenuItem("Edit Airports");
 
     if (User.AccessLevel.VIEWER == currentUser.getAccessLevel()) {
-      editAirports.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION,"You do not have permission to edit airports. Only editors and administrators can edit airports."));
+      editAirports.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION, "You do not have permission to edit airports. Only editors and administrators can edit airports." + " Your access level is: " + currentUser.getAccessLevel()));
     } else {
-      editAirports.setOnAction(event -> loadFXML(event, "edit-airport.fxml"));
+      editAirports.setOnAction(MenuBar::editAirportFXML);
     }
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
@@ -187,7 +187,7 @@ public class MenuBar extends HBox {
 
     MenuItem manageUsersItem = new MenuItem("Manage Users");
     if (currentUser.getAccessLevel() != User.AccessLevel.ADMIN) {
-      manageUsersItem.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION, "You do not have permission to manage users. Only administrators can manage users."));
+      manageUsersItem.setOnAction(e -> showAlertDialog(Alert.AlertType.INFORMATION, "You do not have permission to manage users. Only administrators can manage users." + " Your access level is: " + currentUser.getAccessLevel()));
     } else {
       manageUsersItem.setOnAction(event -> loadFXML(event, "manage-users.fxml"));
     }
@@ -205,7 +205,7 @@ public class MenuBar extends HBox {
 
   }
 
-  private void showAlertDialog(Alert.AlertType alertType,String message) {
+  private static void showAlertDialog(Alert.AlertType alertType, String message) {
     Alert alert = new Alert(alertType);
     alert.setContentText(message);
     alert.show();
@@ -225,6 +225,28 @@ public class MenuBar extends HBox {
   }
 
 
+  public static void editAirportFXML(ActionEvent event) {
+
+    if (Database.getCurrentUser().getAccessLevel() == User.AccessLevel.VIEWER) {
+      showAlertDialog(Alert.AlertType.INFORMATION, "You do not have permission to edit airports. Only editors and administrators can edit airports." + " Your access level is: " + Database.getCurrentUser().getAccessLevel());
+    } else {
+      System.out.println(Database.getCurrentUser().getAccessLevel());
+      SystemMessageBox.addMessage(Database.getCurrentUser().getAccessLevel().toString());
+      FXMLLoader loader = new FXMLLoader(MenuBar.class.getResource("/fxml/edit-airport.fxml"));
+      Parent root = null;
+      try {
+        root = loader.load();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      Scene scene = new Scene(root);
+      Stage stage = new Stage();
+      stage.initModality(Modality.APPLICATION_MODAL);
+      stage.setScene(scene);
+      stage.show();
+    }
+  }
+
   static void loadFXML(ActionEvent event, String filename) {
     FXMLLoader loader = new FXMLLoader(MenuBar.class.getResource("/fxml/" + filename));
     Parent root = null;
@@ -241,11 +263,10 @@ public class MenuBar extends HBox {
   }
 
   private void performLogout() {
-    // Example scene change code. Adjust according to your application's structure.
     try {
-      Stage stage = (Stage) userButton.getScene().getWindow(); // Retrieve the current stage
-      DBUtils.closeStage(stage); // Close the current stage
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login-page.fxml")); // Adjust the path to your FXML
+      Stage stage = (Stage) userButton.getScene().getWindow();
+      DBUtils.closeStage(stage);
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login-page.fxml"));
       Parent root = loader.load();
       Scene scene = new Scene(root);
 

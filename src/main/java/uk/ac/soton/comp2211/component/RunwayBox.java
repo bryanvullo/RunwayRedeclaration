@@ -41,7 +41,6 @@ public class RunwayBox extends VBox {
 
   public RunwayBox() {
     logger.info("Creating Runway Box");
-    currentUser = Database.getCurrentUser();
     clearway = new SimpleDoubleProperty(0.0);
     stopway = new SimpleDoubleProperty(0.0);
     displacedThreshold = new SimpleDoubleProperty(0.0);
@@ -118,13 +117,10 @@ public class RunwayBox extends VBox {
     editAirportButton = new Button("Edit/Add Airports");
     editAirportButton.getStyleClass().add("mainSceneButton");
 
-    if (currentUser.getAccessLevel() == User.AccessLevel.VIEWER) {
-      System.out.println("Current user: " + currentUser.getUsername() + " with access level: " + currentUser.getAccessLevel());
-      editAirportButton.setOnMousePressed(e -> showAlertDialog(Alert.AlertType.INFORMATION, "Access Denied, You do not have permission to edit airports. Only Admins and Editors can edit airports."));
-    } else {
-      System.out.println("Current user: " + currentUser.getUsername() + " with access level: " + currentUser.getAccessLevel());
-      editAirportButton.setOnMousePressed(e -> MenuBar.loadFXML(new ActionEvent(), "edit-airport.fxml"));
-    }
+
+    editAirportButton.setOnAction(MenuBar::editAirportFXML);
+
+    //editAirportButton.setOnMousePressed(e -> MenuBar.loadFXML(new ActionEvent(), "edit-airport.fxml"));
 
     getChildren().add(editAirportButton);
 
@@ -181,7 +177,7 @@ public class RunwayBox extends VBox {
 
 
   private void selectAirport(Event event) {
-    Airport selectedAirport = airportSelection.getSelectionModel().getSelectedItem(); // Directly obtain the selected Airport object
+    Airport selectedAirport = airportSelection.getSelectionModel().getSelectedItem();
     if (selectedAirport != null) {
       System.out.println("Airport: " + selectedAirport.getAirportName() + " with " + selectedAirport.getRunways().size() + " runways.");
       List<Runway> runways = selectedAirport.getRunways();
@@ -197,7 +193,7 @@ public class RunwayBox extends VBox {
     }
   }
 
-  private void showAlertDialog(Alert.AlertType alertType,String message) {
+  private void showAlertDialog(Alert.AlertType alertType, String message) {
     Alert alert = new Alert(alertType);
     alert.setContentText(message);
     alert.show();
@@ -211,10 +207,10 @@ public class RunwayBox extends VBox {
 
 
   private void selectRunway(Event event) {
-    Runway selectedRunway = runwaySelection.getSelectionModel().getSelectedItem(); // Directly obtain the selected Runway object
+    Runway selectedRunway = runwaySelection.getSelectionModel().getSelectedItem();
     if (selectedRunway != null) {
       logger.info("Runway selected: " + selectedRunway.getName());
-        SystemMessageBox.addMessage("Runway selected: " + selectedRunway.getName());
+      SystemMessageBox.addMessage("Runway selected: " + selectedRunway.getName());
       MainScene.updateRunway(selectedRunway);
       // You may also update any UI elements to display runway details
     } else {
