@@ -80,6 +80,7 @@ public class SideRunway extends StackPane {
         this.altVal = 0;
         this.oldLDALength = 0;
         this.flip = 1;
+        this.isRotated = false;
     }
     private void build() {
         logger.info("Building Side Runway View");
@@ -144,13 +145,22 @@ public class SideRunway extends StackPane {
         LDALabel.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 - 3 + 15);
         LDALabel.setTextFill(Color.WHITE);
 
-
+        SixtyLabel = new Label("");
+        RESALabel = new Label("");
 
         this.getChildren().addAll(arrowhead1, LDAarrow, arrowhead2);
         this.getChildren().addAll(LDALabel);
         addLeftRunwayDirection();
 
-
+        if(runwayName.contains("R") && !isRotated) {
+            flipRunway();
+            isRotated = true;
+        }
+        else if (runwayName.contains("L") && isRotated) {
+            flipRunway();
+            isRotated = false;
+        }
+        setLabels();
 
     }
 
@@ -175,6 +185,7 @@ public class SideRunway extends StackPane {
         obstacle.setTranslateX(-runway.getWidth()/2 + lThreshold*scalingFactor + length);
         this.getChildren().add(obstacle);
         clearance = new Arrow(0,height*2 + 10, 50, 0, 12);
+        setLabels();
     }
 
     public Polygon createArrowhead(double distance, double scalingFactor, double tipY, double baseY, double width, double translateY) {
@@ -349,7 +360,14 @@ public class SideRunway extends StackPane {
         this.getChildren().addAll(arrowhead1, LDAarrow, arrowhead2, LDALabel, arrowhead3, Sixty, arrowhead4, arrowhead5, RESA, arrowhead6, SixtyLabel, RESALabel);
         addLeftRunwayDirection();
 
-
+        if(runwayName.contains("R") && !isRotated) {
+            flipRunway();
+            isRotated = true;
+        }
+        else if (runwayName.contains("L") && isRotated) {
+            flipRunway();
+            isRotated = false;
+        }
         setLabels();
     }
 
@@ -361,8 +379,8 @@ public class SideRunway extends StackPane {
 
     public void setLabels() {
         this.LDALabel.setScaleX(this.getScaleX());
-        this.Sixty.setScaleX(this.getScaleX());
-        this.RESA.setScaleX(this.getScaleX());
+        this.SixtyLabel.setScaleX(this.getScaleX());
+        this.RESALabel.setScaleX(this.getScaleX());
         this.directionLabel.setScaleX(this.getScaleX());
     }
 

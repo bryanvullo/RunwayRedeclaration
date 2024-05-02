@@ -360,6 +360,9 @@ public class TopDownRunway extends StackPane {
         setLabels();
 
         addLeftRunwayDirection();
+        if(this.getChildren().contains(obstacleVBox)) {
+            obstacleVBox.toFront();
+        }
     }
 
     public void flipRunway() {
@@ -756,6 +759,7 @@ public class TopDownRunway extends StackPane {
 
         setLabels();
         this.RESALabel.setScaleX(this.getScaleX());
+        obstacleVBox.toFront();
 
 
     }
@@ -772,6 +776,7 @@ public class TopDownRunway extends StackPane {
         RunwayDirectionNumber.setScaleX(this.getScaleX());
         RunwayDirectionLetter.setScaleX(this.getScaleX());
         stopwayLabel.setScaleX(this.getScaleX());
+        DisplacementThresholdText.setScaleX(this.getScaleX());
     }
 
 
@@ -791,5 +796,4 @@ public class TopDownRunway extends StackPane {
         // Return the calculated degrees
         return headingDegrees;
     }
-
 }

@@ -551,7 +551,6 @@ public class MainScene extends BaseScene {
     calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
     MainScene.getRunwayViewBox().getTopDownRunway().updateRunwayWithoutScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
     MainScene.getRunwayViewBox().getSideRunway().updateRunwayWithouScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
-
   }
 
   public static void updateRunway(Runway runway) {
