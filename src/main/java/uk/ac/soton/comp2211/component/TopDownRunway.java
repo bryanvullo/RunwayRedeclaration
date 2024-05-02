@@ -732,17 +732,17 @@ public class TopDownRunway extends StackPane {
         directionArrow = new Arrow(0, 20, 100, 20, 12);
 
         RESARect = new Rectangle(runway.getWidth() - LDAarrow.getWidth() - obstacleWidth - 10, runway.getHeight());
-        RESARect.setFill(Color.YELLOW);
+        RESARect.setFill(Color.GREEN);
         RESARect.setTranslateX(-runway.getWidth()/2 + RESARect.getWidth()/2 + obstacleWidth + lThreshold);
-        RESARect.setOpacity(0.6);
+        RESARect.setOpacity(0.4);
         this.getChildren().add(RESARect);
 
         RESALabel = new Label("RESA");
-        RESALabel.setRotate(90);
         RESALabel.setFont(Font.font("Arial", FontWeight.BLACK, 25));
         RESALabel.setTextFill(Color.WHITE);
-        RESALabel.setTranslateX(-runway.getWidth()/2 + obstacleWidth + lThreshold + 20);
-        RESALabel.setTextFill(Color.RED);
+        RESALabel.setTranslateX(-runway.getWidth()/2 + obstacleWidth + RESARect.getWidth()/2 + lThreshold);
+        RESALabel.setTranslateY(runway.getHeight()/2 + 10);
+        RESALabel.setTextFill(Color.GREEN);
         RESALabel.toFront();
         this.getChildren().add(RESALabel);
 
