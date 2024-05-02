@@ -27,12 +27,16 @@ import uk.ac.soton.comp2211.Utility.XMLExporter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class MenuBar extends HBox {
 
   private static final Logger logger = LogManager.getLogger(MenuBar.class);
   private boolean isDarkMode = false; // defalt
+  private Color originalColor = Color.valueOf("73a9c2"); // Store the original color here
+  private Map<Node, Color> originalColors = new HashMap<>(); // Map to store original colors of nodes
 
   private MenuButton fileButton;
   private MenuButton editButton;
@@ -50,7 +54,7 @@ public class MenuBar extends HBox {
     logger.info("Building the MenuBar");
     setSpacing(10);
     setPadding(new Insets(10));
-    setBackground(new Background(new BackgroundFill(Color.valueOf("73a9c2"), null, null)));
+    setBackground(new Background(new BackgroundFill(originalColor, null, null)));
 
     fileButton = new MenuButton("File");
 
@@ -205,7 +209,7 @@ public class MenuBar extends HBox {
     }
     if (root instanceof Parent) {
       for (Node node : ((Parent) root).getChildrenUnmodifiable()) {
-        if (node instanceof Parent) {
+        if (node instanceof Parent && !(node instanceof RunwayViewBox)) {
           changeBackgroundRecursively((Parent) node, background);
         }
       }
@@ -231,8 +235,9 @@ public class MenuBar extends HBox {
     Scene scene = settingsButton.getScene();
     if (scene != null) {
       isDarkMode = !isDarkMode; // 切换模式
-      BackgroundFill backgroundFill = new BackgroundFill(
-              isDarkMode ? Color.DARKGRAY : Color.LIGHTGRAY, null, null);
+      Color color = isDarkMode ? Color.DARKGRAY : originalColor; // Use the original color when toggling back to light mode
+      BackgroundFill backgroundFill = new BackgroundFill(color, null, null);
+
       Background background = new Background(backgroundFill);
       Parent root = scene.getRoot();
       changeBackgroundRecursively(root, background);
