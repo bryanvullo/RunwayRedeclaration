@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
 import uk.ac.soton.comp2211.scene.MainScene;
 
@@ -75,6 +76,8 @@ public class editObstacleController {
       selectedObstacle.setDistanceLeftThreshold(Double.parseDouble(leftThresholdField.getText()));
       selectedObstacle.setDistanceRightThreshold(Double.parseDouble(rightThresholdField.getText()));
       selectedObstacle.setDistanceFromCentre(Double.parseDouble(centreDistanceField.getText()));
+
+      SystemMessageBox.addMessage("Obstacle" + selectedObstacle.getObstacleName() +"updated successfully.");
 
       // Update list to reflect changes
       editListView.refresh();

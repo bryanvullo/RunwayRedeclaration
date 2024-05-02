@@ -20,8 +20,8 @@ public class SystemMessageBox extends VBox {
 
   private static final Logger logger = LogManager.getLogger(SystemMessageBox.class);
 
-  private TextFlow messageBox;
-  private ScrollPane scrollBox;
+  private static TextFlow messageBox;
+  private static ScrollPane scrollBox;
 
   public SystemMessageBox() {
     logger.info("Creating System Message Box");
@@ -53,7 +53,7 @@ public class SystemMessageBox extends VBox {
     getChildren().add(scrollBox);
   }
 
-  public void addMessage(String message) {
+  public static void addMessage(String message) {
     logger.info("Adding message to System Message Box");
     var text = new Text(message + "\n");
     messageBox.getChildren().add(text);

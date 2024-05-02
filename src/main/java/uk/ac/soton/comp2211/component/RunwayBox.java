@@ -94,8 +94,8 @@ public class RunwayBox extends VBox {
 
 
     directionToggleGroup = new ToggleGroup();
-    leftButton = new ToggleButton("Left");
-    rightButton = new ToggleButton("Right");
+    leftButton = new ToggleButton("TOALO");
+    rightButton = new ToggleButton("TOTLT");
     leftButton.setToggleGroup(directionToggleGroup);
     rightButton.setToggleGroup(directionToggleGroup);
     leftButton.setSelected(true);
@@ -166,6 +166,7 @@ public class RunwayBox extends VBox {
       Airport selectedAirport = airportSelection.getValue();
       if (selectedAirport != null) {
         System.out.println("Airport: " + selectedAirport.getAirportName() + " with " + selectedAirport.getRunways().size() + " runways.");
+        SystemMessageBox.addMessage("Airport selected: " + selectedAirport.getAirportName());
         runwaySelection.getItems().clear();
         runwaySelection.getItems().addAll(FXCollections.observableArrayList(selectedAirport.getRunways()));
         runwaySelection.setDisable(false);
@@ -188,6 +189,7 @@ public class RunwayBox extends VBox {
       runwaySelection.getItems().addAll(FXCollections.observableArrayList(runways));
       runwaySelection.setDisable(false);
       logger.info("Airport selected: " + selectedAirport.getAirportName());
+      SystemMessageBox.addMessage("Airport selected: " + selectedAirport.getAirportName());
     } else {
       System.out.println("Selected airport is null");
       logger.info("No airport selected.");
@@ -212,6 +214,7 @@ public class RunwayBox extends VBox {
     Runway selectedRunway = runwaySelection.getSelectionModel().getSelectedItem(); // Directly obtain the selected Runway object
     if (selectedRunway != null) {
       logger.info("Runway selected: " + selectedRunway.getName());
+        SystemMessageBox.addMessage("Runway selected: " + selectedRunway.getName());
       MainScene.updateRunway(selectedRunway);
       // You may also update any UI elements to display runway details
     } else {

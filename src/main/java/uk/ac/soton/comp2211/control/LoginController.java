@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import uk.ac.soton.comp2211.UI.AppWindow;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.model.User;
 import uk.ac.soton.comp2211.Utility.DBUtils;
@@ -103,6 +104,7 @@ public class LoginController implements Initializable {
           logger.log(Level.INFO, "User {0} logged in successfully", currentUser.getUsername());
           Notification.showNotification("User: " + username + " logged in successfully");
           DBUtils.closeStage((Stage) textField_UserName.getScene().getWindow());
+          SystemMessageBox.addMessage("User " + username + " logged in successfully");
           DBUtils.changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
         } else {
           showAlert("Password is incorrect");

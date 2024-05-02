@@ -10,6 +10,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import uk.ac.soton.comp2211.component.RunwayBox;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.scene.MainScene;
@@ -96,6 +97,7 @@ public class editAirportController {
     Airport selectedAirport = airportList.getSelectionModel().getSelectedItem();
     if (selectedAirport != null) {
       selectedAirport.setAirportName(airportNameField.getText());
+      SystemMessageBox.addMessage("Airport " + selectedAirport.getAirportName() + " updated successfully.");
     }
 
     airportList.refresh();
@@ -126,6 +128,8 @@ public class editAirportController {
       selectedRunway.setClearway(Double.parseDouble(clearwayField.getText()));
       selectedRunway.setStopway(Double.parseDouble(stopwayField.getText()));
       selectedRunway.setDisplacedThreshold(Double.parseDouble(displacedThresholdField.getText()));
+
+      SystemMessageBox.addMessage("Runway " + selectedRunway.getName() + " updated successfully.");
 
 //      airportList.refresh();
       runwayList.refresh();
