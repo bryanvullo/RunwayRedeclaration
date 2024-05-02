@@ -3,16 +3,14 @@ package uk.ac.soton.comp2211.component;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -34,6 +32,7 @@ import java.util.Objects;
 public class MenuBar extends HBox {
 
   private static final Logger logger = LogManager.getLogger(MenuBar.class);
+  private boolean isDarkMode = false; // defalt
 
   private MenuButton fileButton;
   private MenuButton editButton;
@@ -146,9 +145,7 @@ public class MenuBar extends HBox {
     );
     settingsButton = new MenuButton("Settings");
     settingsButton.getItems().addAll(
-        new MenuItem("Change Colour Scheme"),
         new MenuItem("Change Font"),
-        new MenuItem("Light/Dark Mode"),
         new MenuItem("System Notifications"),
         new MenuItem("Clear System Messages")
     );
@@ -166,6 +163,13 @@ public class MenuBar extends HBox {
     getChildren().add(filler);
     setHgrow(filler, Priority.ALWAYS);
 
+    MenuItem changeColourScheme = new MenuItem("Change Colour Scheme");
+    changeColourScheme.setOnAction(event -> handleChangeColourScheme());
+    settingsButton.getItems().add(changeColourScheme);
+
+    MenuItem LightDark = new MenuItem("Light/Dark Mode");
+    LightDark.setOnAction(event -> handleChangeDarkScheme());
+    settingsButton.getItems().add(LightDark);
 
     MenuItem logoutItem = new MenuItem("Log Out");
     logoutItem.setOnAction(event -> performLogout());
@@ -195,7 +199,48 @@ public class MenuBar extends HBox {
   private void exportAirports() {
     XMLExporter.exportAirports();
   }
+  private void changeBackgroundRecursively(Parent root, Background background) {
+    if (root instanceof Region) {
+      ((Region) root).setBackground(background);
+    }
+    if (root instanceof Parent) {
+      for (Node node : ((Parent) root).getChildrenUnmodifiable()) {
+        if (node instanceof Parent) {
+          changeBackgroundRecursively((Parent) node, background);
+        }
+      }
+    }
+  }
 
+  private void handleChangeColourScheme() {
+    System.out.println("Colour scheme change option selected.");
+    Scene scene = settingsButton.getScene();
+    if (scene != null) {
+      BackgroundFill backgroundFill = new BackgroundFill(Color.YELLOW, null, null);
+      Background background = new Background(backgroundFill);
+      Parent root = scene.getRoot();
+      changeBackgroundRecursively(root, background);
+      System.out.println("Background changed to yellow across the entire application.");
+    } else {
+      System.out.println("No scene found.");
+    }
+  }
+
+  private void handleChangeDarkScheme() {
+    System.out.println("Toggling light/dark mode.");
+    Scene scene = settingsButton.getScene();
+    if (scene != null) {
+      isDarkMode = !isDarkMode; // 切换模式
+      BackgroundFill backgroundFill = new BackgroundFill(
+              isDarkMode ? Color.BLACK : Color.WHITE, null, null);
+      Background background = new Background(backgroundFill);
+      Parent root = scene.getRoot();
+      changeBackgroundRecursively(root, background);
+      System.out.println(isDarkMode ? "Switched to dark mode." : "Switched to light mode.");
+    } else {
+      System.out.println("No scene found.");
+    }
+  }
   public void changeStyling(String backgroundColor) {
     // Change the styling of the menu bar
     setBackground(new Background(new BackgroundFill(Color.valueOf(backgroundColor), null, null)));
