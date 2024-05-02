@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import uk.ac.soton.comp2211.component.RunwayBox;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.scene.MainScene;
@@ -70,6 +71,7 @@ public class ImportAirportController {
         mainAirports.add(previewAirport);
       }
     }
+    SystemMessageBox.addMessage("Imported " + airports.size() + " airports");
     Stage stage = (Stage) importButton2.getScene().getWindow();
     stage.close();
   }

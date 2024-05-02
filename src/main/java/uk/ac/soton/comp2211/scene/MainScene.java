@@ -142,7 +142,6 @@ public class MainScene extends BaseScene {
     //Toolbar at the top
     var toolbar = new MenuBar();
     mainPane.setTop(toolbar);
-
     //Left Panel
     leftPanel = new HBox();
     leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("add8e6"), null, null)));
@@ -327,6 +326,7 @@ public class MainScene extends BaseScene {
       System.out.println("Distance from Centre: " + obstacle.getDistanceFromCentre());
 
       updateObstacle(obstacle);
+
       runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
       runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
     } else {
@@ -537,20 +537,24 @@ public class MainScene extends BaseScene {
     }
 
     // Get the selected direction, defaulting to "Left" if null
-    String direction = runwayBox.getSelectedDirection() != null ? runwayBox.getSelectedDirection() : "Left";
+    String direction = runwayBox.getSelectedDirection() != null ? runwayBox.getSelectedDirection() : "TOALO";
 
     // Set distance from threshold based on selected direction
     selectedObstacle.setDistanceFromThreshold(
-        direction.equalsIgnoreCase("Left") ? selectedObstacle.getDistanceLeftThreshold() : selectedObstacle.getDistanceRightThreshold()
+        direction.equalsIgnoreCase("TOALO") ? selectedObstacle.getDistanceLeftThreshold() : selectedObstacle.getDistanceRightThreshold()
     );
 
     // Determine the calculation type based on the direction and obstacle distance
-    String calculationType = direction.equalsIgnoreCase("Left") ?
+    String calculationType = direction.equalsIgnoreCase("TOALO") ?
         (selectedObstacle.getDistanceLeftThreshold() > selectedObstacle.getDistanceRightThreshold() ? "TOTLT" : "TOALO") :
         (selectedObstacle.getDistanceRightThreshold() > selectedObstacle.getDistanceLeftThreshold() ? "TOTLT" : "TOALO");
+    SystemMessageBox.addMessage("Calculating for " + calculationType);
 
     // Perform recalculation
     tool.recalculate(selectedObstacle, calculationType);
+
+    SystemMessageBox.addMessage("Recalculation complete");
+    SystemMessageBox.addMessage(" New TORA: " + tool.getRevisedCalculation().getTora() + " New TODA: " + tool.getRevisedCalculation().getToda() + " New ASDA: " + tool.getRevisedCalculation().getAsda() + " New LDA: " + tool.getRevisedCalculation().getLda());
 
     // Update the UI with the new calculations
     updateBreakdown();
