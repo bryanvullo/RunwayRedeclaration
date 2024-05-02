@@ -86,7 +86,7 @@ public class PDFExporter {
         currentY -= 40;
         writeTextWithNewLines(contentStream, "ASDA Breakdown: " + calculationBreakdown.getAsdaBreakdown().get(), 50, currentY - 20, -15);
         currentY -= 40;
-        writeTextWithNewLines(contentStream, "LDA Breakdown: " + calculationBreakdown.getLdaBreakdown().get(), 50, currentY - 20, -15);
+        writeTextWithNewLines(contentStream, "LDA Breakdown: " + calculationBreakdown.getLdaBreakdown().get(), 50, currentY -20, -15);
 
         contentStream.close();
         document.save(file);
