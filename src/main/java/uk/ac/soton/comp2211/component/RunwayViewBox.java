@@ -37,9 +37,6 @@ public class RunwayViewBox extends VBox {
     setSpacing(10);
     setPadding(new Insets(10));
 
-    Rectangle clip = new Rectangle(925, 495);
-    this.setClip(clip);
-
     var viewSelectionBox = new HBox();
     viewSelectionBox.setAlignment(Pos.CENTER);
     viewSelectionBox.setSpacing(10);
@@ -58,12 +55,14 @@ public class RunwayViewBox extends VBox {
 
     runwayView = new HBox();
     runwayView.setAlignment(Pos.CENTER);
-    runwayView.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     VBox.setVgrow(runwayView, Priority.ALWAYS);
     getChildren().add(runwayView);
 
     var topDownRunwayPane = new TopDownRunway();
     runwayView.getChildren().add(topDownRunwayPane);
+    Rectangle clip = new Rectangle(900, 400);
+    runwayView.setBackground(new Background(new BackgroundFill(Color.LIMEGREEN, null, null))); // Set background color to Tomato
+    runwayView.setClip(clip);
 
 
     //End of TEMP code
@@ -149,15 +148,14 @@ public class RunwayViewBox extends VBox {
     // Clear the existing runway view
     runwayView.getChildren().clear();
     runwayView.getChildren().add(sideRunway);
-    sideRunway.setScaleX(1);
-    sideRunway.setScaleY(1);
+    sideRunway.setLabels();
   }
   public void changeViewToTopdown() {
     // Clear the existing runway view
     runwayView.getChildren().clear();
     runwayView.getChildren().add(topDownRunway);
-    topDownRunway.setScaleX(1);
-    topDownRunway.setScaleY(1);
+
+    topDownRunway.setLabels();
   }
   public void changeViewToSimultaneous() {
     // Clear the existing runway view
@@ -175,6 +173,8 @@ public class RunwayViewBox extends VBox {
     topDownRunway.setTranslateY(-100);
     tempStack.getChildren().addAll(topDownRunway, sideRunway);
     runwayView.getChildren().add(tempStack);
+    sideRunway.setLabels();
+    topDownRunway.setLabels();
   }
 
 
@@ -183,5 +183,9 @@ public class RunwayViewBox extends VBox {
   }
   public TopDownRunway getTopDownRunway() {
     return topDownRunway;
+  }
+
+  public HBox getRunwayView() {
+    return runwayView;
   }
 }

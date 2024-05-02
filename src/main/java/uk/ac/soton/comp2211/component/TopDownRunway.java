@@ -731,7 +731,7 @@ public class TopDownRunway extends StackPane {
 
         directionArrow = new Arrow(0, 20, 100, 20, 12);
 
-        RESARect = new Rectangle(runway.getWidth() - LDAarrow.getWidth() - obstacleWidth - 10, runway.getHeight());
+        RESARect = new Rectangle(runway.getWidth() - LDAarrow.getWidth() - obstacleWidth - 10 - lThreshold, runway.getHeight());
         RESARect.setFill(Color.GREEN);
         RESARect.setTranslateX(-runway.getWidth()/2 + RESARect.getWidth()/2 + obstacleWidth + lThreshold);
         RESARect.setOpacity(0.4);
@@ -793,7 +793,6 @@ public class TopDownRunway extends StackPane {
         // Each runway number corresponds to a compass heading multiplied by 10
         double headingDegrees = runwayNumber * 10;
 
-        // Return the calculated degrees
         return headingDegrees;
     }
 }
