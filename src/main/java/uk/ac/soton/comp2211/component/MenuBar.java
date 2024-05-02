@@ -232,7 +232,7 @@ public class MenuBar extends HBox {
     if (scene != null) {
       isDarkMode = !isDarkMode; // 切换模式
       BackgroundFill backgroundFill = new BackgroundFill(
-              isDarkMode ? Color.BLACK : Color.WHITE, null, null);
+              isDarkMode ? Color.DARKGRAY : Color.LIGHTGRAY, null, null);
       Background background = new Background(backgroundFill);
       Parent root = scene.getRoot();
       changeBackgroundRecursively(root, background);
