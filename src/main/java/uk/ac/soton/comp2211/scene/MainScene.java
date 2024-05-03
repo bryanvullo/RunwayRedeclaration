@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 
 import java.util.logging.Logger;
 
+import javafx.scene.shape.Rectangle;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
@@ -79,12 +80,16 @@ public class MainScene extends BaseScene {
   private static SystemMessageBox systemMessageBox;
   private static RunwayViewBox runwayViewBox;
   private CalculationBreakdownBox calculationBreakdownBox;
+  private double currentScale;
+  private double currentWidth;
+
 
   public MainScene(AppWindow appWindow) {
     super(appWindow); // Make sure this controller is instantiated correctly
     if (obstacleBox == null) {
       obstacleBox = new ObstaclesBox();
     }
+    currentScale = 1;
   }
 
   public static MainScene getInstance(AppWindow appWindow) {
@@ -104,6 +109,7 @@ public class MainScene extends BaseScene {
     logger.info("Building " + this.getClass().getName());
 
     tool = new Tool();
+    this.currentWidth = 900;
 
     root = new AppPane(appWindow.getWidth(), appWindow.getHeight());
 
@@ -126,7 +132,7 @@ public class MainScene extends BaseScene {
     sideButton.setOnAction(event -> runwayViewBox.changeViewToSide());
     topDownButton.setOnAction(event -> runwayViewBox.changeViewToTopdown());
     simultaneousButton.setOnAction(event -> runwayViewBox.changeViewToSimultaneous());
-
+    runwayViewBox.setBackground(new Background(new BackgroundFill(Color.web("#b0dce4"), null, null))); // Set background color to Tomato
 
 
     //this is for all backend stuff
@@ -454,13 +460,25 @@ public class MainScene extends BaseScene {
 
   private void collapseLeftPanel(Event event) {
     if (leftPanelCollapsed) {
+      System.out.println("Heloooooo");
       leftCollapseButton.setText("<");
       leftPanel.getChildren().clear();
+      Rectangle clip = new Rectangle(currentWidth - 200, 400);
+      runwayViewBox.getRunwayView().setClip(clip);
+      this.currentWidth = currentWidth - 200;
+      this.currentScale = currentScale - 0.05;
+      runwayViewBox.getRunwayView().setScaleX(currentScale);
       leftPanel.getChildren().addAll(leftBar, leftCollapsibleBar);
       leftPanel.setPrefWidth(Control.USE_COMPUTED_SIZE);
       leftPanelCollapsed = false;
     } else {
       leftCollapseButton.setText(">");
+      Rectangle newClip = new Rectangle(currentWidth + 200, 400);
+      runwayViewBox.getRunwayView().setClip(newClip);
+      System.out.println(runwayViewBox.getWidth());
+      this.currentWidth = currentWidth + 200;
+      this.currentScale = currentScale + 0.05;
+      runwayViewBox.getRunwayView().setScaleX(currentScale);
       leftPanel.getChildren().clear();
       leftPanel.getChildren().addAll(leftCollapsibleBar);
       leftPanel.setPrefWidth(50);
@@ -474,12 +492,23 @@ public class MainScene extends BaseScene {
     if (rightPanelCollapsed) {
       rightCollapseButton.setText(">");
       rightPanel.getChildren().clear();
+      Rectangle clip = new Rectangle(currentWidth - 200, 400);
+      runwayViewBox.getRunwayView().setClip(clip);
+      this.currentWidth = currentWidth - 200;
+      this.currentScale = currentScale - 0.05;
+      runwayViewBox.getRunwayView().setScaleX(currentScale);
       rightPanel.getChildren().addAll(rightCollapsibleBar, activeBar);
       rightPanel.setPrefWidth(Control.USE_COMPUTED_SIZE);
       rightPanelCollapsed = false;
     } else {
       rightCollapseButton.setText("<");
       rightPanel.getChildren().clear();
+      Rectangle newClip = new Rectangle(currentWidth + 200, 400);
+      runwayViewBox.getRunwayView().setClip(newClip);
+      this.currentWidth = currentWidth + 200;
+      this.currentScale = currentScale + 0.05;
+      runwayViewBox.getRunwayView().setScaleX(currentScale);
+
       rightPanel.getChildren().addAll(rightCollapsibleBar);
       rightPanelCollapsed = true;
       rightPanel.setPrefWidth(50);

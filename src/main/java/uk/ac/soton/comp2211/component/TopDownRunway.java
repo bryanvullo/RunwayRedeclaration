@@ -322,13 +322,13 @@ public class TopDownRunway extends StackPane {
         DisplacementThresholdText.setFont(Font.font("Arial", FontWeight.BLACK, 10));
         DisplacementThresholdText.setTranslateX(-runway.getWidth()/2 + (displacedThreshold*scalingFactor) + 5);
 
-        RunwayDirectionNumber = new Label(runwayName.substring(0,2));
+        RunwayDirectionNumber = new Label(extractLastThreeLetters(runwayName).substring(0,2));
         RunwayDirectionNumber.setTextFill(Color.WHITE);
         RunwayDirectionNumber.setRotate(90);
         RunwayDirectionNumber.setFont(Font.font("Arial", FontWeight.BLACK, 30));
         RunwayDirectionNumber.setTranslateX(150 + displacedThreshold*scalingFactor - runway.getWidth()/2);
 
-        RunwayDirectionLetter = new Label(runwayName.substring(2,3));
+        RunwayDirectionLetter = new Label(extractLastThreeLetters(runwayName).substring(2,3));
         RunwayDirectionLetter.setTextFill(Color.WHITE);
         RunwayDirectionLetter.setRotate(90);
         RunwayDirectionLetter.setFont(Font.font("Arial", FontWeight.BLACK, 30));
@@ -341,11 +341,12 @@ public class TopDownRunway extends StackPane {
         this.getChildren().addAll(DTLVBox, DisplacementThresholdText, RunwayDirectionNumber, RunwayDirectionLetter);
 
 
-        if(runwayName.contains("R") && !isRotated) {
+// Assuming runwayName is a string like "09R/27L"
+        if (runwayName.endsWith("R)") && !isRotated) {
             flipRunway();
             isRotated = true;
         }
-        else if (runwayName.contains("L") && isRotated) {
+        else if (runwayName.endsWith("L)") && isRotated) {
             flipRunway();
             isRotated = false;
         }
@@ -716,13 +717,13 @@ public class TopDownRunway extends StackPane {
         DisplacementThresholdText.setFont(Font.font("Arial", FontWeight.BLACK, 10));
         DisplacementThresholdText.setTranslateX(-runway.getWidth()/2 + (newDisplacementThreshold*scalingFactor) + 5);
 
-        RunwayDirectionNumber = new Label(runwayName.substring(0,2));
+        RunwayDirectionNumber = new Label(extractLastThreeLetters(runwayName).substring(0,2));
         RunwayDirectionNumber.setTextFill(Color.WHITE);
         RunwayDirectionNumber.setRotate(90);
         RunwayDirectionNumber.setFont(Font.font("Arial", FontWeight.BLACK, 30));
         RunwayDirectionNumber.setTranslateX(150 + newDisplacementThreshold*scalingFactor - runway.getWidth()/2);
 
-        RunwayDirectionLetter = new Label(runwayName.substring(2,3));
+        RunwayDirectionLetter = new Label(extractLastThreeLetters(runwayName).substring(2,3));
         RunwayDirectionLetter.setTextFill(Color.WHITE);
         RunwayDirectionLetter.setRotate(90);
         RunwayDirectionLetter.setFont(Font.font("Arial", FontWeight.BLACK, 30));
@@ -731,10 +732,10 @@ public class TopDownRunway extends StackPane {
 
         directionArrow = new Arrow(0, 20, 100, 20, 12);
 
-        RESARect = new Rectangle(runway.getWidth() - LDAarrow.getWidth() - obstacleWidth - 10, runway.getHeight());
-        RESARect.setFill(Color.GREEN);
+        RESARect = new Rectangle(runway.getWidth() - LDAarrow.getWidth() - obstacleWidth - 10 - lThreshold, runway.getHeight());
+        RESARect.setFill(Color.GREY);
         RESARect.setTranslateX(-runway.getWidth()/2 + RESARect.getWidth()/2 + obstacleWidth + lThreshold);
-        RESARect.setOpacity(0.4);
+        RESARect.setOpacity(0.7);
         this.getChildren().add(RESARect);
 
         RESALabel = new Label("RESA");
@@ -742,17 +743,18 @@ public class TopDownRunway extends StackPane {
         RESALabel.setTextFill(Color.WHITE);
         RESALabel.setTranslateX(-runway.getWidth()/2 + obstacleWidth + RESARect.getWidth()/2 + lThreshold);
         RESALabel.setTranslateY(runway.getHeight()/2 + 10);
-        RESALabel.setTextFill(Color.GREEN);
+        RESALabel.setTextFill(Color.WHITE);
         RESALabel.toFront();
         this.getChildren().add(RESALabel);
 
         this.getChildren().addAll(DTLVBox, DisplacementThresholdText, RunwayDirectionNumber, RunwayDirectionLetter);
 
-        if(runwayName.contains("R") && !isRotated) {
+// Assuming runwayName is a string like "09R/27L"
+        if (runwayName.endsWith("R)") && !isRotated) {
             flipRunway();
             isRotated = true;
         }
-        else if (runwayName.contains("L") && isRotated) {
+        else if (runwayName.endsWith("L)") && isRotated) {
             flipRunway();
             isRotated = false;
         }
@@ -793,7 +795,16 @@ public class TopDownRunway extends StackPane {
         // Each runway number corresponds to a compass heading multiplied by 10
         double headingDegrees = runwayNumber * 10;
 
-        // Return the calculated degrees
         return headingDegrees;
+    }
+    public static String extractLastThreeLetters(String runwayName) {
+        if (runwayName != null && runwayName.length() >= 3) {
+            // Extract the last three characters of the string
+            var string1 = runwayName.substring(runwayName.length() - 4);
+            var string2 = string1.replace(")", "");
+            System.out.println(string2);
+            return string2;
+        }
+        return ""; // Return empty if the input is null or too short
     }
 }
