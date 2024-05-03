@@ -184,11 +184,14 @@ public class MenuBar extends HBox {
     MenuItem tutorialVideo = new MenuItem("Walkthrough Tutorial Video");
     tutorialVideo.setOnAction(e -> openVideoLink());
 
+    MenuItem contactUs = new MenuItem("Contact Us");
+    contactUs.setOnAction(e -> loadFXML(e, "contact-us.fxml"));
+
     helpButton = new MenuButton("Help");
     helpButton.getItems().addAll(
         tutorialVideo,
         userGuide,
-        new MenuItem("Contact Us")
+        contactUs
     );
 
     getChildren().addAll(fileButton, editButton, unitButton, settingsButton, helpButton);
@@ -309,6 +312,7 @@ public class MenuBar extends HBox {
       Scene scene = new Scene(root);
       Stage stage = new Stage();
       stage.initModality(Modality.APPLICATION_MODAL);
+      stage.setResizable(false);
       stage.setScene(scene);
       stage.show();
     }
@@ -339,6 +343,7 @@ public class MenuBar extends HBox {
     Stage stage = new Stage();
     stage.initModality(Modality.APPLICATION_MODAL);
     stage.setScene(scene);
+    stage.setResizable(false);
     stage.show();
   }
 
