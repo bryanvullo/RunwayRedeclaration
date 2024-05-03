@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.ManageUsers">
+    <children>
+        <BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0">
+            <left>
+                <Pane prefHeight="400.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label layoutX="14.0" layoutY="14.0" styleClass="heading-label" stylesheets="@../css/stylesheet.css" text="Current User">
+                            <padding>
+                                <Insets left="5.0" top="5.0" />
+                            </padding>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                        </Label>
+                        <Label fx:id="usernameLabel" layoutX="15.0" layoutY="94.0" stylesheets="@../css/stylesheet.css" text="Username:">                            <padding>
+                                <Insets left="5.0" top="5.0" />
+                            </padding>
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="roleLabel" layoutX="15.0" layoutY="139.0" stylesheets="@../css/stylesheet.css" text="Access Level:">
+                            <padding>
+                                <Insets left="5.0" top="5.0" />
+                            </padding>
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="statusLabel" layoutX="15.0" layoutY="185.0" stylesheets="@../css/stylesheet.css" text="Access Status:">
+                            <padding>
+                                <Insets left="5.0" top="5.0" />
+                            </padding>
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="grantAccessButton" layoutX="22.0" layoutY="303.0" mnemonicParsing="false" onAction="#grant" prefHeight="41.0" prefWidth="257.0" styleClass="loginButton" stylesheets="@../css/stylesheet.css" text="Grant Access">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Button>
+                        <SplitMenuButton fx:id="changeRoleButton" layoutX="22.0" layoutY="240.0" mnemonicParsing="false" onAction="#changeRole" prefHeight="49.0" prefWidth="257.0" styleClass="jf-list-cell" stylesheets="@../css/stylesheet.css" text="Change Access Level">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                    </children>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </Pane>
+            </left>
+            <center>
+                <Pane prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER_RIGHT">
+                    <children>
+                        <TabPane fx:id="usersTabPane" prefHeight="400.0" prefWidth="301.0" stylesheets="@../css/stylesheet.css" tabClosingPolicy="UNAVAILABLE">
+                            <tabs>
+                                <Tab text="All Users">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="270.0">
+                                 <children>
+                                    <JFXListView fx:id="allUsersListView" layoutX="-1.0" prefHeight="371.0" prefWidth="303.0" stylesheets="@../css/stylesheet.css" />
+                                 </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab text="Authorised Users">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <ListView fx:id="authorisedUsersListView" layoutX="44.0" layoutY="42.0" prefHeight="371.2" prefWidth="301.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                            </children></AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab text="Unauthorised Users">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <ListView fx:id="unAuthorisedUsersListView" layoutX="42.0" layoutY="14.0" prefHeight="371.2" prefWidth="301.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </children>
+                </Pane>
+            </center></BorderPane>
+    </children>
+</AnchorPane>

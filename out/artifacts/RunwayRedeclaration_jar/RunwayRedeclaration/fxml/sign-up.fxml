@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<!--Colour codes:
+    #263237 Dark-Grey
+    #a09e9e Grey
+    #e5ff54 Yellow
+-->
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.SignUpController">
+   <left>
+      <AnchorPane prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #4682b4;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="92.0" fitWidth="101.0" layoutX="129.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/paper-plane-solid.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="61.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re-Declaration" wrappingWidth="228.796875">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="112.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Runway" wrappingWidth="126.796875">
+               <font>
+                  <Font name="Ebrima Bold" size="32.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="138.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tool" wrappingWidth="73.796875">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="500.0" prefWidth="449.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="textFieldUserName" layoutX="160.0" layoutY="221.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #4682b4; -fx-border-width: 0px 0px 2px 0px;">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></TextField>
+            <PasswordField fx:id="textFieldPassword" layoutX="160.0" layoutY="272.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #4682b4; -fx-border-width: 0px 0px 2px 0px;">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></PasswordField>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="136.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/user-solid.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="135.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/key-solid.png" />
+               </image>
+            </ImageView>
+            <Hyperlink fx:id="button_Loggin" layoutX="110.0" layoutY="448.0" onAction="#openLoginScene" styleClass="hyperLink" stylesheets="@../css/stylesheet.css" text="Already have an Account? Login here!">
+               <font>
+                  <Font size="15.0" />
+               </font></Hyperlink>
+            <ImageView fitHeight="50.0" fitWidth="56.0" layoutX="194.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/users-line-solid.png" />
+               </image>
+            </ImageView>
+            <Text fill="STEELBLUE" layoutX="170.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <Label fx:id="testConnection1" layoutX="145.0" layoutY="90.0" prefHeight="18.0" prefWidth="172.0" text="Database Status: DisConnected" />
+            <Label layoutX="147.0" layoutY="311.0" style="-fx-background-color: #e5ff54;" text="It is necessary to choose 1 access level">
+               <font>
+                  <Font name="Ebrima" size="10.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="buttonSign_Up" buttonType="RAISED" layoutX="158.0" layoutY="385.0" onAction="#signUpUser" prefHeight="42.0" prefWidth="145.0" ripplerFill="#0598ff" styleClass="loginButton" stylesheets="@../css/stylesheet.css" text="SignUp">
+               <font>
+                  <Font name="Ebrima Bold" size="12.0" />
+               </font></JFXButton>
+            <JFXComboBox fx:id="alvlChoiceBox" layoutX="151.0" layoutY="336.0" prefHeight="26.0" prefWidth="159.0" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

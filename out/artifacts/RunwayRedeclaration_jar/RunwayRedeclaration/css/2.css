@@ -1,0 +1,52 @@
+.root {
+    -fx-base: #ff00ff;
+    -fx-background: #ff00ff;
+    -fx-background-color: #ff00ff;
+    -fx-text-fill: #ff00ff;
+    -fx-accent: #ff00ff;
+    -fx-focus-color: #ff00ff;
+    -fx-faint-focus-color: #ff00ff;
+    -fx-highlight-fill: #ff00ff;
+    -fx-highlight-text-fill: #ff00ff;
+    -fx-prompt-text-fill: #ff00ff;
+    -fx-menu-bar-border: #ff00ff;
+    -fx-selection-bar: #ff00ff;
+}
+
+.button {
+    -fx-padding: 5 10 5 10;
+    -fx-border-color: #ff00ff;
+    -fx-border-width: 2;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-text-fill: #ff00ff;
+}
+
+.button:hover {
+    -fx-background-color: #ff00ff;
+    -fx-text-fill: #ff00ff;
+}
+
+.button:pressed {
+    -fx-background-color: #ff00ff;
+    -fx-text-fill: #ff00ff;
+}
+
+.text-field {
+    -fx-highlight-fill: #ff00ff;
+    -fx-highlight-text-fill: #ff00ff;
+    -fx-prompt-text-fill: #ff00ff;
+}
+
+.label {
+    -fx-text-fill: #ff00ff;
+}
+
+.menu {
+    -fx-menu-bar-border: #ff00ff;
+    -fx-selection-bar: #ff00ff;
+}
+
+.menu-item:focused {
+    -fx-background-color: #ff00ff;
+}
