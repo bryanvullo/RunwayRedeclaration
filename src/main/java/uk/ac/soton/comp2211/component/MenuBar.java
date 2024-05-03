@@ -348,7 +348,7 @@ public class MenuBar extends HBox {
     if (Desktop.isDesktopSupported()) {
       try {
         Desktop.getDesktop().browse(
-            new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley").toURI());
+            new URL("https://www.youtube.com/watch?v=3ZeWzOdkNcU&ab_channel=SarveshMina").toURI());
       } catch (IOException | URISyntaxException e) {
         logger.error("Failed to open the tutorial video.", e);
         showAlertDialog(Alert.AlertType.ERROR, "Failed to open the tutorial video.");
