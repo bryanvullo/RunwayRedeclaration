@@ -291,7 +291,7 @@ public class SideRunway extends StackPane {
         LDAarrow.setTranslateX((runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 15);
         System.out.println(((newlda/oldlda)* oldLDALength));
         var remainder2 = oldLDALength - LDAarrow.getWidth();
-
+        var total = runway.getWidth() - lThreshold*scalingFactor - obstacleWidth - 50 - LDAarrow.getWidth();
 
                 arrowhead2 = createArrowhead(0, scalingFactor, tipY, baseY, baseWidth, 30);
         arrowhead2.setRotate(-90);

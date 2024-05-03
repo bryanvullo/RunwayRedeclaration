@@ -118,6 +118,15 @@ public class RunwayViewBox extends VBox {
         topDownRunway.setScaleX(1.0);
 
       }
+
+      if(sideRunway.getIsRotated()) {
+        sideRunway.setScaleX(-1.0);
+        sideRunway.setScaleX(-1.0);
+      }
+      else {
+        sideRunway.setScaleX(1.0);
+
+      }
       topDownRunway.setScaleY(1.0);
       topDownRunway.setRotate(0);
       topDownRunway.setTranslateX(0);
@@ -126,7 +135,7 @@ public class RunwayViewBox extends VBox {
 
       sideRunway.setScaleY(1.0);
       sideRunway.setRotate(0);
-      sideRunway.setTranslateX(0);
+      sideRunway.setTranslateX(1.0);
       sideRunway.setTranslateY(0);
       sideRunway.setLabels();
     });

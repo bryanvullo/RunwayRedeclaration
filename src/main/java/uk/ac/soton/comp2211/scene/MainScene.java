@@ -268,9 +268,8 @@ public class MainScene extends BaseScene {
       if (newVal != null) {
         System.out.println(newVal.getName());
         runwayViewBox.getTopDownRunway().updateRunway(newVal.getToda(), newVal.getToda(), newVal.getTora(), newVal.getLda(), newVal.getClearway(), newVal.getStopway(), newVal.getDisplacedThreshold(), newVal.getName());
+        runwayViewBox.changeViewToTopdown();
       }
-
-
     });
 
 
@@ -475,6 +474,7 @@ public class MainScene extends BaseScene {
       leftCollapseButton.setText(">");
       Rectangle newClip = new Rectangle(currentWidth + 200, 400);
       runwayViewBox.getRunwayView().setClip(newClip);
+      System.out.println(runwayViewBox.getWidth());
       this.currentWidth = currentWidth + 200;
       this.currentScale = currentScale + 0.05;
       runwayViewBox.getRunwayView().setScaleX(currentScale);
