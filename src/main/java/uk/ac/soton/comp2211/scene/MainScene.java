@@ -160,7 +160,7 @@ public class MainScene extends BaseScene {
     mainPane.setLeft(leftPanel);
 
     if (runwayBox.getAirportSelection().getItems().isEmpty()) {
-      ImportAirportController.loadInitialeAirports();
+      ImportAirportController.loadInitialAirports();
     }
 
     if (obstacleBox.getObstacleChooser().getItems().isEmpty()) {
