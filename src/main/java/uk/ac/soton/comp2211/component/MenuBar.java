@@ -52,7 +52,7 @@ public class MenuBar extends HBox {
   
   private MenuButton fileButton;
   private MenuButton editButton;
-  private MenuButton settingsButton;
+//  private MenuButton settingsButton;
   private MenuButton helpButton;
   private MenuButton userButton;
 
@@ -186,7 +186,7 @@ public class MenuBar extends HBox {
         editAirports
     );
 
-    settingsButton = new MenuButton("Settings");
+//    settingsButton = new MenuButton("Settings");
     
     MenuItem userGuide = new MenuItem("User Guide");
     userGuide.setOnAction(e -> openUserGuide());
@@ -204,19 +204,19 @@ public class MenuBar extends HBox {
         contactUs
     );
 
-    getChildren().addAll(fileButton, editButton, settingsButton, helpButton);
+    getChildren().addAll(fileButton, editButton, helpButton);
 
     var filler = new HBox();
     getChildren().add(filler);
     setHgrow(filler, Priority.ALWAYS);
     
     MenuItem changeColourScheme = new MenuItem("Change Colour Scheme");
-    changeColourScheme.setOnAction(event -> handleChangeColourScheme());
-    settingsButton.getItems().add(changeColourScheme);
+//    changeColourScheme.setOnAction(event -> handleChangeColourScheme());
+//    settingsButton.getItems().add(changeColourScheme);
     
     MenuItem LightDark = new MenuItem("Light/Dark Mode");
-    LightDark.setOnAction(event -> handleChangeDarkScheme());
-    settingsButton.getItems().add(LightDark);
+//    LightDark.setOnAction(event -> handleChangeDarkScheme());
+//    settingsButton.getItems().add(LightDark);
     
     MenuItem logoutItem = new MenuItem("Log Out");
     logoutItem.setOnAction(event -> performLogout());
@@ -370,37 +370,37 @@ public class MenuBar extends HBox {
     }
   }
   
-  private void handleChangeColourScheme () {
-    System.out.println("Colour scheme change option selected.");
-    Scene scene = settingsButton.getScene();
-    if (scene != null) {
-      BackgroundFill backgroundFill = new BackgroundFill(Color.YELLOW, null, null);
-      Background background = new Background(backgroundFill);
-      Parent root = scene.getRoot();
-      changeBackgroundRecursively(root, background);
-      System.out.println("Background changed to yellow across the entire application.");
-    } else {
-      System.out.println("No scene found.");
-    }
-  }
+//  private void handleChangeColourScheme () {
+//    System.out.println("Colour scheme change option selected.");
+////    Scene scene = settingsButton.getScene();
+//    if (scene != null) {
+//      BackgroundFill backgroundFill = new BackgroundFill(Color.YELLOW, null, null);
+//      Background background = new Background(backgroundFill);
+//      Parent root = scene.getRoot();
+//      changeBackgroundRecursively(root, background);
+//      System.out.println("Background changed to yellow across the entire application.");
+//    } else {
+//      System.out.println("No scene found.");
+//    }
+//  }
   
-  private void handleChangeDarkScheme () {
-    System.out.println("Toggling light/dark mode.");
-    Scene scene = settingsButton.getScene();
-    if (scene != null) {
-      isDarkMode = !isDarkMode; // 切换模式
-      Color color = isDarkMode ? Color.DARKGRAY
-          : originalColor; // Use the original color when toggling back to light mode
-      BackgroundFill backgroundFill = new BackgroundFill(color, null, null);
-      
-      Background background = new Background(backgroundFill);
-      Parent root = scene.getRoot();
-      changeBackgroundRecursively(root, background);
-      System.out.println(isDarkMode ? "Switched to dark mode." : "Switched to light mode.");
-    } else {
-      System.out.println("No scene found.");
-    }
-  }
+//  private void handleChangeDarkScheme () {
+//    System.out.println("Toggling light/dark mode.");
+//    Scene scene = settingsButton.getScene();
+//    if (scene != null) {
+//      isDarkMode = !isDarkMode; // 切换模式
+//      Color color = isDarkMode ? Color.DARKGRAY
+//          : originalColor; // Use the original color when toggling back to light mode
+//      BackgroundFill backgroundFill = new BackgroundFill(color, null, null);
+//
+//      Background background = new Background(backgroundFill);
+//      Parent root = scene.getRoot();
+//      changeBackgroundRecursively(root, background);
+//      System.out.println(isDarkMode ? "Switched to dark mode." : "Switched to light mode.");
+//    } else {
+//      System.out.println("No scene found.");
+//    }
+//  }
   
   public void changeStyling (String backgroundColor){
     // Change the styling of the menu bar
@@ -446,9 +446,9 @@ public class MenuBar extends HBox {
     return editButton;
   }
 
-  public MenuButton settingsButton() {
-    return settingsButton;
-  }
+//  public MenuButton settingsButton() {
+//    return settingsButton;
+//  }
 
   public MenuButton helpButton() {
     return helpButton;
