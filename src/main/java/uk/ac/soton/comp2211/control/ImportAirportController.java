@@ -127,6 +127,7 @@ public class ImportAirportController {
       showAlert("Error Loading Airports", "Failed to load airports from file: " + e.getMessage());
     }
   }
+
   private boolean isDuplicate(String airportName) {
     return RunwayBox.getAirportSelection().getItems().stream().anyMatch(a -> a.getAirportName().equals(airportName));
   }

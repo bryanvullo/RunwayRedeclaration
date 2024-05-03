@@ -1,0 +1,46 @@
+5月 02, 2024 6:11:55 上午 uk.ac.soton.comp2211.App main
+信息: Application started.
+5月 02, 2024 6:11:55 上午 uk.ac.soton.comp2211.App openApp
+信息: Opening login page
+5月 02, 2024 6:11:55 上午 uk.ac.soton.comp2211.UI.AppWindow startTool
+信息: Starting the tool
+5月 02, 2024 6:11:55 上午 uk.ac.soton.comp2211.UI.AppWindow cleanup
+信息: Clearing up previous scene
+5月 02, 2024 6:11:55 上午 uk.ac.soton.comp2211.scene.MainScene build
+信息: Building uk.ac.soton.comp2211.scene.MainScene
+5月 02, 2024 6:11:55 上午 javafx.fxml.FXMLLoader$ValueElement processValue
+警告: Loading FXML document with JavaFX API of version 21 by JavaFX runtime of version 17.0.0.1
+5月 02, 2024 6:11:56 上午 com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+警告: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+5月 02, 2024 6:11:56 上午 uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+信息: Connected to the database
+5月 02, 2024 6:11:56 上午 uk.ac.soton.comp2211.scene.MainScene initialise
+信息: initialising the menu scene
+5月 02, 2024 6:12:07 上午 uk.ac.soton.comp2211.control.LoginController performLogin
+信息: User exists
+5月 02, 2024 6:12:07 上午 uk.ac.soton.comp2211.model.Database checkPassword
+信息: Checking password for user: as123456
+5月 02, 2024 6:12:07 上午 uk.ac.soton.comp2211.model.Database checkPassword
+信息: Password is correct
+5月 02, 2024 6:12:07 上午 uk.ac.soton.comp2211.control.LoginController performLogin
+信息: Password is correct
+5月 02, 2024 6:12:07 上午 uk.ac.soton.comp2211.control.LoginController performLogin
+信息: User as123456 logged in successfully
+5月 02, 2024 6:12:07 上午 uk.ac.soton.comp2211.UI.AppWindow startTool
+信息: Starting the tool
+5月 02, 2024 6:12:07 上午 uk.ac.soton.comp2211.UI.AppWindow cleanup
+信息: Clearing up previous scene
+5月 02, 2024 6:12:07 上午 uk.ac.soton.comp2211.scene.MainScene build
+信息: Building uk.ac.soton.comp2211.scene.MainScene
+5月 02, 2024 6:12:07 上午 javafx.fxml.FXMLLoader$ValueElement processValue
+警告: Loading FXML document with JavaFX API of version 21 by JavaFX runtime of version 17.0.0.1
+5月 02, 2024 6:12:08 上午 uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+信息: Connected to the database
+5月 02, 2024 6:12:08 上午 uk.ac.soton.comp2211.scene.MainScene initialise
+信息: initialising the menu scene
+5月 02, 2024 6:12:08 上午 uk.ac.soton.comp2211.scene.MainScene build
+信息: Building uk.ac.soton.comp2211.scene.MainScene
+5月 02, 2024 6:12:08 上午 uk.ac.soton.comp2211.scene.MainScene initialise
+信息: initialising the menu scene
+5月 02, 2024 6:13:34 上午 uk.ac.soton.comp2211.App shutdown
+信息: Application shutting down.
