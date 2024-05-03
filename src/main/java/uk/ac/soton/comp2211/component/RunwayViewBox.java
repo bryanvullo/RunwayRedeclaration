@@ -1,10 +1,14 @@
 package uk.ac.soton.comp2211.component;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -24,11 +28,14 @@ public class RunwayViewBox extends VBox {
   private TopDownRunway topDownRunway;
   private VBox runwayVBox;
   public boolean isSimultaneous;
-
+  public Boolean panEnabled;
+  private ToggleButton togglePanButton;
+  
   public RunwayViewBox() {
     logger.info("Creating Runway View");
     sideRunway = new SideRunway();
     topDownRunway = new TopDownRunway();
+    panEnabled = false;
     build();
     isSimultaneous = false;
   }
@@ -55,9 +62,10 @@ public class RunwayViewBox extends VBox {
     viewSelectionBox.getChildren().addAll(topdownButton, sideButton,simultaneousButton);
 
     //TODO add Runway View here
-
+    
     runwayView = new HBox();
     runwayView.setAlignment(Pos.CENTER);
+    runwayView.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     VBox.setVgrow(runwayView, Priority.ALWAYS);
     getChildren().add(runwayView);
 
@@ -81,10 +89,35 @@ public class RunwayViewBox extends VBox {
     var rotateButton = new Button("Rotate");
     var alignButton = new Button("Align to Compass");
     var resetButton = new Button("Reset");
+    togglePanButton = new ToggleButton("Pan");
 
     runwayViewTools.getChildren().addAll(
-        zoomInButton, zoomOutButton, rotateButton, alignButton, resetButton);
-
+        zoomInButton, zoomOutButton, rotateButton, alignButton, togglePanButton, resetButton);
+    
+    togglePanButton.setOnAction(event -> {
+      if(panEnabled) {
+        togglePanButton.setSelected(false);
+        panEnabled= false;
+        topDownRunwayPane.setOnMouseDragged(null);
+      }
+      else {
+        panEnabled = true;
+        togglePanButton.setSelected(true);
+        
+        // Handle mouse press events
+        topDownRunwayPane.setOnMousePressed(e -> {
+          topDownRunwayPane.initialX = e.getSceneX() - topDownRunwayPane.getTranslateX();
+          topDownRunwayPane.initialY = e.getSceneY() - topDownRunwayPane.getTranslateY();
+        });
+        
+        // Handle mouse drag events
+        topDownRunwayPane.setOnMouseDragged(e -> {
+          topDownRunwayPane.setTranslateX(e.getSceneX() - topDownRunwayPane.initialX);
+          topDownRunwayPane.setTranslateY(e.getSceneY() - topDownRunwayPane.initialY);
+        });
+      }
+    });
+    
     zoomInButton.setOnAction(event -> {
       // Increase the scale by 10%
       if(!isSimultaneous) {
@@ -189,6 +222,14 @@ public class RunwayViewBox extends VBox {
     isSimultaneous = false;
   }
   public void changeViewToTopdown() {
+    if (RunwayBox.getRunwaySelection().getSelectionModel().getSelectedItem() == null){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("No runway selected");
+        alert.setContentText("Please select a runway to view");
+        alert.showAndWait();
+        return;
+    }
     // Clear the existing runway view
     topDownRunway.setTranslateY(0);
     topDownRunway.setTranslateX(0);
@@ -207,8 +248,36 @@ public class RunwayViewBox extends VBox {
     runwayView.getChildren().add(topDownRunway);
 
     topDownRunway.setLabels();
+    setPanButtonFunctionality();
     isSimultaneous = false;
   }
+  
+  private void setPanButtonFunctionality() {
+    togglePanButton.setOnAction(event -> {
+      if(panEnabled) {
+        togglePanButton.setSelected(false);
+        panEnabled= false;
+        topDownRunway.setOnMouseDragged(null);
+      }
+      else {
+        panEnabled = true;
+        togglePanButton.setSelected(true);
+        
+        // Handle mouse press events
+        topDownRunway.setOnMousePressed(e -> {
+          topDownRunway.initialX = e.getSceneX() - topDownRunway.getTranslateX();
+          topDownRunway.initialY = e.getSceneY() - topDownRunway.getTranslateY();
+        });
+        
+        // Handle mouse drag events
+        topDownRunway.setOnMouseDragged(e -> {
+          topDownRunway.setTranslateX(e.getSceneX() - topDownRunway.initialX);
+          topDownRunway.setTranslateY(e.getSceneY() - topDownRunway.initialY);
+        });
+      }
+    });
+  }
+  
   public void changeViewToSimultaneous() {
     // Clear the existing runway view
     runwayView.getChildren().clear();

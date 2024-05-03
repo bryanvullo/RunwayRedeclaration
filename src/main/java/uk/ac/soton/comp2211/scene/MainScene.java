@@ -142,6 +142,7 @@ public class MainScene extends BaseScene {
     //Toolbar at the top
     var toolbar = new MenuBar();
     mainPane.setTop(toolbar);
+    
     //Left Panel
     leftPanel = new HBox();
     leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("add8e6"), null, null)));
@@ -269,6 +270,8 @@ public class MainScene extends BaseScene {
         System.out.println(newVal.getName());
         runwayViewBox.getTopDownRunway().updateRunway(newVal.getToda(), newVal.getToda(), newVal.getTora(), newVal.getLda(), newVal.getClearway(), newVal.getStopway(), newVal.getDisplacedThreshold(), newVal.getName());
         runwayViewBox.changeViewToTopdown();
+      } else {
+        runwayViewBox.getTopDownRunway().resetToInitialState();
       }
     });
 
@@ -403,7 +406,7 @@ public class MainScene extends BaseScene {
   public static RunwayViewBox getRunwayViewBox() {
     return runwayViewBox;
   }
-
+  
 
 //  private void selectRunway(Event e) {
 //    logger.info("Runway Selected");
@@ -681,8 +684,6 @@ public class MainScene extends BaseScene {
   public static SystemMessageBox getSystemMessageBox() {
     return systemMessageBox;
   }
-
-
 
   public static Runway getSelectedRunway() {
     return selectedRunway;

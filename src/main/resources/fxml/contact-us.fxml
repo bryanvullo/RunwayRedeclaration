@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="295.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.soton.comp2211.control.ContactUsController">
+   <children>
+      <Label layoutX="30.0" layoutY="30.0" text="Contact us:">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="67.0" text="If any errors are noticed or users require any assistance with any part of the application">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="87.0" prefHeight="19.0" prefWidth="564.0" text="please contact one of the admin team members and they will be happy to assist. Thank you.">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="130.0" text="Bryan Vullo – bv1g22@soton.ac.uk  ">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="150.0" text="Mohannad Elsaadawy – me1n21@soton.ac.uk">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="170.0" text="Dwijesh Dookraz – dd2g22@soton.ac.uk">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="190.0" text="Sarvesh Mina – sim1g21@soton.ac.uk ">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="209.0" text="Shunze Deng – sd5g22@soton.ac.uk">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="closeButton" layoutX="264.0" layoutY="255.0" styleClass="mainSceneButton" stylesheets="@../css/stylesheet.css" text="Close Window" />
+   </children>
+</AnchorPane>

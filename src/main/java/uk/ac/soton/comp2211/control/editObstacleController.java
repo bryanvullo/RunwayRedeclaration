@@ -59,6 +59,7 @@ public class editObstacleController {
     editButton.setOnAction(e -> toggleEdit(true));
     saveChangesButton.setOnAction(e -> {
       saveChanges();
+      toggleEdit(false);
     });
 
     editListView.getSelectionModel().selectFirst();

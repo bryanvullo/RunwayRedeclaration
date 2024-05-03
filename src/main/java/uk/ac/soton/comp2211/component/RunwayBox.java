@@ -10,6 +10,10 @@ import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -18,8 +22,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Database;
+import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.User;
+import uk.ac.soton.comp2211.scene.MainScene;
+
+import java.util.List;
 import uk.ac.soton.comp2211.scene.MainScene;
 
 import java.util.List;
@@ -218,9 +226,12 @@ public class RunwayBox extends VBox {
       logger.info("No runway selected or selection is null.");
     }
 
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
-    MainScene.getRunwayViewBox().getSideRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
-
+    if (selectedRunway == null) {
+      return;
+    } else {
+      MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+      MainScene.getRunwayViewBox().getSideRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    }
   }
 
   private void applyStyles() {
@@ -287,3 +298,4 @@ public class RunwayBox extends VBox {
     return runwaySelection;
   }
 }
+   
