@@ -169,14 +169,10 @@ public class MenuBar extends HBox {
     settingsButton = new MenuButton("Settings");
     settingsButton.getItems().addAll(
         new MenuItem("Change Colour Scheme"),
-        new MenuItem("Change Font"),
-        new MenuItem("Light/Dark Mode"),
-        new MenuItem("System Notifications"),
-        new MenuItem("Clear System Messages")
+        new MenuItem("Light/Dark Mode")
     );
     helpButton = new MenuButton("Help");
     helpButton.getItems().addAll(
-        new MenuItem("FAQs"),
         new MenuItem("Walkthrough Tutorial Video"),
         new MenuItem("User Guide"),
         new MenuItem("Contact Us")

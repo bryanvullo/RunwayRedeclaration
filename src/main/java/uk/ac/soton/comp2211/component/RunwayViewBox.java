@@ -79,11 +79,10 @@ public class RunwayViewBox extends VBox {
     var zoomOutButton = new Button("-");
     var rotateButton = new Button("Rotate");
     var alignButton = new Button("Align to Compass");
-    var panButton = new Button("Pan");
     var resetButton = new Button("Reset");
 
     runwayViewTools.getChildren().addAll(
-        zoomInButton, zoomOutButton, rotateButton, alignButton, panButton, resetButton);
+        zoomInButton, zoomOutButton, rotateButton, alignButton, resetButton);
 
     zoomInButton.setOnAction(event -> {
       // Increase the scale by 10%
