@@ -291,7 +291,7 @@ public class MenuBar extends HBox {
     if (Desktop.isDesktopSupported()) {
       try {
         // Assuming the PDF file is located under the resources directory
-        URL pdfPath = getClass().getResource("/pdf/Deliverable4Specification.pdf");
+        URL pdfPath = getClass().getResource("/pdf/Userguide.pdf");
         assert pdfPath != null;
         File pdfFile = new File(pdfPath.toURI());
         Desktop.getDesktop().open(pdfFile);
