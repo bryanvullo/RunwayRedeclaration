@@ -682,8 +682,6 @@ public class MainScene extends BaseScene {
     return systemMessageBox;
   }
 
-
-
   public static Runway getSelectedRunway() {
     return selectedRunway;
   }

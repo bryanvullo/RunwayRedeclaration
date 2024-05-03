@@ -29,7 +29,8 @@ public class RunwayViewBox extends VBox {
   private VBox runwayVBox;
   public boolean isSimultaneous;
   public Boolean panEnabled;
-
+  private ToggleButton togglePanButton;
+  
   public RunwayViewBox() {
     logger.info("Creating Runway View");
     sideRunway = new SideRunway();
@@ -87,7 +88,7 @@ public class RunwayViewBox extends VBox {
     var rotateButton = new Button("Rotate");
     var alignButton = new Button("Align to Compass");
     var resetButton = new Button("Reset");
-    var togglePanButton = new ToggleButton("Pan");
+    togglePanButton = new ToggleButton("Pan");
 
     runwayViewTools.getChildren().addAll(
         zoomInButton, zoomOutButton, rotateButton, alignButton, togglePanButton, resetButton);
@@ -238,8 +239,36 @@ public class RunwayViewBox extends VBox {
     runwayView.getChildren().add(topDownRunway);
 
     topDownRunway.setLabels();
+    setPanButtonFunctionality();
     isSimultaneous = false;
   }
+  
+  private void setPanButtonFunctionality() {
+    togglePanButton.setOnAction(event -> {
+      if(panEnabled) {
+        togglePanButton.setSelected(false);
+        panEnabled= false;
+        topDownRunway.setOnMouseDragged(null);
+      }
+      else {
+        panEnabled = true;
+        togglePanButton.setSelected(true);
+        
+        // Handle mouse press events
+        topDownRunway.setOnMousePressed(e -> {
+          topDownRunway.initialX = e.getSceneX() - topDownRunway.getTranslateX();
+          topDownRunway.initialY = e.getSceneY() - topDownRunway.getTranslateY();
+        });
+        
+        // Handle mouse drag events
+        topDownRunway.setOnMouseDragged(e -> {
+          topDownRunway.setTranslateX(e.getSceneX() - topDownRunway.initialX);
+          topDownRunway.setTranslateY(e.getSceneY() - topDownRunway.initialY);
+        });
+      }
+    });
+  }
+  
   public void changeViewToSimultaneous() {
     // Clear the existing runway view
     runwayView.getChildren().clear();
