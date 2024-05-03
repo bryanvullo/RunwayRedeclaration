@@ -386,15 +386,7 @@ public class TopDownRunway extends StackPane {
         if (this.getChildren().contains(obstacleVBox)) {
             this.getChildren().remove(obstacleVBox);
         }
-        if(this.getChildren().contains(TODAarrow)) {
-            this.getChildren().removeAll(TODAarrow, ASDAarrow, TORAarrow, LDAarrow, clearwayRect, clearwayLabel);
-            this.getChildren().removeAll(todaLine1, todaLine2, asdaLine1, asdaLine2, toraLine1, toraLine2, ldaLine1, ldaLine2);
-            this.getChildren().removeAll(arrowhead1, arrowhead2, arrowhead3, arrowhead4);
-            this.getChildren().removeAll(TODALabel, ASDALabel, TORALabel, LDALabel);
-            this.getChildren().removeAll(DTLVBox, DisplacementThresholdText, RunwayDirectionNumber, RunwayDirectionLetter);
-            this.getChildren().removeAll(todaLine1, todaLine2, asdaLine1, asdaLine2, toraLine1, toraLine2, ldaLine1, ldaLine2);
-            this.getChildren().removeAll(RESARect, RESALabel, stopwayRect, stopwayLabel);
-        }
+
 
         Rectangle obstacle = new Rectangle(length*scalingFactor2, width*scalingFactor2);
         obstacle.setFill(Color.RED);
@@ -779,6 +771,10 @@ public class TopDownRunway extends StackPane {
         RunwayDirectionLetter.setScaleX(this.getScaleX());
         stopwayLabel.setScaleX(this.getScaleX());
         DisplacementThresholdText.setScaleX(this.getScaleX());
+        directionLabel.setScaleX(this.getScaleX());
+        if(this.getChildren().contains(RESALabel)) {
+            RESALabel.setScaleX(this.getScaleX());
+        }
     }
 
 
@@ -806,5 +802,41 @@ public class TopDownRunway extends StackPane {
             return string2;
         }
         return ""; // Return empty if the input is null or too short
+    }
+
+    public double getLabelScale() {
+        return directionLabel.getScaleX();
+    }
+
+    public void setLabelsToHalfYScale() {
+        clearwayLabel.setScaleY(0.5);
+        TORALabel.setScaleY(0.5);
+        TODALabel.setScaleY(0.5);
+        ASDALabel.setScaleY(0.5);
+        LDALabel.setScaleY(0.5);
+        RunwayDirectionNumber.setScaleY(0.5);
+        RunwayDirectionLetter.setScaleY(0.5);
+        stopwayLabel.setScaleY(0.5);
+        DisplacementThresholdText.setScaleY(0.5);
+        directionLabel.setScaleY(0.5);
+        if(this.getChildren().contains(RESALabel)) {
+            RESALabel.setScaleY(0.5);
+        }
+    }
+
+    public void setLabelsToNormalY() {
+        clearwayLabel.setScaleY(1);
+        TORALabel.setScaleY(1);
+        TODALabel.setScaleY(1);
+        ASDALabel.setScaleY(1);
+        LDALabel.setScaleY(1);
+        RunwayDirectionNumber.setScaleY(1);
+        RunwayDirectionLetter.setScaleY(1);
+        stopwayLabel.setScaleY(1);
+        DisplacementThresholdText.setScaleY(1);
+        directionLabel.setScaleY(1);
+        if(this.getChildren().contains(RESALabel)) {
+            RESALabel.setScaleY(1);
+        }
     }
 }
