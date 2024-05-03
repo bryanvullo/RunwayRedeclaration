@@ -74,17 +74,11 @@ public class RunwayViewBox extends VBox {
     runwayViewTools.setSpacing(10);
     getChildren().add(runwayViewTools);
 
-    var zoomInButton = new JFXButton("+");
-    var zoomOutButton = new JFXButton("-");
-    var rotateButton = new JFXButton("Rotate");
-    var alignButton = new JFXButton("Align to Compass");
-    var resetButton = new JFXButton("Reset");
-
-    zoomInButton.getStyleClass().add("mainSceneButton");
-    zoomOutButton.getStyleClass().add("mainSceneButton");
-    rotateButton.getStyleClass().add("mainSceneButton");
-    alignButton.getStyleClass().add("mainSceneButton");
-    resetButton.getStyleClass().add("mainSceneButton");
+    var zoomInButton = new Button("+");
+    var zoomOutButton = new Button("-");
+    var rotateButton = new Button("Rotate");
+    var alignButton = new Button("Align to Compass");
+    var resetButton = new Button("Reset");
 
     runwayViewTools.getChildren().addAll(
         zoomInButton, zoomOutButton, rotateButton, alignButton, resetButton);
