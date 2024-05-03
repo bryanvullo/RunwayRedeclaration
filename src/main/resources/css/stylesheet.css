@@ -148,6 +148,30 @@
 }
 
 
+/* Normal color scheme */
+.normal-scheme {
+    -fx-background-color: #4682b4; /* Default blue */
+    -fx-text-fill: #FFF;
+}
+
+/* Protanopia (red-green color blindness, red weak) color scheme */
+.protanopia-scheme {
+    -fx-background-color: #009b77; /* Modified to teal */
+    -fx-text-fill: #FFF;
+}
+
+/* Deuteranopia (red-green color blindness, green weak) color scheme */
+.deuteranopia-scheme {
+    -fx-background-color: #8a2be2; /* Modified to blue violet */
+    -fx-text-fill: #FFF;
+}
+
+/* Tritanopia (blue-yellow color blindness) color scheme */
+.tritanopia-scheme {
+    -fx-background-color: #ff6347; /* Modified to tomato */
+    -fx-text-fill: #FFF;
+}
+
 /* Style for ComboBox to make it smaller */
 .combo-box {
     -fx-font-size: 12px; /* Reduced font size */
