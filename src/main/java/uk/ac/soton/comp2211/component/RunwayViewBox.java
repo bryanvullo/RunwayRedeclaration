@@ -62,9 +62,10 @@ public class RunwayViewBox extends VBox {
     viewSelectionBox.getChildren().addAll(topdownButton, sideButton,simultaneousButton);
 
     //TODO add Runway View here
-
+    
     runwayView = new HBox();
     runwayView.setAlignment(Pos.CENTER);
+    runwayView.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     VBox.setVgrow(runwayView, Priority.ALWAYS);
     getChildren().add(runwayView);
 

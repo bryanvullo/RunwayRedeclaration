@@ -142,6 +142,7 @@ public class MainScene extends BaseScene {
     //Toolbar at the top
     var toolbar = new MenuBar();
     mainPane.setTop(toolbar);
+    
     //Left Panel
     leftPanel = new HBox();
     leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("add8e6"), null, null)));
@@ -405,7 +406,7 @@ public class MainScene extends BaseScene {
   public static RunwayViewBox getRunwayViewBox() {
     return runwayViewBox;
   }
-
+  
 
 //  private void selectRunway(Event e) {
 //    logger.info("Runway Selected");
