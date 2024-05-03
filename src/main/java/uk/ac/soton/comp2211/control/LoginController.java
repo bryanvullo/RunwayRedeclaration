@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import uk.ac.soton.comp2211.UI.AppWindow;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.model.User;
 import uk.ac.soton.comp2211.Utility.DBUtils;
@@ -44,8 +45,8 @@ public class LoginController implements Initializable {
   }
 
 
-  public void toggleVisibility(){
-    if (textField_Password.isVisible()){
+  public void toggleVisibility() {
+    if (textField_Password.isVisible()) {
       textField_Password.setVisible(false);
       textField_Password.setManaged(false);
       textField_Password.setDisable(true);
@@ -63,10 +64,12 @@ public class LoginController implements Initializable {
       textField_Password.setText(textField_Password.getText());
     }
   }
-  public void openSignUp (ActionEvent actionEvent){
+
+  public void openSignUp(ActionEvent actionEvent) {
     DBUtils.closeStage((Stage) textField_UserName.getScene().getWindow());
     DBUtils.changeScene(actionEvent, "/fxml/sign-up.fxml", "Sign Up", null, null);
   }
+
   public void performLogin(ActionEvent actionEvent) throws IOException {
     if (textField_UserName != null && textField_Password != null) {
       String username = textField_UserName.getText().trim();
@@ -101,19 +104,23 @@ public class LoginController implements Initializable {
           logger.log(Level.INFO, "User {0} logged in successfully", currentUser.getUsername());
           Notification.showNotification("User: " + username + " logged in successfully");
           DBUtils.closeStage((Stage) textField_UserName.getScene().getWindow());
+          SystemMessageBox.addMessage("User " + username + " logged in successfully");
           DBUtils.changeSceneToMainScene(actionEvent, new AppWindow(new Stage(), 1000, 800));
         } else {
-          Alert alert = new Alert(Alert.AlertType.ERROR, username + " user exists but Password is incorrect", ButtonType.OK);
-          alert.showAndWait();
+          showAlert("Password is incorrect");
         }
       } else {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "User does not exist", ButtonType.OK);
-        alert.showAndWait();
+        showAlert("User does not exist");
       }
     }
   }
 
-  public User getUsername(){
+  public void showAlert(String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+    alert.showAndWait();
+  }
+
+  public User getUsername() {
     return currentUser;
   }
 }

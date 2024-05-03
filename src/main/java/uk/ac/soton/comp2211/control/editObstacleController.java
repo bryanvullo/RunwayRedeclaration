@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
 import uk.ac.soton.comp2211.scene.MainScene;
 
@@ -67,7 +68,7 @@ public class editObstacleController {
 
   private void saveChanges() {
     AdvancedObstacle selectedObstacle = (AdvancedObstacle) editListView.getSelectionModel().getSelectedItem();
-    if (selectedObstacle != null) {
+    if (selectedObstacle != null && validateInputs()) {  // Check if inputs are valid before saving changes
       selectedObstacle.setObstacleName(nameField.getText());
       selectedObstacle.setHeight(Double.parseDouble(heightField.getText()));
       selectedObstacle.setWidth(Double.parseDouble(widthField.getText()));
@@ -76,8 +77,11 @@ public class editObstacleController {
       selectedObstacle.setDistanceRightThreshold(Double.parseDouble(rightThresholdField.getText()));
       selectedObstacle.setDistanceFromCentre(Double.parseDouble(centreDistanceField.getText()));
 
+      SystemMessageBox.addMessage("Obstacle " + selectedObstacle.getObstacleName() + " updated successfully.");
+
       // Update list to reflect changes
       editListView.refresh();
+      toggleEdit(false);
     }
   }
 
@@ -163,41 +167,67 @@ public class editObstacleController {
 
 
   private void confirmAddition() {
-    try {
-      if (validateInputs()) {
-        double height = Double.parseDouble(heightField.getText());
-        double width = Double.parseDouble(widthField.getText());
-        double length = Double.parseDouble(lengthField.getText());
-        double leftThreshold = Double.parseDouble(leftThresholdField.getText());
-        double rightThreshold = Double.parseDouble(rightThresholdField.getText());
-        double centreDistance = Double.parseDouble(centreDistanceField.getText());
-        String name = nameField.getText().trim();
+    if (validateInputs()) {
+      double height = Double.parseDouble(heightField.getText());
+      double width = Double.parseDouble(widthField.getText());
+      double length = Double.parseDouble(lengthField.getText());
+      double leftThreshold = Double.parseDouble(leftThresholdField.getText());
+      double rightThreshold = Double.parseDouble(rightThresholdField.getText());
+      double centreDistance = Double.parseDouble(centreDistanceField.getText());
+      String name = nameField.getText().trim();
 
-        AdvancedObstacle newObstacle = new AdvancedObstacle(name, height, width, length, rightThreshold, leftThreshold, centreDistance);
-        MainScene.getObstaclesBox().getObstacleChooser().getItems().add(newObstacle);
-        editListView.getItems().add(newObstacle); // Update UI list
-        reloadList(); // Optionally refresh list view
+      AdvancedObstacle newObstacle = new AdvancedObstacle(name, height, width, length, rightThreshold, leftThreshold, centreDistance);
+      MainScene.getObstaclesBox().getObstacleChooser().getItems().add(newObstacle);
+      editListView.getItems().add(newObstacle); // Update UI list
+      reloadList(); // Optionally refresh list view
 
-        toggleAddObstacle(false); // Reset UI
-      }
-    } catch (NumberFormatException e) {
-      showAlert("Input Error", "Please enter valid numbers for height, width, length, and distances.");
+      toggleAddObstacle(false); // Reset UI
     }
   }
 
+
   private boolean validateInputs() {
-    if (nameField.getText().isEmpty() ||
-        heightField.getText().isEmpty() ||
-        widthField.getText().isEmpty() ||
-        lengthField.getText().isEmpty() ||
-        leftThresholdField.getText().isEmpty() ||
-        rightThresholdField.getText().isEmpty() ||
-        centreDistanceField.getText().isEmpty()) {
-      showAlert("Input Error", "All fields must be filled.");
+    try {
+      if (nameField.getText().isEmpty() ||
+          heightField.getText().isEmpty() ||
+          widthField.getText().isEmpty() ||
+          lengthField.getText().isEmpty() ||
+          leftThresholdField.getText().isEmpty() ||
+          rightThresholdField.getText().isEmpty() ||
+          centreDistanceField.getText().isEmpty()) {
+        showAlert("Input Error", "All fields must be filled.");
+        return false;
+      }
+
+      double height = Double.parseDouble(heightField.getText());
+      double width = Double.parseDouble(widthField.getText());
+      double length = Double.parseDouble(lengthField.getText());
+
+      // Check for non-negative dimensions
+      if (height < 0 || width < 0 || length < 0) {
+        showAlert("Input Error", "Height, width, and length must be non-negative numbers.");
+        return false;
+      }
+
+      // Check for maximum 5 digits in the integer part of height, width, and length
+      if (!validateNumberDigits(height) || !validateNumberDigits(width) || !validateNumberDigits(length)) {
+        showAlert("Input Error", "Height, width, and length must not exceed 5 digits.");
+        return false;
+      }
+
+    } catch (NumberFormatException e) {
+      showAlert("Input Error", "Please enter valid numbers for height, width, length, and distances.");
       return false;
     }
     return true;
   }
+
+  private boolean validateNumberDigits(double number) {
+    int integerPart = (int) number;
+    return Integer.toString(integerPart).length() <= 5;
+  }
+
+
 
   private void cancelAddition() {
     clearFields();
@@ -235,11 +265,27 @@ public class editObstacleController {
   private void deleteObstacle() {
     AdvancedObstacle selectedObstacle = (AdvancedObstacle) editListView.getSelectionModel().getSelectedItem();
     if (selectedObstacle != null) {
+      // Remove from the main chooser
       MainScene.getObstaclesBox().getObstacleChooser().getItems().remove(selectedObstacle);
-      MainScene.getObstaclesBox().getObstacleChooser().getSelectionModel().selectFirst();
-      reloadList();
+
+      // Also remove from the ListView used in this controller
+      editListView.getItems().remove(selectedObstacle);
+
+      // If there are still items, select the first one, otherwise clear the fields
+      if (!editListView.getItems().isEmpty()) {
+        editListView.getSelectionModel().selectFirst();
+        updateFields((AdvancedObstacle) editListView.getSelectionModel().getSelectedItem());
+      } else {
+        clearFields();
+        // Hide fields and controls as there are no items to edit
+        toggleEdit(false);
+      }
+
+      // System message box to notify about the update
+      SystemMessageBox.addMessage("Obstacle " + selectedObstacle.getObstacleName() + " deleted successfully.");
     }
   }
+
 
   public void reloadList() {
     editListView.refresh();

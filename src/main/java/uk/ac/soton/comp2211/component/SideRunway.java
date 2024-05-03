@@ -61,6 +61,11 @@ public class SideRunway extends StackPane {
     private Arrow ALS;
     private Boolean isRotated;
     private double flip;
+    private Label runwayNameLabel;
+    private Rectangle greenBackground;
+    private Label objectLabel;
+    private double obstacleScalingFactor;
+    private Label ALSLabel;
 
 
 
@@ -85,7 +90,7 @@ public class SideRunway extends StackPane {
     private void build() {
         logger.info("Building Side Runway View");
         // Code for green background
-        Rectangle greenBackground = new Rectangle(900, 400);
+        greenBackground = new Rectangle(900, 400);
         greenBackground.setFill(Color.LIMEGREEN);
         // Code for Blue stripe
         Rectangle purpleBackground = new Rectangle(800 ,350);
@@ -111,6 +116,8 @@ public class SideRunway extends StackPane {
             this.getChildren().removeAll(arrowhead3, Sixty,  arrowhead4);
             this.getChildren().removeAll(arrowhead5, RESA, arrowhead6);
             this.getChildren().removeAll(LDALabel, SixtyLabel, RESALabel);
+            this.getChildren().remove(runwayNameLabel);
+            this.getChildren().removeAll(ALS, ALSLabel);
         }
 
         double baseWidth = 15;
@@ -145,18 +152,25 @@ public class SideRunway extends StackPane {
         LDALabel.setTranslateX(runway.getWidth()/2 - (lda/(lda + 1200))*runway.getWidth()/2 - 3 + 15);
         LDALabel.setTextFill(Color.WHITE);
 
+        runwayNameLabel = new Label("Runway Name: " + extractLastThreeLetters(runwayName));
+        runwayNameLabel.setTranslateY(-150);
+        runwayNameLabel.setTranslateX(-250);
+        runwayNameLabel.setFont(Font.font("Arial", FontWeight.BLACK, 30));
+        runwayNameLabel.setTextFill(Color.WHITE);
+
         SixtyLabel = new Label("");
         RESALabel = new Label("");
 
         this.getChildren().addAll(arrowhead1, LDAarrow, arrowhead2);
-        this.getChildren().addAll(LDALabel);
+        this.getChildren().addAll(LDALabel, runwayNameLabel);
         addLeftRunwayDirection();
 
-        if(runwayName.contains("R") && !isRotated) {
+// Assuming runwayName is a string like "09R/27L"
+        if (runwayName.endsWith("R)") && !isRotated) {
             flipRunway();
             isRotated = true;
         }
-        else if (runwayName.contains("L") && isRotated) {
+        else if (runwayName.endsWith("L)") && isRotated) {
             flipRunway();
             isRotated = false;
         }
@@ -171,12 +185,14 @@ public class SideRunway extends StackPane {
         this.altVal = - (-runway.getWidth()/2 + lThreshold*scalingFactor + obstacleWidth/2);
         this.obstacleHeight = height*2;
         this.getChildren().removeAll(obstacle);
+        this.obstacleScalingFactor = scalingFactor;
         if(this.getChildren().contains(Sixty)) {
             this.getChildren().removeAll(arrowhead1, LDAarrow, arrowhead2);
             this.getChildren().removeAll(arrowhead3, Sixty,  arrowhead4);
             this.getChildren().removeAll(arrowhead5, RESA, arrowhead6);
             this.getChildren().removeAll(LDALabel, SixtyLabel, RESALabel);
-            this.getChildren().removeAll(ALS);
+            this.getChildren().removeAll(ALS, ALSLabel);
+            this.getChildren().removeAll(runwayNameLabel);
         }
 
         obstacle = new Rectangle(length * 2, height*2);
@@ -254,6 +270,8 @@ public class SideRunway extends StackPane {
         directionLabel.setTranslateX(runway.getWidth()/2 - 135);
         directionLabel.setTextFill(Color.WHITE);
 
+
+
         this.getChildren().addAll(directionArrow, directionArrowHead, directionLabel);
     }
 
@@ -264,7 +282,8 @@ public class SideRunway extends StackPane {
             this.getChildren().removeAll(arrowhead3, Sixty,  arrowhead4);
             this.getChildren().removeAll(arrowhead5, RESA, arrowhead6);
             this.getChildren().removeAll(LDALabel, SixtyLabel, RESALabel);
-            this.getChildren().removeAll(ALS);
+            this.getChildren().removeAll(ALS, ALSLabel);
+            this.getChildren().removeAll(runwayNameLabel);
         }
 
         double baseWidth = 15;
@@ -281,19 +300,25 @@ public class SideRunway extends StackPane {
         this.runwayName = runwayName;
         this.newcomparisonValue = (newlda/(newlda + 1200 )*runway.getWidth() - 60);
         var remainder = runway.getWidth() - ((newlda/oldlda)* oldLDALength) - 50 - obstacleWidth - lThreshold*scalingFactor;
-
+        var remainder3 = runway.getWidth() - obstacleWidth - lThreshold*scalingFactor;
+        System.out.println(remainder3);
 
         arrowhead1 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
         arrowhead1.setTranslateX(340);
 
-        LDAarrow = new Arrow(0, 20, ((newlda/oldlda)* oldLDALength) - 50, 20, 12);
+
+//        LDAarrow = new Arrow(0, 20, 550 - obstacleWidth - lThreshold*scalingFactor + 5 - 30, 20, 12);
+//        LDAarrow.setTranslateY(30);
+//        LDAarrow.setTranslateX((runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 15);
+//        System.out.println(LDAarrow.getWidth());
+
+        LDAarrow = new Arrow(0, 20, (newlda/(newlda + 300))*remainder3 - 100, 20, 12);
         LDAarrow.setTranslateY(30);
         LDAarrow.setTranslateX((runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 15);
-        System.out.println(((newlda/oldlda)* oldLDALength));
-        var remainder2 = oldLDALength - LDAarrow.getWidth();
+        System.out.println(LDAarrow.getWidth());
 
 
-                arrowhead2 = createArrowhead(0, scalingFactor, tipY, baseY, baseWidth, 30);
+        arrowhead2 = createArrowhead(0, scalingFactor, tipY, baseY, baseWidth, 30);
         arrowhead2.setRotate(-90);
         arrowhead2.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 15);
 
@@ -303,9 +328,10 @@ public class SideRunway extends StackPane {
         arrowhead3.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 30);
 
 
-        Sixty = new Arrow(0, 20, remainder/5, 20, 12);
+        Sixty = new Arrow(0, 20, (60/(300 + newlda)*remainder3), 20, 12);
         Sixty.setTranslateY(30);
         Sixty.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 + 3 - 45 - Sixty.getWidth()/2);
+        System.out.println(Sixty.getWidth() + "ahahahahha");
 
         arrowhead4 = createArrowhead(0, scalingFactor, tipY, baseY, baseWidth, 30);
         arrowhead4.setRotate(-90);
@@ -315,13 +341,14 @@ public class SideRunway extends StackPane {
         arrowhead5.setRotate(90);
         arrowhead5.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 60 - Sixty.getWidth() - 5);
 
-        RESA = new Arrow(0, 20, (remainder/5)*4, 20, 12);
+        RESA = new Arrow(0, 20, (240/(300 + newlda)*remainder3), 20, 12);
         RESA.setTranslateY(30);
         RESA.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 70 - Sixty.getWidth() - 5 - RESA.getWidth()/2);
+        System.out.println(RESA.getWidth() + "hahahahha");
 
         arrowhead6 = createArrowhead(tora, scalingFactor, tipY, baseY, baseWidth, 30);
         arrowhead6.setRotate(-90);
-        arrowhead6.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 70 - Sixty.getWidth() - 5 - RESA.getWidth());
+        arrowhead6.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 85 - Sixty.getWidth() - RESA.getWidth());
 
         LDALabel = new Label("LDA: " + newlda + "m");
         LDALabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
@@ -341,6 +368,22 @@ public class SideRunway extends StackPane {
         RESALabel.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 - 3 - 70 - Sixty.getWidth() - 5 - RESA.getWidth()/2);
         RESALabel.setTextFill(Color.WHITE);
 
+        runwayNameLabel = new Label("Runway Name: " + extractLastThreeLetters(runwayName));
+        runwayNameLabel.setTranslateY(-150);
+        runwayNameLabel.setTranslateX(-250);
+        runwayNameLabel.setFont(Font.font("Arial", FontWeight.BLACK, 30));
+        runwayNameLabel.setTextFill(Color.WHITE);
+        this.getChildren().add(runwayNameLabel);
+
+        objectLabel = new Label("Height: " + obstacleHeight/2 + "m");
+        objectLabel.setTranslateY(-30);
+        objectLabel.setTranslateX(-runway.getWidth()/2 - 50);
+        objectLabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
+        objectLabel.setTextFill(Color.WHITE);
+        this.getChildren().add(objectLabel);
+
+
+
         var adjacent = RESA.getWidth() + Sixty.getWidth() + obstacleWidth + lThreshold*scalingFactor + 100;
 
         ALS = new Arrow(0, 0, adjacent, 0, 12);
@@ -348,27 +391,53 @@ public class SideRunway extends StackPane {
         ALS.setTranslateY(-(runway.getHeight()/2) - (2.5));
         this.getChildren().add(ALS);
 
-
-        var adjacent2 = runway.getWidth() - LDAarrow.getWidth();
+        var adjacent2 = runway.getWidth() - ((newlda/(newlda + 300))*remainder3 - 100) - 5 - 21- lThreshold*scalingFactor - obstacleWidth - 4;
         var opposite = obstacleHeight;
-        var angle = Math.atan(opposite/adjacent2) + Math.toRadians(2);
+        var angle = Math.atan(opposite/adjacent2);
         ALS.setRotate(Math.toDegrees(angle));
         var movement = Math.cos(angle)*ALS.getWidth();
         ALS.setTranslateX(-LDAarrow.getWidth()/2 + (runway.getWidth() - LDAarrow.getWidth())/2 + 3 - 45 - Sixty.getWidth()/2 - ALS.getWidth()/2 + 21 + ((ALS.getWidth() - movement)/2));
         var movement2 = Math.sin(angle)*ALS.getWidth()/2;
-        ALS.setTranslateY(-(runway.getHeight()/2) - (2.5) - movement2);
+        ALS.setTranslateY(-(runway.getHeight()/2) - (2.5) - movement2 + 2);
+
+        ALSLabel = new Label("ALS/TOCS");
+        ALSLabel.setTranslateY(- obstacleHeight - 20);
+        ALSLabel.setTranslateX(-runway.getWidth()/2 + adjacent2/2 + 20);
+        ALSLabel.setFont(Font.font("Arial", FontWeight.BLACK, 15));
+        ALSLabel.setTextFill(Color.WHITE);
+        this.getChildren().add(ALSLabel);
+
+        ALS.setStrokeWidth(2);
         this.getChildren().addAll(arrowhead1, LDAarrow, arrowhead2, LDALabel, arrowhead3, Sixty, arrowhead4, arrowhead5, RESA, arrowhead6, SixtyLabel, RESALabel);
         addLeftRunwayDirection();
 
-        if(runwayName.contains("R") && !isRotated) {
+        if (runwayName.endsWith("R)") && !isRotated) {
             flipRunway();
             isRotated = true;
         }
-        else if (runwayName.contains("L") && isRotated) {
+        else if (runwayName.endsWith("L)") && isRotated) {
             flipRunway();
             isRotated = false;
         }
         setLabels();
+
+        Rectangle blueCover = new Rectangle((blueBackground.getWidth() - runway.getWidth())/2, blueBackground.getHeight());
+        blueCover.setFill(Color.web("#1e90ff"));
+        blueCover.setTranslateX(-runway.getWidth()/2 - blueCover.getWidth()/2);
+        this.getChildren().add(blueCover);
+
+        Rectangle greenCover = new Rectangle((greenBackground.getWidth() - runway.getWidth())/2, greenBackground.getHeight());
+        greenCover.setFill(Color.LIMEGREEN);
+        greenCover.setTranslateX(-runway.getWidth()/2 - greenCover.getWidth()/2 - 50);
+        this.getChildren().add(greenCover);
+
+        obstacle.toFront();
+        RESALabel.toFront();
+        arrowhead6.toFront();
+        RESA.toFront();
+        directionArrow.toFront();
+        objectLabel.toFront();
+
     }
 
     public void flipRunway() {
@@ -378,16 +447,85 @@ public class SideRunway extends StackPane {
     }
 
     public void setLabels() {
-        this.LDALabel.setScaleX(this.getScaleX());
-        this.SixtyLabel.setScaleX(this.getScaleX());
-        this.RESALabel.setScaleX(this.getScaleX());
-        this.directionLabel.setScaleX(this.getScaleX());
+        if(this.getChildren().contains(LDALabel)) {
+            this.LDALabel.setScaleX(this.getScaleX());
+        }
+        if(this.getChildren().contains(Sixty)) {
+            this.SixtyLabel.setScaleX(this.getScaleX());
+        }
+        if(this.getChildren().contains(RESALabel)) {
+            this.RESALabel.setScaleX(this.getScaleX());
+        }
+        if(this.getChildren().contains(directionLabel)) {
+            this.directionLabel.setScaleX(this.getScaleX());
+        }
+        runwayNameLabel.setScaleX(this.getScaleX());
+        if(this.getChildren().contains(ALSLabel)) {
+            this.ALSLabel.setScaleX(this.getScaleX());
+        }
+        if(this.getChildren().contains(objectLabel)) {
+            this.objectLabel.setScaleX(this.getScaleX());
+        }
     }
 
     public Boolean getIsRotated() {
         return isRotated;
     }
 
+    public static String extractLastThreeLetters(String runwayName) {
+        if (runwayName != null && runwayName.length() >= 3) {
+            // Extract the last three characters of the string
+            var string1 = runwayName.substring(runwayName.length() - 4);
+            var string2 = string1.replace(")", "");
+            System.out.println(string2);
+            return string2;
+        }
+        return ""; // Return empty if the input is null or too short
+    }
 
+    public void setLabelsToHalfYScale() {
+        if(this.getChildren().contains(LDALabel)) {
+            this.LDALabel.setScaleY(0.5);
+        }
+        if(this.getChildren().contains(Sixty)) {
+            this.SixtyLabel.setScaleY(0.5);
+        }
+        if(this.getChildren().contains(RESALabel)) {
+            this.RESALabel.setScaleY(0.5);
+        }
+        if(this.getChildren().contains(directionLabel)) {
+            this.directionLabel.setScaleY(0.5);
+        }
+        runwayNameLabel.setScaleX(this.getScaleX());
+        if(this.getChildren().contains(ALSLabel)) {
+            this.ALSLabel.setScaleY(0.5);
+        }
+        if(this.getChildren().contains(objectLabel)) {
+            this.objectLabel.setScaleY(0.5);
+        }
+    }
+
+    public void returnLabelsToFullY() {
+        if(this.getChildren().contains(LDALabel)) {
+            this.LDALabel.setScaleY(1);
+        }
+        if(this.getChildren().contains(Sixty)) {
+            this.SixtyLabel.setScaleY(1);
+        }
+        if(this.getChildren().contains(RESALabel)) {
+            this.RESALabel.setScaleY(1);
+        }
+        if(this.getChildren().contains(directionLabel)) {
+            this.directionLabel.setScaleY(1);
+        }
+        runwayNameLabel.setScaleX(this.getScaleX());
+        if(this.getChildren().contains(ALSLabel)) {
+            this.ALSLabel.setScaleY(1);
+        }
+        if(this.getChildren().contains(objectLabel)) {
+            this.objectLabel.setScaleY(1);
+
+        }
+    }
 
 }

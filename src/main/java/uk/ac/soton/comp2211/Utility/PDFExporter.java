@@ -11,7 +11,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import uk.ac.soton.comp2211.model.Runway;
+import uk.ac.soton.comp2211.component.CalculationTab;
+import uk.ac.soton.comp2211.model.CalculationBreakdown;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -20,8 +21,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class PDFExporter {
-
-  public static void exportRunwayViews(StackPane topDownView, StackPane sideView, String airportName, String runwayName, Runway runway, String fileName) {
+  public static void exportRunwayViews(StackPane topDownView, StackPane sideView,
+                                       String airportName, String runwayName,
+                                       String fileName, CalculationBreakdown calculationBreakdown, CalculationTab calculationTab) {
     Platform.runLater(() -> {
       PDDocument document = new PDDocument();
       try {
@@ -43,22 +45,48 @@ public class PDFExporter {
         ImageIO.write(bSideImage, "PNG", sideOut);
         PDImageXObject sidePdfImage = PDImageXObject.createFromByteArray(document, sideOut.toByteArray(), "side_view.png");
 
-        PDPage page = new PDPage(PDRectangle.A4);
-        document.addPage(page);
-        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+        PDPage firstPage = new PDPage(PDRectangle.A4);
+        document.addPage(firstPage);
+        PDPageContentStream contentStream = new PDPageContentStream(document, firstPage);
 
-        // Write Airport and Runway names
         contentStream.beginText();
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
+        contentStream.newLineAtOffset(50, 800);
+        contentStream.showText("Runway ReDeclaration Calculation Report");
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
-        contentStream.newLineAtOffset(100, 750);
+        contentStream.newLineAtOffset(0, -50);
         contentStream.showText("Airport: " + airportName + " - Runway: " + runwayName);
-        contentStream.newLineAtOffset(0, -20);
-        contentStream.showText("TORA: " + runway.getTora() + "m, TODA: " + runway.getToda() + "m, ASDA: " + runway.getAsda() + "m, LDA: " + runway.getLda() + "m");
+        contentStream.setFont(PDType1Font.HELVETICA, 12);
+        contentStream.newLineAtOffset(0, -30);
+        contentStream.showText(String.format("Original TORA: %.2fm, TODA: %.2fm, ASDA: %.2fm, LDA: %.2fm", calculationTab.orignalTora.get(), calculationTab.originalToda.get(), calculationTab.originalAsda.get(), calculationTab.originalLda.get()));
+        contentStream.newLineAtOffset(0, -15);
+        contentStream.showText(String.format("Recalculated TORA: %.2fm, TODA: %.2fm, ASDA: %.2fm, LDA: %.2fm", calculationTab.recalculatedTora.get(), calculationTab.recalculatedToda.get(), calculationTab.recalculatedAsda.get(), calculationTab.recalculatedLda.get()));
+        contentStream.newLineAtOffset(0, -15);
+        contentStream.showText(String.format("Previous TORA: %.2fm, TODA: %.2fm, ASDA: %.2fm, LDA: %.2fm", calculationTab.previousTora.get(), calculationTab.previousToda.get(), calculationTab.previousAsda.get(), calculationTab.previousLda.get()));
         contentStream.endText();
 
-        // Draw images with titles
-        drawImageWithCaption(contentStream, topPdfImage, 100, 500, 400, 200, "Top-Down View");
-        drawImageWithCaption(contentStream, sidePdfImage, 100, 250, 400, 200, "Side View");
+        drawImageWithCaption(contentStream, topPdfImage, 50, 500, 400, 200, "Top-Down View");
+        drawImageWithCaption(contentStream, sidePdfImage, 50, 280, 400, 200, "Side View");
+        contentStream.close();
+
+        PDPage secondPage = new PDPage(PDRectangle.A4);
+        document.addPage(secondPage);
+        contentStream = new PDPageContentStream(document, secondPage);
+
+        contentStream = new PDPageContentStream(document, secondPage);
+
+        // Calculation Breakdown
+        writeTextWithNewLines(contentStream, "Calculation Breakdown:", 50, 750, -20);
+
+        // Now write the individual breakdowns, each call adjusts the y-coordinate to start appropriately
+        int currentY = 730; // Adjust starting y-coordinate as needed
+        writeTextWithNewLines(contentStream, "TORA Breakdown: " + calculationBreakdown.getToraBreakdown().get(), 50, currentY, -15);
+        currentY -= 40; // Adjust spacing as needed based on content length
+        writeTextWithNewLines(contentStream, "TODA Breakdown: " + calculationBreakdown.getTodaBreakdown().get(), 50, currentY - 20, -15);
+        currentY -= 40;
+        writeTextWithNewLines(contentStream, "ASDA Breakdown: " + calculationBreakdown.getAsdaBreakdown().get(), 50, currentY - 20, -15);
+        currentY -= 40;
+        writeTextWithNewLines(contentStream, "LDA Breakdown: " + calculationBreakdown.getLdaBreakdown().get(), 50, currentY - 20, -15);
 
         contentStream.close();
         document.save(file);
@@ -76,6 +104,20 @@ public class PDFExporter {
       }
     });
   }
+
+  private static void writeTextWithNewLines(PDPageContentStream contentStream, String text, float startX, float startY, float lineOffset) throws IOException {
+    String[] lines = text.split("\n");
+    contentStream.beginText();
+    contentStream.setFont(PDType1Font.HELVETICA, 10); // Consider using a smaller font if space is an issue
+    contentStream.newLineAtOffset(startX, startY);
+
+    for (String line : lines) {
+      contentStream.showText(line);
+      contentStream.newLineAtOffset(0, lineOffset); // Adjust line spacing if needed
+    }
+    contentStream.endText();
+  }
+
 
   private static void drawImageWithCaption(PDPageContentStream contentStream, PDImageXObject image, float x, float y, float maxWidth, float maxHeight, String title) throws IOException {
     contentStream.beginText();

@@ -61,10 +61,10 @@ public class MainController implements Initializable {
     Double lthreshold = Double.parseDouble(lThresholdField.getText());
 
     Double height = Double.parseDouble(heightField.getText());
-
-    var obstacle = new Obstacle(height, lthreshold);
-
-    tool.recalculate(obstacle, "TOALO");
+//
+//    var obstacle = new Obstacle(height, lthreshold);
+//
+//    tool.recalculate(obstacle, "TOALO");
   }
 
   public void save(ActionEvent e) {

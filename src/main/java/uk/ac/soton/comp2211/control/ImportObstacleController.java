@@ -19,6 +19,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import uk.ac.soton.comp2211.component.ObstaclesBox;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.obstacles.AdvancedObstacle;
 import uk.ac.soton.comp2211.scene.MainScene;
 
@@ -65,6 +67,7 @@ public class ImportObstacleController {
       }
       // If user chooses "Skip", do nothing
     }
+    SystemMessageBox.addMessage(obstacles.size() + "Obstacles imported successfully." );
     // Close the stage after importing
     Stage stage = (Stage) importButton.getScene().getWindow();
     stage.close();

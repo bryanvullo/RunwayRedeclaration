@@ -2,6 +2,7 @@ package uk.ac.soton.comp2211.component;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -16,12 +17,15 @@ import javafx.scene.text.TextFlow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class SystemMessageBox extends VBox {
 
   private static final Logger logger = LogManager.getLogger(SystemMessageBox.class);
 
-  private TextFlow messageBox;
-  private ScrollPane scrollBox;
+  private static TextFlow messageBox;
+  private static ScrollPane scrollBox;
 
   public SystemMessageBox() {
     logger.info("Creating System Message Box");
@@ -35,7 +39,7 @@ public class SystemMessageBox extends VBox {
     setPadding(new Insets(20));
     setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    var title = new Text("System Messages");
+    var title = new Text("System Notifications");
     title.getStyleClass().add("componentTitle");
     getChildren().add(title);
 
@@ -53,11 +57,27 @@ public class SystemMessageBox extends VBox {
     getChildren().add(scrollBox);
   }
 
-  public void addMessage(String message) {
+  public static void addMessage(String message) {
     logger.info("Adding message to System Message Box");
-    var text = new Text(message + "\n");
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
+    String formattedDateTime = now.format(formatter);
+
+    String fullMessage = formattedDateTime + " - " + message + "\n";
+
+    var text = new Text(fullMessage);
     messageBox.getChildren().add(text);
-    messageBox.layout(); // Force layout pass
-    scrollBox.setVvalue(1.0); // Auto-scroll to the bottom as new messages are added
+    messageBox.layout();
+    scrollBox.setVvalue(1.0);
+  }
+
+  public String getAllMessages() {
+    StringBuilder allMessages = new StringBuilder();
+    for (Node textNode : messageBox.getChildren()) {
+      Text text = (Text) textNode;
+      allMessages.append(text.getText());
+    }
+    return allMessages.toString();
   }
 }
