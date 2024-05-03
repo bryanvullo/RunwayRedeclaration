@@ -723,7 +723,7 @@ public class TopDownRunway extends StackPane {
         RunwayDirectionNumber.setFont(Font.font("Arial", FontWeight.BLACK, 30));
         RunwayDirectionNumber.setTranslateX(150 + newDisplacementThreshold*scalingFactor - runway.getWidth()/2);
 
-        RunwayDirectionLetter = new Label(runwayName.substring(extractLastThreeLetters(runwayName).length() - 2));
+        RunwayDirectionLetter = new Label(extractLastThreeLetters(runwayName).substring(2,3));
         RunwayDirectionLetter.setTextFill(Color.WHITE);
         RunwayDirectionLetter.setRotate(90);
         RunwayDirectionLetter.setFont(Font.font("Arial", FontWeight.BLACK, 30));

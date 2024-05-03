@@ -152,11 +152,12 @@ public class SideRunway extends StackPane {
         this.getChildren().addAll(LDALabel);
         addLeftRunwayDirection();
 
-        if(runwayName.contains("R") && !isRotated) {
+// Assuming runwayName is a string like "09R/27L"
+        if (runwayName.endsWith("R)") && !isRotated) {
             flipRunway();
             isRotated = true;
         }
-        else if (runwayName.contains("L") && isRotated) {
+        else if (runwayName.endsWith("L)") && isRotated) {
             flipRunway();
             isRotated = false;
         }
@@ -360,11 +361,11 @@ public class SideRunway extends StackPane {
         this.getChildren().addAll(arrowhead1, LDAarrow, arrowhead2, LDALabel, arrowhead3, Sixty, arrowhead4, arrowhead5, RESA, arrowhead6, SixtyLabel, RESALabel);
         addLeftRunwayDirection();
 
-        if(runwayName.contains("R") && !isRotated) {
+        if (runwayName.endsWith("R)") && !isRotated) {
             flipRunway();
             isRotated = true;
         }
-        else if (runwayName.contains("L") && isRotated) {
+        else if (runwayName.endsWith("L)") && isRotated) {
             flipRunway();
             isRotated = false;
         }
