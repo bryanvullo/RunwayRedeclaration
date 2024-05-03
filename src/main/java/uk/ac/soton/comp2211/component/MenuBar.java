@@ -188,7 +188,7 @@ public class MenuBar extends HBox {
 
     settingsButton = new MenuButton("Settings");
     
-    MenuItem userGuide = new MenuItem("User Guide");
+    MenuItem userGuide = new MenuItem("User Manual");
     userGuide.setOnAction(e -> openUserGuide());
     
     MenuItem tutorialVideo = new MenuItem("Walkthrough Tutorial Video");
