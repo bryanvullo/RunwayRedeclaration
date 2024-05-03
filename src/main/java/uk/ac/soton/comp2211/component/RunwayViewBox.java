@@ -182,6 +182,7 @@ public class RunwayViewBox extends VBox {
       sideRunway.setScaleY(1.0);
 
     }
+    sideRunway.returnLabelsToFullY();
     runwayView.getChildren().clear();
     runwayView.getChildren().add(sideRunway);
     sideRunway.setLabels();
@@ -201,6 +202,7 @@ public class RunwayViewBox extends VBox {
       topDownRunway.setScaleY(1.0);
 
     }
+    topDownRunway.setLabelsToNormalY();
     runwayView.getChildren().clear();
     runwayView.getChildren().add(topDownRunway);
 
@@ -233,6 +235,8 @@ public class RunwayViewBox extends VBox {
 
     sideRunway.setTranslateY(100);
     topDownRunway.setTranslateY(-100);
+    topDownRunway.setLabelsToHalfYScale();
+    sideRunway.setLabelsToHalfYScale();
 
     tempStack.getChildren().addAll(topDownRunway, sideRunway);
     runwayView.getChildren().add(tempStack);

@@ -382,12 +382,7 @@ public class SideRunway extends StackPane {
         objectLabel.setTextFill(Color.WHITE);
         this.getChildren().add(objectLabel);
 
-        ALSLabel = new Label("Height: " + obstacleHeight/2 + "m");
-        ALSLabel.setTranslateY(-30);
-        ALSLabel.setTranslateX(-runway.getWidth()/2 - 50);
-        ALSLabel.setFont(Font.font("Arial", FontWeight.BLACK, 12));
-        ALSLabel.setTextFill(Color.WHITE);
-        this.getChildren().add(ALSLabel);
+
 
         var adjacent = RESA.getWidth() + Sixty.getWidth() + obstacleWidth + lThreshold*scalingFactor + 100;
 
@@ -405,7 +400,12 @@ public class SideRunway extends StackPane {
         var movement2 = Math.sin(angle)*ALS.getWidth()/2;
         ALS.setTranslateY(-(runway.getHeight()/2) - (2.5) - movement2 + 2);
 
-
+        ALSLabel = new Label("ALS/TOCS");
+        ALSLabel.setTranslateY(- obstacleHeight - 20);
+        ALSLabel.setTranslateX(-runway.getWidth()/2 + adjacent2/2 + 20);
+        ALSLabel.setFont(Font.font("Arial", FontWeight.BLACK, 15));
+        ALSLabel.setTextFill(Color.WHITE);
+        this.getChildren().add(ALSLabel);
 
         ALS.setStrokeWidth(2);
         this.getChildren().addAll(arrowhead1, LDAarrow, arrowhead2, LDALabel, arrowhead3, Sixty, arrowhead4, arrowhead5, RESA, arrowhead6, SixtyLabel, RESALabel);
@@ -437,7 +437,6 @@ public class SideRunway extends StackPane {
         RESA.toFront();
         directionArrow.toFront();
         objectLabel.toFront();
-        ALS.toFront();
 
     }
 
@@ -461,6 +460,12 @@ public class SideRunway extends StackPane {
             this.directionLabel.setScaleX(this.getScaleX());
         }
         runwayNameLabel.setScaleX(this.getScaleX());
+        if(this.getChildren().contains(ALSLabel)) {
+            this.ALSLabel.setScaleX(this.getScaleX());
+        }
+        if(this.getChildren().contains(objectLabel)) {
+            this.objectLabel.setScaleX(this.getScaleX());
+        }
     }
 
     public Boolean getIsRotated() {
@@ -476,6 +481,51 @@ public class SideRunway extends StackPane {
             return string2;
         }
         return ""; // Return empty if the input is null or too short
+    }
+
+    public void setLabelsToHalfYScale() {
+        if(this.getChildren().contains(LDALabel)) {
+            this.LDALabel.setScaleY(0.5);
+        }
+        if(this.getChildren().contains(Sixty)) {
+            this.SixtyLabel.setScaleY(0.5);
+        }
+        if(this.getChildren().contains(RESALabel)) {
+            this.RESALabel.setScaleY(0.5);
+        }
+        if(this.getChildren().contains(directionLabel)) {
+            this.directionLabel.setScaleY(0.5);
+        }
+        runwayNameLabel.setScaleX(this.getScaleX());
+        if(this.getChildren().contains(ALSLabel)) {
+            this.ALSLabel.setScaleY(0.5);
+        }
+        if(this.getChildren().contains(objectLabel)) {
+            this.objectLabel.setScaleY(0.5);
+        }
+    }
+
+    public void returnLabelsToFullY() {
+        if(this.getChildren().contains(LDALabel)) {
+            this.LDALabel.setScaleY(1);
+        }
+        if(this.getChildren().contains(Sixty)) {
+            this.SixtyLabel.setScaleY(1);
+        }
+        if(this.getChildren().contains(RESALabel)) {
+            this.RESALabel.setScaleY(1);
+        }
+        if(this.getChildren().contains(directionLabel)) {
+            this.directionLabel.setScaleY(1);
+        }
+        runwayNameLabel.setScaleX(this.getScaleX());
+        if(this.getChildren().contains(ALSLabel)) {
+            this.ALSLabel.setScaleY(1);
+        }
+        if(this.getChildren().contains(objectLabel)) {
+            this.objectLabel.setScaleY(1);
+
+        }
     }
 
 }
