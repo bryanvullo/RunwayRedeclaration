@@ -29,10 +29,13 @@ import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.Utility.ImageExporter;
 import uk.ac.soton.comp2211.Utility.XMLExporter;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Objects;
 
 public class MenuBar extends HBox {
@@ -171,10 +174,14 @@ public class MenuBar extends HBox {
         new MenuItem("Change Colour Scheme"),
         new MenuItem("Light/Dark Mode")
     );
+
+    MenuItem userGuide = new MenuItem("User Guide");
+    userGuide.setOnAction(e -> openUserGuide());
+
     helpButton = new MenuButton("Help");
     helpButton.getItems().addAll(
         new MenuItem("Walkthrough Tutorial Video"),
-        new MenuItem("User Guide"),
+        userGuide,
         new MenuItem("Contact Us")
     );
 
@@ -255,6 +262,22 @@ public class MenuBar extends HBox {
   }
 
 
+  private void openUserGuide(){
+    if (Desktop.isDesktopSupported()) {
+      try {
+        // Assuming the PDF file is located under the resources directory
+        URL pdfPath = getClass().getResource("/pdf/Deliverable4Specification.pdf");
+        assert pdfPath != null;
+        File pdfFile = new File(pdfPath.toURI());
+        Desktop.getDesktop().open(pdfFile);
+      } catch (IOException | URISyntaxException e) {
+        logger.error("Failed to open the user guide.", e);
+        showAlertDialog(Alert.AlertType.ERROR, "Failed to open the user guide.");
+      }
+    } else {
+      showAlertDialog(Alert.AlertType.ERROR, "Desktop is not supported on this platform.");
+    }
+  }
   public static void editAirportFXML(ActionEvent event) {
 
     if (Database.getCurrentUser().getAccessLevel() == User.AccessLevel.VIEWER) {
