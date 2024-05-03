@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import uk.ac.soton.comp2211.component.RunwayBox;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.scene.MainScene;
@@ -70,6 +71,7 @@ public class ImportAirportController {
         mainAirports.add(previewAirport);
       }
     }
+    SystemMessageBox.addMessage("Imported " + airports.size() + " airports");
     Stage stage = (Stage) importButton2.getScene().getWindow();
     stage.close();
   }
@@ -96,16 +98,23 @@ public class ImportAirportController {
 
       NodeList airportList = (NodeList) xpath.evaluate("/def:airports/def:airport", doc, XPathConstants.NODESET);
       for (int i = 0; i < airportList.getLength(); i++) {
-        Node node = airportList.item(i);
-        if (node.getNodeType() == Node.ELEMENT_NODE) {
-          Element element = (Element) node;
-          String name = xpath.evaluate("def:name", element);
-          Airport airport = new Airport(name);
-          NodeList runwayList = (NodeList) xpath.evaluate("def:runways/def:runway", element, XPathConstants.NODESET);
+        Node airportNode = airportList.item(i);
+        if (airportNode.getNodeType() == Node.ELEMENT_NODE) {
+          Element airportElement = (Element) airportNode;
+          String airportName = xpath.evaluate("def:name", airportElement);
+          Airport airport = new Airport(airportName);
+
+          NodeList runwayList = (NodeList) xpath.evaluate("def:runways/def:runway", airportElement, XPathConstants.NODESET);
           for (int j = 0; j < runwayList.getLength(); j++) {
-            Element relement = (Element) runwayList.item(j);
-            Runway runway = parseRunway(relement, xpath);
-            airport.addRunway(runway);
+            Element runwayElement = (Element) runwayList.item(j);
+            String runwayName = xpath.evaluate("def:name", runwayElement);
+
+            NodeList logicalRunways = (NodeList) xpath.evaluate("def:logicalRunway", runwayElement, XPathConstants.NODESET);
+            for (int k = 0; k < logicalRunways.getLength(); k++) {
+              Element logicalRunwayElement = (Element) logicalRunways.item(k);
+              Runway runway = parseRunway(logicalRunwayElement, xpath);
+              airport.addRunway(runway);
+            }
           }
           airports.add(airport);
         }
@@ -118,7 +127,6 @@ public class ImportAirportController {
       showAlert("Error Loading Airports", "Failed to load airports from file: " + e.getMessage());
     }
   }
-
   private boolean isDuplicate(String airportName) {
     return RunwayBox.getAirportSelection().getItems().stream().anyMatch(a -> a.getAirportName().equals(airportName));
   }
@@ -139,12 +147,12 @@ public class ImportAirportController {
   }
 
 
-  public static void loadInitialeAirports() {
+  public static void loadInitialAirports() {
     try {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      factory.setNamespaceAware(true); // Correctly handle namespaces
+      factory.setNamespaceAware(true); // Handle XML namespaces
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document doc = builder.parse(ImportAirportController.class.getResourceAsStream("/xml/newAirports.xml"));
+      Document doc = builder.parse(ImportAirportController.class.getResourceAsStream("/xml/airports.xml"));
       doc.getDocumentElement().normalize();
 
       XPathFactory xpathFactory = XPathFactory.newInstance();
@@ -155,31 +163,31 @@ public class ImportAirportController {
           return prefix.equals("def") ? "http://www.github.com/bryanvullo/RunwayRedeclaration" : XMLConstants.NULL_NS_URI;
         }
 
-        public Iterator getPrefixes(String val) {
-          return null;
-        }
-
-        public String getPrefix(String uri) {
-          return null;
-        }
+        public Iterator getPrefixes(String val) { return null; }
+        public String getPrefix(String uri) { return null; }
       });
 
       NodeList airportList = (NodeList) xpath.evaluate("/def:airports/def:airport", doc, XPathConstants.NODESET);
-//      airports.clear(); // Clear existing airports before loading new ones
       for (int i = 0; i < airportList.getLength(); i++) {
         Node node = airportList.item(i);
         if (node.getNodeType() == Node.ELEMENT_NODE) {
           Element element = (Element) node;
-          String name = xpath.evaluate("def:name", element);
-          Airport airport = new Airport(name);
+          String airportName = xpath.evaluate("def:name", element);
+          Airport airport = new Airport(airportName);
+
           NodeList runwayList = (NodeList) xpath.evaluate("def:runways/def:runway", element, XPathConstants.NODESET);
           for (int j = 0; j < runwayList.getLength(); j++) {
-            Node rnode = runwayList.item(j);
-            Element relement = (Element) rnode;
-            Runway runway = parseRunway(relement, xpath);
-            airport.addRunway(runway);
+            Element runwayElement = (Element) runwayList.item(j);
+            String runwayName = xpath.evaluate("def:name", runwayElement);
+
+            NodeList logicalRunways = (NodeList) xpath.evaluate("def:logicalRunway", runwayElement, XPathConstants.NODESET);
+            for (int k = 0; k < logicalRunways.getLength(); k++) {
+              Element logicalRunwayElement = (Element) logicalRunways.item(k);
+              Runway runway = parseRunway(logicalRunwayElement, xpath);
+              runway.setName(runwayName + " - " + xpath.evaluate("def:dir", logicalRunwayElement) + " (" + runway.getName() + ")");
+              airport.addRunway(runway);
+            }
           }
-          System.out.println(airport.getAirportName());
           RunwayBox.getAirportSelection().getItems().add(airport);
         }
       }
@@ -188,6 +196,7 @@ public class ImportAirportController {
       showAlert("Error Loading Airports", "Failed to load airports from file: " + e.getMessage());
     }
   }
+
 
   private static void showAlert(String header, String content) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -206,6 +215,7 @@ public class ImportAirportController {
     File file = fileChooser.showOpenDialog(selectFileButton2.getScene().getWindow());
     loadAirportsFromFile(file);
   }
+
 
 
   private static Runway parseRunway(Element element, XPath xpath) throws Exception {

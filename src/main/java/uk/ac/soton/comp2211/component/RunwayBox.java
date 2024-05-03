@@ -5,17 +5,21 @@ import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp2211.model.Airport;
+import uk.ac.soton.comp2211.model.Database;
 import uk.ac.soton.comp2211.model.Runway;
+import uk.ac.soton.comp2211.model.User;
 import uk.ac.soton.comp2211.scene.MainScene;
 
 import java.util.List;
@@ -27,18 +31,17 @@ public class RunwayBox extends VBox {
   private DoubleProperty clearway;
   private DoubleProperty stopway;
   private DoubleProperty displacedThreshold;
-  private static ComboBox <Airport> airportSelection = new ComboBox<>();
-  private ComboBox <Runway> runwaySelection = new ComboBox<>();
+  private static ComboBox<Airport> airportSelection = new ComboBox<>();
+  private static ComboBox<Runway> runwaySelection = new ComboBox<>();
   private ToggleGroup directionToggleGroup;
   private ToggleButton leftButton;
   private ToggleButton rightButton;
-  private JFXButton editAirportButton;
-
+  private Button editAirportButton;
+  private User currentUser;
 
 
   public RunwayBox() {
     logger.info("Creating Runway Box");
-
     clearway = new SimpleDoubleProperty(0.0);
     stopway = new SimpleDoubleProperty(0.0);
     displacedThreshold = new SimpleDoubleProperty(0.0);
@@ -59,8 +62,6 @@ public class RunwayBox extends VBox {
     getChildren().add(title);
 
 
-
-
     airportSelection.setPromptText("Select Airport");
     getChildren().add(airportSelection);
 
@@ -71,7 +72,7 @@ public class RunwayBox extends VBox {
       @Override
       protected void updateItem(Runway item, boolean empty) {
         super.updateItem(item, empty);
-        setText(empty ? null : item.getRunwayName());
+        setText(empty ? null : item.getName());
       }
     });
     runwaySelection.setButtonCell(new ListCell<Runway>() {
@@ -81,23 +82,30 @@ public class RunwayBox extends VBox {
         if (empty || item == null) {
           setText("Select Runway");
         } else {
-          setText(item.getRunwayName());
+          setText(item.getName());
         }
       }
     });
     getChildren().add(runwaySelection);
-
     airportSelection.setOnAction(this::selectAirport);
 
     airportSelection.getStyleClass().add("custom-combo-box");
     runwaySelection.getStyleClass().add("custom-combo-box");
 
+
     directionToggleGroup = new ToggleGroup();
-    leftButton = new ToggleButton("Left");
-    rightButton = new ToggleButton("Right");
+    leftButton = new ToggleButton("TOALO");
+    rightButton = new ToggleButton("TOTLT");
     leftButton.setToggleGroup(directionToggleGroup);
     rightButton.setToggleGroup(directionToggleGroup);
     leftButton.setSelected(true);
+    runwaySelection.valueProperty().addListener((obs, oldVal, newVal) -> {
+      if (newVal != null) {
+        MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(newVal.getToda(), newVal.getToda(), newVal.getTora(), newVal.getLda(), newVal.getClearway(), newVal.getStopway(), newVal.getDisplacedThreshold(), newVal.getName());
+      }
+
+
+    });
 
     directionToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue != null) {
@@ -107,9 +115,14 @@ public class RunwayBox extends VBox {
       }
     });
 
-    editAirportButton = new JFXButton("Edit/Add Airports");
+    editAirportButton = new Button("Edit/Add Airports");
     editAirportButton.getStyleClass().add("mainSceneButton");
-    editAirportButton.setOnAction(e -> MenuBar.loadFXML(e, "edit-airport.fxml"));
+
+
+    editAirportButton.setOnAction(MenuBar::editAirportFXML);
+
+    //editAirportButton.setOnMousePressed(e -> MenuBar.loadFXML(new ActionEvent(), "edit-airport.fxml"));
+
     getChildren().add(editAirportButton);
 
     HBox directionBox = new HBox(10, leftButton, rightButton);
@@ -150,6 +163,7 @@ public class RunwayBox extends VBox {
       Airport selectedAirport = airportSelection.getValue();
       if (selectedAirport != null) {
         System.out.println("Airport: " + selectedAirport.getAirportName() + " with " + selectedAirport.getRunways().size() + " runways.");
+        SystemMessageBox.addMessage("Airport selected: " + selectedAirport.getAirportName());
         runwaySelection.getItems().clear();
         runwaySelection.getItems().addAll(FXCollections.observableArrayList(selectedAirport.getRunways()));
         runwaySelection.setDisable(false);
@@ -163,9 +177,8 @@ public class RunwayBox extends VBox {
   }
 
 
-
   private void selectAirport(Event event) {
-    Airport selectedAirport = airportSelection.getSelectionModel().getSelectedItem(); // Directly obtain the selected Airport object
+    Airport selectedAirport = airportSelection.getSelectionModel().getSelectedItem();
     if (selectedAirport != null) {
       System.out.println("Airport: " + selectedAirport.getAirportName() + " with " + selectedAirport.getRunways().size() + " runways.");
       List<Runway> runways = selectedAirport.getRunways();
@@ -173,11 +186,18 @@ public class RunwayBox extends VBox {
       runwaySelection.getItems().addAll(FXCollections.observableArrayList(runways));
       runwaySelection.setDisable(false);
       logger.info("Airport selected: " + selectedAirport.getAirportName());
+      SystemMessageBox.addMessage("Airport selected: " + selectedAirport.getAirportName());
     } else {
       System.out.println("Selected airport is null");
       logger.info("No airport selected.");
       runwaySelection.setDisable(true);
     }
+  }
+
+  private void showAlertDialog(Alert.AlertType alertType, String message) {
+    Alert alert = new Alert(alertType);
+    alert.setContentText(message);
+    alert.show();
   }
 
   public void updateAirports(List<Airport> newAirports) {
@@ -188,15 +208,18 @@ public class RunwayBox extends VBox {
 
 
   private void selectRunway(Event event) {
-    Runway selectedRunway = runwaySelection.getSelectionModel().getSelectedItem(); // Directly obtain the selected Runway object
+    Runway selectedRunway = runwaySelection.getSelectionModel().getSelectedItem();
     if (selectedRunway != null) {
-      logger.info("Runway selected: " + selectedRunway.getRunwayName());
+      logger.info("Runway selected: " + selectedRunway.getName());
+      SystemMessageBox.addMessage("Runway selected: " + selectedRunway.getName());
       MainScene.updateRunway(selectedRunway);
       // You may also update any UI elements to display runway details
     } else {
       logger.info("No runway selected or selection is null.");
     }
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getRunwayName());
+
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getSideRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
 
   }
 
@@ -230,7 +253,7 @@ public class RunwayBox extends VBox {
     return selectedToggle != null ? selectedToggle.getText() : null;
   }
 
-  public ComboBox<Runway> getRunwaySelection() {
+  public static ComboBox<Runway> getRunwaySelection() {
     return runwaySelection;
   }
 
@@ -255,6 +278,12 @@ public class RunwayBox extends VBox {
   }
 
   public void updateRunway(Runway selectedRunway) {
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway( selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda() , selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getRunwayName());
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getSideRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+
+  }
+
+  public ComboBox<Runway> getRunnwayBox() {
+    return runwaySelection;
   }
 }

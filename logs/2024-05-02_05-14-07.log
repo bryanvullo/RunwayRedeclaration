@@ -1,0 +1,18 @@
+May 02, 2024 5:14:07 AM uk.ac.soton.comp2211.App main
+INFO: Application started.
+May 02, 2024 5:14:07 AM uk.ac.soton.comp2211.App openApp
+INFO: Opening login page
+May 02, 2024 5:14:07 AM uk.ac.soton.comp2211.UI.AppWindow startTool
+INFO: Starting the tool
+May 02, 2024 5:14:08 AM uk.ac.soton.comp2211.UI.AppWindow cleanup
+INFO: Clearing up previous scene
+May 02, 2024 5:14:08 AM uk.ac.soton.comp2211.scene.MainScene build
+INFO: Building uk.ac.soton.comp2211.scene.MainScene
+May 02, 2024 5:14:08 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+May 02, 2024 5:14:08 AM uk.ac.soton.comp2211.Utility.DBUtils isDbConnected
+INFO: Connected to the database
+May 02, 2024 5:14:08 AM uk.ac.soton.comp2211.scene.MainScene initialise
+INFO: initialising the menu scene
+May 02, 2024 5:14:11 AM uk.ac.soton.comp2211.App shutdown
+INFO: Application shutting down.

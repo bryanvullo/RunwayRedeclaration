@@ -10,6 +10,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import uk.ac.soton.comp2211.component.RunwayBox;
+import uk.ac.soton.comp2211.component.SystemMessageBox;
 import uk.ac.soton.comp2211.model.Airport;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.scene.MainScene;
@@ -33,6 +34,7 @@ public class editAirportController {
     airportList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
       if (newVal != null) {
         runwayList.setItems(FXCollections.observableArrayList(newVal.getRunways())); // Correct conversion
+        runwayList.getSelectionModel().selectFirst();
         airportNameLabel.setText(newVal.getAirportName());
       }
     });
@@ -41,13 +43,13 @@ public class editAirportController {
       @Override
       protected void updateItem(Runway item, boolean empty) {
         super.updateItem(item, empty);
-        setText(empty || item == null ? null : item.getRunwayName());
+        setText(empty || item == null ? null : item.getName());
       }
     });
 
     runwayList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
       if (newVal != null) {
-        runwayNameLabel.setText(newVal.getRunwayName());
+        runwayNameLabel.setText(newVal.getName());
         toraLabel.setText(String.valueOf(newVal.getTora()));
         todaLabel.setText(String.valueOf(newVal.getToda()));
         asdaLabel.setText(String.valueOf(newVal.getAsda()));
@@ -83,6 +85,7 @@ public class editAirportController {
     airportList.refresh();
     runwayList.refresh();
     airportList.getSelectionModel().selectFirst();
+    runwayList.getSelectionModel().selectFirst();
   }
 
   public void closeStage() {
@@ -94,6 +97,7 @@ public class editAirportController {
     Airport selectedAirport = airportList.getSelectionModel().getSelectedItem();
     if (selectedAirport != null) {
       selectedAirport.setAirportName(airportNameField.getText());
+      SystemMessageBox.addMessage("Airport " + selectedAirport.getAirportName() + " updated successfully.");
     }
 
     airportList.refresh();
@@ -124,6 +128,8 @@ public class editAirportController {
       selectedRunway.setClearway(Double.parseDouble(clearwayField.getText()));
       selectedRunway.setStopway(Double.parseDouble(stopwayField.getText()));
       selectedRunway.setDisplacedThreshold(Double.parseDouble(displacedThresholdField.getText()));
+
+      SystemMessageBox.addMessage("Runway " + selectedRunway.getName() + " updated successfully.");
 
 //      airportList.refresh();
       runwayList.refresh();
@@ -221,6 +227,9 @@ public class editAirportController {
   }
 
   public void initialiseFields(boolean editing) {
+    airportList.getSelectionModel().selectFirst();
+    runwayList.getSelectionModel().selectFirst();
+
     airportNameField.setVisible(editing);
     runwayNameField.setVisible(editing);
     toraField.setVisible(editing);

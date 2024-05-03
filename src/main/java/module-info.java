@@ -12,6 +12,8 @@ module uk.ac.soton.comp2211 {
   requires fontawesomefx;
   requires org.controlsfx.controls;
   requires java.desktop;
+  requires org.apache.pdfbox;
+  requires javafx.swing;
 
   opens uk.ac.soton.comp2211 to javafx.fxml;
   opens uk.ac.soton.comp2211.control to javafx.fxml;

@@ -88,7 +88,7 @@ public class Runway {
      * Returns the name of the runway
      * @return the name of the runway
      */
-    public String getRunwayName() {
+    public String getName() {
         return name;
     }
     

@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 
 import java.util.logging.Logger;
 
+import javafx.scene.shape.Rectangle;
 import uk.ac.soton.comp2211.UI.AppWindow;
 import uk.ac.soton.comp2211.UI.AppPane;
 import uk.ac.soton.comp2211.component.ActiveObstacle;
@@ -43,6 +44,7 @@ import uk.ac.soton.comp2211.control.ImportObstacleController;
 import uk.ac.soton.comp2211.dataStructure.CustomObstacleLocation;
 import uk.ac.soton.comp2211.dataStructure.ObstacleLocation;
 import uk.ac.soton.comp2211.model.Airport;
+import uk.ac.soton.comp2211.model.CalculationBreakdown;
 import uk.ac.soton.comp2211.model.Runway;
 import uk.ac.soton.comp2211.model.Tool;
 import uk.ac.soton.comp2211.model.obstacles.*;
@@ -69,19 +71,25 @@ public class MainScene extends BaseScene {
   private VBox leftBar;
   private VBox activeBar;
   BorderPane mainPane;
+  private static CalculationBreakdown breakdown;
   private ActiveObstacle activeObstacle;
   private static RunwayBox runwayBox = new RunwayBox();
+  private static CalculationTab calcTab;
 
   ObservableList<Airport> airportList = FXCollections.observableArrayList();
   private static SystemMessageBox systemMessageBox;
   private static RunwayViewBox runwayViewBox;
   private CalculationBreakdownBox calculationBreakdownBox;
+  private double currentScale;
+  private double currentWidth;
+
 
   public MainScene(AppWindow appWindow) {
     super(appWindow); // Make sure this controller is instantiated correctly
     if (obstacleBox == null) {
       obstacleBox = new ObstaclesBox();
     }
+    currentScale = 1;
   }
 
   public static MainScene getInstance(AppWindow appWindow) {
@@ -101,6 +109,7 @@ public class MainScene extends BaseScene {
     logger.info("Building " + this.getClass().getName());
 
     tool = new Tool();
+    this.currentWidth = 900;
 
     root = new AppPane(appWindow.getWidth(), appWindow.getHeight());
 
@@ -123,6 +132,9 @@ public class MainScene extends BaseScene {
     sideButton.setOnAction(event -> runwayViewBox.changeViewToSide());
     topDownButton.setOnAction(event -> runwayViewBox.changeViewToTopdown());
     simultaneousButton.setOnAction(event -> runwayViewBox.changeViewToSimultaneous());
+    runwayViewBox.setBackground(new Background(new BackgroundFill(Color.web("#b0dce4"), null, null))); // Set background color to Tomato
+
+
     //this is for all backend stuff
     mainPane.setCenter(runwayViewBox);
 
@@ -130,7 +142,6 @@ public class MainScene extends BaseScene {
     //Toolbar at the top
     var toolbar = new MenuBar();
     mainPane.setTop(toolbar);
-
     //Left Panel
     leftPanel = new HBox();
     leftPanel.setBackground(new Background(new BackgroundFill(Color.valueOf("add8e6"), null, null)));
@@ -149,7 +160,7 @@ public class MainScene extends BaseScene {
     mainPane.setLeft(leftPanel);
 
     if (runwayBox.getAirportSelection().getItems().isEmpty()) {
-      ImportAirportController.loadInitialeAirports();
+      ImportAirportController.loadInitialAirports();
     }
 
     if (obstacleBox.getObstacleChooser().getItems().isEmpty()) {
@@ -179,7 +190,6 @@ public class MainScene extends BaseScene {
 //        }
 //      }
 //    });
-
     activeBar = new VBox();
     activeBar.setAlignment(Pos.TOP_CENTER);
     activeObstacle = new ActiveObstacle();
@@ -195,7 +205,7 @@ public class MainScene extends BaseScene {
     var bottomBar = new HBox();
     systemMessageBox = new SystemMessageBox();
     bottomBar.getChildren().add(systemMessageBox);
-    var calcTab = new CalculationTab();
+    calcTab = new CalculationTab();
     bottomBar.getChildren().add(calcTab);
     HBox.setHgrow(systemMessageBox, Priority.ALWAYS);
     HBox.setHgrow(calcTab, Priority.ALWAYS);
@@ -253,6 +263,47 @@ public class MainScene extends BaseScene {
         handleObstacleSelection(newVal);
       }
     });
+
+    runwayBox.getRunwaySelection().valueProperty().addListener((obs, oldVal, newVal) -> {
+      if (newVal != null) {
+        System.out.println(newVal.getName());
+        runwayViewBox.getTopDownRunway().updateRunway(newVal.getToda(), newVal.getToda(), newVal.getTora(), newVal.getLda(), newVal.getClearway(), newVal.getStopway(), newVal.getDisplacedThreshold(), newVal.getName());
+        runwayViewBox.changeViewToTopdown();
+      }
+    });
+
+
+//    obstacleBox.getCustomButton().setOnAction((e) -> {
+//      logger.info("Custom Button Pressed");
+//
+//      var obstacle = new AdvancedObstacle();
+//
+//      getInputAdvancedObstacle(obstacle);
+//
+//      updateObstacle(obstacle);
+//      if (obstacle.getWidth() * 1.5 > runwayViewBox.getTopDownRunway().getRunway().getHeight()) {
+//        Alert alert = new Alert(AlertType.ERROR);
+//        alert.setTitle("Error");
+//        alert.setHeaderText("Invalid Width");
+//        alert.setContentText("Obstacle Width is larger than runway width");
+//        alert.showAndWait();
+//        System.out.println(obstacle.getWidth());
+//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+//      } else if (obstacle.getLength() * 1.5 > runwayViewBox.getTopDownRunway().getRunway().getWidth()) {
+//        Alert alert = new Alert(AlertType.ERROR);
+//        alert.setTitle("Error");
+//        alert.setHeaderText("Invalid Length");
+//        alert.setContentText("Obstacle Length is larger than runway length");
+//        alert.showAndWait();
+//        System.out.println(obstacle.getWidth());
+//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+//      } else {
+//        runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+//        runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength());
+//        System.out.println(obstacle.getWidth());
+//        System.out.println(runwayViewBox.getTopDownRunway().getRunway().getHeight());
+//      }
+//    });
   }
 
 
@@ -274,6 +325,7 @@ public class MainScene extends BaseScene {
       System.out.println("Distance from Centre: " + obstacle.getDistanceFromCentre());
 
       updateObstacle(obstacle);
+
       runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
       runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
     } else {
@@ -407,13 +459,25 @@ public class MainScene extends BaseScene {
 
   private void collapseLeftPanel(Event event) {
     if (leftPanelCollapsed) {
+      System.out.println("Heloooooo");
       leftCollapseButton.setText("<");
       leftPanel.getChildren().clear();
+      Rectangle clip = new Rectangle(currentWidth - 200, 400);
+      runwayViewBox.getRunwayView().setClip(clip);
+      this.currentWidth = currentWidth - 200;
+      this.currentScale = currentScale - 0.05;
+      runwayViewBox.getRunwayView().setScaleX(currentScale);
       leftPanel.getChildren().addAll(leftBar, leftCollapsibleBar);
       leftPanel.setPrefWidth(Control.USE_COMPUTED_SIZE);
       leftPanelCollapsed = false;
     } else {
       leftCollapseButton.setText(">");
+      Rectangle newClip = new Rectangle(currentWidth + 200, 400);
+      runwayViewBox.getRunwayView().setClip(newClip);
+      System.out.println(runwayViewBox.getWidth());
+      this.currentWidth = currentWidth + 200;
+      this.currentScale = currentScale + 0.05;
+      runwayViewBox.getRunwayView().setScaleX(currentScale);
       leftPanel.getChildren().clear();
       leftPanel.getChildren().addAll(leftCollapsibleBar);
       leftPanel.setPrefWidth(50);
@@ -427,12 +491,23 @@ public class MainScene extends BaseScene {
     if (rightPanelCollapsed) {
       rightCollapseButton.setText(">");
       rightPanel.getChildren().clear();
+      Rectangle clip = new Rectangle(currentWidth - 200, 400);
+      runwayViewBox.getRunwayView().setClip(clip);
+      this.currentWidth = currentWidth - 200;
+      this.currentScale = currentScale - 0.05;
+      runwayViewBox.getRunwayView().setScaleX(currentScale);
       rightPanel.getChildren().addAll(rightCollapsibleBar, activeBar);
       rightPanel.setPrefWidth(Control.USE_COMPUTED_SIZE);
       rightPanelCollapsed = false;
     } else {
       rightCollapseButton.setText("<");
       rightPanel.getChildren().clear();
+      Rectangle newClip = new Rectangle(currentWidth + 200, 400);
+      runwayViewBox.getRunwayView().setClip(newClip);
+      this.currentWidth = currentWidth + 200;
+      this.currentScale = currentScale + 0.05;
+      runwayViewBox.getRunwayView().setScaleX(currentScale);
+
       rightPanel.getChildren().addAll(rightCollapsibleBar);
       rightPanelCollapsed = true;
       rightPanel.setPrefWidth(50);
@@ -440,6 +515,10 @@ public class MainScene extends BaseScene {
 
     mainPane.setRight(rightPanel);
     mainPane.requestLayout(); // Request layout update
+  }
+
+  public static CalculationBreakdown getCalculationBreakdown(){
+    return breakdown;
   }
 
   private void recalculate() {
@@ -458,20 +537,24 @@ public class MainScene extends BaseScene {
     }
 
     // Get the selected direction, defaulting to "Left" if null
-    String direction = runwayBox.getSelectedDirection() != null ? runwayBox.getSelectedDirection() : "Left";
+    String direction = runwayBox.getSelectedDirection() != null ? runwayBox.getSelectedDirection() : "TOALO";
 
     // Set distance from threshold based on selected direction
     selectedObstacle.setDistanceFromThreshold(
-        direction.equalsIgnoreCase("Left") ? selectedObstacle.getDistanceLeftThreshold() : selectedObstacle.getDistanceRightThreshold()
+        direction.equalsIgnoreCase("TOALO") ? selectedObstacle.getDistanceLeftThreshold() : selectedObstacle.getDistanceRightThreshold()
     );
 
     // Determine the calculation type based on the direction and obstacle distance
-    String calculationType = direction.equalsIgnoreCase("Left") ?
+    String calculationType = direction.equalsIgnoreCase("TOALO") ?
         (selectedObstacle.getDistanceLeftThreshold() > selectedObstacle.getDistanceRightThreshold() ? "TOTLT" : "TOALO") :
         (selectedObstacle.getDistanceRightThreshold() > selectedObstacle.getDistanceLeftThreshold() ? "TOTLT" : "TOALO");
+    SystemMessageBox.addMessage("Calculating for " + calculationType);
 
     // Perform recalculation
     tool.recalculate(selectedObstacle, calculationType);
+
+    SystemMessageBox.addMessage("Recalculation complete");
+    SystemMessageBox.addMessage(" New TORA: " + tool.getRevisedCalculation().getTora() + " New TODA: " + tool.getRevisedCalculation().getToda() + " New ASDA: " + tool.getRevisedCalculation().getAsda() + " New LDA: " + tool.getRevisedCalculation().getLda());
 
     // Update the UI with the new calculations
     updateBreakdown();
@@ -487,12 +570,18 @@ public class MainScene extends BaseScene {
   }
 
   private void updateBreakdown() {
-    var breakdown = tool.getRevisedCalculation().calculationBreakdown;
+    breakdown = tool.getRevisedCalculation().calculationBreakdown;
     calculationBreakdownBox.toraBreakdownProperty().bind(breakdown.getToraBreakdown());
     calculationBreakdownBox.todaBreakdownProperty().bind(breakdown.getTodaBreakdown());
     calculationBreakdownBox.asdaBreakdownProperty().bind(breakdown.getAsdaBreakdown());
     calculationBreakdownBox.ldaBreakdownProperty().bind(breakdown.getLdaBreakdown());
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getRunwayName());
+
+    MainScene.getRunwayViewBox().getTopDownRunway().updateRunwayWithoutScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    MainScene.getRunwayViewBox().getSideRunway().updateRunwayWithouScale(tool.getRevisedCalculation().getToda(), tool.getRevisedCalculation().getAsda(), tool.getRevisedCalculation().getTora(), tool.getRevisedCalculation().getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+  }
+
+  public static CalculationTab getCalculationTab() {
+    return calcTab;
   }
 
   public static void updateRunway(Runway runway) {
@@ -597,5 +686,8 @@ public class MainScene extends BaseScene {
 
   public static Runway getSelectedRunway() {
     return selectedRunway;
+  }
+  public RunwayViewBox runwayViewBox() {
+    return runwayViewBox;
   }
 }
