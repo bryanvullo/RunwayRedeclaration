@@ -178,9 +178,12 @@ public class MenuBar extends HBox {
     MenuItem userGuide = new MenuItem("User Guide");
     userGuide.setOnAction(e -> openUserGuide());
 
+    MenuItem tutorialVideo = new MenuItem("Walkthrough Tutorial Video");
+    tutorialVideo.setOnAction(e -> openVideoLink());
+
     helpButton = new MenuButton("Help");
     helpButton.getItems().addAll(
-        new MenuItem("Walkthrough Tutorial Video"),
+        tutorialVideo,
         userGuide,
         new MenuItem("Contact Us")
     );
@@ -262,7 +265,7 @@ public class MenuBar extends HBox {
   }
 
 
-  private void openUserGuide(){
+  private void openUserGuide() {
     if (Desktop.isDesktopSupported()) {
       try {
         // Assuming the PDF file is located under the resources directory
@@ -278,6 +281,7 @@ public class MenuBar extends HBox {
       showAlertDialog(Alert.AlertType.ERROR, "Desktop is not supported on this platform.");
     }
   }
+
   public static void editAirportFXML(ActionEvent event) {
 
     if (Database.getCurrentUser().getAccessLevel() == User.AccessLevel.VIEWER) {
@@ -297,6 +301,19 @@ public class MenuBar extends HBox {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.setScene(scene);
       stage.show();
+    }
+  }
+
+  private void openVideoLink() {
+    if (Desktop.isDesktopSupported()) {
+      try {
+        Desktop.getDesktop().browse(new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley").toURI());
+      } catch (IOException | URISyntaxException e) {
+        logger.error("Failed to open the tutorial video.", e);
+        showAlertDialog(Alert.AlertType.ERROR, "Failed to open the tutorial video.");
+      }
+    } else {
+      showAlertDialog(Alert.AlertType.ERROR, "Desktop is not supported on this platform.");
     }
   }
 

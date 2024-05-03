@@ -1,4 +1,5 @@
 package uk.ac.soton.comp2211.component;
+import javafx.beans.property.Property;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -78,13 +79,15 @@ public class TopDownRunway extends StackPane {
     private double newlda;
     private double newDisplacementThreshold;
     private Rectangle stopwayRect;
-    private double initialX;
-    private double initialY;
+    public double initialX;
+    public double initialY;
     private Label stopwayLabel;
     private Rectangle RESARect;
     private double obstacleWidth;
     private double lThreshold;
     private Label RESALabel;
+    
+    public Property dragProperty;
 
 
     public TopDownRunway() {
@@ -97,17 +100,20 @@ public class TopDownRunway extends StackPane {
         this.flip = 1;
         this.isTakeOffAway = true;
         this.lDisplacement = 0;
-        // Handle mouse press events
-        this.setOnMousePressed(event -> {
-            initialX = event.getSceneX() - this.getTranslateX();
-            initialY = event.getSceneY() - this.getTranslateY();
-        });
-
-        // Handle mouse drag events
-        this.setOnMouseDragged(event -> {
-            this.setTranslateX(event.getSceneX() - initialX);
-            this.setTranslateY(event.getSceneY() - initialY);
-        });
+        
+//        // Handle mouse press events
+//        this.setOnMousePressed(event -> {
+//            initialX = event.getSceneX() - this.getTranslateX();
+//            initialY = event.getSceneY() - this.getTranslateY();
+//        });
+//
+//        // Handle mouse drag events
+//        this.setOnMouseDragged(event -> {
+//            this.setTranslateX(event.getSceneX() - initialX);
+//            this.setTranslateY(event.getSceneY() - initialY);
+//        });
+        
+//        dragProperty = this.onMouseDraggedProperty();
     }
     private void build() {
         logger.info("Building Top Down Runway View");

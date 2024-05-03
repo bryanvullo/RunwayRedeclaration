@@ -1,10 +1,14 @@
 package uk.ac.soton.comp2211.component;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -24,11 +28,13 @@ public class RunwayViewBox extends VBox {
   private TopDownRunway topDownRunway;
   private VBox runwayVBox;
   public boolean isSimultaneous;
+  public Boolean panEnabled;
 
   public RunwayViewBox() {
     logger.info("Creating Runway View");
     sideRunway = new SideRunway();
     topDownRunway = new TopDownRunway();
+    panEnabled = false;
     build();
     isSimultaneous = false;
   }
@@ -76,21 +82,40 @@ public class RunwayViewBox extends VBox {
     runwayViewTools.setSpacing(10);
     getChildren().add(runwayViewTools);
 
-    var zoomInButton = new JFXButton("+");
-    var zoomOutButton = new JFXButton("-");
-    var rotateButton = new JFXButton("Rotate");
-    var alignButton = new JFXButton("Align to Compass");
-    var resetButton = new JFXButton("Reset");
-
-    zoomInButton.getStyleClass().add("mainSceneButton");
-    zoomOutButton.getStyleClass().add("mainSceneButton");
-    rotateButton.getStyleClass().add("mainSceneButton");
-    alignButton.getStyleClass().add("mainSceneButton");
-    resetButton.getStyleClass().add("mainSceneButton");
+    var zoomInButton = new Button("+");
+    var zoomOutButton = new Button("-");
+    var rotateButton = new Button("Rotate");
+    var alignButton = new Button("Align to Compass");
+    var resetButton = new Button("Reset");
+    var togglePanButton = new ToggleButton("Pan");
 
     runwayViewTools.getChildren().addAll(
-        zoomInButton, zoomOutButton, rotateButton, alignButton, resetButton);
-
+        zoomInButton, zoomOutButton, rotateButton, alignButton, togglePanButton, resetButton);
+    
+    togglePanButton.setOnAction(event -> {
+      if(panEnabled) {
+        togglePanButton.setSelected(false);
+        panEnabled= false;
+        topDownRunwayPane.setOnMouseDragged(null);
+      }
+      else {
+        panEnabled = true;
+        togglePanButton.setSelected(true);
+        
+        // Handle mouse press events
+        topDownRunwayPane.setOnMousePressed(e -> {
+          topDownRunwayPane.initialX = e.getSceneX() - topDownRunwayPane.getTranslateX();
+          topDownRunwayPane.initialY = e.getSceneY() - topDownRunwayPane.getTranslateY();
+        });
+        
+        // Handle mouse drag events
+        topDownRunwayPane.setOnMouseDragged(e -> {
+          topDownRunwayPane.setTranslateX(e.getSceneX() - topDownRunwayPane.initialX);
+          topDownRunwayPane.setTranslateY(e.getSceneY() - topDownRunwayPane.initialY);
+        });
+      }
+    });
+    
     zoomInButton.setOnAction(event -> {
       // Increase the scale by 10%
       if(!isSimultaneous) {
