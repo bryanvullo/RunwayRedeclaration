@@ -221,6 +221,14 @@ public class RunwayViewBox extends VBox {
     isSimultaneous = false;
   }
   public void changeViewToTopdown() {
+    if (RunwayBox.getRunwaySelection().getSelectionModel().getSelectedItem() == null){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("No runway selected");
+        alert.setContentText("Please select a runway to view");
+        alert.showAndWait();
+        return;
+    }
     // Clear the existing runway view
     topDownRunway.setTranslateY(0);
     topDownRunway.setTranslateX(0);

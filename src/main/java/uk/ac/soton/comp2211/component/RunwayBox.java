@@ -218,9 +218,12 @@ public class RunwayBox extends VBox {
       logger.info("No runway selected or selection is null.");
     }
 
-    MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
-    MainScene.getRunwayViewBox().getSideRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
-
+    if (selectedRunway == null) {
+      return;
+    } else {
+      MainScene.getRunwayViewBox().getTopDownRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+      MainScene.getRunwayViewBox().getSideRunway().updateRunway(selectedRunway.getToda(), selectedRunway.getTora(), selectedRunway.getAsda(), selectedRunway.getLda(), selectedRunway.getClearway(), selectedRunway.getStopway(), selectedRunway.getDisplacedThreshold(), selectedRunway.getName());
+    }
   }
 
   private void applyStyles() {

@@ -47,7 +47,6 @@ public class MenuBar extends HBox {
   private MenuButton settingsButton;
   private MenuButton helpButton;
   private MenuButton userButton;
-  private MenuButton unitButton;
 
   MenuItem editAirports;
   MenuItem importAirports;
@@ -164,14 +163,9 @@ public class MenuBar extends HBox {
     editButton = new MenuButton("Edit");
     editButton.getItems().addAll(
         editObstacles,
-        editAirports,
-        new MenuItem("Undo")
+        editAirports
     );
-    unitButton = new MenuButton("Units");
-    unitButton.getItems().addAll(
-        new MenuItem("Metric"),
-        new MenuItem("Imperial")
-    );
+
     settingsButton = new MenuButton("Settings");
     settingsButton.getItems().addAll(
         new MenuItem("Change Colour Scheme"),
@@ -194,7 +188,7 @@ public class MenuBar extends HBox {
         contactUs
     );
 
-    getChildren().addAll(fileButton, editButton, unitButton, settingsButton, helpButton);
+    getChildren().addAll(fileButton, editButton, settingsButton, helpButton);
 
     var filler = new HBox();
     getChildren().add(filler);
@@ -288,12 +282,20 @@ public class MenuBar extends HBox {
     }
   }
 
-  private void resetSelections(){
-    MainScene.getObstaclesBox().getObstacleChooser().getSelectionModel().clearSelection();
-    RunwayBox.getRunwaySelection().getSelectionModel().clearSelection();
-    RunwayBox.getAirportSelection().getSelectionModel().clearSelection();
+  public void resetSelections() {
+    if (MainScene.getObstaclesBox().getObstacleChooser() != null) {
+      MainScene.getObstaclesBox().getObstacleChooser().getSelectionModel().clearSelection();
+    }
+    if (RunwayBox.getRunwaySelection() != null) {
+      RunwayBox.getRunwaySelection().getSelectionModel().clearSelection();
+    }
+    if (RunwayBox.getAirportSelection() != null) {
+      RunwayBox.getAirportSelection().getSelectionModel().clearSelection();
+    }
     MainScene.getRunwayViewBox().changeViewToTopdown();
+    // Add more resets as needed
   }
+
 
   public static void editAirportFXML(ActionEvent event) {
 
