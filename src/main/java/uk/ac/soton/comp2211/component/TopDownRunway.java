@@ -830,7 +830,36 @@ public class TopDownRunway extends StackPane {
         }
     }
 
-    public void setLabelsToNormalY() {
+  public void resetToInitialState() {
+    logger.info("Resetting runway view to initial state");
+
+    // Clear all existing children that are added dynamically during updates
+    this.getChildren().clear();
+
+    // Rebuild the runway to its default setup without any specific runway data
+    build();
+
+    // Optionally, you can reset any specific properties or fields
+    this.runwayName = null;
+    this.displacedThreshold = 0;
+    this.oldtoda = 0;
+    this.oldasda = 0;
+    this.oldtora = 0;
+    this.oldlda = 0;
+    this.oldstopway = 0;
+    this.oldclearway = 0;
+    this.flip = 1;
+    this.isRotated = false;
+    this.isLeft = true;
+    this.isTakeOffAway = true;
+    this.lDisplacement = 0;
+
+    // Reset any other necessary components or visual elements
+    // For example, resetting background colors, removing arrows, labels, etc.
+  }
+
+
+  public void setLabelsToNormalY() {
         clearwayLabel.setScaleY(1);
         TORALabel.setScaleY(1);
         TODALabel.setScaleY(1);

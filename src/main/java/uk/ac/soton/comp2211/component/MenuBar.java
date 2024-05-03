@@ -142,10 +142,13 @@ public class MenuBar extends HBox {
 
     exportOption.getItems().addAll(asXML, snapshot, calculations, notifiactions);
 
+    MenuItem reset = new MenuItem("Reset");
+    reset.setOnAction(e -> resetSelections());
+
     fileButton.getItems().addAll(
         importOption,
         exportOption,
-        new MenuItem("Reset")
+        reset
     );
 
     MenuItem editObstacles = new MenuItem("Edit Obstacles");
@@ -280,6 +283,13 @@ public class MenuBar extends HBox {
     } else {
       showAlertDialog(Alert.AlertType.ERROR, "Desktop is not supported on this platform.");
     }
+  }
+
+  private void resetSelections(){
+    MainScene.getObstaclesBox().getObstacleChooser().getSelectionModel().clearSelection();
+    RunwayBox.getRunwaySelection().getSelectionModel().clearSelection();
+    RunwayBox.getAirportSelection().getSelectionModel().clearSelection();
+    MainScene.getRunwayViewBox().changeViewToTopdown();
   }
 
   public static void editAirportFXML(ActionEvent event) {

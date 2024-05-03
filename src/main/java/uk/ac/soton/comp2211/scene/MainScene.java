@@ -269,6 +269,8 @@ public class MainScene extends BaseScene {
         System.out.println(newVal.getName());
         runwayViewBox.getTopDownRunway().updateRunway(newVal.getToda(), newVal.getToda(), newVal.getTora(), newVal.getLda(), newVal.getClearway(), newVal.getStopway(), newVal.getDisplacedThreshold(), newVal.getName());
         runwayViewBox.changeViewToTopdown();
+      } else {
+        runwayViewBox.getTopDownRunway().resetToInitialState();
       }
     });
 
