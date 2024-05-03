@@ -30,7 +30,9 @@ import uk.ac.soton.comp2211.Utility.ImageExporter;
 import uk.ac.soton.comp2211.Utility.XMLExporter;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Objects;
 
 public class MenuBar extends HBox {
@@ -79,6 +81,8 @@ public class MenuBar extends HBox {
     Menu asJPG = new Menu("as JPG");
     Menu asPNG = new Menu("as PNG");
     Menu calculations = new Menu("Calculations");
+    MenuItem notifiactions = new MenuItem("Notifications");
+    notifiactions.setOnAction(event -> exportNotifications());
 
     MenuItem exportPDF = new MenuItem("as PDF");
     exportPDF.setOnAction(event -> {
@@ -93,10 +97,13 @@ public class MenuBar extends HBox {
         if (selectedRunway != null) {
           System.out.println(MainScene.getCalculationBreakdown().getAsdaBreakdown() + " " + MainScene.getCalculationBreakdown().getToraBreakdown() + " " + MainScene.getCalculationBreakdown().getTodaBreakdown() + " " + MainScene.getCalculationBreakdown().getLdaBreakdown());
           PDFExporter.exportRunwayViews(MainScene.getRunwayViewBox().getTopDownRunway(), MainScene.getRunwayViewBox().getSideRunway(), RunwayBox.getAirportSelection().getSelectionModel().getSelectedItem().getAirportName(), selectedRunway.getName(), file.getPath(), MainScene.getCalculationBreakdown(), MainScene.getCalculationTab());
+          showAlertDialog(Alert.AlertType.INFORMATION, "PDF saved to " + file.getAbsolutePath());
         } else {
+          showAlertDialog(Alert.AlertType.ERROR, "No runway selected.");
           System.out.println("No runway selected.");
         }
       } else {
+        showAlertDialog(Alert.AlertType.ERROR, "File save cancelled.");
         System.out.println("File save cancelled.");
       }
     });
@@ -130,7 +137,7 @@ public class MenuBar extends HBox {
     snapshot.getItems().addAll(asJPG, asPNG);
     asXML.getItems().addAll(exportObstacles, exportAirports);
 
-    exportOption.getItems().addAll(asXML, snapshot, calculations);
+    exportOption.getItems().addAll(asXML, snapshot, calculations, notifiactions);
 
     fileButton.getItems().addAll(
         importOption,
@@ -162,14 +169,10 @@ public class MenuBar extends HBox {
     settingsButton = new MenuButton("Settings");
     settingsButton.getItems().addAll(
         new MenuItem("Change Colour Scheme"),
-        new MenuItem("Change Font"),
-        new MenuItem("Light/Dark Mode"),
-        new MenuItem("System Notifications"),
-        new MenuItem("Clear System Messages")
+        new MenuItem("Light/Dark Mode")
     );
     helpButton = new MenuButton("Help");
     helpButton.getItems().addAll(
-        new MenuItem("FAQs"),
         new MenuItem("Walkthrough Tutorial Video"),
         new MenuItem("User Guide"),
         new MenuItem("Contact Us")
@@ -205,6 +208,32 @@ public class MenuBar extends HBox {
 
   }
 
+  private void exportNotifications() {
+    String allMessages = MainScene.getSystemMessageBox().getAllMessages();  // Ensure you have a getter for SystemMessageBox in MainScene
+    if (allMessages.isEmpty()) {
+      showAlertDialog(Alert.AlertType.INFORMATION, "No messages to export.");
+      return;
+    }
+
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save Notifications");
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Text Files", "*.txt")
+    );
+    fileChooser.setInitialFileName("SystemNotifications.txt");
+    File file = fileChooser.showSaveDialog(null); // Use a relevant window here if available
+
+    if (file != null) {
+      try (PrintWriter out = new PrintWriter(file)) {
+        out.println(allMessages);
+        showAlertDialog(Alert.AlertType.INFORMATION, "Notifications exported successfully to " + file.getAbsolutePath());
+      } catch (FileNotFoundException e) {
+        showAlertDialog(Alert.AlertType.ERROR, "Failed to save file.");
+        logger.error("Failed to save notifications file: ", e);
+      }
+    }
+  }
+
   private static void showAlertDialog(Alert.AlertType alertType, String message) {
     Alert alert = new Alert(alertType);
     alert.setContentText(message);
@@ -214,6 +243,7 @@ public class MenuBar extends HBox {
   private void exportObstacles() {
     XMLExporter.exportObstacles();
   }
+
 
   private void exportAirports() {
     XMLExporter.exportAirports();

@@ -160,7 +160,7 @@ public class MainScene extends BaseScene {
     mainPane.setLeft(leftPanel);
 
     if (runwayBox.getAirportSelection().getItems().isEmpty()) {
-      ImportAirportController.loadInitialeAirports();
+      ImportAirportController.loadInitialAirports();
     }
 
     if (obstacleBox.getObstacleChooser().getItems().isEmpty()) {
@@ -268,9 +268,8 @@ public class MainScene extends BaseScene {
       if (newVal != null) {
         System.out.println(newVal.getName());
         runwayViewBox.getTopDownRunway().updateRunway(newVal.getToda(), newVal.getToda(), newVal.getTora(), newVal.getLda(), newVal.getClearway(), newVal.getStopway(), newVal.getDisplacedThreshold(), newVal.getName());
+        runwayViewBox.changeViewToTopdown();
       }
-
-
     });
 
 
@@ -329,6 +328,7 @@ public class MainScene extends BaseScene {
 
       runwayViewBox.getTopDownRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
       runwayViewBox.getSideRunway().addObstacle(obstacle.getHeight(), obstacle.getWidth(), obstacle.getLength(), obstacle.getDistanceLeftThreshold(), obstacle.getDistanceRightThreshold(), obstacle.getDistanceFromCentre());
+      runwayViewBox.changeViewToTopdown();
     } else {
       System.out.println("No obstacle selected or obstacle is null");
     }
