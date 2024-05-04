@@ -88,6 +88,7 @@ public class TopDownRunway extends StackPane {
     private Label RESALabel;
     
     public Property dragProperty;
+    public Rectangle blasProtection;
 
 
     public TopDownRunway() {
@@ -188,6 +189,7 @@ public class TopDownRunway extends StackPane {
         this.oldlda = lda;
         this.oldstopway = stopway;
         this.oldclearway = clearway;
+
         scalingFactor = runway.getWidth()/tora;
         if(this.getChildren().contains(TODAarrow)) {
             this.getChildren().removeAll(TODAarrow, ASDAarrow, TORAarrow, LDAarrow, clearwayRect, clearwayLabel, stopwayRect, stopwayLabel, RESARect, RESALabel);
@@ -210,7 +212,7 @@ public class TopDownRunway extends StackPane {
 
         clearwayRect = new Rectangle(clearway*scalingFactor, 150);
         clearwayRect.setFill(Color.web("#564f3d"));
-        clearwayRect.setTranslateX(blueBackground.getWidth()/2 - 43);
+        clearwayRect.setTranslateX(runway.getWidth()/2 + clearwayRect.getWidth()/2);
         this.getChildren().add(clearwayRect);
         coverClearway();
 
@@ -328,13 +330,13 @@ public class TopDownRunway extends StackPane {
         DisplacementThresholdText.setFont(Font.font("Arial", FontWeight.BLACK, 10));
         DisplacementThresholdText.setTranslateX(-runway.getWidth()/2 + (displacedThreshold*scalingFactor) + 5);
 
-        RunwayDirectionNumber = new Label(extractLastThreeLetters(runwayName).substring(0,2));
+        RunwayDirectionNumber = new Label(extractNumbers(extractLastThreeLetters(runwayName)));
         RunwayDirectionNumber.setTextFill(Color.WHITE);
         RunwayDirectionNumber.setRotate(90);
         RunwayDirectionNumber.setFont(Font.font("Arial", FontWeight.BLACK, 30));
         RunwayDirectionNumber.setTranslateX(150 + displacedThreshold*scalingFactor - runway.getWidth()/2);
 
-        RunwayDirectionLetter = new Label(extractLastThreeLetters(runwayName).substring(2,3));
+        RunwayDirectionLetter = new Label(extractLetters(extractLastThreeLetters(runwayName)));
         RunwayDirectionLetter.setTextFill(Color.WHITE);
         RunwayDirectionLetter.setRotate(90);
         RunwayDirectionLetter.setFont(Font.font("Arial", FontWeight.BLACK, 30));
@@ -598,9 +600,15 @@ public class TopDownRunway extends StackPane {
 
 
         moveRunwayDetails(displacedThreshold);
+
+        stopwayRect = new Rectangle(stopway*scalingFactor, runway.getHeight());
+        stopwayRect.setFill(Color.LIMEGREEN);
+        stopwayRect.setTranslateX(blueBackground.getWidth()/2 - 43);
+        this.getChildren().add(stopwayRect);
+
         clearwayRect = new Rectangle(clearway*scalingFactor, 150);
         clearwayRect.setFill(Color.web("#564f3d"));
-        clearwayRect.setTranslateX(blueBackground.getWidth()/2 - 43);
+        clearwayRect.setTranslateX(runway.getWidth()/2 + clearwayRect.getWidth()/2);
         this.getChildren().add(clearwayRect);
         coverClearway();
 
@@ -715,13 +723,13 @@ public class TopDownRunway extends StackPane {
         DisplacementThresholdText.setFont(Font.font("Arial", FontWeight.BLACK, 10));
         DisplacementThresholdText.setTranslateX(-runway.getWidth()/2 + (newDisplacementThreshold*scalingFactor) + 5);
 
-        RunwayDirectionNumber = new Label(extractLastThreeLetters(runwayName).substring(0,2));
+        RunwayDirectionNumber = new Label(extractNumbers(extractLastThreeLetters(runwayName)));
         RunwayDirectionNumber.setTextFill(Color.WHITE);
         RunwayDirectionNumber.setRotate(90);
         RunwayDirectionNumber.setFont(Font.font("Arial", FontWeight.BLACK, 30));
         RunwayDirectionNumber.setTranslateX(150 + newDisplacementThreshold*scalingFactor - runway.getWidth()/2);
 
-        RunwayDirectionLetter = new Label(extractLastThreeLetters(runwayName).substring(2,3));
+        RunwayDirectionLetter = new Label(extractLetters(extractLastThreeLetters(runwayName)));
         RunwayDirectionLetter.setTextFill(Color.WHITE);
         RunwayDirectionLetter.setRotate(90);
         RunwayDirectionLetter.setFont(Font.font("Arial", FontWeight.BLACK, 30));
@@ -745,9 +753,10 @@ public class TopDownRunway extends StackPane {
         RESALabel.toFront();
         this.getChildren().add(RESALabel);
 
+
         this.getChildren().addAll(DTLVBox, DisplacementThresholdText, RunwayDirectionNumber, RunwayDirectionLetter);
 
-// Assuming runwayName is a string like "09R/27L"
+        // Assuming runwayName is a string like "09R/27L"
         if (runwayName.endsWith("R)") && !isRotated) {
             flipRunway();
             isRotated = true;
@@ -760,7 +769,7 @@ public class TopDownRunway extends StackPane {
         setLabels();
         this.RESALabel.setScaleX(this.getScaleX());
         obstacleVBox.toFront();
-
+        RESARect.toFront();
 
     }
 
@@ -800,14 +809,40 @@ public class TopDownRunway extends StackPane {
         return headingDegrees;
     }
     public static String extractLastThreeLetters(String runwayName) {
-        if (runwayName != null && runwayName.length() >= 3) {
-            // Extract the last three characters of the string
-            var string1 = runwayName.substring(runwayName.length() - 4);
-            var string2 = string1.replace(")", "");
-            System.out.println(string2);
-            return string2;
+        if (runwayName != null) {
+            int startIndex = runwayName.indexOf('(');
+            int endIndex = runwayName.indexOf(')');
+
+            if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+                System.out.println(runwayName.substring(startIndex + 1, endIndex));
+                return runwayName.substring(startIndex + 1, endIndex);
+            }
         }
-        return ""; // Return empty if the input is null or too short
+        return ""; 
+    }
+
+    public static String extractNumbers(String input) {
+        if (input == null || input.length() < 2) {
+            return ""; // Return empty if the input is null or less than 2 characters
+        }
+
+        // Extract and return the first two characters of the string
+        return input.substring(0, 2);
+    }
+
+    public static String extractLetters(String input) {
+        if (input == null) {
+            return ""; // Return empty if the input is null
+        }
+
+        StringBuilder filteredOutput = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            // Check if the character is one of the specific letters used in runway naming
+            if (c == 'L' || c == 'R' || c == 'C') {
+                filteredOutput.append(c);
+            }
+        }
+        return filteredOutput.toString();
     }
 
     public double getLabelScale() {

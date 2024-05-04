@@ -438,6 +438,7 @@ public class SideRunway extends StackPane {
         directionArrow.toFront();
         objectLabel.toFront();
 
+
     }
 
     public void flipRunway() {
@@ -473,14 +474,16 @@ public class SideRunway extends StackPane {
     }
 
     public static String extractLastThreeLetters(String runwayName) {
-        if (runwayName != null && runwayName.length() >= 3) {
-            // Extract the last three characters of the string
-            var string1 = runwayName.substring(runwayName.length() - 4);
-            var string2 = string1.replace(")", "");
-            System.out.println(string2);
-            return string2;
+        if (runwayName != null) {
+            int startIndex = runwayName.indexOf('(');
+            int endIndex = runwayName.indexOf(')');
+
+            if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+                System.out.println(runwayName.substring(startIndex + 1, endIndex));
+                return runwayName.substring(startIndex + 1, endIndex);
+            }
         }
-        return ""; // Return empty if the input is null or too short
+        return "";
     }
 
     public void setLabelsToHalfYScale() {
@@ -503,6 +506,7 @@ public class SideRunway extends StackPane {
         if(this.getChildren().contains(objectLabel)) {
             this.objectLabel.setScaleY(0.5);
         }
+        this.runwayNameLabel.setScaleY(0.5);
     }
 
     public void returnLabelsToFullY() {
