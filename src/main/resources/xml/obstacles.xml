@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <obstacles xmlns="http://www.github.com/bryanvullo/RunwayRedeclaration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.github.com/bryanvullo/RunwayRedeclaration obstacleSchema.xsd">
     <obstacle>
-        <obstacleName>Construction Crane</obstacleName>
-        <obstacleHeight>45.0</obstacleHeight>
-        <obstacleWidth>10.0</obstacleWidth>
-        <obstacleLength>10.0</obstacleLength>
-        <obstacleLeftThresholdDistance>150.0</obstacleLeftThresholdDistance>
-        <obstacleRightThresholdDistance>50.0</obstacleRightThresholdDistance>
-        <obstacleDistanceFromCentre>20.0</obstacleDistanceFromCentre>
+        <obstacleName>Shuttle Bus</obstacleName>
+        <obstacleHeight>3.0</obstacleHeight>
+        <obstacleWidth>3.0</obstacleWidth>
+        <obstacleLength>14.0</obstacleLength>
+        <obstacleLeftThresholdDistance>0.0</obstacleLeftThresholdDistance>
+        <obstacleRightThresholdDistance>0.0</obstacleRightThresholdDistance>
+        <obstacleDistanceFromCentre>0.0</obstacleDistanceFromCentre>
+    </obstacle>
+    <obstacle>
+        <obstacleName>Container</obstacleName>
+        <obstacleHeight>3.0</obstacleHeight>
+        <obstacleWidth>2.0</obstacleWidth>
+        <obstacleLength>12.0</obstacleLength>
+        <obstacleLeftThresholdDistance>0.0</obstacleLeftThresholdDistance>
+        <obstacleRightThresholdDistance>0.0</obstacleRightThresholdDistance>
+        <obstacleDistanceFromCentre>0.0</obstacleDistanceFromCentre>
+    </obstacle>
+    <obstacle>
+        <obstacleName>Boeing 747</obstacleName>
+        <obstacleHeight>19.0</obstacleHeight>
+        <obstacleWidth>20.0</obstacleWidth>
+        <obstacleLength>30.0</obstacleLength>
+        <obstacleLeftThresholdDistance>0.0</obstacleLeftThresholdDistance>
+        <obstacleRightThresholdDistance>0.0</obstacleRightThresholdDistance>
+        <obstacleDistanceFromCentre>0.0</obstacleDistanceFromCentre>
+    </obstacle>
+    <obstacle>
+        <obstacleName>Airbus A380</obstacleName>
+        <obstacleHeight>24.0</obstacleHeight>
+        <obstacleWidth>20.0</obstacleWidth>
+        <obstacleLength>20.0</obstacleLength>
+        <obstacleLeftThresholdDistance>0.0</obstacleLeftThresholdDistance>
+        <obstacleRightThresholdDistance>0.0</obstacleRightThresholdDistance>
+        <obstacleDistanceFromCentre>0.0</obstacleDistanceFromCentre>
     </obstacle>
     <obstacle>
         <obstacleName>Truck</obstacleName>
@@ -15,21 +42,12 @@
         <obstacleWidth>2.5</obstacleWidth>
         <obstacleLength>6.0</obstacleLength>
         <obstacleLeftThresholdDistance>0.0</obstacleLeftThresholdDistance>
-        <obstacleRightThresholdDistance>75.0</obstacleRightThresholdDistance>
+        <obstacleRightThresholdDistance>50.0</obstacleRightThresholdDistance>
         <obstacleDistanceFromCentre>10.0</obstacleDistanceFromCentre>
     </obstacle>
     <obstacle>
-        <obstacleName>Temporary Structure</obstacleName>
-        <obstacleHeight>8.0</obstacleHeight>
-        <obstacleWidth>5.0</obstacleWidth>
-        <obstacleLength>12.0</obstacleLength>
-        <obstacleLeftThresholdDistance>120.0</obstacleLeftThresholdDistance>
-        <obstacleRightThresholdDistance>40.0</obstacleRightThresholdDistance>
-        <obstacleDistanceFromCentre>30.0</obstacleDistanceFromCentre>
-    </obstacle>
-    <obstacle>
         <obstacleName>Southern Obstacle</obstacleName>
-        <obstacleHeight>25.0</obstacleHeight>
+        <obstacleHeight>10.0</obstacleHeight>
         <obstacleWidth>5.0</obstacleWidth>
         <obstacleLength>5.0</obstacleLength>
         <obstacleLeftThresholdDistance>500</obstacleLeftThresholdDistance>
