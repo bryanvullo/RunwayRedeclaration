@@ -207,7 +207,7 @@ public class TopDownRunway extends StackPane {
 
         stopwayRect = new Rectangle(stopway*scalingFactor, runway.getHeight());
         stopwayRect.setFill(Color.LIMEGREEN);
-        stopwayRect.setTranslateX(blueBackground.getWidth()/2 - 43);
+        stopwayRect.setTranslateX(runway.getWidth()/2 + stopwayRect.getWidth()/2);
         this.getChildren().add(stopwayRect);
 
         clearwayRect = new Rectangle(clearway*scalingFactor, 150);
@@ -228,7 +228,7 @@ public class TopDownRunway extends StackPane {
             stopwayLabel = new Label("No Stopway");
         }
         else {
-            clearwayLabel = new Label("Stopway");
+            stopwayLabel = new Label("Stopway");
         }
 
         stopwayLabel.setRotate(90);
@@ -372,6 +372,8 @@ public class TopDownRunway extends StackPane {
         if(this.getChildren().contains(obstacleVBox)) {
             obstacleVBox.toFront();
         }
+        stopwayRect.toFront();
+        stopwayLabel.toFront();
     }
 
     public void flipRunway() {
@@ -598,12 +600,11 @@ public class TopDownRunway extends StackPane {
         double todaPush = oldtoda - newtoda;
         double ldaPush = oldlda - newlda;
 
-
         moveRunwayDetails(displacedThreshold);
 
         stopwayRect = new Rectangle(stopway*scalingFactor, runway.getHeight());
         stopwayRect.setFill(Color.LIMEGREEN);
-        stopwayRect.setTranslateX(blueBackground.getWidth()/2 - 43);
+        stopwayRect.setTranslateX(runway.getWidth()/2 - stopwayRect.getWidth()/2);
         this.getChildren().add(stopwayRect);
 
         clearwayRect = new Rectangle(clearway*scalingFactor, 150);
@@ -624,7 +625,7 @@ public class TopDownRunway extends StackPane {
             stopwayLabel = new Label("No Stopway");
         }
         else {
-            clearwayLabel = new Label("Stopway");
+            stopwayLabel = new Label("Stopway");
         }
 
         stopwayLabel.setRotate(90);
@@ -770,6 +771,7 @@ public class TopDownRunway extends StackPane {
         this.RESALabel.setScaleX(this.getScaleX());
         obstacleVBox.toFront();
         RESARect.toFront();
+
 
     }
 
