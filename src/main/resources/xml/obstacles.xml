@@ -42,12 +42,12 @@
         <obstacleWidth>2.5</obstacleWidth>
         <obstacleLength>6.0</obstacleLength>
         <obstacleLeftThresholdDistance>0.0</obstacleLeftThresholdDistance>
-        <obstacleRightThresholdDistance>50.0</obstacleRightThresholdDistance>
+        <obstacleRightThresholdDistance>75.0</obstacleRightThresholdDistance>
         <obstacleDistanceFromCentre>10.0</obstacleDistanceFromCentre>
     </obstacle>
     <obstacle>
         <obstacleName>Southern Obstacle</obstacleName>
-        <obstacleHeight>10.0</obstacleHeight>
+        <obstacleHeight>25.0</obstacleHeight>
         <obstacleWidth>5.0</obstacleWidth>
         <obstacleLength>5.0</obstacleLength>
         <obstacleLeftThresholdDistance>500</obstacleLeftThresholdDistance>
