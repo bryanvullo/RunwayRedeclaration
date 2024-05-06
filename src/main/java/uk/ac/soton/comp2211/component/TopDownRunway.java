@@ -765,7 +765,8 @@ public class TopDownRunway extends StackPane {
     setLabels();
     this.RESALabel.setScaleX(this.getScaleX());
     obstacleVBox.toFront();
-
+    RESARect.toFront();
+    
 
   }
 
